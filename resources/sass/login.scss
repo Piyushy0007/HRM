@@ -1,0 +1,59 @@
+.c-login {
+  background: url(/images/login-bg.png) 0 0 no-repeat;
+  background-size: cover;
+
+  form {
+    border-top: 1.25rem solid #302369;
+    border-radius: 1rem;
+  }
+
+  h2 {
+    color: #302369;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button[type="submit"] {
+    background: #302369;
+  }
+
+  label,
+  input,
+  .forgot-password {
+    color: #2A2A2A;
+  }
+
+  input {
+    border: 1px solid #DEDEDE;
+  }
+}
+.client-login {
+  background-image: url(../images/clientlogin.png);
+    background-size: inherit;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+  form {
+    border-top: 1.25rem solid #302369;
+    border-radius: 1rem;
+  }
+
+  h2 {
+    color: #302369;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button[type="submit"] {
+    background: #302369;
+  }
+
+  label,
+  input,
+  .forgot-password {
+    color: #2A2A2A;
+  }
+
+  input {
+    border: 1px solid #DEDEDE;
+  }
+}

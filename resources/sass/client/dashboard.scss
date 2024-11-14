@@ -1,0 +1,267 @@
+nav.navigation {
+  // background: #302369;
+
+  ul li {
+    // width: 10rem;
+    text-align: center;
+
+    &.active {
+      position: relative;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0;
+        width: 100%;
+        height: 5px;
+        background: #302369;
+      }
+
+      a {
+        color: #302369;
+        background: #fff;
+      }
+    }
+
+    a {
+      color: #302369;
+      display: block;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+
+}
+
+.c-header {
+  span { color: #3B3B53; }
+  select { border: 1px solid #707070; }
+}
+// Client Vue Page Table Css
+.text-transform-capitalise{
+  text-transform: capitalize;
+}
+.w-80{
+  width: 85%;
+  margin: auto;
+}
+.client-add{
+  .add-client{
+    color: #585858;
+    h1{
+      font: normal normal normal 28px/40px Montserrat;
+      font-family: 'Source Sans Pro';
+      color: #302369;
+      font-weight: 600;
+    }
+    .section1{
+      #fileInput{
+        display: none;
+      }
+    }
+  }
+  .btn-outline-primary{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #007bff;
+    /* display: inline-block; */
+    /* font-weight: 400; */
+    height: 30px;
+    /* color: #212529; */
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid #007bff;
+    padding: 0px 30px;
+    font-size: 16px;
+    line-height: 0;
+    border-radius: 0.25rem;
+  }
+  .btn-outline-primary:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+}
+.client-table{
+  .w-80{
+    h1{
+      font: normal normal normal 28px/40px Montserrat;
+      font-family: 'Source Sans Pro';
+      color: #302369;
+      font-weight: 600;
+    }
+    .btn-outline-primary{
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      color: #007bff;
+      /* display: inline-block; */
+      /* font-weight: 400; */
+      height: 30px;
+      /* color: #212529; */
+      text-align: center;
+      vertical-align: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      background-color: transparent;
+      border: 1px solid #007bff;
+      padding: 0px 30px;
+      font-size: 16px;
+      line-height: 0;
+      border-radius: 0.25rem;
+    }
+    .btn-outline-primary:hover {
+      color: #fff;
+      background-color: #007bff;
+      border-color: #007bff;
+  }
+  }
+  table{
+   
+    thead{
+      tr{
+        height: 45px;
+        background: #302369 0% 0% no-repeat padding-box;
+        color: #FFFFFF;
+        opacity: 1;
+        font-family: 'Open Sans';
+        font-size: 15px;
+        th{
+          &:first-child{
+            border-top-left-radius: 20px;
+          }
+          &:last-child{
+            border-top-right-radius: 20px;
+          }
+          font-weight: 500;
+        }
+      }
+    }
+    tbody{
+      border: 1px solid #DEDEDE !important;
+      tr{
+        // background: none !important;
+        height: 50px;
+          .active{
+            text-transform: capitalize;
+            color: #3B86FF;
+          }
+          .inactive{
+            text-transform: capitalize;
+            color: #707070;
+          }
+          td{
+           
+          }
+      }
+    }
+  }
+}
+.switch-check{
+  .custom-control-label{ 
+    &:before{
+    content: '';
+    border-color: rgb(48, 35, 105) !important;
+    background-color: transparent !important;
+  }
+    &:after{
+      border-color: #302369 !important;
+      background-color: #302369 !important;
+  }
+  }
+} 
+.add-blue-button{
+  width: 148px;
+    height: 41px;
+    background: #3B86FF 0% 0% no-repeat padding-box;
+    border-radius: 10px;
+    opacity: 1;
+    color: #ffffff;
+}
+
+//login.scss 
+.c-login {
+  background: url(/images/login-bg.png) 0 0 no-repeat;
+  background-size: cover;
+
+  form {
+    border-top: 1.25rem solid #302369;
+    border-radius: 1rem;
+  }
+
+  h2 {
+    color: #302369;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button[type="submit"] {
+    background: #302369;
+  }
+
+  label,
+  input,
+  .forgot-password {
+    color: #2A2A2A;
+  }
+
+  input {
+    border: 1px solid #DEDEDE;
+  }
+}
+.client-login {
+  background-image: url(/images/clientlogin.png);
+    background-size: inherit;
+    background-position: center;
+    background-repeat: no-repeat;
+
+
+  form {
+    border-top: 1.25rem solid #302369;
+    border-radius: 1rem;
+  }
+
+  h2 {
+    color: #302369;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button[type="submit"] {
+    background: #302369;
+  }
+
+  label,
+  input,
+  .forgot-password {
+    color: #2A2A2A;
+  }
+
+  input {
+    border: 1px solid #DEDEDE;
+  }
+}
+.client-reset{
+  input{
+    top: 537px;
+    left: 725px;
+    /* width: 471px; */
+    height: 48px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    border: 1px solid #CBCBCB;
+    border-radius: 100px;
+    opacity: 1;
+  }
+}
+.heading-sort{
+    // display: flex;
+    justify-content: space-around;
+    svg{
+      // margin-top: 10px;
+      display: inline-block;
+    }
+}  

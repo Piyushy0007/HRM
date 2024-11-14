@@ -1,0 +1,65 @@
+/public/hot
+.env.backup
+.phpunit.result.cache
+storage/log
+
+
+# Laravel
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+.env
+Homestead.yaml
+Homestead.json
+/.vagrant
+
+# Laravel log and cache files
+/storage/logs
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/testing
+/storage/framework/views
+
+# Laravel compiled files
+/bootstrap/cache
+
+# Laravel IDE helper files
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+
+# Composer files
+composer.lock
+
+# NPM & Yarn files
+package-lock.json
+yarn.lock
+
+# Vue.js build outputs
+/public/js
+/public/css
+
+# Vue.js files
+/node_modules
+/dist
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# IDE and Editor files
+.idea/
+*.sublime-project
+*.sublime-workspace
+.vscode/
+*.swp
+*.vscode/
+*.vscode/*
+
+# Laravel Mix
+npm-debug.log*
+yarn-error.log*
+/public/hot
+/public/mix-manifest.json
+/public/*.map
