@@ -89,7 +89,10 @@ class Employee extends Model
 {
     return $this->hasMany('App\Models\LeaveRequest');
 }
-    
+public function experiences()
+{
+    return $this->hasMany('App\Models\Experience');
+}
 
     
     

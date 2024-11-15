@@ -31,6 +31,9 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\EmployeeDocumentController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveRequestController;
+use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\ClientRequestController;
+
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
 
@@ -173,6 +176,17 @@ Route::group([
     Route::post('/employee/{employeeId}/leave-request', [LeaveRequestController::class, 'create']);
 Route::get('/employee/{employeeId}/leave-requests', [LeaveRequestController::class, 'show']);
 Route::patch('/leave-request/{leaveRequestId}/status', [LeaveRequestController::class, 'updateStatus']);
+
+//expirence 
+
+Route::post('employees/{employeeId}/experience', [ExperienceController::class, 'addExperience']);
+
+// client_request 
+
+Route::post('/client-requests', [ClientRequestController::class, 'create']);
+Route::put('/client-requests/{id}/status', [ClientRequestController::class, 'updateStatus']);
+Route::post('/client-requests/{id}/images', [ClientRequestController::class, 'uploadFile']);
+
 
 
     //Route::resource('employees', EmployeeController2::class);

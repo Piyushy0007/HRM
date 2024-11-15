@@ -82,6 +82,16 @@ class Employee extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Clockin');
     }
 
+    public function experiences()
+    {
+        return $this->hasMany(Experience::class); // Assuming Experience is the related model
+    }
+
+    public function clientRequests()
+{
+    return $this->hasMany(ClientRequest::class, 'employee_id');
+}
+
 
 
     // public function salarySlips()
