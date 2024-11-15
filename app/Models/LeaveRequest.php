@@ -20,14 +20,7 @@ class LeaveRequest extends Model
         return $this->belongsTo('App\Employee');
     }
 
-    protected static function boot()
-    {
-        parent::boot();
+    
 
-        static::creating(function ($leaveRequest) {
-            if (is_null($leaveRequest->status)) {
-                $leaveRequest->status = self::STATUS_PENDING;
-            }
-        });
-    }
+    
 }
