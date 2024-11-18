@@ -1,5 +1,6 @@
 <template>
-  <div class="c-employee-positions">
+  
+  <div class="c-employee-positions px-4 pb-4 w-80" style="margin-right: 1vw;">
 
     <Loader msg="Processing ..." v-model="isLoader" />
 		

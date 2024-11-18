@@ -29,7 +29,7 @@ class EmployeeAlertReport extends Mailable
      */
     public function build()
     {
-        $subject = "EyesWitness Report";
+        $subject = "A-HR Report";
         $getarr = $this->data['data_images'];
         $getEmail = explode(' , ',$getarr);
         if(sizeof($getEmail)==1){

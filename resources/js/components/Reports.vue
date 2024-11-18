@@ -1,5 +1,5 @@
-<template class="reportss" style="margin-left: 20%;">
-  <div>
+<template class="reportss px-4 pb-4 w-80" style="margin-right: 1vw;">
+  <div class=" px-4 pb-4 w-80" style="margin-right: 1vw;">
 
 		<div class="w-5/6 flex mx-auto mt-5 ">
 			<div class="w-2/6 mr-3">

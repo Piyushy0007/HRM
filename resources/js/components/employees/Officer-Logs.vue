@@ -1,5 +1,5 @@
 <template>
-  <div class="c-employee-index client-table">
+  <div class="c-employee-index client-table px-4 pb-4 w-80" style="margin-right: 1vw;">
 
     <Loader msg="Processing ..." v-model="isLoader" />
     <div class="px-4 pb-4 w-80" style="margin-right: 1vw;">

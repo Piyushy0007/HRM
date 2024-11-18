@@ -1,5 +1,5 @@
 <template>
-  <div class="c-employee-index client-table client-add" style="background: #ffffff;">
+  <div class="c-employee-index client-table client-add px-4 pb-4 w-80" style="margin-right: 1vw;">
 		<header-component />
 		<div class="px-16 mt-4">
 			<div class="headingoflist">
