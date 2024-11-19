@@ -17,7 +17,7 @@ class CreateAttendancesTable extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('tblm_employee')->onDelete('cascade');
             $table->date('attendance_date');
-            $table->enum('status', ['present', 'absent']);
+            $table->tinyInteger('status')->comment('1 = Present, 0 = Absent'); // Allow only 1 or 0
             $table->timestamps();
         });
     }

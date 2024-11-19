@@ -127,7 +127,7 @@ export default {
             { name: 'reports', label: 'REPORTS' },
             { name: 'hranalytics', label: 'HR Analytics' },
             { name: 'Performance', label: 'Performance' },
-            { name: 'Attendance', label: 'Attendance' },
+            { name: 'attendance', label: 'Attendance' },
             { name: 'Payroll', label: 'Payroll' }          
           ],
         }
