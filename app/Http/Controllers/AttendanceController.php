@@ -26,18 +26,43 @@ class AttendanceController extends Controller
         return response()->json(['message' => 'Attendance recorded successfully', 'data' => $attendance], 201);
     }
 
-    // Get attendance summary for a specific month
-    public function getAttendance($attendanceId)
-{
-    $attendance = Attendance::findOrFail($attendanceId);
-
-    $statusText = $attendance->status == Attendance::STATUS_PRESENT ? 'Present' : 'Absent';
-
-    return response()->json([
-        'attendance_id' => $attendance->id,
-        'employee_id' => $attendance->employee_id,
-        'attendance_date' => $attendance->attendance_date,
-        'status' => $statusText,
-    ]);
-}
+    public function getMonthlyAttendance(Request $request, $employeeId)
+    {
+        $request->validate([
+            'month' => 'required|integer|between:1,12', // Validate month (1-12)
+            'year' => 'required|integer|min:2000',     // Validate year (e.g., 2024)
+        ]);
+    
+        $month = $request->month;
+        $year = $request->year;
+    
+        // Fetch attendance for the given employee, month, and year
+        $attendance = Attendance::where('employee_id', $employeeId)
+            ->whereMonth('attendance_date', $month)
+            ->whereYear('attendance_date', $year)
+            ->get(['attendance_date', 'status']);
+    
+        // Prepare data for response
+        $formattedAttendance = $attendance->map(function ($entry) {
+            return [
+                'date' => $entry->attendance_date,
+                'status' => $entry->status === Attendance::STATUS_PRESENT ? 'Present' : 'Absent',
+            ];
+        });
+    
+        // Count present and absent days
+        $presentDays = $attendance->where('status', Attendance::STATUS_PRESENT)->count();
+        $absentDays = $attendance->where('status', Attendance::STATUS_ABSENT)->count();
+    
+        return response()->json([
+            'employee_id' => $employeeId,
+            'month' => $month,
+            'year' => $year,
+            'present_days' => $presentDays,
+            'absent_days' => $absentDays,
+            'attendance' => $formattedAttendance,
+        ]);
+    }
+    
+    
 }

@@ -169,7 +169,7 @@ Route::group([
 
     //attendence
     Route::post('/attendance', [AttendanceController::class, 'markAttendance']);
-    Route::get('/attendance/{employeeId}/{month}/{year}', [AttendanceController::class, 'getMonthlyAttendance']);
+    Route::get('/attendance/monthly/{employeeId}', [AttendanceController::class, 'getMonthlyAttendance']);
 
     //LeaveRequest
 
