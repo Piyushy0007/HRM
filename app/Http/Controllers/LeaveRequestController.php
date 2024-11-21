@@ -46,7 +46,10 @@ class LeaveRequestController extends Controller
     // Show all leave requests for an employee
     public function show($employeeId)
     {
-        $leaveRequests = LeaveRequest::where('employee_id', $employeeId)->get();
+        $leaveRequests = LeaveRequest::where('employee_id', $employeeId)
+                                     ->where('status', LeaveRequest::STATUS_PENDING)
+                                     ->get();
+    
         return response()->json($leaveRequests);
     }
 }

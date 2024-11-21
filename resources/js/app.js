@@ -516,6 +516,21 @@ const routes = [
         path: "/leave/",
         component: require("./components/EmployeeManagement/Leave.vue").default,
         name: "leave",
+    },
+	{
+        path: "/payroll/",
+        component: require("./components/ReportsAndAnalytics/__Payroll.vue").default,
+        name: "payroll",
+    },
+	{
+        path: "/performance/",
+        component: require("./components/ReportsAndAnalytics/__Performance.vue").default,
+        name: "performance",
+    },
+	{
+        path: "/hranalytics/",
+        component: require("./components/ReportsAndAnalytics/__Hranalytics.vue").default,
+        name: "hranalytics",
     }
 ];
 

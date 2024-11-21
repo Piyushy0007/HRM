@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 12rem;">
+    <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 14rem; overflow-y: auto;">
 
       <!-- A-HR Logo at the Top -->
       <div class="logo mb-4 text-center">
@@ -126,9 +126,17 @@ export default {
           items: [
             { name: 'reports', label: 'REPORTS' },
             { name: 'hranalytics', label: 'HR Analytics' },
-            { name: 'Performance', label: 'Performance' },
+            { name: 'performance', label: 'performance' },
             { name: 'attendance', label: 'Attendance' },
-            { name: 'Payroll', label: 'Payroll' }          
+            { name: 'payroll', label: 'payroll' }          
+          ],
+        },
+        {
+          title: 'Jobs',
+          expanded: false,
+          items: [
+            { name: 'Create', label: 'Create' },
+            { name: 'Listing', label: 'Listing' }          
           ],
         }
       ],

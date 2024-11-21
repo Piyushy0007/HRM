@@ -175,7 +175,7 @@ Route::group([
 
     Route::post('/employee/{employeeId}/leave-request', [LeaveRequestController::class, 'create']);
 Route::get('/employee/{employeeId}/leave-requests', [LeaveRequestController::class, 'show']);
-Route::patch('/leave-request/{leaveRequestId}/status', [LeaveRequestController::class, 'updateStatus']);
+Route::put('/leave-request/{leaveRequestId}/status', [LeaveRequestController::class, 'updateStatus']);
 
 //expirence 
 
