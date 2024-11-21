@@ -531,7 +531,18 @@ const routes = [
         path: "/hranalytics/",
         component: require("./components/ReportsAndAnalytics/__Hranalytics.vue").default,
         name: "hranalytics",
-    }
+    },
+    {
+        path: "/listing/",
+        component: require("./components/JobsList/__Listing.vue").default,
+        name: "Listing",
+    },
+    {
+        path: "/create/",
+        component: require("./components/JobsList/__CreateForm.vue").default,
+        name: "Create",
+    },
+    
 ];
 
 const router = new VueRouter({
