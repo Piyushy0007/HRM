@@ -183,9 +183,8 @@ Route::post('employees/{employeeId}/experience', [ExperienceController::class, '
 
 // client_request 
 
-Route::post('/client-requests', [ClientRequestController::class, 'create']);
+Route::post('/client-requests-with-files', [ClientRequestController::class, 'createWithFiles']);
 Route::put('/client-requests/{id}/status', [ClientRequestController::class, 'updateStatus']);
-Route::post('/client-requests/{id}/images', [ClientRequestController::class, 'uploadFile']);
 
 
 
