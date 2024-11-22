@@ -219,57 +219,51 @@
   </div>
 
   <div class="mb-4 mt-4">
-  <label
-    for="startDateOption"
-    class="text-base font-semibold text-gray-800 mb-4 "
-  >
-    Is there a planned start date for this job?<span class="text-red-500">*</span>
-  </label>
-  <div class="flex items-center space-x-4">
-    <!-- Radio buttons for Yes/No options -->
-    <div class="flex items-center">
-      <input
-        type="radio"
-        id="yesOption"
-        name="startDateOption"
-        value="yes"
-        class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        v-model="startDateOption"
-        @change="toggleDatePicker"
-      />
-      <label for="yesOption" class="ml-2 text-gray-800">Yes</label>
-    </div>
-    <div class="flex items-center">
-      <input
-        type="radio"
-        id="noOption"
-        name="startDateOption"
-        value="no"
-        class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        v-model="startDateOption"
-        @change="toggleDatePicker"
-      />
-      <label for="noOption" class="ml-2 text-gray-800">No</label>
-    </div>
+    <label for="startDateOption" class="text-base font-semibold text-gray-800 mb-4">
+      Is there a planned start date for this job?<span class="text-red-500">*</span>
+    </label>
+    <div class="flex flex-col space-y-4">
+      <!-- Radio buttons for Yes/No options -->
+      <div class="flex items-center space-x-4">
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="yesOption"
+            name="startDateOption"
+            value="yes"
+            class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            v-model="startDateOption"
+            @change="toggleDatePicker"
+          />
+          <label for="yesOption" class="ml-2 text-gray-800">Yes</label>
+        </div>
+        <div class="flex items-center">
+          <input
+            type="radio"
+            id="noOption"
+            name="startDateOption"
+            value="no"
+            class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            v-model="startDateOption"
+            @change="toggleDatePicker"
+          />
+          <label for="noOption" class="ml-2 text-gray-800">No</label>
+        </div>
+      </div>
 
-    <!-- Date picker section, shown only when "Yes" is selected -->
-    <div v-show="showDatePicker" id="datePickerSection" class="mt-4">
-      <label for="startDate" class="text-base font-semibold text-gray-800 mb-4">
-        Select a start date for the job:
-      </label>
-      <input
-        type="date"
-        id="startDate"
-        class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-      />
+      <!-- Date picker section, shown below radio buttons -->
+      <div v-show="showDatePicker" id="datePickerSection" class="mt-4">
+        <label for="startDate" class="text-base font-semibold text-gray-800 mb-4">
+          Select a start date for the job:
+        </label>
+        <input
+          type="date"
+          id="startDate"
+          class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
     </div>
   </div>
-
-   <!-- Date picker field -->
-   
-
-  
-</div>
 
   </div>
   </div>
@@ -302,7 +296,8 @@
           <div class="flex justify-end">
             <button
               type="submit"
-              class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+              class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            style="background-color:#2C1977 "
             >
               Create Job
             </button>
@@ -319,6 +314,8 @@
     return {
       uploadedFile: null, // Stores the uploaded file object
       uploadedFileUrl: null, // Stores the URL for the uploaded file
+      startDateOption: null, // Tracks selected radio button value
+      showDatePicker: false,
       selectedJobType: "Full-time",  
       jobTypes: [
         "Full-time",
@@ -361,7 +358,7 @@
       }
     },
     toggleDatePicker() {
-      this.showDatePicker = this.startDateOption == 'yes';
+      this.showDatePicker = this.startDateOption === 'yes';
     },
     toggleJobType(jobType) {
       if (this.selectedJobType === jobType) {
@@ -416,7 +413,7 @@
 .filter-option {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
+  padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 20px;
   cursor: pointer;
@@ -424,7 +421,7 @@
 }
 
 .filter-option.active {
-  background-color: #4caf50;
+  background-color: #2C1977;
   color: white;
   border-color: #4caf50;
 }
