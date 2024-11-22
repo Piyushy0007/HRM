@@ -3,14 +3,18 @@
 
 
  <template>
-    <div class="c-create-page px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <div class="c-create-page px-8 pb-8 w-3/3 mx-auto" style="margin-right: 1vw;">
       <header-component class="sticky top-0 z-50 bg-white shadow-md" />
-      <div class="container mx-auto pt-5 ml-2">
+      <div class="container mx-auto pt-5">
         <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Create Job Form</h1>
-        <form class="bg-white p-6 rounded-lg shadow-lg border border-gray-200 max-w-lg mx-auto space-y-4">
+        <form class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-4xl mx-auto space-y-8">
           <!-- Job Title -->
+          <!-- Job Title -->
+
+          <div v-if="step === 1">
+
           <div>
-            <label for="jobTitle" class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+            <label for="jobTitle" class="block text-sm font-bold text-black-700 mb-1">Job Title</label>
             <input
               type="text"
               id="jobTitle"
@@ -21,7 +25,7 @@
 
            <!-- Salary -->
            <div>
-            <label for="jobSalary" class="block text-sm font-medium text-gray-700 mb-1">Salary</label>
+            <label for="jobSalary" class="block text-sm font-bold text-black-700 mb-1">Salary</label>
             <input
               type="number"
               id="jobSalary"
@@ -31,7 +35,7 @@
           </div>
           <!-- Job Location -->
           <div>
-            <label for="jobLocation" class="block text-sm font-medium text-gray-700 mb-1">City</label>
+            <label for="jobLocation" class="block text-sm font-bold text-black-700 mb-1">City</label>
             <input
               type="text"
               id="jobLocation"
@@ -39,12 +43,50 @@
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
           </div>
+          
 
          
 <!-- Job posting location -->
           
-<div class="mb-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Job posting location</h2>
+
+
+  <!-- Pin code Area -->
+    <div class="grid grid-cols-2 gap-4">
+                <div>
+                <label
+                    for="area"
+                    class="block text-sm font-bold text-black-700 mb-1"
+                >
+                    Area
+                </label>
+                <select
+                    id="area"
+                    class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                    <option value="">Select area</option>
+                    <option value="area1">Area 1</option>
+                    <option value="area2">Area 2</option>
+                </select>
+                </div>
+                <div>
+                <label
+                    for="pincode"
+                    class="block text-sm font-bold text-black-700 mb-1"
+                >
+                    Pincode
+                </label>
+                <input
+                    type="text"
+                    id="pincode"
+                    placeholder="Enter pincode"
+                    class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                </div>
+            </div>
+
+<div class="mt-4">
+
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Job posting location</h2>
 <div class="mb-4">
     <label
       for="locationOption"
@@ -61,68 +103,31 @@
       <option value="hybrid">Hybrid</option>
     </select>
   </div>
-  </div>
-
-  <!-- Pin code Area -->
-    <div class="grid grid-cols-2 gap-4">
-                <div>
-                <label
-                    for="area"
-                    class="block text-sm font-medium text-gray-700 mb-1"
-                >
-                    Area
-                </label>
-                <select
-                    id="area"
-                    class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                    <option value="">Select area</option>
-                    <option value="area1">Area 1</option>
-                    <option value="area2">Area 2</option>
-                </select>
-                </div>
-                <div>
-                <label
-                    for="pincode"
-                    class="block text-sm font-medium text-gray-700 mb-1"
-                >
-                    Pincode
-                </label>
-                <input
-                    type="text"
-                    id="pincode"
-                    placeholder="Enter pincode"
-                    class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-                </div>
-            </div>
+</div>
 
 
     
-          <!-- Job Description -->
-          <div>
-            <label for="jobDescription" class="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
-            <textarea
-              id="jobDescription"
-              placeholder="Enter job description"
-              class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
-              rows="5"
-            ></textarea>
+         
+    
+          <div class="flex justify-end mt-4">
+            <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" disabled>Back</button> -->
+            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            style="background-color:#2C1977"
+            >Continue</button>
           </div>
-    
           
+        </div>
     
           
      
     
           
           <!-- Resume Upload -->
-          <div>
     <!-- Icon as File Upload Button -->
-    <label for="resumeUpload" class="block text-sm font-medium text-gray-700 mb-1">
+    <!-- <label for="resumeUpload" class="block text-sm font-bold text-black-700 mb-1">
       Upload Resume
-    </label>
-    <div
+    </label> -->
+    <!-- <div
       class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 flex items-center justify-center cursor-pointer"
     >
       <input
@@ -138,25 +143,28 @@
         </svg>
         <span>Click to Upload File</span>
       </label>
-    </div>
+    </div> -->
 
 
 
     <!-- Display Uploaded File -->
-    <div v-if="uploadedFile" class="mt-4">
+    <!-- <div v-if="uploadedFile" class="mt-4">
       <p class="text-sm text-gray-700">Uploaded File:</p>
       <a
         :href="uploadedFileUrl"
         target="_blank"
         class="text-blue-500 hover:underline"
       >{{ uploadedFile.name }}</a>
-    </div>
+    </div> -->
 
 
     <!-- Job posting location -->
-          
-<div class="mb-6">
-        <!-- <h2 class="text-lg font-semibold text-gray-800 mb-4">Job posting location</h2> -->
+
+
+    <div  v-if="step === 2">
+     
+
+          <!-- <h2 class="text-lg font-semibold text-gray-800 mb-4">Job posting location</h2> -->
 <div class="mb-4 mt-4">
     <label
       for="locationOption"
@@ -201,25 +209,55 @@
       <option value="5">More than 4 weeks</option>
     </select>
   </div>
+    <h2 class="text-lg font-semibold text-gray-800 mb-4" style="margin-top: 5%;">Application Preferences</h2>
 
-  <div class="schedule-filter">
-    <h3 class="text-base font-semibold text-gray-800 mb-4">Schedule</h3>
-    <div class="filter-options">
-      <!-- Loop through schedule types array and display each item in a row -->
-      <div
-        v-for="(label, index) in scheduleTypes"
-        :key="index"
-        class="filter-option"
-        :class="{ 'active': selectedSchedule === label }"
-        @click="toggleSchedule(label)"
+    <!-- Dropdown for CV -->
+    <div class="mb-6">
+      <label for="cv-option" class="text-base font-semibold text-gray-800 mb-4">
+        Ask potential candidates for a CV?
+      </label>
+      <select
+        id="cv-option"
+        v-model="cvOption"
+        class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+
       >
-        <span class="plus-icon">+</span> {{ label }}
-      </div>
+        <option value="">Select and option</option>
+        <option value="require">Yes,Require a CV</option>
+        <option value="optional">Make it optional</option>
+        <option value="include">Give the option to include a CV</option>
+      </select>
     </div>
-  </div>
 
-  <div class="mb-4 mt-4">
-    <label for="startDateOption" class="text-base font-semibold text-gray-800 mb-4">
+    <!-- Radio buttons for deadline -->
+    <div class="mb-6">
+      <label class="text-base font-semibold text-gray-800 mb-4">
+        Is there an application deadline?
+      </label>
+      <div class="flex space-x-4">
+       
+        <label class="flex items-center space-x-2">
+          <input
+            type="radio"
+            value="yes"
+            v-model="deadlineOption"
+            class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+          />
+          <span class="text-gray-700">Yes</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input
+            type="radio"
+            value="no"
+            v-model="deadlineOption"
+           class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+          />
+          <span class="text-gray-700">No</span>
+        </label>
+      </div>
+
+      <div class="mb-4" style="margin-top: 5%;">
+    <label for="startDateOption"class="text-base font-semibold text-gray-800 mb-4">
       Is there a planned start date for this job?<span class="text-red-500">*</span>
     </label>
     <div class="flex flex-col space-y-4">
@@ -264,10 +302,50 @@
       </div>
     </div>
   </div>
+    </div>
+
+   
+  
+
+
+  <div class="flex justify-between mt-4">
+            <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" 
+             @click="prevStep"
+            >Back</button>
+            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            style="background-color:#2C1977"
+            >Continue</button>
+          </div>
+
+    </div>
+
+    <div v-if="step === 3">
+
+          
+<div class="mb-6" style="margin-top: 2%;">
+
+
+  <div class="schedule-filter" style="margin-top: 8%;">
+    <h3 class="text-base font-semibold text-gray-800 mb-4">Schedule</h3>
+    <div class="filter-options">
+      <!-- Loop through schedule types array and display each item in a row -->
+      <div
+        v-for="(label, index) in scheduleTypes"
+        :key="index"
+        class="filter-option"
+        :class="{ 'active': selectedSchedule === label }"
+        @click="toggleSchedule(label)"
+      >
+        <span class="plus-icon">+</span> {{ label }}
+      </div>
+    </div>
+  </div>
+
+  
 
   </div>
-  </div>
-  <div class="job-filter">
+ 
+  <div class="job-filter" style="margin-top: 8%;">
     <h3 class="text-base font-semibold text-gray-800 mb-4">Job type</h3>
    <div class="filter-options">
       <div
@@ -281,6 +359,34 @@
       </div>
     </div>
   </div>
+
+    <div class="job-filter" style="margin-top: 8%;">
+      <h2 class="text-base font-semibold text-gray-800 mb-4">Benefits</h2>
+      
+
+      <div class="filter-options">
+      <div
+        v-for="(label, index) in benefits"
+        :key="index"
+        class="filter-option"
+        :class="{ 'active': slectedBenefits === label }"
+        @click="toggleBenefits(label)"
+      >
+        <span class="plus-icon">+</span> {{ label }}
+      </div>
+    </div>
+    </div>
+  <div class="flex justify-between mt-4">
+            <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" 
+           
+             @click="prevStep" 
+           >Back</button>
+            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            style="background-color:#2C1977"
+            >Continue</button>
+          </div>
+
+</div>
   
 
           <!-- <div>
@@ -293,7 +399,107 @@
             />
           </div> -->
           <!-- Submit Button -->
-          <div class="flex justify-end">
+
+
+
+          
+<div v-if="step === 4">
+   <!-- Job Description -->
+   <div>
+            <label for="jobDescription" class="block text-sm font-bold text-black-700 mb-1">Job Description</label>
+            <textarea
+              id="jobDescription"
+              placeholder="Enter job description"
+              class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+              rows="5"
+            ></textarea>
+          </div>
+
+          <div class="flex justify-between mt-4">
+            <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" 
+           
+             @click="prevStep" 
+           >Back</button>
+            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            style="background-color:#2C1977"
+            >Continue</button>
+          </div>
+</div>
+
+          <div v-if="step === 5">
+
+    <!-- Pay Section -->
+    <div>
+      <h2 class="text-lg font-semibold text-gray-800 mb-2">Pay</h2>
+      <p class="text-sm text-gray-600 flex items-center">
+        Review the pay we estimated for your job and adjust it as needed. Check your local minimum wage.
+        <span
+          class="ml-1 text-gray-500 hover:text-gray-800 cursor-pointer"
+          title="Information about pay"
+        >
+          ℹ️
+        </span>
+      </p>
+    </div>
+
+    <!-- Dropdown -->
+    <div class="mt-4">
+      <label for="payBy" class="block text-sm font-bold text-black-700 mb-1">Show pay by</label>
+      <select
+        id="payBy"
+        class="block w-full mt-1 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
+      >
+        <option>Range</option>
+        <option>Fixed Amount</option>
+      </select>
+    </div>
+
+    <!-- Minimum and Maximum Inputs -->
+    <div class="flex items-center gap-4 mt-4">
+      <!-- Minimum -->
+      <div class="flex-1">
+        <label for="minimum" class="block text-sm font-bold text-black-700 mb-1">Minimum</label>
+        <div class="relative mt-1">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₹</span>
+          <input
+            type="text"
+            id="minimum"
+            class="block w-full pl-8 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
+            value="10,466.49"
+          />
+        </div>
+      </div>
+
+      <!-- Maximum -->
+      <div class="flex-1">
+        <label for="maximum" class="block text-sm font-bold text-black-700 mb-1">Maximum</label>
+        <div class="relative mt-1">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₹</span>
+          <input
+            type="text"
+            id="maximum"
+            class="block w-full pl-8 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
+            value="28,854.26"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Rate Dropdown -->
+    <div class="mt-4">
+      <label for="rate" class="block text-sm font-bold text-black-700 mb-1">Rate</label>
+      <select
+        id="rate"
+        class="block w-full mt-1 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
+      >
+        <option>per month</option>
+        <option>per week</option>
+        <option>per day</option>
+      </select>
+    </div>
+          <div class="flex justify-between mt-4">
+            <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400">Back</button>
+
             <button
               type="submit"
               class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
@@ -302,8 +508,16 @@
               Create Job
             </button>
           </div>
+
+          
+
+        </div>
+          
         </form>
       </div>
+
+
+      
     </div>
   </template>
   
@@ -312,6 +526,7 @@
 
     data() {
     return {
+      step: 1,
       uploadedFile: null, // Stores the uploaded file object
       uploadedFileUrl: null, // Stores the URL for the uploaded file
       startDateOption: null, // Tracks selected radio button value
@@ -342,13 +557,36 @@
         "UK shift",
         "Weekend only",
         "Other"
+      ],
+      slectedBenefits:"Health insurance",
+      benefits: [
+        "Health insurance",
+        "Paid sick time",
+        "Life insurance",
+        "Leave encashment",
+        "Provident Fund",
+        "Work from home",
+        "Internet reimbursement",
+        "Flexible schedule",
+        "Cell phone reimbursement",
+        "Paid time off",
+        "Food provided",
+        "Commuter assistance",
+        "Other"
       ]
     };
   },
     name: "CreateJobPage",
+    name: "PayUI",
 
 
     methods: {
+      nextStep() {
+      if (this.step < 6) this.step++;
+    },
+    prevStep() {
+      if (this.step > 1) this.step--;
+    },
     handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
@@ -376,7 +614,15 @@
       } else {
         this.selectedSchedule = schedule;
       }
-    }
+    },
+    toggleBenefits(benefits) {
+     
+     if (this.slectedBenefits === benefits) {
+       this.slectedBenefits = ""; 
+     } else {
+       this.slectedBenefits = benefits;
+     }
+   }
   
   
 },
