@@ -542,6 +542,17 @@ const routes = [
         component: require("./components/JobsList/__CreateForm.vue").default,
         name: "Create",
     },
+    {
+        path: "/onoffboarding/",
+        component: require("./components/EmployeeManagement/__Onoffboarding.vue").default,
+        name: "onoffboarding",
+    }
+    ,
+    {
+        path: "/candidates/",
+        component: require("./components/JobsList/__Candidates.vue").default,
+        name: "candidates",
+    }
     
 ];
 

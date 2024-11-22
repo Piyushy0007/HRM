@@ -42,6 +42,8 @@
             <th class="w-32 text-sm text-left">Location</th>
             <th class="w-32 text-sm text-left">Posted Date</th>
             <th class="w-20 text-sm leading-none px-2 py-2">Edit</th>
+            <th class="w-20 text-sm leading-none px-2 py-2">view</th>
+
           </tr>
         </thead>
         <tbody>
@@ -60,6 +62,12 @@
             <td class="text-center">
               <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
+            <td >
+              <button  @click="navigateToCandidates">
+
+                Candidates
+              </button>
+            </td>
           </tr>
           <tr>
             <td class="text-center">
@@ -72,6 +80,8 @@
             <td>2024-11-20</td>
             <td class="text-center">
               <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
+            </td>
+            <td >  Candidates
             </td>
           </tr>
         </tbody>
@@ -101,13 +111,25 @@
 </template>
 
 <script>
+import { method } from 'lodash';
+
 export default {
   data() {
     return {
       isLoader: false,
+
+
     };
+   
+},
+methods: {
+    navigateToCandidates() {
+      this.$router.push('/candidates'); // Navigate to '/candidates' route
+    },
   },
-};
+    
+  
+}
 </script>
 
 <style scoped>
