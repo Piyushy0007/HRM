@@ -8,8 +8,7 @@
       <div class="container mx-auto pt-5 justify-center w-full" style="margin-left: 10%;">
         <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Create Job Form</h1>
         <form class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-5xl w-full mx-auto space-y-8">
-          <!-- Job Title -->
-          <!-- Job Title -->
+          
 
           <div v-if="step === 1">
 
@@ -556,6 +555,62 @@
           
 
         </div>
+        <!-- <div v-if="step === 6">
+    <!-- Header Section -->
+    <!-- <div class="bg-white shadow-md sticky top-0 z-50 px-8 py-4">
+      <div class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-gray-800">Review</h1>
+        <!-- Add your header illustration or avatar here -->
+        <!-- <div class="flex space-x-4">
+          <img class="w-12 h-12 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg" alt="User" />
+          <div class="flex items-center">
+            <span class="text-sm text-gray-600">HR Executive</span>
+            <button class="ml-2 text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div> -->
+    <!-- </div> -->
+
+    <!-- Job Details Section -->
+    <!-- <div class="container mx-auto p-6">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">Job Details</h2>
+      
+      <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 space-y-4">
+        <div class="flex justify-between items-center">
+          <span class="font-medium text-gray-700">Job title</span>
+          <div class="flex items-center">
+            <span class="text-gray-600">HR Executive</span>
+            <button class="ml-2 text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="font-medium text-gray-700">Company for this job</span>
+          <div class="flex items-center">
+            <span class="text-gray-600">ARECLE</span>
+            <button class="ml-2 text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="flex justify-between items-center">
+          <span class="font-medium text-gray-700">Number of openings</span>
+          <div class="flex items-center">
+            <span class="text-gray-600">1</span>
+            <button class="ml-2 text-blue-500 hover:text-blue-700">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+<!-- </div> -->
+
           
         </form>
       </div>
@@ -622,6 +677,7 @@
   },
     name: "CreateJobPage",
     name: "PayUI",
+    name: 'JobReview',
 
 
     methods: {
