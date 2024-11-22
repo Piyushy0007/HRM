@@ -3,11 +3,11 @@
 
 
  <template>
-    <div class="c-create-page px-8 pb-8 w-3/3 mx-auto" style="margin-right: 1vw;">
+    <div class="c-create-page px-8 pb-8 w-3/3 mx-auto  relative" style="margin-right: 1vw;">
       <header-component class="sticky top-0 z-50 bg-white shadow-md" />
-      <div class="container mx-auto pt-5">
+      <div class="container mx-auto pt-5 justify-center w-full" style="margin-left: 10%;">
         <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Create Job Form</h1>
-        <form class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-4xl mx-auto space-y-8">
+        <form class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-5xl w-full mx-auto space-y-8">
           <!-- Job Title -->
           <!-- Job Title -->
 
@@ -497,7 +497,51 @@
         <option>per day</option>
       </select>
     </div>
-          <div class="flex justify-between mt-4">
+
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4" style="margin-top: 5%;">Communication Preferences</h2>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-bold text-black-700 mb-1">Send daily updates to</label>
+        <input
+          v-model="email"
+          type="email"
+          id="email"
+          class="mt-2 block w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+          placeholder="example@domain.com"
+        />
+      </div>
+
+      <button @click="addEmail" class="text-blue-500 font-medium text-sm mb-4">+ Add email</button>
+
+      <div class="mb-4">
+        <label for="send-update" class="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="send-update"
+            v-model="sendUpdate"
+            class="h-5 w-5 text-blue-600 border-gray-300 rounded"
+          />
+          <span class="text-sm text-gray-800">Plus, send an individual email update each time someone applies.</span>
+        </label>
+      </div>
+
+      <hr class="my-4 border-gray-300" />
+
+      <div class="mb-4">
+        <label for="contact" class="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id="contact"
+            v-model="contactByEmail"
+            class="h-5 w-5 text-blue-600 border-gray-300 rounded"
+          />
+          <span class="text-sm text-gray-800">Let potential candidates contact you about this job</span>
+        </label>
+      </div>
+
+     
+    
+          <div class="flex justify-between mt-4" style="margin-top: 5%;">
             <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400">Back</button>
 
             <button
@@ -622,7 +666,10 @@
      } else {
        this.slectedBenefits = benefits;
      }
-   }
+   },
+   addEmail() {
+      alert('You can add more email fields here!');
+    },
   
   
 },
