@@ -140,6 +140,8 @@
       </label>
     </div>
 
+
+
     <!-- Display Uploaded File -->
     <div v-if="uploadedFile" class="mt-4">
       <p class="text-sm text-gray-700">Uploaded File:</p>
@@ -149,7 +151,143 @@
         class="text-blue-500 hover:underline"
       >{{ uploadedFile.name }}</a>
     </div>
+
+
+    <!-- Job posting location -->
+          
+<div class="mb-6">
+        <!-- <h2 class="text-lg font-semibold text-gray-800 mb-4">Job posting location</h2> -->
+<div class="mb-4 mt-4">
+    <label
+      for="locationOption"
+      class="text-base font-bold text-gray-800 mb-4"
+    >
+      Number of People you wish to hire for this job<span class="text-red-500">*</span>
+    </label>
+    <select
+      id="locationOption"
+      class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
+      <option value="">Select and option</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
   </div>
+  <div class="mb-4">
+    <label
+      for="locationOption"
+      class="text-base font-semibold text-gray-800 mb-4"
+    >
+      Recruitment timeline for this job<span class="text-red-500">*</span>
+    </label>
+    <select
+      id="locationOption"
+      class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
+    <option value="">Select and option</option>
+
+      <option value="1">1 to 3 days</option>
+      <option value="2">3 to 7 days</option>
+      <option value="3">1 to 2 weeks</option>
+      <option value="4">2 to 4 weeks</option>
+      <option value="5">More than 4 weeks</option>
+    </select>
+  </div>
+
+  <div class="schedule-filter">
+    <h3 class="text-base font-semibold text-gray-800 mb-4">Schedule</h3>
+    <div class="filter-options">
+      <!-- Loop through schedule types array and display each item in a row -->
+      <div
+        v-for="(label, index) in scheduleTypes"
+        :key="index"
+        class="filter-option"
+        :class="{ 'active': selectedSchedule === label }"
+        @click="toggleSchedule(label)"
+      >
+        <span class="plus-icon">+</span> {{ label }}
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 mt-4">
+  <label
+    for="startDateOption"
+    class="text-base font-semibold text-gray-800 mb-4 "
+  >
+    Is there a planned start date for this job?<span class="text-red-500">*</span>
+  </label>
+  <div class="flex items-center space-x-4">
+    <!-- Radio buttons for Yes/No options -->
+    <div class="flex items-center">
+      <input
+        type="radio"
+        id="yesOption"
+        name="startDateOption"
+        value="yes"
+        class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        v-model="startDateOption"
+        @change="toggleDatePicker"
+      />
+      <label for="yesOption" class="ml-2 text-gray-800">Yes</label>
+    </div>
+    <div class="flex items-center">
+      <input
+        type="radio"
+        id="noOption"
+        name="startDateOption"
+        value="no"
+        class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+        v-model="startDateOption"
+        @change="toggleDatePicker"
+      />
+      <label for="noOption" class="ml-2 text-gray-800">No</label>
+    </div>
+
+    <!-- Date picker section, shown only when "Yes" is selected -->
+    <div v-show="showDatePicker" id="datePickerSection" class="mt-4">
+      <label for="startDate" class="text-base font-semibold text-gray-800 mb-4">
+        Select a start date for the job:
+      </label>
+      <input
+        type="date"
+        id="startDate"
+        class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      />
+    </div>
+  </div>
+
+   <!-- Date picker field -->
+   
+
+  
+</div>
+
+  </div>
+  </div>
+  <div class="job-filter">
+    <h3 class="text-base font-semibold text-gray-800 mb-4">Job type</h3>
+   <div class="filter-options">
+      <div
+        v-for="(label, index) in jobTypes"
+        :key="index"
+        class="filter-option"
+        :class="{ 'active': selectedJobType === label }"
+        @click="toggleJobType(label)"
+      >
+        <span class="plus-icon">+</span> {{ label }}
+      </div>
+    </div>
+  </div>
+  
 
           <!-- <div>
             <label for="resumeUpload" class="block text-sm font-medium text-gray-700 mb-1">Upload Resume</label>
@@ -181,6 +319,33 @@
     return {
       uploadedFile: null, // Stores the uploaded file object
       uploadedFileUrl: null, // Stores the URL for the uploaded file
+      selectedJobType: "Full-time",  
+      jobTypes: [
+        "Full-time",
+        "Permanent",
+        "Fresher",
+        "Part-time",
+        "Internship",
+        "Contractual / Temporary",
+        "Freelance",
+        "Volunteer"
+      ],
+      selectedSchedule: "Day shift",  // Default selected schedule type
+      // Schedule types available
+      scheduleTypes: [
+        "Day shift",
+        "Morning shift",
+        "Rotational shift",
+        "Night shift",
+        "Monday to Friday",
+        "Evening shift",
+        "Weekend availability",
+        "Fixed shift",
+        "US shift",
+        "UK shift",
+        "Weekend only",
+        "Other"
+      ]
     };
   },
     name: "CreateJobPage",
@@ -195,12 +360,37 @@
         this.uploadedFileUrl = URL.createObjectURL(file);
       }
     },
-}
+    toggleDatePicker() {
+      this.showDatePicker = this.startDateOption == 'yes';
+    },
+    toggleJobType(jobType) {
+      if (this.selectedJobType === jobType) {
+        this.selectedJobType = ""; 
+      } else {
+        this.selectedJobType = jobType;
+      }
+    },
+    
+
+    toggleSchedule(schedule) {
+     
+      if (this.selectedSchedule === schedule) {
+        this.selectedSchedule = ""; 
+      } else {
+        this.selectedSchedule = schedule;
+      }
+    }
+  
+  
+},
+
   };
+ 
+  
   </script>
   
   <style scoped>
-  /* Custom Styling for a beautiful UI */
+ 
   body {
     background-color: #f8fafc;
   }
@@ -212,6 +402,46 @@
   form {
     font-family: "Roboto", sans-serif;
   }
+
+  .job-filter {
+  font-family: Arial, sans-serif;
+}
+
+.filter-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; 
+}
+
+.filter-option {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-option.active {
+  background-color: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+.filter-option:hover {
+  background-color: #f1f1f1;
+}
+
+.plus-icon {
+  margin-right: 5px; 
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
   </style>
 
    
