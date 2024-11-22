@@ -1,115 +1,140 @@
 <template>
-  <div class="c-listing-page px-4 pb-4 w-80" style="margin-right: 1vw;">
-    <header-component class="sticky top-0 z-50 bg-white shadow-md" />
-    <div class="container mx-auto pt-5 ml-4">
-      <h1 class="text-2xl font-bold mb-4 ml-4">Listing</h1>
-      <table class="table-auto w-full border-collapse border border-gray-200 shadow-md rounded-lg ml-4">
-        <thead class="bg-gray-100">
+  <div class="c-job-listings px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <!-- Loader -->
+     
+    <Loader msg="Loading Job Listings..." v-model="isLoader" />
+
+    <header-component />
+    <!-- Header with Add Job Button and Search -->
+    <div class="px-4">
+      <div class="flex items-center justify-between my-5">
+        <button
+          class="text-white py-2 px-16 rounded-lg text-sm btn-add-job"
+          type="button"
+        >
+          Add Job
+        </button>
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-full md:w-50 px-3">
+            <div class="flex items-center relative">
+  <input
+    class="appearance-none block w-full rounded py-2 px-4 pl-5 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+    type="text"
+    placeholder="Search Job Titles"
+  />
+  <font-awesome-icon
+    icon="search"
+    class="absolute right-3 text-gray-500 "
+  />
+</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Listings Table -->
+      <table class="w-full table-fixed">
+        <thead>
           <tr>
-            <th class="border border-gray-200 px-4 py-2 text-left">Name</th>
-            <th class="border border-gray-200 px-4 py-2 text-left">Email Address</th>
-            <th class="border border-gray-200 px-4 py-2 text-left">Actions</th>
+            <th class="w-6">Select</th>
+            
+            <th class="w-32 text-sm text-left">Job Title</th>
+            <th class="w-32 text-sm text-left">Department</th>
+            <th class="w-32 text-sm text-left">Location</th>
+            <th class="w-32 text-sm text-left">Posted Date</th>
+            <th class="w-20 text-sm leading-none px-2 py-2">Edit</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="hover:bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">John Doe</td>
-            <td class="border border-gray-200 px-4 py-2">john.doe@example.com</td>
-            <td class="border border-gray-200 px-4 py-2 flex space-x-2">
-              <button
-                class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 focus:outline-none"
-                @click="alert('Edit John Doe')"
-              >
-                Edit
-              </button>
-              <button
-                class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 focus:outline-none"
-                @click="alert('Delete John Doe')"
-              >
-                Delete
-              </button>
-              <button
-                class="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600 focus:outline-none"
-                @click="alert('Info about John Doe')"
-              >
-                Info
-              </button>
+          <!-- No Records Found -->
+          
+
+          <!-- Static Job Listing Rows -->
+          <tr>
+            <td class="text-center">
+              <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" />
+           
+            <td>Software Developer</td>
+            <td>IT Department</td>
+            <td>New York</td>
+            <td>2024-11-22</td>
+            <td class="text-center">
+              <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
           </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">Jane Smith</td>
-            <td class="border border-gray-200 px-4 py-2">jane.smith@example.com</td>
-            <td class="border border-gray-200 px-4 py-2 flex space-x-2">
-              <button
-                class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 focus:outline-none"
-                @click="alert('Edit Jane Smith')"
-              >
-                Edit
-              </button>
-              <button
-                class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 focus:outline-none"
-                @click="alert('Delete Jane Smith')"
-              >
-                Delete
-              </button>
-              <button
-                class="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600 focus:outline-none"
-                @click="alert('Info about Jane Smith')"
-              >
-                Info
-              </button>
+          <tr>
+            <td class="text-center">
+              <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" />
             </td>
-          </tr>
-          <tr class="hover:bg-gray-50">
-            <td class="border border-gray-200 px-4 py-2">Alice Johnson</td>
-            <td class="border border-gray-200 px-4 py-2">alice.johnson@example.com</td>
-            <td class="border border-gray-200 px-4 py-2 flex space-x-2">
-              <button
-                class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 focus:outline-none"
-                @click="openJobForm('Edit')"
-              >
-                Edit
-              </button>
-              <button
-                class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 focus:outline-none"
-                @click="alert('Delete Alice Johnson')"
-              >
-                Delete
-              </button>
-              <button
-                class="bg-gray-500 text-white px-2 py-1 rounded hover:bg-gray-600 focus:outline-none"
-                @click="alert('Info about Alice Johnson')"
-              >
-                Info
-              </button>
+           
+            <td>Marketing Manager</td>
+            <td>Marketing</td>
+            <td>Los Angeles</td>
+            <td>2024-11-20</td>
+            <td class="text-center">
+              <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
           </tr>
         </tbody>
       </table>
+
+      <!-- Save Button -->
+      <div class="text-center my-12">
+        <button
+          class="text-white py-2 px-16 rounded-lg text-sm btn-save-jobs"
+          type="button"
+        >
+          Save Changes
+        </button>
+      </div>
+
+      <!-- Information Section -->
+      <div class="information mt-5 p-4 rounded-lg">
+        <h4 class="text-2xl font-semibold mb-2">Information</h4>
+        <ul class="ml-2 mb-1 instructions">
+          <li class="mb-1">Check the boxes for jobs to edit or delete them.</li>
+          <li class="mb-1">Click the pencil icon to edit job details.</li>
+          <li>Optional: Use the "Add Job" button to add new job listings.</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    methods: {
-  alert(message) {
-    window.alert(message);
+  data() {
+    return {
+      isLoader: false,
+    };
   },
-  openJobForm(mode) {
-    console.log('Navigating to create page with mode:', mode);
-    this.$router.push('/create');
-  },
-},
-
 };
-
 </script>
 
-<style>
-/* Optional: Ensure header-component styles are well-defined */
-header-component {
-  width: 100%;
-  display: block;
+<style scoped>
+.c-job-listings {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-add-job,
+.btn-save-jobs {
+  background-color: #2d477f;
+}
+
+.btn-add-job:hover,
+.btn-save-jobs:hover {
+  background-color: #2d477f;
+}
+
+.table-fixed th,
+.table-fixed td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table-fixed th {
+  background-color: #f2f2f2;
 }
 </style>
