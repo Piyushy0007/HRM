@@ -35,14 +35,14 @@
       <table class="w-full table-fixed">
         <thead>
           <tr>
-            <th class="w-6">Select</th>
+            <th class="w-6"></th>
             
             <th class="w-32 text-sm text-left">Job Title</th>
             <th class="w-32 text-sm text-left">Department</th>
             <th class="w-32 text-sm text-left">Location</th>
             <th class="w-32 text-sm text-left">Posted Date</th>
             <th class="w-20 text-sm leading-none px-2 py-2">Edit</th>
-            <th class="w-20 text-sm leading-none px-2 py-2">view</th>
+            <th class="w-20 text-sm leading-none px-2 py-2">Applicants</th>
 
           </tr>
         </thead>
@@ -53,7 +53,7 @@
           <!-- Static Job Listing Rows -->
           <tr>
             <td class="text-center">
-              <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" />
+              #
            
             <td>Software Developer</td>
             <td>IT Department</td>
@@ -63,16 +63,12 @@
               <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
             <td >
-              <button  @click="navigateToCandidates">
-
-                Candidates
-              </button>
+              <a href="#"  @click="navigateToCandidates"> <font-awesome-icon :icon="['fas', 'eye']" /></a>
             </td>
           </tr>
           <tr>
-            <td class="text-center">
-              <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" />
-            </td>
+            <td class="text-center" >
+#            </td>
            
             <td>Marketing Manager</td>
             <td>Marketing</td>
@@ -81,7 +77,7 @@
             <td class="text-center">
               <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
-            <td >  Candidates
+            <td > <a href="#" @click="navigateToCandidates"> <font-awesome-icon :icon="['fas', 'eye']" /></a>
             </td>
           </tr>
         </tbody>

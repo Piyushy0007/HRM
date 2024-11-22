@@ -35,13 +35,13 @@
         <table class="w-full table-fixed">
           <thead>
             <tr>
-              <th class="w-6">Select</th>
+              <th class="w-6"></th>
               
               <th class="w-32 text-sm text-left">Candidates Name</th>
               <th class="w-32 text-sm text-left">JOb Title </th>
               <th class="w-32 text-sm text-left">Location</th>
               <th class="w-32 text-sm text-left">Applied Date</th>
-              <th class="w-20 text-sm leading-none px-2 py-2">Edit</th>
+              <th class="w-20 text-sm leading-none px-2 py-2">Detail of Candidates</th>
   
             </tr>
           </thead>
@@ -52,27 +52,25 @@
             <!-- Static Job Listing Rows -->
             <tr>
               <td class="text-center">
-                <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" />
-             
+#             
               <td>Piyush</td>
               <td>Software Developer</td>
               <td>New York</td>
               <td>2024-11-22</td>
               <td class="text-center">
-                <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
+                <a href="#"> <font-awesome-icon :icon="['fas', 'eye']" /> </a>
               </td>
             </tr>
             <tr>
               <td class="text-center">
-                <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" />
-              </td>
+#              </td>
              
               <td>Kewal</td>
               <td>Finance</td>
               <td>Los Angeles</td>
               <td>2024-11-20</td>
-              <td class="text-center">
-                <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
+              <td class="center">
+                <a href="#" > <font-awesome-icon :icon="['fas', 'eye']" /> </a>
               </td>
             </tr>
           </tbody>
