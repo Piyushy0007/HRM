@@ -33,6 +33,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ClientRequestController;
+use App\Http\Controllers\JobController;
 
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
@@ -173,18 +174,23 @@ Route::group([
 
     //LeaveRequest
 
-    Route::post('/employee/{employeeId}/leave-request', [LeaveRequestController::class, 'create']);
-Route::get('/employee/{employeeId}/leave-requests', [LeaveRequestController::class, 'show']);
-Route::put('/leave-request/{leaveRequestId}/status', [LeaveRequestController::class, 'updateStatus']);
+    Route::post('/employee/{employeeId}/LeaveRequest', [LeaveRequestController::class, 'create']);
+Route::get('/employee/{employeeId}/LeaveRequests', [LeaveRequestController::class, 'show']);
+Route::put('/LeaveRequest/{leaveRequestId}/Status', [LeaveRequestController::class, 'updateStatus']);
 
-//expirence 
+//expirence     
 
 Route::post('employees/{employeeId}/experience', [ExperienceController::class, 'addExperience']);
 
 // client_request 
 
-Route::post('/client-requests-with-files', [ClientRequestController::class, 'createWithFiles']);
-Route::put('/client-requests/{id}/status', [ClientRequestController::class, 'updateStatus']);
+Route::post('/ClientRequestsWithFiles', [ClientRequestController::class, 'createWithFiles']);
+Route::put('/ClientRequests/{id}/Status', [ClientRequestController::class, 'updateStatus']);
+
+//jobs
+
+Route::post('/jobs', [JobController::class, 'store']);
+Route::get('/jobs', [JobController::class, 'index']);
 
 
 
