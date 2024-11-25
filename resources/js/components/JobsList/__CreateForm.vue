@@ -550,7 +550,7 @@ name="recruitment_timeline"
       <div class="mb-4">
         <label for="email" class="block text-sm font-bold text-black-700 mb-1">Send daily updates to</label>
         <input
-          v-model="email"
+          v-model="formData.email"
           type="email"
           id="email"
           class="mt-2 block w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
