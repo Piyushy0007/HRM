@@ -806,7 +806,7 @@ prevStep() {
 
     async submitForm() {
   try {
-    const response = await axios.post("http://192.168.29.127:8000/api/jobs", this.formData);
+    const response = await axios.post("/api/jobs", this.formData);
     console.log("Job created successfully:", response.data);
 
     // Show success message and stop form redirection
