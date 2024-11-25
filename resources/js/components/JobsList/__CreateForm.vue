@@ -16,6 +16,9 @@
             <label for="jobTitle" class="block text-sm font-bold text-black-700 mb-1">Job Title</label>
             <input
               type="text"
+               v-model="formData.job_title"
+               name="job_title"
+                @input="handleChange"
               id="jobTitle"
               placeholder="Enter job title"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
@@ -27,6 +30,10 @@
             <label for="jobSalary" class="block text-sm font-bold text-black-700 mb-1">Salary</label>
             <input
               type="number"
+               v-model="formData.salary"
+               name="salary"
+               @input="handleChange"
+
               id="jobSalary"
               placeholder="Enter salary"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
@@ -37,6 +44,10 @@
             <label for="jobLocation" class="block text-sm font-bold text-black-700 mb-1">City</label>
             <input
               type="text"
+               v-model="formData.job_posting_location"
+               name="job_posting_location"
+               @input="handleChange"
+
               id="jobLocation"
               placeholder="Enter job location"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
@@ -61,7 +72,11 @@
                 <select
                     id="area"
                     class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                >
+                 v-model="formData.area"
+                 name="area"
+               @change="handleChange"
+
+                    >
                     <option value="">Select area</option>
                     <option value="area1">Area 1</option>
                     <option value="area2">Area 2</option>
@@ -76,6 +91,11 @@
                 </label>
                 <input
                     type="text"
+                 v-model="formData.pincode"
+                 name="pincode"
+               @input="handleChange"
+
+
                     id="pincode"
                     placeholder="Enter pincode"
                     class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -95,8 +115,11 @@
     </label>
     <select
       id="locationOption"
+      
+
       class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-    >
+    
+      >
       <option value="on-site">On-site</option>
       <option value="remote">Remote</option>
       <option value="hybrid">Hybrid</option>
@@ -110,7 +133,7 @@
     
           <div class="flex justify-end mt-4">
             <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" disabled>Back</button> -->
-            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -173,6 +196,11 @@
     </label>
     <select
       id="locationOption"
+      v-model="formData.people_to_hire"
+      name="people_to_hire"
+      @change="handleChange"
+
+
       class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     >
       <option value="">Select and option</option>
@@ -197,6 +225,12 @@
     </label>
     <select
       id="locationOption"
+
+      v-model="formData.recruitment_timeline"
+name="recruitment_timeline"
+      @change="handleChange"
+
+
       class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     >
     <option value="">Select and option</option>
@@ -217,7 +251,7 @@
       </label>
       <select
         id="cv-option"
-        v-model="cvOption"
+        v-model="formData.cvOption"
         class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 
       >
@@ -239,7 +273,7 @@
           <input
             type="radio"
             value="yes"
-            v-model="deadlineOption"
+            v-model="formData.deadlineOption"
             class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
           />
           <span class="text-gray-700">Yes</span>
@@ -248,7 +282,7 @@
           <input
             type="radio"
             value="no"
-            v-model="deadlineOption"
+            v-model="formData.deadlineOption"
            class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
           />
           <span class="text-gray-700">No</span>
@@ -311,7 +345,7 @@
             <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" 
              @click="prevStep"
             >Back</button>
-            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -332,7 +366,7 @@
         v-for="(label, index) in scheduleTypes"
         :key="index"
         class="filter-option"
-        :class="{ 'active': selectedSchedule === label }"
+        :class="{ 'active': formData.schedule === label }"
         @click="toggleSchedule(label)"
       >
         <span class="plus-icon">+</span> {{ label }}
@@ -351,7 +385,7 @@
         v-for="(label, index) in jobTypes"
         :key="index"
         class="filter-option"
-        :class="{ 'active': selectedJobType === label }"
+        :class="{ 'active': formData.job_type === label }"
         @click="toggleJobType(label)"
       >
         <span class="plus-icon">+</span> {{ label }}
@@ -368,7 +402,7 @@
         v-for="(label, index) in benefits"
         :key="index"
         class="filter-option"
-        :class="{ 'active': slectedBenefits === label }"
+        :class="{ 'active': formData.benefits === label }"
         @click="toggleBenefits(label)"
       >
         <span class="plus-icon">+</span> {{ label }}
@@ -380,7 +414,7 @@
            
              @click="prevStep" 
            >Back</button>
-            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -408,6 +442,10 @@
             <label for="jobDescription" class="block text-sm font-bold text-black-700 mb-1">Job Description</label>
             <textarea
               id="jobDescription"
+               v-model="formData.job_description"
+               name="job_description"
+      @input="handleChange"
+
               placeholder="Enter job description"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
               rows="5"
@@ -419,7 +457,7 @@
            
              @click="prevStep" 
            >Back</button>
-            <button type="button" @click="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -463,6 +501,10 @@
           <input
             type="text"
             id="minimum"
+             v-model="formData.pay_minimum"
+             name="pay_minimum"
+      @input="handleChange"
+
             class="block w-full pl-8 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
             value="10,466.49"
           />
@@ -477,6 +519,10 @@
           <input
             type="text"
             id="maximum"
+            v-model="formData.pay_maximum"
+            name="pay_maximum"
+            @input="handleChange"
+
             class="block w-full pl-8 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
             value="28,854.26"
           />
@@ -489,6 +535,8 @@
       <label for="rate" class="block text-sm font-bold text-black-700 mb-1">Rate</label>
       <select
         id="rate"
+        
+        
         class="block w-full mt-1 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
       >
         <option>per month</option>
@@ -517,7 +565,7 @@
           <input
             type="checkbox"
             id="send-update"
-            v-model="sendUpdate"
+            v-model="formData.sendUpdate"
             class="h-5 w-5 text-blue-600 border-gray-300 rounded"
           />
           <span class="text-sm text-gray-800">Plus, send an individual email update each time someone applies.</span>
@@ -531,7 +579,7 @@
           <input
             type="checkbox"
             id="contact"
-            v-model="contactByEmail"
+            v-model="formData.communication_preference_email"
             class="h-5 w-5 text-blue-600 border-gray-300 rounded"
           />
           <span class="text-sm text-gray-800">Let potential candidates contact you about this job</span>
@@ -547,7 +595,7 @@
               type="submit"
               class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             style="background-color:#2C1977 "
-            >
+            @click.prevent="submitForm" >
               Create Job
             </button>
           </div>
@@ -621,6 +669,8 @@
   </template>
   
   <script>
+  import axios from 'axios'
+
   export default {
 
     data() {
@@ -630,7 +680,27 @@
       uploadedFileUrl: null, // Stores the URL for the uploaded file
       startDateOption: null, // Tracks selected radio button value
       showDatePicker: false,
-      selectedJobType: "Full-time",  
+      formData: {
+        job_title: "",
+        salary: "",
+        city: "",
+        area: "",
+        pincode: "",
+        job_posting_location: "",
+        people_to_hire: 1,
+        recruitment_timeline: "",
+        schedule: "9:00 AM - 6:00 PM",
+        job_type: "Full-Time",
+        benefits: "Health insurance",
+        job_description: "",
+        pay_minimum: "",
+        pay_maximum: "",
+        communication_preference_email: true,
+        employee_id: 2,
+        deadlineOption:"yes",
+        cvOption:false,
+        sendUpdate:""
+      },
       jobTypes: [
         "Full-time",
         "Permanent",
@@ -641,8 +711,6 @@
         "Freelance",
         "Volunteer"
       ],
-      selectedSchedule: "Day shift",  // Default selected schedule type
-      // Schedule types available
       scheduleTypes: [
         "Day shift",
         "Morning shift",
@@ -657,7 +725,7 @@
         "Weekend only",
         "Other"
       ],
-      slectedBenefits:"Health insurance",
+      
       benefits: [
         "Health insurance",
         "Paid sick time",
@@ -682,11 +750,12 @@
 
     methods: {
       nextStep() {
-      if (this.step < 6) this.step++;
-    },
-    prevStep() {
-      if (this.step > 1) this.step--;
-    },
+  if (this.step < 5) this.step++; 
+},
+prevStep() {
+  if (this.step > 1) this.step--; 
+},
+
     handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
@@ -699,33 +768,57 @@
       this.showDatePicker = this.startDateOption === 'yes';
     },
     toggleJobType(jobType) {
-      if (this.selectedJobType === jobType) {
-        this.selectedJobType = ""; 
+      if (this.formData.job_type   === jobType) {
+        this.formData.job_type = ""; 
       } else {
-        this.selectedJobType = jobType;
+        this.formData.job_type = jobType;
       }
     },
     
 
     toggleSchedule(schedule) {
      
-      if (this.selectedSchedule === schedule) {
-        this.selectedSchedule = ""; 
+      if (this.formData.schedule === schedule) {
+        this.formData.schedule  = ""; 
       } else {
-        this.selectedSchedule = schedule;
+        this.formData.schedule  = schedule;
       }
     },
     toggleBenefits(benefits) {
      
-     if (this.slectedBenefits === benefits) {
-       this.slectedBenefits = ""; 
+     if (this.formData.benefits === benefits) {
+       this.formData.benefits = ""; 
      } else {
-       this.slectedBenefits = benefits;
+       this.formData.benefits = benefits;
      }
    },
    addEmail() {
       alert('You can add more email fields here!');
     },
+
+    handleChange(event) {
+      const { name, value } = event.target; 
+      if (name) {
+        this.formData[name] = value; 
+      }
+      // console.log("Updated formData:", this.formData); 
+    },
+
+    async submitForm() {
+  try {
+    const response = await axios.post("http://192.168.29.127:8000/api/jobs", this.formData);
+    console.log("Job created successfully:", response.data);
+
+    // Show success message and stop form redirection
+    alert("Job created successfully!");
+    // Optionally, reset form data if needed or navigate elsewhere
+  } catch (error) {
+    console.error("Error creating job:", error);
+    alert("Failed to create job. Check console for details.");
+  }
+},
+
+  
   
   
 },
@@ -733,7 +826,7 @@
   };
  
   
-  </script>
+  </script> 
   
   <style scoped>
  
