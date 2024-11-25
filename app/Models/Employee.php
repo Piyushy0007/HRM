@@ -92,6 +92,13 @@ class Employee extends Authenticatable implements JWTSubject
     return $this->hasMany(ClientRequest::class, 'employee_id');
 }
 
+public function jobs()
+{
+    return $this->hasMany('App\Models\Jobs');
+}
+
+
+
 
 
     // public function salarySlips()

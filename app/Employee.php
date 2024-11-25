@@ -93,6 +93,10 @@ public function experiences()
 {
     return $this->hasMany('App\Models\Experience');
 }
+public function jobs()
+{
+    return $this->hasMany('App\Models\Jobs');
+}
 
     
     
