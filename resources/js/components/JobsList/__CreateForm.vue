@@ -44,8 +44,8 @@
             <label for="jobLocation" class="block text-sm font-bold text-black-700 mb-1">City</label>
             <input
               type="text"
-               v-model="formData.job_posting_location"
-               name="job_posting_location"
+               v-model="formData.city"
+               name="city"
                @input="handleChange"
 
               id="jobLocation"
@@ -116,7 +116,9 @@
     <select
       id="locationOption"
       
-
+      v-model="formData.job_posting_location"
+               name="job_posting_location"
+               @input="handleChange"
       class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
     
       >
@@ -251,7 +253,6 @@ name="recruitment_timeline"
       </label>
       <select
         id="cv-option"
-        v-model="formData.cvOption"
         class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
 
       >
@@ -273,7 +274,6 @@ name="recruitment_timeline"
           <input
             type="radio"
             value="yes"
-            v-model="formData.deadlineOption"
             class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
           />
           <span class="text-gray-700">Yes</span>
@@ -282,7 +282,6 @@ name="recruitment_timeline"
           <input
             type="radio"
             value="no"
-            v-model="formData.deadlineOption"
            class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
           />
           <span class="text-gray-700">No</span>
@@ -565,7 +564,6 @@ name="recruitment_timeline"
           <input
             type="checkbox"
             id="send-update"
-            v-model="formData.sendUpdate"
             class="h-5 w-5 text-blue-600 border-gray-300 rounded"
           />
           <span class="text-sm text-gray-800">Plus, send an individual email update each time someone applies.</span>
@@ -589,7 +587,8 @@ name="recruitment_timeline"
      
     
           <div class="flex justify-between mt-4" style="margin-top: 5%;">
-            <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400">Back</button>
+            <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400"
+            @click="prevStep">Back</button>
 
             <button
               type="submit"
@@ -676,30 +675,31 @@ name="recruitment_timeline"
     data() {
     return {
       step: 1,
-      uploadedFile: null, // Stores the uploaded file object
-      uploadedFileUrl: null, // Stores the URL for the uploaded file
-      startDateOption: null, // Tracks selected radio button value
+      uploadedFile: null, 
+      uploadedFileUrl: null, 
+      startDateOption: null,
       showDatePicker: false,
       formData: {
         job_title: "",
-        salary: "",
-        city: "",
-        area: "",
+        salary: 0,
+        city: "Pune",
+        area: "ABC",
         pincode: "",
         job_posting_location: "",
         people_to_hire: 1,
-        recruitment_timeline: "",
+        recruitment_timeline: "2024-12-15",
         schedule: "9:00 AM - 6:00 PM",
         job_type: "Full-Time",
         benefits: "Health insurance",
         job_description: "",
-        pay_minimum: "",
-        pay_maximum: "",
+        pay_minimum: 0,
+        pay_maximum: 0,
         communication_preference_email: true,
         employee_id: 2,
-        deadlineOption:"yes",
-        cvOption:false,
-        sendUpdate:""
+        // deadlineOption:"yes",
+        // cvOption:false,
+        // sendUpdate:"",
+        job_status:1
       },
       jobTypes: [
         "Full-time",
@@ -797,24 +797,55 @@ prevStep() {
     },
 
     handleChange(event) {
-      const { name, value } = event.target; 
+      const { name, value } = event.target;
       if (name) {
-        this.formData[name] = value; 
-      }
+    if (["pay_minimum", "pay_maximum","salary","people_to_hire",].includes(name)) {
+      const numericValue = parseInt(value.replace(/,/g, ""), 10) || 0;
+      this.formData[name] = numericValue; 
+    } else {
+      this.formData[name] = value;
+    }
+  }
       // console.log("Updated formData:", this.formData); 
     },
 
-    async submitForm() {
-  try {
-    const response = await axios.post("/api/jobs", this.formData);
-    console.log("Job created successfully:", response.data);
+//     validateForm() {
+//   if (!this.formData.job_title) {
+//     alert("Job title is required.");
+//     return false;
+//   }
+//   if (!this.formData.salary || isNaN(this.formData.salary)) {
+//     alert("Salary must be a valid number.");
+//     return false;
+//   }
+//   if (!this.formData.job_description) {
+//     alert("Job description is required.");
+//     return false;
+//   }
+//   return true;
+// },
 
-    // Show success message and stop form redirection
+async submitForm() {
+  // if (!this.validateForm()) {
+  //   return; 
+  // }
+  try {
+    console.log("Submitting formData:", this.formData);
+    const response = await axios.post("/api/jobs", this.formData, {
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+    console.log("Job created successfully:", response.data);
     alert("Job created successfully!");
-    // Optionally, reset form data if needed or navigate elsewhere
   } catch (error) {
     console.error("Error creating job:", error);
-    alert("Failed to create job. Check console for details.");
+    if (error.response) {
+      console.error("Backend response:", error.response.data);
+      alert("Failed to create job. Check console for details.");
+    } else {
+      alert("Network or unexpected error occurred.");
+    }
   }
 },
 
