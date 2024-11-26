@@ -237,11 +237,11 @@ name="recruitment_timeline"
     >
     <option value="">Select and option</option>
 
-      <option value="1">1 to 3 days</option>
-      <option value="2">3 to 7 days</option>
-      <option value="3">1 to 2 weeks</option>
-      <option value="4">2 to 4 weeks</option>
-      <option value="5">More than 4 weeks</option>
+      <option value="1 to 3 days">1 to 3 days</option>
+      <option value="3 to 7 days">3 to 7 days</option>
+      <option value="1 to 2 weeks">1 to 2 weeks</option>
+      <option value="2 to 4 weeks">2 to 4 weeks</option>
+      <option value="More than 4 weeks">More than 4 weeks</option>
     </select>
   </div>
     <h2 class="text-lg font-semibold text-gray-800 mb-4" style="margin-top: 5%;">Application Preferences</h2>
@@ -687,7 +687,7 @@ name="recruitment_timeline"
         pincode: "",
         job_posting_location: "",
         people_to_hire: 1,
-        recruitment_timeline: "2024-12-15",
+        recruitment_timeline: "",
         schedule: "9:00 AM - 6:00 PM",
         job_type: "Full-Time",
         benefits: "Health insurance",
@@ -799,7 +799,7 @@ prevStep() {
     handleChange(event) {
       const { name, value } = event.target;
       if (name) {
-    if (["pay_minimum", "pay_maximum","salary","people_to_hire",].includes(name)) {
+    if (["pay_minimum", "pay_maximum","salary","people_to_hire"].includes(name)) {
       const numericValue = parseInt(value.replace(/,/g, ""), 10) || 0;
       this.formData[name] = numericValue; 
     } else {
