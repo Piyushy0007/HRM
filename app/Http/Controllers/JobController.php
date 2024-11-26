@@ -18,7 +18,7 @@ class JobController extends Controller
             'pincode' => 'required|string|max:10',
             'job_posting_location' => 'required|in:onsite,hybrid,remote',
             'people_to_hire' => 'required|integer|min:1',
-            'recruitment_timeline' => 'nullable|date',
+            'recruitment_timeline' => 'nullable|string|max:50',
             'schedule' => 'nullable|string',
             'job_type' => 'required|string|max:255',
             'benefits' => 'nullable|string',
