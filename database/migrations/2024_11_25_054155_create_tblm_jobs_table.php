@@ -23,7 +23,7 @@ class CreateTblmJobsTable extends Migration
             $table->string('pincode', 10);
             $table->enum('job_posting_location', ['onsite', 'hybrid', 'remote']);
             $table->integer('people_to_hire');
-            $table->date('recruitment_timeline')->nullable();
+            $table->string('recruitment_timeline')->nullable();
             $table->text('schedule')->nullable();
             $table->string('job_type');
             $table->text('benefits')->nullable();
