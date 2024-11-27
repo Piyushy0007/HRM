@@ -8,12 +8,13 @@
     <!-- Header with Add Job Button and Search -->
     <div class="px-4">
       <div class="flex items-center justify-between my-5">
-        <button
+      <!--  <button
           class="text-white py-2 px-16 rounded-lg text-sm btn-add-job"
           type="button"
         >
           Add Job
         </button>
+        -->
         <div class="flex flex-wrap -mx-3">
           <div class="w-full md:w-50 px-3">
             <div class="flex items-center relative">
@@ -35,16 +36,16 @@
       <table class="w-full table-fixed">
         <thead>
           <tr>
-            <th class="w-6">#</th>
+            <th class="w-6" style="background-color: #3B86FF; color: white;">#</th>
             
-            <th class="w-32 text-sm text-left">Job Title</th>
-            <th class="w-32 text-sm text-left">Status</th>
+            <th class="w-32 text-sm text-left" style="background-color: #3B86FF; color: white;">Job Title</th>
+            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Status</th>
             <!-- <th class="w-32 text-sm text-left">Applicants</th> -->
-            <th class="w-32 text-sm text-left">Type</th>
-            <th class="w-32 text-sm text-left">Date Created</th>
-            <th class="w-32 text-sm text-left">Location</th>
-            <th class="w-20 text-sm leading-none px-2 py-2">Edit</th>
-            <th class="w-20 text-sm leading-none px-2 py-2">Applicants</th>
+            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Type</th>
+            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Date Created</th>
+            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Location</th>
+            <th class="w-20 text-sm leading-none px-2 py-2"style="background-color: #3B86FF; color: white;">Edit</th>
+            <th class="w-20 text-sm leading-none px-2 py-2"style="background-color: #3B86FF; color: white;">Applicants</th>
 
           </tr>
         </thead>
@@ -75,14 +76,14 @@
       </table>
 
       <!-- Save Button -->
-      <div class="text-center my-12">
+      <!-- <div class="text-center my-12">
         <button
           class="text-white py-2 px-16 rounded-lg text-sm btn-save-jobs"
           type="button"
         >
           Save Changes
         </button>
-      </div>
+      </div> -->
 
       <!-- Information Section -->
       <div class="information mt-5 p-4 rounded-lg">
