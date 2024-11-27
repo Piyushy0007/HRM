@@ -35,12 +35,14 @@
       <table class="w-full table-fixed">
         <thead>
           <tr>
-            <th class="w-6"></th>
+            <th class="w-6">#</th>
             
             <th class="w-32 text-sm text-left">Job Title</th>
-            <th class="w-32 text-sm text-left">Department</th>
+            <th class="w-32 text-sm text-left">Status</th>
+            <!-- <th class="w-32 text-sm text-left">Applicants</th> -->
+            <th class="w-32 text-sm text-left">Type</th>
+            <th class="w-32 text-sm text-left">Date Created</th>
             <th class="w-32 text-sm text-left">Location</th>
-            <th class="w-32 text-sm text-left">Posted Date</th>
             <th class="w-20 text-sm leading-none px-2 py-2">Edit</th>
             <th class="w-20 text-sm leading-none px-2 py-2">Applicants</th>
 
@@ -50,30 +52,18 @@
           <!-- No Records Found -->
           
 
-          <!-- Static Job Listing Rows -->
-          <tr>
-            <td class="text-center">
-              #
-           
-            <td>Software Developer</td>
-            <td>IT Department</td>
-            <td>New York</td>
-            <td>2024-11-22</td>
-            <td class="text-center">
-              <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
+        
+          <tr v-for="(job, index) in dataFromApi" :key="job.id">
+            <td class="text-center" >{{ index + 1 }}
             </td>
-            <td >
-              <a href="#"  @click="navigateToCandidates"> <font-awesome-icon :icon="['fas', 'eye']" /></a>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-center" >
-#            </td>
            
-            <td>Marketing Manager</td>
-            <td>Marketing</td>
-            <td>Los Angeles</td>
-            <td>2024-11-20</td>
+            <td>{{ job.job_title }}</td>
+            <td>open</td>
+            <!-- <td>{{ job.people_to_hire }}</td> -->
+            <td>{{ job.job_type }}</td>
+            <td>{{ job.created_at }}</td>
+            <td>{{ job.city }}</td>
+
             <td class="text-center">
               <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
@@ -108,11 +98,14 @@
 
 <script>
 import { method } from 'lodash';
+import axios from 'axios'
 
 export default {
   data() {
     return {
       isLoader: false,
+      dataFromApi: [], 
+      error: null
 
 
     };
@@ -120,11 +113,25 @@ export default {
 },
 methods: {
     navigateToCandidates() {
-      this.$router.push('/candidates'); // Navigate to '/candidates' route
+      this.$router.push('/candidates'); 
     },
+    async fetchData() {
+      this.isLoader = true;
+      this.error = null;
+      try {
+        const response = await axios.get('api/jobs');
+        this.dataFromApi = response.data; 
+      } catch (err) {
+        this.error = err.message || 'An error occurred while fetching data.';
+      } finally {
+        this.isLoader = false; 
+      }
+    }
   },
     
-  
+  mounted() {
+    this.fetchData(); 
+  }
 }
 </script>
 

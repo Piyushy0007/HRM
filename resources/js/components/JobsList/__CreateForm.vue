@@ -23,6 +23,9 @@
               placeholder="Enter job title"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
+            <span v-if="validationErrors.job_title" class="text-red-500 text-sm">
+        {{ validationErrors.job_title }}
+      </span>
           </div>
 
            <!-- Salary -->
@@ -38,6 +41,9 @@
               placeholder="Enter salary"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
+            <span v-if="validationErrors.salary" class="text-red-500 text-sm">
+        {{ validationErrors.salary }}
+      </span>
           </div>
           <!-- Job Location -->
           <div>
@@ -52,6 +58,9 @@
               placeholder="Enter job location"
               class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
+            <span v-if="validationErrors.city" class="text-red-500 text-sm">
+        {{ validationErrors.city }}
+      </span>
           </div>
           
 
@@ -135,7 +144,7 @@
     
           <div class="flex justify-end mt-4">
             <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" disabled>Back</button> -->
-            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="validateAndContinue" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -344,7 +353,7 @@ name="recruitment_timeline"
             <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" 
              @click="prevStep"
             >Back</button>
-            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button"@click.prevent="validateAndContinue" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -413,7 +422,7 @@ name="recruitment_timeline"
            
              @click="prevStep" 
            >Back</button>
-            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="validateAndContinue" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -456,7 +465,7 @@ name="recruitment_timeline"
            
              @click="prevStep" 
            >Back</button>
-            <button type="button" @click.prevent="nextStep" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
+            <button type="button" @click.prevent="validateAndContinue" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             style="background-color:#2C1977"
             >Continue</button>
           </div>
@@ -682,7 +691,7 @@ name="recruitment_timeline"
       formData: {
         job_title: "",
         salary: 0,
-        city: "Pune",
+        city: "",
         area: "ABC",
         pincode: "",
         job_posting_location: "",
@@ -695,12 +704,13 @@ name="recruitment_timeline"
         pay_minimum: 0,
         pay_maximum: 0,
         communication_preference_email: true,
-        employee_id: 2,
+        employee_id: null,
         // deadlineOption:"yes",
         // cvOption:false,
         // sendUpdate:"",
         job_status:1
       },
+    validationErrors: {},
       jobTypes: [
         "Full-time",
         "Permanent",
@@ -742,15 +752,63 @@ name="recruitment_timeline"
         "Other"
       ]
     };
+    
   },
     name: "CreateJobPage",
     name: "PayUI",
     name: 'JobReview',
 
+    mounted() {
+    const storedEmployeeId = localStorage.getItem('userId');
+    
+    if (storedEmployeeId) {
+      this.formData.employee_id = storedEmployeeId;
+    } else {
+      console.log('Employee ID not found in localStorage');
+    }
+  },
 
     methods: {
+
+      
+      
+      
+    validateForm() {
+      this.validationErrors = {}; 
+      if (this.step === 1) {
+        if (!this.formData.job_title) {
+          this.validationErrors.job_title = "Job title is required.";
+          alert("Job title is required.")
+        }
+        if (!this.formData.salary || isNaN(this.formData.salary)) {
+          this.validationErrors.salary = "Salary must be a valid number.";
+        }
+        if (!this.formData.city) {
+          this.validationErrors.city = "City is required.";
+        }
+      }
+      if (this.step === 2) {
+       
+      }
+      if (this.step === 3) {
+       
+      }
+      if (this.step === 4) {
+       
+      }
+
+      return Object.keys(this.validationErrors).length === 0;
+
+    
+},
+validateAndContinue() {
+      if (this.validateForm()) {
+        this.nextStep(); 
+      }
+    },
+
       nextStep() {
-  if (this.step < 5) this.step++; 
+  if (this.step < 5) this.step++
 },
 prevStep() {
   if (this.step > 1) this.step--; 
@@ -809,22 +867,6 @@ prevStep() {
       // console.log("Updated formData:", this.formData); 
     },
 
-//     validateForm() {
-//   if (!this.formData.job_title) {
-//     alert("Job title is required.");
-//     return false;
-//   }
-//   if (!this.formData.salary || isNaN(this.formData.salary)) {
-//     alert("Salary must be a valid number.");
-//     return false;
-//   }
-//   if (!this.formData.job_description) {
-//     alert("Job description is required.");
-//     return false;
-//   }
-//   return true;
-// },
-
 async submitForm() {
   // if (!this.validateForm()) {
   //   return; 
@@ -838,6 +880,7 @@ async submitForm() {
 });
     console.log("Job created successfully:", response.data);
     alert("Job created successfully!");
+    this.$router.push('/listing')
   } catch (error) {
     console.error("Error creating job:", error);
     if (error.response) {
