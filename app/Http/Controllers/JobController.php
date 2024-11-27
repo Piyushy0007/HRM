@@ -28,6 +28,9 @@ class JobController extends Controller
             'communication_preference_email' => 'required|boolean',
             'employee_id' => 'required|exists:tblm_employee,id', // Validate employee ID
             'job_status' => 'boolean',
+            'application_deadline' => 'boolean', // New field validation
+            'planned_start_date' => 'boolean', // New field validation
+            'start_date' => 'nullable|date|required_if:planned_start_date,1',
         ]);
 
         $job = Job::create($validated);
@@ -38,12 +41,19 @@ class JobController extends Controller
         ], 201);
     }
 
-    public function index()
-{
-    // Retrieve all jobs
-    $jobs = Job::all();
-
-    // Return jobs in JSON format
-    return response()->json($jobs);
-}
+    public function index(Request $request)
+    {
+        // Ensure employee_id is provided in the request
+        $employeeId = $request->input('employee_id');
+    
+        if (!$employeeId) {
+            return response()->json(['error' => 'Employee ID is required'], 400);
+        }
+    
+        // Retrieve jobs by employee_id
+        $jobs = Job::where('employee_id', $employeeId)->get();
+    
+        // Return jobs in JSON format
+        return response()->json($jobs);
+    }
 }

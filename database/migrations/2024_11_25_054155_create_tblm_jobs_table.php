@@ -31,6 +31,9 @@ class CreateTblmJobsTable extends Migration
             $table->decimal('pay_minimum', 10, 2)->nullable();
             $table->decimal('pay_maximum', 10, 2)->nullable();
             $table->boolean('communication_preference_email')->default(true);
+            $table->boolean('application_deadline')->default(false); // New field: is there an application deadline?
+            $table->boolean('planned_start_date')->default(false); // New field: is there a planned start date?
+            $table->date('start_date')->nullable();
 
             // Add job_status field
             $table->boolean('job_status')->default(1); // 1 for open, 0 for closed
