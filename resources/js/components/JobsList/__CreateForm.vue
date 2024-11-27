@@ -284,18 +284,19 @@ name="cv_option"
         <label class="flex items-center space-x-2">
           <input
             type="radio"
-            value="yes"
+            value="true"
             class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
-          
+           v-model="formData.application_deadline"
           />
           <span class="text-gray-700">Yes</span>
         </label>
         <label class="flex items-center space-x-2">
           <input
             type="radio"
-            value="no"
+            value="false"
            class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
-          />
+          v-model="formData.application_deadline"
+           />
           <span class="text-gray-700">No</span>
         </label>
       </div>
@@ -310,39 +311,44 @@ name="cv_option"
         <div class="flex items-center">
           <input
             type="radio"
-            id="yesOption"
-            name="startDateOption"
-            value="yes"
+            id="yes"
+            name="planned_start_date"
+
+            value="true"
             class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            v-model="startDateOption"
+            v-model="formData.planned_start_date"
+
             @change="toggleDatePicker"
           />
-          <label for="yesOption" class="ml-2 text-gray-800">Yes</label>
+          <label for="true" class="ml-2 text-gray-800">Yes</label>
         </div>
         <div class="flex items-center">
           <input
             type="radio"
-            id="noOption"
-            name="startDateOption"
-            value="no"
+            id="no"
+            name="planned_start_date"
+            value="false"
             class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            v-model="startDateOption"
+            v-model="formData.planned_start_date"
+
             @change="toggleDatePicker"
           />
-          <label for="noOption" class="ml-2 text-gray-800">No</label>
+          <label for="false" class="ml-2 text-gray-800">No</label>
         </div>
       </div>
 
       <!-- Date picker section, shown below radio buttons -->
-      <div v-show="showDatePicker" id="datePickerSection" class="mt-4">
-        <label for="startDate" class="text-base font-semibold text-gray-800 mb-4">
+      <div v-show="formData.planned_start_date === 'true'" id="datePickerSection" class="mt-4">
+        <label for="start_date" class="text-base font-semibold text-gray-800 mb-4">
           Select a start date for the job:
         </label>
         <input
           type="date"
-          id="startDate"
+          id="start_date"
           class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-        />
+          v-model="formData.start_date" 
+           @change="handleChange"
+          />
       </div>
     </div>
   </div>
@@ -496,12 +502,16 @@ name="cv_option"
       <select
         id="rate"
         
-        
+        v-model="formData.pay_rate_type"
+               name="pay_rate_type"
+      @input="handleChange"
+
         class="block w-full mt-1 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
-      >
-        <option>per month</option>
-        <option>per week</option>
-        <option>per day</option>
+      
+        >
+        <option value="">Select Option</option>
+        <option value="monthly">per month</option>
+        <option value="yearly">per day</option>
       </select>
     </div>
 
@@ -716,7 +726,9 @@ name="cv_option"
         cv_option:false,
         job_status:1,
         application_deadline:false,
+        planned_start_date:true,
         start_date:"",
+        pay_rate_type:""
         
       },
     validationErrors: {},
@@ -832,7 +844,8 @@ prevStep() {
       }
     },
     toggleDatePicker() {
-      this.showDatePicker = this.startDateOption === 'yes';
+      // this.planned_start_date = this.planned_start_date === true;
+      console.log(this.formData.planned_start_date);
     },
     toggleJobType(jobType) {
       if (this.formData.job_type   === jobType) {
@@ -863,6 +876,10 @@ prevStep() {
       alert('You can add more email fields here!');
     },
 
+
+    handleDateChange(event) {
+      console.log("Selected start date:", this.formData.start_date);
+    },
     handleChange(event) {
       const { name, value } = event.target;
       if (name) {
