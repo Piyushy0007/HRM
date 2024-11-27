@@ -723,10 +723,10 @@ name="cv_option"
         employee_id: null,
         // deadlineOption:"yes",
         // sendUpdate:"",
-        cv_option:false,
+        cv_option:0,
         job_status:1,
         application_deadline:false,
-        planned_start_date:true,
+        planned_start_date:false,
         start_date:"",
         pay_rate_type:""
         
@@ -883,7 +883,7 @@ prevStep() {
     handleChange(event) {
       const { name, value } = event.target;
       if (name) {
-    if (["pay_minimum", "pay_maximum","salary","people_to_hire"].includes(name)) {
+    if (["pay_minimum", "pay_maximum","salary","people_to_hire","cv_option"].includes(name)) {
       const numericValue = parseInt(value.replace(/,/g, ""), 10) || 0;
       this.formData[name] = numericValue; 
     } else {
