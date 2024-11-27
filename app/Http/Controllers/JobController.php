@@ -32,6 +32,9 @@ class JobController extends Controller
             'planned_start_date' => 'boolean', // New field validation
             'start_date' => 'nullable|date|required_if:planned_start_date,1',
             'cv_option' => 'required|integer|in:1,2', // Validate for 1 or 2
+            'pay_rate_type' => 'required|in:monthly,yearly', // Validate new field
+            'email_1' => 'nullable|email|max:255', // Validate email 1
+            'email_2' => 'nullable|email|max:255', // Validate email 2
 
         ]);
 

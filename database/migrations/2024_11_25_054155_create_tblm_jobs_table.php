@@ -37,7 +37,13 @@ class CreateTblmJobsTable extends Migration
 
             // Add job_status field
             $table->boolean('job_status')->default(1); // 1 for open, 0 for closed
-            $table->tinyInteger('cv_option')->default(1); // Use 1 for "Required" and 2 for "Optional"
+            $table->tinyInteger('cv_option')->default(1); // Use 1 for "Required" and 2 for "Optional",
+            $table->enum('pay_rate_type', ['monthly', 'yearly'])->default('monthly');
+
+            // New fields for maximum 2 email IDs
+            $table->string('email_1')->nullable();
+            $table->string('email_2')->nullable();
+        
 
             
             $table->timestamps();

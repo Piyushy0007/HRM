@@ -30,6 +30,9 @@ class Job extends Model
         'planned_start_date',
         'start_date',
         'cv_option',
+        'pay_rate_type', // New field
+        'email_1',       // New field
+        'email_2', 
 
         
     ];
