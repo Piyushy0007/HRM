@@ -61,7 +61,8 @@
             <td>open</td>
             <!-- <td>{{ job.people_to_hire }}</td> -->
             <td>{{ job.job_type }}</td>
-            <td>{{ job.created_at }}</td>
+            <!-- <td>{{ job.created_at }}</td> -->
+            <td>{{ job.created_at.split('T')[0] }}</td>
             <td>{{ job.city }}</td>
 
             <td class="text-center">
@@ -111,16 +112,21 @@ export default {
     };
    
 },
+
+
 methods: {
+  
     navigateToCandidates() {
       this.$router.push('/candidates'); 
     },
     async fetchData() {
+      
+      
       this.isLoader = true;
       this.error = null;
       try {
-        const userId = localStorage.getItem('userId');
-        const response = await axios.get(`api/jobs`);
+        const userId= localStorage.getItem("userId")
+        const response = await axios.get(`api/jobs?employee_id=${userId}`);
         this.dataFromApi = response.data; 
       } catch (err) {
         this.error = err.message || 'An error occurred while fetching data.';

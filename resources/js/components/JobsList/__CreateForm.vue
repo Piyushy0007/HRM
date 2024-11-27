@@ -487,15 +487,18 @@ name="recruitment_timeline"
       </p>
     </div>
 
-    <!-- Dropdown -->
-    <div class="mt-4">
-      <label for="payBy" class="block text-sm font-bold text-black-700 mb-1">Show pay by</label>
+     <!-- Rate Dropdown -->
+     <div class="mt-4">
+      <label for="rate" class="block text-sm font-bold text-black-700 mb-1">Rate</label>
       <select
-        id="payBy"
+        id="rate"
+        
+        
         class="block w-full mt-1 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
       >
-        <option>Range</option>
-        <option>Fixed Amount</option>
+        <option>per month</option>
+        <option>per week</option>
+        <option>per day</option>
       </select>
     </div>
 
@@ -538,20 +541,20 @@ name="recruitment_timeline"
       </div>
     </div>
 
-    <!-- Rate Dropdown -->
-    <div class="mt-4">
-      <label for="rate" class="block text-sm font-bold text-black-700 mb-1">Rate</label>
+
+    <!-- Dropdown -->
+
+    <!-- <div class="mt-4">
+      <label for="payBy" class="block text-sm font-bold text-black-700 mb-1">Show pay by</label>
       <select
-        id="rate"
-        
-        
+        id="payBy"
         class="block w-full mt-1 p-2 border border-gray-300 rounded-md text-gray-800 focus:ring focus:ring-blue-300"
       >
-        <option>per month</option>
-        <option>per week</option>
-        <option>per day</option>
+        <option>Range</option>
+        <option>Fixed Amount</option>
       </select>
-    </div>
+    </div> -->
+   
 
       <h2 class="text-2xl font-semibold text-gray-800 mb-4" style="margin-top: 5%;">Communication Preferences</h2>
 
@@ -706,9 +709,12 @@ name="recruitment_timeline"
         communication_preference_email: true,
         employee_id: null,
         // deadlineOption:"yes",
-        // cvOption:false,
         // sendUpdate:"",
-        job_status:1
+        cv_option:false,
+        job_status:1,
+        application_deadline:false,
+        start_date:"",
+        
       },
     validationErrors: {},
       jobTypes: [
