@@ -263,12 +263,14 @@ name="recruitment_timeline"
       <select
         id="cv-option"
         class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-
+        v-model="formData.cv_option"
+name="cv_option"
+      @change="handleChange"
       >
         <option value="">Select and option</option>
-        <option value="require">Yes,Require a CV</option>
-        <option value="optional">Make it optional</option>
-        <option value="include">Give the option to include a CV</option>
+        <option value="1">Yes,Require a CV</option>
+        <option value="2">Make it optional</option>
+        <!-- <option value="include">Give the option to include a CV</option> -->
       </select>
     </div>
 
@@ -284,6 +286,7 @@ name="recruitment_timeline"
             type="radio"
             value="yes"
             class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+          
           />
           <span class="text-gray-700">Yes</span>
         </label>
