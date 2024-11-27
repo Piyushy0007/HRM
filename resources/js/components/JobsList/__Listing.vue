@@ -51,7 +51,7 @@
         <tbody>
           <!-- No Records Found -->
           
-
+          <div v-if="isLoader" class="loader">Loading...</div>
         
           <tr v-for="(job, index) in dataFromApi" :key="job.id">
             <td class="text-center" >{{ index + 1 }}
@@ -119,7 +119,8 @@ methods: {
       this.isLoader = true;
       this.error = null;
       try {
-        const response = await axios.get('api/jobs');
+        const userId = localStorage.getItem('userId');
+        const response = await axios.get(`api/jobs`);
         this.dataFromApi = response.data; 
       } catch (err) {
         this.error = err.message || 'An error occurred while fetching data.';
@@ -162,4 +163,15 @@ methods: {
 .table-fixed th {
   background-color: #f2f2f2;
 }
+.loader {
+text-align: center;
+  font-size: 20px;
+  color: #007bff;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+}
+
 </style>
