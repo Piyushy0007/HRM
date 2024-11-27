@@ -37,6 +37,8 @@ class CreateTblmJobsTable extends Migration
 
             // Add job_status field
             $table->boolean('job_status')->default(1); // 1 for open, 0 for closed
+            $table->tinyInteger('cv_option')->default(1); // Use 1 for "Required" and 2 for "Optional"
+
             
             $table->timestamps();
         });

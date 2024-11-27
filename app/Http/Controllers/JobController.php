@@ -31,6 +31,8 @@ class JobController extends Controller
             'application_deadline' => 'boolean', // New field validation
             'planned_start_date' => 'boolean', // New field validation
             'start_date' => 'nullable|date|required_if:planned_start_date,1',
+            'cv_option' => 'required|integer|in:1,2', // Validate for 1 or 2
+
         ]);
 
         $job = Job::create($validated);

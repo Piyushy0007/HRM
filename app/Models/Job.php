@@ -26,6 +26,11 @@ class Job extends Model
         'pay_maximum',
         'communication_preference_email',
         'job_status',
+        'application_deadline',
+        'planned_start_date',
+        'start_date',
+        'cv_option',
+
         
     ];
 
