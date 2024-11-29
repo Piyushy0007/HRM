@@ -546,12 +546,22 @@ const routes = [
         path: "/onoffboarding/",
         component: require("./components/EmployeeManagement/__Onoffboarding.vue").default,
         name: "onoffboarding",
+    },
+    {
+        path: "/onoffboarding/",
+        component: require("./components/EmployeeManagement/__Onoffboarding.vue").default,
+        name: "onoffboarding",
     }
     ,
     {
-        path: "/candidates/",
-        component: require("./components/JobsList/__Candidates.vue").default,
-        name: "candidates",
+        path: "/navigation/",
+        component: require("./components/JobsList/__Navigation.vue").default,
+        name: "navigation",
+    },
+    {
+        path: "/apply/",
+        component: require("./components/JobsList/__Apply.vue").default,
+        name: "apply",
     }
     
 ];
