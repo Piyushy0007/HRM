@@ -92,26 +92,39 @@
       
       <!-- Right Section: Job Description -->
       <div class="w-full md:w-1/2 px-4">
-        <div class="p-6 bg-white shadow-lg rounded-xl border-t-4 border-gray-400">
-          <h2 class="text-3xl font-bold text-gray-800 mb-4">Job Description</h2>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <strong>Position:</strong> Production Planning and Quality Incharge
-          </p>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <strong>Company:</strong> BROHAWK EXPORTS
-          </p>
-          <p class="text-gray-700 leading-relaxed mb-4">
-            <strong>Location:</strong> Mohali, Punjab
-          </p>
-          <p class="text-gray-700 leading-relaxed">
-            Knowledge of Raw Material, Castings, Welding, Pressing Inspection.
-            Able to do daily production planning and capable of managing workstations efficiently.
-          </p>
-          <a href="#" class="text-blue-500 hover:text-blue-700 font-semibold">
-            View full job description ⬇️
-          </a>
-        </div>
+    <div class="p-6 bg-white shadow-lg rounded-xl border-t-4 border-gray-400">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Job Description</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        <strong>Position:</strong> Production Planning and Quality Incharge
+      </p>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        <strong>Company:</strong> BROHAWK EXPORTS
+      </p>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        <strong>Location:</strong> Mohali, Punjab
+      </p>
+      <p class="text-gray-700 leading-relaxed">
+        Knowledge of Raw Material, Castings, Welding, Pressing Inspection.
+        Able to do daily production planning and capable of managing workstations efficiently.
+      </p>
+      <!-- Hidden content -->
+      <div v-if="isDescriptionVisible" class="mt-4">
+        <p class="text-gray-700 leading-relaxed">
+          <strong>Additional Responsibilities:</strong> Ensuring quality standards for all production activities. Coordinating with the purchasing department for raw material procurement.
+        </p>
+        <p class="text-gray-700 leading-relaxed mt-2">
+          <strong>Requirements:</strong> Strong knowledge of manufacturing processes and excellent team management skills.
+        </p>
       </div>
+      <!-- Toggle button -->
+      <button
+        @click="toggleDescription"
+        class="text-blue-500 hover:text-blue-700 font-semibold mt-4"
+      >
+        {{ isDescriptionVisible ? "Hide full job description ⬆️" : "View full job description ⬇️" }}
+      </button>
+    </div>
+  </div>
     </div>
   </div>
 </template>
@@ -121,17 +134,20 @@ export default {
   data() {
     return {
       uploadedFileName: null,
+    isDescriptionVisible: false,
+
       form: {
         name: '',
         email: '',
         phone: '',
         resume: null,
       },
+
     };
   },
   methods: {
     triggerFileInput() {
-      this.$refs.fileInput.click(); // Programmatically click the hidden input
+      this.$refs.fileInput.click(); 
     },
     handleFileUpload(event) {
       const file = event.target.files[0];
@@ -140,7 +156,6 @@ export default {
       }
     },
     submitApplication() {
-      // Handle form submission (e.g., send to API)
       if (this.form.name && this.form.email && this.form.phone && this.form.resume) {
         alert('Application submitted successfully!');
         // Reset form
@@ -148,6 +163,9 @@ export default {
       } else {
         alert('Please fill out all fields and upload your resume.');
       }
+    },
+    toggleDescription() {
+      this.isDescriptionVisible = !this.isDescriptionVisible; // Toggle visibility
     },
   },
 };
@@ -173,4 +191,5 @@ export default {
 button:hover {
   transform: scale(1.05);
 }
+
 </style>

@@ -83,12 +83,15 @@
                     class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  v-model="formData.area"
                  name="area"
-               @change="handleChange"
-
-                    >
+               @change="handleChange">
                     <option value="">Select area</option>
-                    <option value="area1">Area 1</option>
-                    <option value="area2">Area 2</option>
+                    <option value="Mohali">Mohali</option>
+                    <option value="punjab">punjab</option>
+                    <option value="SAS Nagar">SAS Nagar</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="HP">HP</option>
+                    <option value="UP">UP</option>
+                    <option value="MP">MP</option>  
                 </select>
                 </div>
                 <div>
@@ -708,14 +711,14 @@ name="cv_option"
         job_title: "",
         salary: 0,
         city: "",
-        area: "ABC",
+        area: "",
         pincode: "",
         job_posting_location: "",
         people_to_hire: 1,
         recruitment_timeline: "",
         schedule: "9:00 AM - 6:00 PM",
-        job_type: "Full-Time",
-        benefits: "Health insurance",
+        job_type: "",
+        benefits: "",
         job_description: "",
         pay_minimum: 0,
         pay_maximum: 0,
