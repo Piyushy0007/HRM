@@ -83,12 +83,15 @@
                     class="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                  v-model="formData.area"
                  name="area"
-               @change="handleChange"
-
-                    >
+               @change="handleChange">
                     <option value="">Select area</option>
-                    <option value="area1">Area 1</option>
-                    <option value="area2">Area 2</option>
+                    <option value="Mohali">Mohali</option>
+                    <option value="punjab">punjab</option>
+                    <option value="SAS Nagar">SAS Nagar</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="HP">HP</option>
+                    <option value="UP">UP</option>
+                    <option value="MP">MP</option>  
                 </select>
                 </div>
                 <div>
@@ -284,7 +287,7 @@ name="cv_option"
         <label class="flex items-center space-x-2">
           <input
             type="radio"
-            value="true"
+            :value=true
             class="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
            v-model="formData.application_deadline"
           />
@@ -293,7 +296,7 @@ name="cv_option"
         <label class="flex items-center space-x-2">
           <input
             type="radio"
-            value="false"
+            :value=false
            class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
           v-model="formData.application_deadline"
            />
@@ -314,7 +317,7 @@ name="cv_option"
             id="yes"
             name="planned_start_date"
 
-            value="true"
+           :value=true
             class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             v-model="formData.planned_start_date"
 
@@ -327,7 +330,7 @@ name="cv_option"
             type="radio"
             id="no"
             name="planned_start_date"
-            value="false"
+            :value=false
             class="focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             v-model="formData.planned_start_date"
 
@@ -338,7 +341,7 @@ name="cv_option"
       </div>
 
       <!-- Date picker section, shown below radio buttons -->
-      <div v-show="formData.planned_start_date === 'true'" id="datePickerSection" class="mt-4">
+      <div v-show="formData.planned_start_date === true" id="datePickerSection" class="mt-4">
         <label for="start_date" class="text-base font-semibold text-gray-800 mb-4">
           Select a start date for the job:
         </label>
@@ -708,14 +711,14 @@ name="cv_option"
         job_title: "",
         salary: 0,
         city: "",
-        area: "ABC",
+        area: "",
         pincode: "",
         job_posting_location: "",
         people_to_hire: 1,
         recruitment_timeline: "",
         schedule: "9:00 AM - 6:00 PM",
-        job_type: "Full-Time",
-        benefits: "Health insurance",
+        job_type: "",
+        benefits: "",
         job_description: "",
         pay_minimum: 0,
         pay_maximum: 0,
@@ -725,8 +728,8 @@ name="cv_option"
         // sendUpdate:"",
         cv_option:0,
         job_status:1,
-        application_deadline:false,
-        planned_start_date:false,
+        application_deadline:null,
+        planned_start_date:null,
         start_date:"",
         pay_rate_type:""
         
@@ -844,7 +847,7 @@ prevStep() {
       }
     },
     toggleDatePicker() {
-      // this.planned_start_date = this.planned_start_date === true;
+      this.planned_start_date = this.planned_start_date === true;
       console.log(this.formData.planned_start_date);
     },
     toggleJobType(jobType) {
@@ -897,6 +900,7 @@ async submitForm() {
   // if (!this.validateForm()) {
   //   return; 
   // }
+
   try {
     console.log("Submitting formData:", this.formData);
     const response = await axios.post("/api/jobs", this.formData, {
