@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
-    
     protected $table = 'jobs';
+
     protected $fillable = [
-        'employee_id'
-        ,'job_title',
+        'employee_id',
+        'job_title',
         'salary',
         'city',
         'area',
@@ -30,12 +30,26 @@ class Job extends Model
         'planned_start_date',
         'start_date',
         'cv_option',
-        'pay_rate_type', // New field
-        'email_1',       // New field
-        'email_2', 
-
-        
+        'pay_rate_type',
+        'email_1',
+        'email_2',
+        'job_number', // Add job_number to fillable
     ];
+
+    // Auto-generate unique job_number
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($job) {
+            // Generate a 13-14 digit unique number
+            do {
+                $jobNumber = mt_rand(1000000000000, 9999999999999); // Generate 13-14 digit number
+            } while (self::where('job_number', $jobNumber)->exists()); // Ensure it's unique
+
+            $job->job_number = $jobNumber;
+        });
+    }
 
     public function employee()
     {

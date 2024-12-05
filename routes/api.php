@@ -191,6 +191,7 @@ Route::put('/ClientRequests/{id}/Status', [ClientRequestController::class, 'upda
 
 Route::post('/jobs', [JobController::class, 'store']);
 Route::get('/jobs', [JobController::class, 'index']);
+Route::get('/jobs/{job_number}', [JobController::class, 'getJobByNumber']);
 
 
 

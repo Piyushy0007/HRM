@@ -94,7 +94,7 @@ class Employee extends Authenticatable implements JWTSubject
 
 public function jobs()
 {
-    return $this->hasMany('App\Models\Jobs');
+    return $this->hasMany('App\Models\Job');
 }
 
 

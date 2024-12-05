@@ -27,7 +27,7 @@ class ClientRequestController extends Controller
             'employee_id' => 'required|exists:tblm_employee,id',
             'subject' => 'required|string',
             'description' => 'required|string',
-            'files.*' => 'mimes:jpg,jpeg,png,gif,pdf|max:2048', // Validate individual files
+            'files.*' => 'mimes:jpg,jpeg,png,gif,pdf|max:4000', // Validate individual files
         ]);
     
         $data['created_date'] = now();

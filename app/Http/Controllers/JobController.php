@@ -10,6 +10,7 @@ class JobController extends Controller
 {
     public function store(Request $request)
     {
+        // Validation rules
         $validated = $request->validate([
             'job_title' => 'required|string|max:255',
             'salary' => 'nullable|numeric',
@@ -26,25 +27,26 @@ class JobController extends Controller
             'pay_minimum' => 'nullable|numeric',
             'pay_maximum' => 'nullable|numeric',
             'communication_preference_email' => 'required|boolean',
-            'employee_id' => 'required|exists:tblm_employee,id', // Validate employee ID
+            'employee_id' => 'required|exists:tblm_employee,id',
             'job_status' => 'boolean',
-            'application_deadline' => 'boolean', // New field validation
-            'planned_start_date' => 'boolean', // New field validation
+            'application_deadline' => 'boolean',
+            'planned_start_date' => 'boolean',
             'start_date' => 'nullable|date|required_if:planned_start_date,1',
-            'cv_option' => 'required|integer|in:1,2', // Validate for 1 or 2
-            'pay_rate_type' => 'required|in:monthly,yearly', // Validate new field
-            'email_1' => 'nullable|email|max:255', // Validate email 1
-            'email_2' => 'nullable|email|max:255', // Validate email 2
-
+            'cv_option' => 'required|integer|in:1,2',
+            'pay_rate_type' => 'required|in:monthly,yearly',
+            'email_1' => 'nullable|email|max:255',
+            'email_2' => 'nullable|email|max:255',
         ]);
-
+    
+        // Create Job (job_number will be auto-generated in the model)
         $job = Job::create($validated);
-
+    
         return response()->json([
             'message' => 'Job created successfully!',
             'data' => $job,
         ], 201);
     }
+    
 
     public function index(Request $request)
     {
@@ -61,4 +63,26 @@ class JobController extends Controller
         // Return jobs in JSON format
         return response()->json($jobs);
     }
+
+
+    public function getJobByNumber($job_number)
+{
+    // Fetch the job using job_number
+    $job = Job::where('job_number', $job_number)->first();
+
+    // Check if the job exists
+    if (!$job) {
+        return response()->json([
+            'message' => 'Job not found!'
+        ], 404);
+    }
+
+    // Return the job data
+    return response()->json([
+        'message' => 'Job retrieved successfully!',
+        'data' => $job
+    ], 200);
+}
+
+
 }
