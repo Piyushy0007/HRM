@@ -58,7 +58,7 @@
             <td class="text-center" >{{ index + 1 }}
             </td>
            
-            <td>{{ job.job_title }}</td>
+            <td @click="navigateToJob(job.job_number)">{{ job.job_title }}</td>
             <td>open</td>
             <!-- <td>{{ job.people_to_hire }}</td> -->
             <td>{{ job.job_type }}</td>
@@ -119,6 +119,9 @@ methods: {
   
     navigateToCandidates() {
       this.$router.push('/candidates'); 
+    },
+    navigateToJob(jobId) {
+      this.$router.push(`/navigation/${jobId}`);
     },
     async fetchData() {
       

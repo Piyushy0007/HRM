@@ -554,7 +554,7 @@ const routes = [
     }
     ,
     {
-        path: "/navigation/",
+        path: "/navigation/:job_number",
         component: require("./components/JobsList/__Navigation.vue").default,
         name: "navigation",
     },
