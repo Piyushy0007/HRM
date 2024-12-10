@@ -34,6 +34,7 @@ use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ClientRequestController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobApplicationController;
 
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
@@ -192,6 +193,10 @@ Route::put('/ClientRequests/{id}/Status', [ClientRequestController::class, 'upda
 Route::post('/jobs', [JobController::class, 'store']);
 Route::get('/jobs', [JobController::class, 'index']);
 Route::get('/jobs/{job_number}', [JobController::class, 'getJobByNumber']);
+
+//candidates 
+
+Route::post('/apply-job', [JobApplicationController::class, 'applyForJob']);
 
 
 

@@ -58,7 +58,7 @@
             <td class="text-center" >{{ index + 1 }}
             </td>
            
-            <td @click="navigateToJob(job.job_number)">{{ job.job_title }}</td>
+            <td style="cursor: pointer;" @click="navigateToJob(job.job_number)">{{ job.job_title }}</td>
             <td>open</td>
             <!-- <td>{{ job.people_to_hire }}</td> -->
             <td>{{ job.job_type }}</td>
