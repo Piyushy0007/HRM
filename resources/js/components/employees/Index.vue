@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 pb-4 w-80" style="margin-right: 1vw;">
+  <div class=" pb-4 custom-main col-xm-10" >
     
     <Loader msg="Processing ..." v-model="isLoader" />
 
@@ -9,14 +9,45 @@
       <li class="w-1/3 text-center"><a href="#" @click.prevent="openModal('SignIn')">Email Sign in Instructions</a></li>
     </ul>
 
-    <div class="selection-function px-4 py-3 flex justify-between">
-      <div class="flex items-start">
-        <div class="flex items-center text-sm mr-10">
-          <font-awesome-icon icon="columns" class="mr-1" />
+    <div class="selection-function px-4 py-3 d-flex flex-wrap justify-content-between align-items-start rounded-md">
+      <div class="d-flex flex-column flex-md-row align-items-start">
+        <div class="d-flex align-items-center text-sm mb-3 mb-md-0 mr-md-4">
+          <font-awesome-icon icon="columns" class="mr-2" />
           Select columns
         </div>
+        <div class="options py-2 px-3 rounded-md bg-light shadow-sm" >
+          <label class="font-weight-bold text-sm mb-2 d-block">Selected users:</label>
+          <ul class="list-unstyled d-flex flex-wrap">
+            <li class="mr-3 mb-2">
+              <a href="#" @click.prevent="SendMessageCheck('SendReminders')" class="d-flex align-items-center text-sm text-decoration-none" title="Send scheduled reminder to those checked who are also working in a date range">
+                <font-awesome-icon :icon="['far', 'list-alt']" class="mr-1"></font-awesome-icon>
+                Send reminder
+              </a>
+            </li>
+            <li class="mr-3 mb-2">
+              <a href="#" @click.prevent="SendMessageCheck('SendMessage')" class="d-flex align-items-center text-sm text-decoration-none">
+                <font-awesome-icon :icon="['far', 'envelope']" class="mr-1"></font-awesome-icon>
+                Message
+              </a>
+            </li>
+            <li class="mr-3 mb-2">
+              <vue-confirm-dialog ref="sendselect"></vue-confirm-dialog>
+              <a href="#" @click.prevent="SendMessageCheck('SendSignIn')" class="d-flex align-items-center text-sm text-decoration-none">
+                <font-awesome-icon :icon="['far', 'list-alt']" class="mr-1"></font-awesome-icon>
+                Send Sign In
+              </a>
+            </li>
+            <li class="mr-3 mb-2">
+              <a href="#" @click.prevent="SendMessageCheck('ExportData')" class="d-flex align-items-center text-sm text-decoration-none">
+                <font-awesome-icon icon="external-link-square-alt" class="mr-1"></font-awesome-icon>
+                Export to Clipboard
+              </a>
+            </li>
+          </ul>
+        </div>
+        
 
-        <div class="options py-1 pb-2 px-6 rounded-md">
+        <!-- <div class="options py-1 pb-2 px-6 rounded-md">
           <label class="font-bold text-sm">Selected users:</label>
           <ul class="flex">
             <li class="mr-4">
@@ -45,31 +76,31 @@
                 Export to Clipboard
               </a>
             </li>
-            <!-- <li>
-              <a href="#" 
-               @click.prevent="SendMessageCheck('BulkEdit')"
-              class="flex items-center text-sm">
-                <font-awesome-icon icon="pencil-alt" class="-mr-1" />
-                <font-awesome-icon icon="pencil-alt" class="mr-1" />
-                Bulk Edit
-              </a>
-            </li> -->
           </ul>
-        </div>
+        </div> -->
       </div>
+      <!-- <li>
+        <a href="#" 
+         @click.prevent="SendMessageCheck('BulkEdit')"
+        class="flex items-center text-sm">
+          <font-awesome-icon icon="pencil-alt" class="-mr-1" />
+          <font-awesome-icon icon="pencil-alt" class="mr-1" />
+          Bulk Edit
+        </a>
+      </li> -->
 
-      <div class="text-right">
-        <span class="block mb-1">Total users: {{ countTotalEmployees }}*</span>
-        <div class="flex flex-wrap -mx-3">
-          <div class="w-full md:w-1/2 px-3">
-            <div class="relative">
+      <div class="text-md-right mt-3 mt-md-0">
+        <span class="d-block mb-2">Total users: {{ countTotalEmployees }}*</span>
+        <div class="row g-2">
+          <div class="col-12 col-md-6">
+            <div class="position-relative">
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border-l-0">
                 <font-awesome-icon icon="search" class="fill-current" />
               </div>
             </div>
           </div>
-          <div class="w-full md:w-1/2 pr-3">
+          <div class="col-12 col-md-6">
             <div class="relative">
               <select class="block appearance-none w-full py-1 px-4 pr-8 rounded leading-tight focus:outline-none" v-model="index.selectPosition" @change="filterResultViaPosition(index.selectPosition)">
                 <option value="">All Positions</option>
@@ -83,14 +114,13 @@
         </div>
       </div>
     </div>
-    <div class="px-4">
+    <!-- <div class="px-4">
       <table class="w-full">
         <thead>
           <tr>
             <th>
               <input v-model="allSelected" type="checkbox" @click="selectAll">
             </th>
-            <!-- <th>View</th> -->
             <th>Edit</th>
             <th class="text-left">First
             
@@ -125,9 +155,7 @@
         <tbody v-else>
           <tr v-for="(data, index) in index.employees" :key="data.id">
             <td class="text-center"><input :id="data.id" :index="index" :value="data" v-model="checkedNames"   type="checkbox"></td>
-            <!-- <td class="text-center">
-              <a href="#"><font-awesome-icon icon="search" /></a>
-            </td> -->
+           
             <td class="text-center">
               <a href="#" @click.prevent="openModal('EditEmployee', data, index)" v-if="data.employee.added_by==modal.getUserId"><font-awesome-icon icon="pencil-alt" /></a>
             </td>
@@ -164,8 +192,77 @@
           </tr>
         </tbody>
       </table>
+    </div> -->
+    <div class="container-fluid px-4">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>
+                <input v-model="allSelected" type="checkbox" @click="selectAll">
+              </th>
+              <th>Edit</th>
+              <th class="text-left">First</th>
+              <th class="text-left">Last</th>
+              <th class="text-left">Phone</th>
+              <th class="text-left">Email</th>
+              <th class="text-left">User Type</th>
+              <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
+              <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Days</th>
+              <th class="text-left" v-if="modal.getUserRole==0">Max Day Hours</th>
+              <th class="text-left" v-if="modal.getUserRole==0">Max Day Shifts</th>
+              <th class="text-left">Zip Code</th>
+              <th class="text-left">Hire Date</th>
+              <th class="text-left">Priority Group</th>
+              <th class="text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody v-if="index.employees.length === 0">
+            <tr>
+              <td colspan="13" class="text-center">No Records Found</td>
+            </tr>
+          </tbody>
+          <tbody v-else>
+            <tr v-for="(data, index) in index.employees" :key="data.id">
+              <td class="text-center">
+                <input :id="data.id" :index="index" :value="data" v-model="checkedNames" type="checkbox">
+              </td>
+              <td class="text-center">
+                <a href="#" @click.prevent="openModal('EditEmployee', data, index)" v-if="data.employee.added_by==modal.getUserId">
+                  <font-awesome-icon icon="pencil-alt" />
+                </a>
+              </td>
+              <td>{{ data.employee.firstname }}</td>
+              <td>{{ data.employee.lastname }}</td>
+              <td>{{ data.employee.phone }}</td>
+              <td class="text-truncate" style="max-width: 150px;">{{ data.employee.email || '-----' }}</td>
+              <td v-if="data.employee.enable_security_officer == 0">Concerned Citizen</td>
+              <td v-if="data.employee.enable_security_officer == 1">Watcher</td>
+              <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_weekly_hours }}</td>
+              <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_weekly_days }}</td>
+              <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_day_hours }}</td>
+              <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_day_shifts }}</td>
+              <td class="text-center">{{ data.employee.zip }}</td>
+              <td class="text-center">{{ data.employee.hired_date | moment('MM-DD-YYYY') }}</td>
+              <td class="text-center">{{ data.employee.priority_group }}</td>
+              <td class="text-center">
+                <a v-if="data.employee.added_by == modal.getUserId" href="#" @click.prevent="SetClockinTime(data.employee.id)" class="btn btn-sm btn-outline-danger">
+                  <img src="/images/clockin.png" class="h-5" alt="clockin">
+                </a>
+                <a v-if="data.employee.added_by == modal.getUserId" href="#" @click.prevent="removeEmployee(data.employee.id, data.employee.firstname, data.employee.lastname)" class="btn btn-sm btn-outline-success">
+                  <font-awesome-icon :icon="['far', 'trash-alt']" />
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-        <div style="opacity: 0; position:absolute;" ref="content" class="p-4  tabletopbackground">
+    
+
+      <div class="conatiner-fluid px-4">
+
+        <div style="display: none;" ref="content" class="table-responsive tabletopbackground">
         <table class="w-full tabletopposition" ref="content">
         <thead>
           <tr>
@@ -197,11 +294,12 @@
           </tr>
         </tbody>
       </table>
-    </div>
+        </div>
+      </div>
 
-    <div class="information mx-4 mt-5 p-4 rounded-lg">
-      <div class="flex justify-between items-center mb-2">
-        <h4 class="text-2xl font-semibold">Information</h4>
+    <div class="information mx-4 mt-5 p-4 rounded-lg" >
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
+        <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
         <a href="#" class="text-sm inline-flex items-center">
           Help on this topic &nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
         </a>
@@ -4136,6 +4234,11 @@ export default {
 	@import '../../../sass/employees';
   table td:first-child {
     background: none !important;
+}
+.custom-main {
+  margin-left: 250px;
+  /* width: 80%; */
+  
 }
 .tooltip {
   position: relative;

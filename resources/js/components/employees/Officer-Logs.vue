@@ -1,8 +1,8 @@
 <template>
-  <div class="c-employee-index client-table px-4 pb-4 w-80" style="margin-right: 1vw;">
+  <div class="c-employee-index client-table pb-4 " style="margin-right: 1vw; margin-left: 240px;">
 
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <div class="px-4 pb-4 " style="margin-right: 1vw;">
       <div class="flex " style="justify-content: space-between;">
         <h1 class="mb-4">Watcher Logs</h1>
          <div class="w-50 px-3  md:w-2/1  2 mt-4 mb-4" style="float:right;">

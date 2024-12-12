@@ -1,7 +1,7 @@
 <template>
-  <div class="c-employee-index client-table client-add px-4 pb-4 w-80" style="margin-right: 1vw;">
+  <div class="c-employee-index client-table client-add px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
 		<header-component />
-		<div class="px-16 mt-4">
+		<div class=" mt-4">
 			<div class="headingoflist">
 				 <div class="selectallbox" >
 					 <input v-if="index.messages.length!= 0" v-model="allSelected" type="checkbox" @click="selectAll">
@@ -17,7 +17,7 @@
 
 		</div>
 
-		<div class="px-16 mt-4">
+		<div class="mt-4">
 			<div class="pb-6" style="height:450px; overflow-y:scroll; overflow-x:hidden;background: #f2f2f2; padding: 15px; border-radius:5px;">
 				<table class="w-full all-messages">
 					<template v-if="index.messages.length!= 0"  >
@@ -82,7 +82,7 @@
 		</div>
 	
         <!-- Send Message -->
-        <modal v-model="modal.newthread" class="modal-add-edit-positions" size="md:w-7/12" title="Create new thread">
+        <modal v-model="modal.newthread" class="modal-add-edit-positions" size="md:w-6/12" title="Create new thread">
 			<div class="pb-6 pt-10">
 			
 				<ValidationObserver v-slot="{ handleSubmit }">

@@ -1,6 +1,6 @@
 <template>
   
-  <div class="c-employee-positions px-4 pb-4 w-80" style="margin-right: 1vw;">
+  <div class="c-employee-positions pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
 
     <Loader msg="Processing ..." v-model="isLoader" />
 		
@@ -81,8 +81,8 @@
       </div>
 
       <div class="information mt-5 p-4 rounded-lg">
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="text-2xl font-semibold">Information</h4>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
+          <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
           <a href="#" class="text-sm inline-flex items-center">
             Help on this topic&nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
           </a>
@@ -95,7 +95,7 @@
           <li>Optional: Click pencil icon to set that users position preferences.</li>
         </ul>
 
-        <div class="flex justify-between items-end">
+        <div class="flex justify-between flex-md-row flex-column items-end">
           <ul>
             <li class="flex items-center">
               <span class="inline-block w-20 h-8 mr-1" style="background-color: #FFA700">&nbsp;</span>
@@ -110,9 +110,9 @@
               Position preference set to DISLIKE (can be used by AutoFill)
             </li>
           </ul>
-          <span class="text-sm">
+          <div class="text-sm float-right ">
             Trouble with grid displaying?&nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
-          </span>
+          </div>
         </div>
       </div>
     </div>

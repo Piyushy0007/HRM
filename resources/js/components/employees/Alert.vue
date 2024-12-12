@@ -1,5 +1,5 @@
 <template>
-  <div class="c-employee-deleted px-4 pb-4 w-80" style="margin-right: 1vw;">
+  <div class="c-employee-deleted px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
 
     <Loader msg="Processing ..." v-model="isLoader" />
 
@@ -88,9 +88,7 @@
         </form>
       </ValidationObserver>
     </modal>
-
-
-  </div>
+</div>
 </template>
 
 <script>

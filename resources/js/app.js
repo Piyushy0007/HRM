@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
-// import 'bootstrap/dist/css/bootstrap.css'
-// import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BButton } from "bootstrap-vue";
 
 import axios from "axios";
@@ -516,6 +516,21 @@ const routes = [
         path: "/leave/",
         component: require("./components/EmployeeManagement/Leave.vue").default,
         name: "leave",
+    },
+	{
+        path: "/payroll/",
+        component: require("./components/ReportsAndAnalytics/__Payroll.vue").default,
+        name: "payroll",
+    },
+	{
+        path: "/performance/",
+        component: require("./components/ReportsAndAnalytics/__Performance.vue").default,
+        name: "performance",
+    },
+	{
+        path: "/hranalytics/",
+        component: require("./components/ReportsAndAnalytics/__Hranalytics.vue").default,
+        name: "hranalytics",
     }
 ];
 

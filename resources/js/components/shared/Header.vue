@@ -1,13 +1,14 @@
 <template>
   <div>
-    <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 12rem;">
+    <!-- <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 12rem;"> -->
+      <nav class="navigation flex flex-col bg-primary fixed top-0 left-0 h-full p-3 shadow-lg col-xm-2">
 
       <!-- A-HR Logo at the Top -->
       <div class="logo mb-4 text-center">
         <h1 class="text-white font-bold text-2xl">A-HR</h1>
       </div>
 
-      <ul class="nav flex-column">
+      <ul class="nav flex-column flex-grow">
         <li
           v-for="(group, groupIndex) in menuGroups"
           :key="groupIndex"
@@ -15,12 +16,12 @@
         >
           <!-- Group Title -->
           <div
-            class="nav-link text-white py-2 px-3 rounded d-flex align-items-center"
+            class="nav-link text-white py-2 px-3 rounded flex items-center cursor-pointer"
             @click="toggleGroup(groupIndex)"
             style="cursor: pointer;"
           >
-            <span class="text-start w-100">{{ group.title }}</span>
-            <span class="ms-auto">
+            <span class="w-full text-left">{{ group.title }}</span>
+            <span class="ml-auto">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
@@ -126,9 +127,17 @@ export default {
           items: [
             { name: 'reports', label: 'REPORTS' },
             { name: 'hranalytics', label: 'HR Analytics' },
-            { name: 'Performance', label: 'Performance' },
+            { name: 'performance', label: 'Performance' },
             { name: 'attendance', label: 'Attendance' },
-            { name: 'Payroll', label: 'Payroll' }          
+            { name: 'payroll', label: 'Payroll' }          
+          ],
+        },
+        {
+          title: 'Jobs',
+          expanded: false,
+          items: [
+            { name: 'JobPosts', label: 'Jobposts' },
+            { name: 'hranalytics', label: 'HR Analytics' }          
           ],
         }
       ],
@@ -172,11 +181,12 @@ export default {
 <style lang="scss" scoped>
 .navigation {
   background-color: #02067e;
-  height: 100vh;
+  /* height: 100vh; */
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 12rem;
+  overflow-y: auto;
+  /* top: 0; */
+  /* left: 0; */
+  /* width: 100%; */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   z-index: 10;

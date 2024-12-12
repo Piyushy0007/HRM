@@ -2,7 +2,7 @@
   <div class="c-employee-index client-table">
 
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <div class="px-4 pb-4 w-80 " style="margin-right: 1vw; margin-left: 240px;">
       <div class="flex " style="justify-content: space-between;">
         <h1 class="mb-4">Community</h1>
         <button class="add-blue-button" @click="openClientModal()">Create Community</button>

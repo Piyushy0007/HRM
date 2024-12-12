@@ -2,7 +2,7 @@
   <div>
     
 
-    <div align="center">
+    <div style="align-items: center; margin-left: 255px;">
       <table class="modwideclear">
         <tbody>
           <tr>

@@ -1,14 +1,14 @@
 <template>
-    <div class="c-leave-page px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <div class="c-leave-page px-4 pb-4" style="margin-left: 240px;">
       <header-component />
   
       <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
         <div class="text-right">
-          <span class="block mb-1" style="float:left;">Employee Leave Details</span>
+          <span class="text-lg font-bold" style="float:left;">Employee Leave Details</span>
         </div>
       </div>
   
-      <div class="px-4">
+      <div >
         <table class="w-full border-gray-300">
           <thead>
             <tr class="bg-gray-300">
@@ -66,6 +66,7 @@
     .selection-function {
       background-color: #f9fafb;
       border-bottom: 1px solid #e5e7eb;
+      /* margin-left: 220px; */
     }
   
     table {

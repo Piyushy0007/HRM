@@ -348,7 +348,7 @@
 </div>
 
 
-<div class="bv-example-row mx-auto" style="margin-left: 200px"  v-if="this.userRole == 'admin' ">
+<div class="bv-example-row" style="margin-left: 240px"  v-if="this.userRole == 'admin' ">
      <ul class="flex c-secondary-nav">
       <li class="w-1/3 text-center" style="background-color: #02067e" ><a href="#" @click.prevent="openModal('AddShift')">Add Shifts</a></li>
       <li class="w-1/3 text-center" style="background-color: #02067e"><a href="#" @click.prevent="printSchedule" >Print</a></li>
