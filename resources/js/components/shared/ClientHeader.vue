@@ -1,156 +1,231 @@
 <template>
   <div>
-    <div style="display flex;justify-content: flex-end;padding-top: 25px;border-left: 2px solid #f9f9f9;margin-top: 0px;">
-    <nav class="navigation client-header">
-      <ul class="flex" style="justify-content: flex-end;margin-top:0px;">
-          <li class="md:w-40 xl:w-64 user-section flex">
-             <b-dropdown no-caret class="w-full side-drawer" size="lg"  variant="link" toggle-class="text-decoration-none" >
-              <template #button-content >
-               <h3  class="client-name" style="margin-top: -5px;"> Hi {{ user_data.clientname ? user_data.clientname : "User" }} </h3>  
-                
-                
-                
+    <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 14rem; overflow-y: auto;">
 
-                <img style="margin-left:10px; margin-top:-17px;width: 50px;height:50px; border-radius:30px;" v-if="user_data.client_image != undefined || user_data.client_image != null" :src="currentpath+'/storage/'+user_data.client_image" />
-                <img v-else style="margin-left:10px; margin-top:-17px;width: 50px; height:50px; border-radius:30px;" src="/images/topimage.png" alt="user">
+      <!-- A-HR Logo at the Top -->
+      <div class="logo mb-4 text-center">
+        <h1 class="text-white font-bold text-2xl">A-HR</h1>
+      </div>
 
-                <b-icon-chevron-down style="color:black; margin-top:-5px;" class="dropdown-caret-arrow"  />
-              </template>
-              
-              <b-dropdown-item @click="redirect('profile')" class="dropdown-item">Profile</b-dropdown-item>
-              <b-dropdown-item class="dropdown-item" @click="logout()">Logout</b-dropdown-item>
+      <ul class="nav flex-column">
+        <li
+          v-for="(group, groupIndex) in menuGroups"
+          :key="groupIndex"
+          class="nav-item mb-3"
+        >
+          <!-- Group Title -->
+          <div
+            class="nav-link text-white py-2 px-3 rounded d-flex align-items-center"
+            @click="toggleGroup(groupIndex)"
+            style="cursor: pointer;"
+          >
+            <span class="text-start w-100">{{ group.title }}</span>
+            <span class="ms-auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                class="bi"
+                :class="group.expanded ? 'bi-chevron-down' : 'bi-chevron-right'"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M1.5 1.5l7 7-7 7L0 14l6-6L0 2l1.5-1.5z"
+                  :transform="group.expanded ? '' : 'rotate(-90 8 8)'"
+                />
+              </svg>
+            </span>
+          </div>
 
-            </b-dropdown>
-            
+          <!-- Group Links -->
+          <ul v-if="group.expanded" class="ps-3">
+            <li v-for="item in group.items" :key="item.name" class="nav-item mb-2 ml-2">
+              <router-link
+                tag="a"
+                class="nav-link text-white py-2 px-3 rounded"
+                :to="{ name: item.name }"
+              >
+                {{ item.label }}
+              </router-link>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item mt-auto">
+          <a href="#" @click="logout()" class="nav-link text-white py-2 px-3 rounded">
+            SIGNOUT
+          </a>
         </li>
       </ul>
     </nav>
-    </div>
   </div>
 </template>
-<style lang="scss" scoped>
-  .dropdown-caret-arrow{
-    color:red;
-  }
-  .side-drawer ul.dropdown-menu{
-      position: absolute;
-  }
-  .clientname{
-      margin-right:120px;
-  }
 
-.client-header {
-  ul {
-    margin-bottom: 5px;
-    margin-top: 20px;
-    .chat-icon{
-      background-image: url('/images/messageicon.svg');
-      background-position: center;
-      background-size: contain;
-      height: 40px;
-      width: 40px;
-      margin: auto 30px;
-      background-repeat: no-repeat;
-      position: relative;
-      .notification_count{
-       width: auto;
-      height: auto;
-      background: #FF2626 0% 0% no-repeat padding-box;
-      opacity: 1;
-      z-index: 100;
-      position: absolute;
-      border-radius: 10px;
-      right: 0;
-      top: 0;
-      font-size: inherit;
-      color: #ffffff;
-      padding: 0px 5px 0px 5px;
-      }
-    }
-    .user-section {
-      h3 {
-        height: 18px;
-        text-align: center;
-        font: normal normal normal 15px Montserrat;
-        letter-spacing: 0.42px;
-        color: #302369;
-        opacity: 1;
-        margin-top: .5rem;
-        width: auto;
-      }
-    }
-  }
-}
-</style>
 <script>
-import axios from "axios";
+import axios from 'axios';
 
 export default {
   data() {
     return {
-      currentpath : window.location.origin,
       currentDate: new Date(),
       positions: {},
-      selectedPosition: "",
-      count: 0
+      selectedPosition: '',
+      count: 0,
+      menuGroups: [
+        {
+          title: 'Employee Management',
+          expanded: false,
+          items: [
+            { name: 'employees', label: 'Employees' },
+            { name: 'attendance', label: 'Attendance' },
+            { name: 'leave', label: 'Leave' },
+            { name: 'onoffboarding', label: 'Onboarding/Offboarding' }
+          ],
+        },
+        {
+          title: 'Payroll',
+          expanded: false,
+          items: [
+            { name: 'Salary', label: 'Salary' },
+            { name: 'Tax', label: 'Tax' },
+            { name: 'Claims', label: 'Claims' },
+          ],
+        },
+        {
+          title: 'Branches',
+          expanded: false,
+          items: [{ name: 'clindex', label: 'Branches' }],
+        },
+        {
+          title: 'Admin Users',
+          expanded: false,
+          items: [{ name: 'adminindex', label: 'Admin Users' }],
+        },
+        {
+          title: 'Shift & Schedules',
+          expanded: false,
+          items: [
+            { name: 'schedules', label: 'SCHEDULES' },
+            { name: 'on-now', label: 'ON NOW' }
+          ],
+        },
+        {
+          title: 'Messaging',
+          expanded: false,
+          items: [
+            {
+              name: 'messaging',
+              label: 'MESSAGING',
+            },
+          ],
+        },
+        {
+          title: 'Reports & Analytics',
+          expanded: false,
+          items: [
+            { name: 'reports', label: 'REPORTS' },
+            { name: 'hranalytics', label: 'HR Analytics' },
+            { name: 'performance', label: 'performance' },
+            { name: 'attendance', label: 'Attendance' },
+            { name: 'payroll', label: 'payroll' }          
+          ],
+        },
+        {
+          title: 'Jobs',
+          expanded: false,
+          items: [
+            { name: 'Create', label: 'Create' },
+            { name: 'Listing', label: 'Listing' }          
+          ],
+        }
+      ],
     };
   },
-  computed: {
-    user_data() {
-      let userdata = JSON.parse(localStorage.getItem("user"));
-      if(userdata == undefined || userdata == '' || userdata == null){ 
-        return this.$router.push('/client_login')
-      }
-      else {
-        return userdata
-        }
-     
-    },
-    userid() {
-      let user = localStorage.getItem("user");
-      return JSON.parse(user).id;
-    },
-    userimg() {
-      let user = localStorage.getItem("user");
-      let img =  JSON.parse(user).client_image;
-      if (img != null){
-        return this.currentpath+'/storage/'+img
-      }
-      else{
-        return 'https://placekitten.com/300/300'
-      }
-    },
-  },
   created() {
-    // this.indexPositions();
+    this.indexPositions();
     this.message_count();
   },
   methods: {
-    // redirect to
-    redirect(name){
-      this.$router.push(`/${name}`)
+    toggleGroup(index) {
+      this.menuGroups[index].expanded = !this.menuGroups[index].expanded;
     },
-    logout(){
-       axios.post("/api/clientlogout").then((res) => {
-         localStorage.removeItem('user');
-         this.$router.push('/client_login')
+    message_count() {
+      axios.post('/api/adminmessagecount', {
+        admin_id: this.userid,
+        userable_type: this.apparray.admin,
+      }).then((res) => {
+        if (res.data.status) {
+          this.count = res.data.data;
+        }
+      });
+    },
+    logout() {
+      localStorage.removeItem('admin');
+      localStorage.removeItem('accesstoken');
+      this.$router.push('/login');
+    },
+    indexPositions() {
+      axios.get('/api/positions').then((res) => (this.positions = res.data.data));
+    },
 
-       });
+    changePosition() {
+      this.$emit('position', this.selectedPosition);
+      this.$emit('positionName', this.selectedPosition);
     },
-    message_count(){
-       axios.post("/api/cmessagecount", {user_id: this.userid , user_type: 'App\\Client'}).then((res) => {
-         if(res.data.status){
-           this.count = res.data.data
-         }
-       });
-    }
-    // indexPositions() {
-    //   axios.get("/api/positions").then((res) => (this.positions = res.data));
-    // },
-    // changePosition() {
-    //   this.$emit("position", this.selectedPosition);
-    //   this.$emit("positionName", this.selectedPosition);
-    // },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.navigation {
+  background-color: #02067e;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12rem;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  z-index: 10;
+}
+
+.navigation ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navigation li {
+  margin-bottom: 1rem;
+}
+
+.navigation .nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.navigation .nav-link:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.navigation a:focus {
+  outline: none;
+  background-color: #0056b3;
+}
+
+.navigation .text-start {
+  text-align: left;
+}
+
+.navigation .ms-auto {
+  margin-left: auto;
+}
+</style>
