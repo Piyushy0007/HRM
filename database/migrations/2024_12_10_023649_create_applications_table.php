@@ -21,6 +21,8 @@ class CreateApplicationsTable extends Migration
             $table->string('resume'); // Path to uploaded resume
             $table->unsignedBigInteger('job_number'); // Foreign key to jobs table
             $table->foreign('job_number')->references('job_number')->on('jobs')->onDelete('cascade');
+            $table->string('location'); // Candidate's location
+            $table->date('applied_date'); // Date when the candidate applied for the job
             $table->timestamps();
         });
     }

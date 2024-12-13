@@ -1,5 +1,5 @@
 <template>
-    <div class="c-job-listings px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <div class="c-job-listings px-4 pb-4 w-80" style="margin-left: 14vw;">
       <!-- Loader -->
        
       <Loader msg="Loading Job Listings..." v-model="isLoader" />

@@ -47,6 +47,17 @@
                 required
               />
             </div>
+            <div>
+              <label for="phone" class="block text-lg font-medium text-gray-700">Job Number</label>
+              <input
+                type="tel"
+                id="phone"
+                v-model="form.job_number"
+                class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter your phone number"
+                required
+              />
+            </div>
 
             <!-- Resume Upload -->
             <div>
@@ -70,7 +81,7 @@
                 @change="handleFileUpload"
                 class="hidden"
                 ref="fileInput"
-                required
+                
               />
             </div>
 
@@ -78,13 +89,16 @@
             <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400"
             @click="prevStep">Back</button> -->
 
-            <button
-              type="submit"
-              class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
-            style="background-color:#2C1977 "
-            @click.prevent="submitForm" >
-              Apply Job
-            </button>
+           <button
+  type="submit"
+  class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 disabled:opacity-50" style="background-color: #2C1977;"
+  @click.prevent="submitApplication"
+  :disabled="isSubmitting"
+  aria-label="Apply for the job"
+>
+  <span v-if="!isSubmitting">Apply Job</span>
+  <span v-else>Submitting...</span>
+</button>
           </div>
           </form>
         </div>
@@ -130,40 +144,71 @@
 </template>
 
 <script>
+
+import axios from 'axios'; // Import Axios if not already added
+
 export default {
   data() {
     return {
       uploadedFileName: null,
-    isDescriptionVisible: false,
+      isDescriptionVisible: false,
 
       form: {
         name: '',
         email: '',
         phone: '',
         resume: null,
+        job_number: 0,
       },
-
     };
   },
   methods: {
     triggerFileInput() {
-      this.$refs.fileInput.click(); 
+      this.$refs.fileInput.click();
     },
     handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
+        this.form.resume = file; // Save the file in form data
         this.uploadedFileName = file.name;
       }
     },
-    submitApplication() {
-      if (this.form.name && this.form.email && this.form.phone && this.form.resume) {
-        alert('Application submitted successfully!');
-        // Reset form
-        this.form = { name: '', email: '', phone: '', resume: null };
-      } else {
-        alert('Please fill out all fields and upload your resume.');
+    async submitApplication() {
+  if (this.form.name && this.form.email && this.form.phone && this.form.resume) {
+    try {
+      const formData = new FormData();
+      formData.append('name', this.form.name);
+      formData.append('email', this.form.email);
+      formData.append('phone', this.form.phone);
+      formData.append('resume', this.form.resume);
+      formData.append('job_number', this.form.job_number || 0);
+
+      // Debugging
+      for (let [key, value] of formData.entries()) {
+        console.log(key, value);
       }
-    },
+
+      const response = await axios.post('http://127.0.0.1:8000/api/apply-job', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      alert('Application submitted successfully!');
+      console.log('Response:', response.data.data);
+
+      // Reset form
+      this.form = { name: '', email: '', phone: '', resume: null, job_number: 0 };
+      this.uploadedFileName = null;
+    } catch (error) {
+      console.error('Error submitting application:', error.response.data);
+      alert(error.response.data.message || 'Failed to submit application. Please try again later.');
+    }
+  } else {
+    alert('Please fill out all fields and upload your resume.');
+  }
+}
+,
     toggleDescription() {
       this.isDescriptionVisible = !this.isDescriptionVisible; // Toggle visibility
     },

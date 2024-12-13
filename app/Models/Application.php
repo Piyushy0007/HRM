@@ -13,6 +13,8 @@ class Application extends Model
         'email',
         'resume',
         'job_number',
+        'location', // New field
+        'applied_date',
     ];
 
     public function job()
