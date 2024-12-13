@@ -2,7 +2,7 @@
   <div>
     <!-- <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 12rem;"> -->
       <nav class="navigation flex flex-col bg-primary fixed top-0 left-0 h-full p-3 shadow-lg col-xm-2">
-    <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 14rem; overflow-y: auto;">
+    <!-- <nav class="navigation d-flex flex-column bg-primary position-fixed vh-100 p-3 shadow" style="width: 14rem; overflow-y: auto;"> -->
 
       <!-- A-HR Logo at the Top -->
       <div class="logo mb-4 text-center">
@@ -137,8 +137,6 @@ export default {
           title: 'Jobs',
           expanded: false,
           items: [
-            { name: 'JobPosts', label: 'Jobposts' },
-            { name: 'hranalytics', label: 'HR Analytics' },     
             { name: 'Create', label: 'Create' },
             { name: 'Listing', label: 'Listing' }          
           ],
