@@ -8,14 +8,17 @@
         <div class="p-6 bg-white shadow-lg rounded-xl border-t-4 border-blue-600" >
           <h2 class="text-3xl font-bold text-blue-700 mb-4">Application Form</h2>
           
-          <form @submit.prevent="submitApplication" class="space-y-6">
+          <form   @submit.prevent="submitApplication"  class="space-y-6">
             <!-- Name -->
             <div>
               <label for="name" class="block text-lg font-medium text-gray-700">Full Name</label>
               <input
                 type="text"
                 id="name"
-                v-model="form.name"
+                name="name"
+                v-model="formData.name"
+                 @input="handleChange"
+
                 class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your full name"
                 required
@@ -28,7 +31,10 @@
               <input
                 type="email"
                 id="email"
-                v-model="form.email"
+                name="email"
+                v-model="formData.email"
+                 @input="handleChange"
+
                 class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
                 required
@@ -39,9 +45,12 @@
             <div>
               <label for="phone" class="block text-lg font-medium text-gray-700">Phone Number</label>
               <input
-                type="tel"
+                type="text"
                 id="phone"
-                v-model="form.phone"
+                name="phone_number"
+                v-model="formData.phone_number"
+                 @input="handleChange"
+
                 class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your phone number"
                 required
@@ -50,11 +59,14 @@
             <div>
               <label for="phone" class="block text-lg font-medium text-gray-700">Job Number</label>
               <input
-                type="tel"
+                type="text"
                 id="phone"
-                v-model="form.job_number"
+                name="job_number"
+                v-model="formData.job_number"
+                 @input="handleChange"
+
                 class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter your phone number"
+                placeholder="Enter your job number"
                 required
               />
             </div>
@@ -78,6 +90,7 @@
               <input
                 type="file"
                 id="resume"
+                name="resume"
                 @change="handleFileUpload"
                 class="hidden"
                 ref="fileInput"
@@ -88,17 +101,14 @@
             <div class="flex justify-end mt-4" style="margin-top: 5%;">
             <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400"
             @click="prevStep">Back</button> -->
-
-           <button
-  type="submit"
-  class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 disabled:opacity-50" style="background-color: #2C1977;"
-  @click.prevent="submitApplication"
-  :disabled="isSubmitting"
-  aria-label="Apply for the job"
->
-  <span v-if="!isSubmitting">Apply Job</span>
-  <span v-else>Submitting...</span>
-</button>
+<button
+              type="submit"
+              class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+            style="background-color:#2C1977 "
+            >
+              Create Job
+            </button>
+          
           </div>
           </form>
         </div>
@@ -150,63 +160,85 @@ import axios from 'axios'; // Import Axios if not already added
 export default {
   data() {
     return {
-      uploadedFileName: null,
-      isDescriptionVisible: false,
 
-      form: {
+    
+      
+
+      formData: {
         name: '',
         email: '',
-        phone: '',
+        phone_number: '',
         resume: null,
-        job_number: 0,
+        job_number: this.$route.query.jobId,
+        location:"delhi" 
       },
+      
+
+      uploadedFileName: null,
+      isDescriptionVisible: false,
+       isSubmitting: false,
     };
   },
   methods: {
+
+
+
+
+    handleChange(event) {
+      const { name, value } = event.target;
+      this.formData[name] = value;  
+    },
     triggerFileInput() {
       this.$refs.fileInput.click();
     },
     handleFileUpload(event) {
       const file = event.target.files[0];
       if (file) {
-        this.form.resume = file; // Save the file in form data
+        this.formData.resume = file; 
         this.uploadedFileName = file.name;
       }
     },
+
+
+
+
     async submitApplication() {
-  if (this.form.name && this.form.email && this.form.phone && this.form.resume) {
-    try {
-      const formData = new FormData();
-      formData.append('name', this.form.name);
-      formData.append('email', this.form.email);
-      formData.append('phone', this.form.phone);
-      formData.append('resume', this.form.resume);
-      formData.append('job_number', this.form.job_number || 0);
+ console.log("Submitting formData:", this.formData)
 
-      // Debugging
-      for (let [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
+    const formDataToSend = new FormData();
 
-      const response = await axios.post('http://127.0.0.1:8000/api/apply-job', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      alert('Application submitted successfully!');
-      console.log('Response:', response.data.data);
-
-      // Reset form
-      this.form = { name: '', email: '', phone: '', resume: null, job_number: 0 };
-      this.uploadedFileName = null;
-    } catch (error) {
-      console.error('Error submitting application:', error.response.data);
-      alert(error.response.data.message || 'Failed to submit application. Please try again later.');
+     for (const key in this.formData) {
+    if (this.formData[key] !== null && this.formData[key] !== undefined) {
+      formDataToSend.append(key, this.formData[key]);
     }
-  } else {
-    alert('Please fill out all fields and upload your resume.');
   }
+  if (this.formData.resume) {
+    formDataToSend.append("resume", this.formData.resume);
+  }
+
+       
+
+     try {
+   
+    const response = await axios.post("/api/apply-job", formDataToSend, {
+  headers: {
+     "Content-Type": "multipart/form-data",
+  },
+});
+console.log(response,"kkkkkkkkkkkkk")
+    console.log("Job created successfully:", response.data);
+    alert("Job created successfully!");
+    
+  } catch (error) {
+    console.error("Error creating job:", error);
+    if (error.response) {
+      console.error("Backend response:", error.response.data);
+      alert("Failed to create job. Check console for details.");
+    } else {
+      alert("Network or unexpected error occurred.");
+    }
+  }
+ 
 }
 ,
     toggleDescription() {

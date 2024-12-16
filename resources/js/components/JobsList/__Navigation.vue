@@ -61,7 +61,7 @@
     <!-- Apply Button -->
     <div class="text-center mt-8">
       <button
-        @click="redirectToApply"
+        @click="redirectToApply(jobDetails.job_number)"
         class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-3 px-8 rounded-lg font-bold text-lg hover:shadow-xl hover:scale-105 transition-transform" style="background-color: skyblue;color: black;"
       >
         Apply Now
@@ -109,8 +109,8 @@ export default {
         this.isLoader = false;
       }
     },
-    redirectToApply() {
-      this.$router.push('/apply');
+    redirectToApply(jobId) {
+      this.$router.push({ path: '/apply', query: {jobId } });
     }
   },
   // mounted() {
