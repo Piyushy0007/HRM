@@ -1,51 +1,53 @@
 <template>
-    <div class="c-claims-page px-4 pb-4" style="margin-left: 240px;">
+    <div>
         <header-component />
+      <div class="c-claims-page" style="margin-left: 242px;">
+        <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
+          <div class="text-right">
+            <span class="text-lg font-bold" style="float:left;">Total Claims</span>
+          </div>
+        </div>
+    
+        <div>
+          <table class="w-full border-gray-300">
+            <thead>
+              <tr class="bg-gray-300">
+                <th class="text-center">Employee Name</th>
+                <th class="text-center" style="width:350px;">Description</th>
+                <th class="text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Static Data -->
+              <tr>
+                <td class="text-center">John Doe</td>
+                <td class="text-center" style="width:350px;">Claim for travel reimbursement</td>
+                <td class="text-center">Approved</td>
+              </tr>
+              <tr>
+                <td class="text-center">Jane Smith</td>
+                <td class="text-center" style="width:350px;">Claim for medical expenses</td>
+                <td class="text-center">Pending</td>
+              </tr>
+              <tr>
+                <td class="text-center">Michael Brown</td>
+                <td class="text-center" style="width:350px;">Claim for conference fees</td>
+                <td class="text-center">Rejected</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    
+        <div class="information mx-4 mt-5 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-2xl font-semibold">Information</h4>
+            <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+          </div>
+          <ul class="list-inside">
+            <li>All claims submitted by employees are listed here.</li>
+          </ul>
+        </div>
 
-      <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
-        <div class="text-right">
-          <span class="text-lg font-bold" style="float:left;">Total Claims</span>
-        </div>
-      </div>
-  
-      <div>
-        <table class="w-full border-gray-300">
-          <thead>
-            <tr class="bg-gray-300">
-              <th class="text-center">Employee Name</th>
-              <th class="text-center" style="width:350px;">Description</th>
-              <th class="text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Static Data -->
-            <tr>
-              <td class="text-center">John Doe</td>
-              <td class="text-center" style="width:350px;">Claim for travel reimbursement</td>
-              <td class="text-center">Approved</td>
-            </tr>
-            <tr>
-              <td class="text-center">Jane Smith</td>
-              <td class="text-center" style="width:350px;">Claim for medical expenses</td>
-              <td class="text-center">Pending</td>
-            </tr>
-            <tr>
-              <td class="text-center">Michael Brown</td>
-              <td class="text-center" style="width:350px;">Claim for conference fees</td>
-              <td class="text-center">Rejected</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="information mx-4 mt-5 p-4 rounded-lg">
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="text-2xl font-semibold">Information</h4>
-          <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
-        </div>
-        <ul class="list-inside">
-          <li>All claims submitted by employees are listed here.</li>
-        </ul>
       </div>
   
     </div>

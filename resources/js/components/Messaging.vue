@@ -1,168 +1,171 @@
 <template>
-  <div class="c-employee-index client-table client-add px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
+  <div class="c-employee-index client-table client-add">
 		<header-component />
-		<div class=" mt-4">
-			<div class="headingoflist">
-				 <div class="selectallbox" >
-					 <input v-if="index.messages.length!= 0" v-model="allSelected" type="checkbox" @click="selectAll">
-					 <span v-if="index.messages.length!= 0" class="select-label"> Select All </span>
-					  	<b-button  v-if="index.messages.length!= 0 && allSelected" class="mx-3 trash-button" variant="success" @click="deleteAll()"> 
-							<font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" />
-				 		</b-button>
-					 </div>
-				
-				<button @click="openThread()" class="add-blue-button">Create new thread</button>
-			</div>
-			
-
-		</div>
-
-		<div class="mt-4">
-			<div class="pb-6" style="height:450px; overflow-y:scroll; overflow-x:hidden;background: #f2f2f2; padding: 15px; border-radius:5px;">
-				<table class="w-full all-messages">
-					<template v-if="index.messages.length!= 0"  >
-					<tr v-for="data,ind in index.messages" :key="'A'+data.id+ind" class="mt-5 mb-2 border-bottom-grey w-12/12">
-					
-					<div class="upper flex pt-3">
-					
-						<td  :class="data.messages_count != 0 ? 'bold-message name px-4 w-2/12' : ' name px-4   w-2/12'">
-							<router-link style="width: 100%; display: block; height: auto;" :to="{ name: 'chat', params: { id: data.groups.id , user_id: data.groups.user_id }}">
-							 <div class="name-container" v-if="data.groups.user!=null || data.groups.user!= undefined">
-									<span class="logo" v-if="data.groups.user_type == apparray.employee">
-										<span class="image" >
-											<img v-if="data.groups.user.employee_image != undefined || data.groups.user.employee_image != null" :src="currentpath+'/storage/'+data.groups.user.employee_image" />
-										</span>
-									</span>
-									<span class="logo" v-else-if="data.groups.user_type == apparray.client ">
-										<span class="image" >
-											<img v-if="data.groups.user.client_image != undefined || data.groups.user.client_image != null" :src="currentpath+'/storage/'+data.groups.user.client_image" />
-										</span>
-									</span>
-
-									<span class=" pl-1 fullname" v-if="data.groups.user_type == apparray.employee">{{data.groups.user.firstname}} {{data.groups.user.lastname}}</span>
-									<span class=" pl-1 fullname" v-else-if="data.groups.user_type == apparray.client ">{{data.groups.user.clientname ? data.groups.user.clientname : 'No Name'}} </span>
-									<span class=" pl-1 fullname" v-else-if="data.groups.user_type== apparray.admin || data.groups.user_type=='App\\Admin' ">{{data.groups.user.firstname ? data.groups.user.firstname : 'No Name'}} </span>
-									<span class=" pl-1 fullname" v-else >{{data.groups.user.firstname ? data.groups.user.firstname : 'No Name'}} </span>
-								</div>
-							</router-link>
-							
-						</td>
-						<td :class="data.messages_count != 0 ? 'bold-message message px-4  w-9/12' : 'message px-4  w-9/12'">
-							<router-link style="width: 100%; display: block; height: auto;" :to="{ name: 'chat', params: { id: data.groups.id , user_id: data.groups.user_id }}">
-							<span class="text" v-if="data.groups.message_type == 'text' ">{{data.groups.group_name}}</span>
-							<span class="text" v-else-if="data.groups.message_type == 'image' ">Image</span>
-							<span class="text" v-else>{{data.groups.group_name}}</span>
-							</router-link>
-						</td>
-						
-						<td class=" delete px-4 text-right  w-1/12" @click='deleteView(data.groups.id)' >
-							<b-button class="m-1 trash-button" variant="success"> 
+		<div style="margin-left: 242px;">
+			<div class="px-3 pt-2">
+				<div class="headingoflist">
+					 <div class="selectallbox" >
+						 <input v-if="index.messages.length!= 0" v-model="allSelected" type="checkbox" @click="selectAll">
+						 <span v-if="index.messages.length!= 0" class="select-label"> Select All </span>
+							  <b-button  v-if="index.messages.length!= 0 && allSelected" class="mx-3 trash-button" variant="success" @click="deleteAll()"> 
 								<font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" />
-							</b-button>
-						</td>
-					</div>
-					<div class="lower px-4 pb-2">
-						<span class="time">{{data.groups.send_time}}</span>  
-					</div>
+							 </b-button>
+						 </div>
 					
-					</tr>
-
-
-					</template>
-					<template v-else>
-						<tr>
-							<td>No Messages Found</td>
-						</tr>
-					</template>
-				</table>
+					<button @click="openThread()" class="add-blue-button">Create new thread</button>
+				</div>
 				
+	
 			</div>
-			
+	
+			<div class="mt-4">
+				<div class="pb-6" style="height:450px; overflow-y:scroll; overflow-x:hidden;background: #f2f2f2; padding: 15px; border-radius:5px;">
+					<table class="w-full all-messages">
+						<template v-if="index.messages.length!= 0"  >
+						<tr v-for="data,ind in index.messages" :key="'A'+data.id+ind" class="mt-5 mb-2 border-bottom-grey w-12/12">
+						
+						<div class="upper flex pt-3">
+						
+							<td  :class="data.messages_count != 0 ? 'bold-message name px-4 w-2/12' : ' name px-4   w-2/12'">
+								<router-link style="width: 100%; display: block; height: auto;" :to="{ name: 'chat', params: { id: data.groups.id , user_id: data.groups.user_id }}">
+								 <div class="name-container" v-if="data.groups.user!=null || data.groups.user!= undefined">
+										<span class="logo" v-if="data.groups.user_type == apparray.employee">
+											<span class="image" >
+												<img v-if="data.groups.user.employee_image != undefined || data.groups.user.employee_image != null" :src="currentpath+'/storage/'+data.groups.user.employee_image" />
+											</span>
+										</span>
+										<span class="logo" v-else-if="data.groups.user_type == apparray.client ">
+											<span class="image" >
+												<img v-if="data.groups.user.client_image != undefined || data.groups.user.client_image != null" :src="currentpath+'/storage/'+data.groups.user.client_image" />
+											</span>
+										</span>
+	
+										<span class=" pl-1 fullname" v-if="data.groups.user_type == apparray.employee">{{data.groups.user.firstname}} {{data.groups.user.lastname}}</span>
+										<span class=" pl-1 fullname" v-else-if="data.groups.user_type == apparray.client ">{{data.groups.user.clientname ? data.groups.user.clientname : 'No Name'}} </span>
+										<span class=" pl-1 fullname" v-else-if="data.groups.user_type== apparray.admin || data.groups.user_type=='App\\Admin' ">{{data.groups.user.firstname ? data.groups.user.firstname : 'No Name'}} </span>
+										<span class=" pl-1 fullname" v-else >{{data.groups.user.firstname ? data.groups.user.firstname : 'No Name'}} </span>
+									</div>
+								</router-link>
+								
+							</td>
+							<td :class="data.messages_count != 0 ? 'bold-message message px-4  w-9/12' : 'message px-4  w-9/12'">
+								<router-link style="width: 100%; display: block; height: auto;" :to="{ name: 'chat', params: { id: data.groups.id , user_id: data.groups.user_id }}">
+								<span class="text" v-if="data.groups.message_type == 'text' ">{{data.groups.group_name}}</span>
+								<span class="text" v-else-if="data.groups.message_type == 'image' ">Image</span>
+								<span class="text" v-else>{{data.groups.group_name}}</span>
+								</router-link>
+							</td>
+							
+							<td class=" delete px-4 text-right  w-1/12" @click='deleteView(data.groups.id)' >
+								<b-button class="m-1 trash-button" variant="success"> 
+									<font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" />
+								</b-button>
+							</td>
+						</div>
+						<div class="lower px-4 pb-2">
+							<span class="time">{{data.groups.send_time}}</span>  
+						</div>
+						
+						</tr>
+	
+	
+						</template>
+						<template v-else>
+							<tr>
+								<td>No Messages Found</td>
+							</tr>
+						</template>
+					</table>
+					
+				</div>
+				
+	
+			</div>
+		
+			<!-- Send Message -->
+			<modal v-model="modal.newthread" class="modal-add-edit-positions" size="md:w-6/12" title="Create new thread">
+				<div class="pb-6 pt-10">
+				
+					<ValidationObserver v-slot="{ handleSubmit }">
+	
+						<form novalidate @submit.prevent="handleSubmit(sendMessage)" ref="MessageForm">
+	
+						  <div class="flex mb-6 md:w-12/12">
+							<div class="md:w-1/12">
+							  <label class="block md:text-right mb-1 pr-2" for="form-add-shift-description">To 
+								  <!-- <span class="req_form_fields">*</span> -->
+								  </label>
+							</div>
+							<div class="md:w-11/12">
+						<ValidationProvider rules="required" v-slot="v">
+								<select class="appearance-none block w-full rounded p-1 h-40 leading-tight focus:outline-none border border-custom-border" v-model="req.body.recipients" multiple>
+									<option value="everyone">EVERYONE</option>
+									<option disabled>----------------</option>
+									<option value="all-admins">All Admins</option>
+									<option :value="`admin-${data0.id}`" v-for="data0, index0 in options.admins" :key="'admin-'+index0+'-'+data0.id">{{ `${data0.firstname} ${data0.lastname}` }}</option>
+									<option disabled>----------------</option>
+									<option value="all-managers">All Managers</option>
+									<option :value="`pos-${data1.id}`" v-for="data1,index1 in options.positions" :key="'pos'+index1+'-'+data1.id">{{ `Every ${data1.position}` }}</option>
+									
+									<option disabled>----------------</option>
+									<span  v-if="options.managers.length !== 0">
+									<option :value="`emp-${data2.id}`" v-for="data2,index2 in options.managers" :key="'emp'+index2+'-'+data2.id">{{ `Manager: ${data2.firstname} ${data2.lastname}` }}</option>
+									</span>
+									<option :value="`emp-${data3.id}`" v-for="(data3,i) in options.guards" :key="'empp-'+data3.id+i">{{ `${data3.firstname} ${data3.lastname}` }}</option>
+									<option disabled>----------------</option>
+									<option :value="`client-${data4.id}`" v-for="data4 in options.clients" :key="'client'+data4.id">{{ `${data4.clientname}` }}</option>
+	
+								</select>
+						  <small class="text-red-600">{{ v.errors[0] }}</small>
+						</ValidationProvider>
+							</div>
+						  </div>
+						
+						  <div class="flex mb-6  md:w-12/12">
+							<div class="md:w-1/12">
+							  <label class="block md:text-right mb-1 pr-2" for="form-email-subject">Subject 
+								  <!-- <span class="req_form_fields">*</span> -->
+								  </label>
+							</div>
+							<div class="md:w-11/12">
+						<ValidationProvider rules="required" v-slot="v">
+								<input type="text" class="appearance-none block w-full rounded py-1 px-2 leading-tight focus:outline-none border border-gray-400" id="form-email-subject" v-model="req.body.subject">
+								<small class="text-red-600">{{ v.errors[0] }}</small>
+						</ValidationProvider>
+							</div>
+						  </div>
+	
+						  <div class="flex mb-6 md:w-12/12">
+							<div class="md:w-1/12">
+							  <!-- <label class="block md:text-right mb-1 pr-2">Message 
+								  <span class="req_form_fields">*</span>
+								  </label> -->
+							</div>
+							<div class="md:w-11/12">
+						<ValidationProvider rules="required" v-slot="v">
+								<textarea class="appearance-none block w-full rounded py-1 px-2 leading-tight focus:outline-none border border-gray-400" rows="10" v-model="req.body.message"></textarea>
+								<small class="text-red-600">{{ v.errors[0] }}</small>
+						</ValidationProvider>
+							</div>
+						  </div>
+	
+					  <div class="flex md:w-12/12">
+						  <div class="md:w-1/12"></div>
+						  <div class="md:w-11/12">
+							<button class="add-purple-button text-white py-2 rounded-lg text-sm bg-custom-button" type="submit">
+								Send
+							</button>
+						  </div>
+					  </div>
+	
+				  </form>
+	
+				</ValidationObserver>
+	
+				</div>
+			</modal>
 
 		</div>
-	
-        <!-- Send Message -->
-        <modal v-model="modal.newthread" class="modal-add-edit-positions" size="md:w-6/12" title="Create new thread">
-			<div class="pb-6 pt-10">
-			
-				<ValidationObserver v-slot="{ handleSubmit }">
-
-					<form novalidate @submit.prevent="handleSubmit(sendMessage)" ref="MessageForm">
-
-					  <div class="flex mb-6 md:w-12/12">
-					    <div class="md:w-1/12">
-					      <label class="block md:text-right mb-1 pr-2" for="form-add-shift-description">To 
-							  <!-- <span class="req_form_fields">*</span> -->
-							  </label>
-					    </div>
-					    <div class="md:w-11/12">
-		            <ValidationProvider rules="required" v-slot="v">
-					        <select class="appearance-none block w-full rounded p-1 h-40 leading-tight focus:outline-none border border-custom-border" v-model="req.body.recipients" multiple>
-					        	<option value="everyone">EVERYONE</option>
-					        	<option disabled>----------------</option>
-					        	<option value="all-admins">All Admins</option>
-								<option :value="`admin-${data0.id}`" v-for="data0, index0 in options.admins" :key="'admin-'+index0+'-'+data0.id">{{ `${data0.firstname} ${data0.lastname}` }}</option>
-					        	<option disabled>----------------</option>
-					        	<option value="all-managers">All Managers</option>
-					        	<option :value="`pos-${data1.id}`" v-for="data1,index1 in options.positions" :key="'pos'+index1+'-'+data1.id">{{ `Every ${data1.position}` }}</option>
-					        	
-					        	<option disabled>----------------</option>
-								<span  v-if="options.managers.length !== 0">
-					        	<option :value="`emp-${data2.id}`" v-for="data2,index2 in options.managers" :key="'emp'+index2+'-'+data2.id">{{ `Manager: ${data2.firstname} ${data2.lastname}` }}</option>
-								</span>
-					        	<option :value="`emp-${data3.id}`" v-for="(data3,i) in options.guards" :key="'empp-'+data3.id+i">{{ `${data3.firstname} ${data3.lastname}` }}</option>
-					        	<option disabled>----------------</option>
-					        	<option :value="`client-${data4.id}`" v-for="data4 in options.clients" :key="'client'+data4.id">{{ `${data4.clientname}` }}</option>
-
-							</select>
-		              <small class="text-red-600">{{ v.errors[0] }}</small>
-		            </ValidationProvider>
-					    </div>
-					  </div>
-                    
-					  <div class="flex mb-6  md:w-12/12">
-					    <div class="md:w-1/12">
-					      <label class="block md:text-right mb-1 pr-2" for="form-email-subject">Subject 
-							  <!-- <span class="req_form_fields">*</span> -->
-							  </label>
-					    </div>
-					    <div class="md:w-11/12">
-		            <ValidationProvider rules="required" v-slot="v">
-					        <input type="text" class="appearance-none block w-full rounded py-1 px-2 leading-tight focus:outline-none border border-gray-400" id="form-email-subject" v-model="req.body.subject">
-					        <small class="text-red-600">{{ v.errors[0] }}</small>
-		            </ValidationProvider>
-					    </div>
-					  </div>
-
-					  <div class="flex mb-6 md:w-12/12">
-					    <div class="md:w-1/12">
-					      <!-- <label class="block md:text-right mb-1 pr-2">Message 
-							  <span class="req_form_fields">*</span>
-							  </label> -->
-					    </div>
-					    <div class="md:w-11/12">
-		            <ValidationProvider rules="required" v-slot="v">
-					        <textarea class="appearance-none block w-full rounded py-1 px-2 leading-tight focus:outline-none border border-gray-400" rows="10" v-model="req.body.message"></textarea>
-					        <small class="text-red-600">{{ v.errors[0] }}</small>
-		            </ValidationProvider>
-					    </div>
-					  </div>
-
-			      <div class="flex md:w-12/12">
-			      	<div class="md:w-1/12"></div>
-			      	<div class="md:w-11/12">
-			        	<button class="add-purple-button text-white py-2 rounded-lg text-sm bg-custom-button" type="submit">
-							Send
-						</button>
-			      	</div>
-			      </div>
-
-		      </form>
-
-		    </ValidationObserver>
-
-			</div>
-        </modal>
   </div>
 </template>
 

@@ -1,13 +1,9 @@
 <template>
-  <div class="c-job-listings px-4 pb-4 w-80" style="margin-right: 1vw;">
-    <!-- Loader -->
-     
+  <div>
     <Loader msg="Loading Job Listings..." v-model="isLoader" />
-
     <header-component />
-    <!-- Header with Add Job Button and Search -->
-    <div class="px-4">
-      <div class="flex items-center justify-between my-5">
+    <div class="c-job-listings" style="margin-left: 242px;">
+      <div class="flex items-center justify-between p-2">
       <!--  <button
           class="text-white py-2 px-16 rounded-lg text-sm btn-add-job"
           type="button"
@@ -18,22 +14,23 @@
         <div class="flex flex-wrap -mx-3">
           <div class="w-full md:w-50 px-3">
             <div class="flex items-center relative">
-  <input
-    class="appearance-none block w-full rounded py-2 px-4 pl-5 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-    type="text"
-    placeholder="Search Job Titles"
-  />
-  <font-awesome-icon
-    icon="search"
-    class="absolute right-3 text-gray-500 "
-  />
-</div>
+            <input
+              class="appearance-none block w-full rounded py-2 px-4 pl-5 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+              type="text"
+              placeholder="Search Job Titles"
+            />
+            <font-awesome-icon
+              icon="search"
+              class="absolute right-3 text-gray-500 "
+              style="margin-left: 8px;"
+            />
+          </div>
           </div>
         </div>
       </div>
 
       <!-- Job Listings Table -->
-      <table class="w-full table-fixed">
+      <table class="w-full table-fixed table-responsive-sm">
         <thead>
           <tr>
             <th class="w-6" style="background-color: #3B86FF; color: white;">#</th>

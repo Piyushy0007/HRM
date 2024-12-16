@@ -1,57 +1,61 @@
 <template>
-    <div class="c-performance-page px-4 pb-4 w-80" style="margin-right: 1vw;">
+    <div>
       <header-component />
-  
-      <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
-        <div class="text-right">
-          <span class="block mb-1" style="float:left;">Employee Performance</span>
+
+      <div class="c-performance-page" style="margin-left: 242px;">
+        <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
+          <div class="text-right">
+            <span class="block mb-1" style="float:left;">Employee Performance</span>
+          </div>
         </div>
-      </div>
-  
-      <div class="px-4">
-        <table class="w-full border-gray-300">
-          <thead>
-            <tr class="bg-gray-300">
-              <th class="text-center">Employee Name</th>
-              <th class="text-center">Department</th>
-              <th class="text-center">Performance Score</th>
-              <th class="text-center">Feedback</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Static Data -->
-            <tr>
-              <td class="text-center">John Doe</td>
-              <td class="text-center">Sales</td>
-              <td class="text-center">85%</td>
-              <td class="text-center">Excellent communication skills</td>
-            </tr>
-            <tr>
-              <td class="text-center">Jane Smith</td>
-              <td class="text-center">HR</td>
-              <td class="text-center">78%</td>
-              <td class="text-center">Good at team collaboration</td>
-            </tr>
-            <tr>
-              <td class="text-center">Michael Brown</td>
-              <td class="text-center">Finance</td>
-              <td class="text-center">92%</td>
-              <td class="text-center">Outstanding analytical skills</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="information mx-4 mt-5 p-4 rounded-lg">
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="text-2xl font-semibold">Information</h4>
-          <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+    
+        <div>
+          <table class="w-full border-gray-300">
+            <thead>
+              <tr class="bg-gray-300">
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Department</th>
+                <th class="text-center">Performance Score</th>
+                <th class="text-center">Feedback</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Static Data -->
+              <tr>
+                <td class="text-center">John Doe</td>
+                <td class="text-center">Sales</td>
+                <td class="text-center">85%</td>
+                <td class="text-center">Excellent communication skills</td>
+              </tr>
+              <tr>
+                <td class="text-center">Jane Smith</td>
+                <td class="text-center">HR</td>
+                <td class="text-center">78%</td>
+                <td class="text-center">Good at team collaboration</td>
+              </tr>
+              <tr>
+                <td class="text-center">Michael Brown</td>
+                <td class="text-center">Finance</td>
+                <td class="text-center">92%</td>
+                <td class="text-center">Outstanding analytical skills</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <ul class="list-inside">
-          <li>Performance details include score and feedback for each employee.</li>
-          <li>Review scores are based on monthly evaluations.</li>
-        </ul>
+    
+        <div class="information mx-4 mt-5 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-2xl font-semibold">Information</h4>
+            <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+          </div>
+          <ul class="list-inside">
+            <li>Performance details include score and feedback for each employee.</li>
+            <li>Review scores are based on monthly evaluations.</li>
+          </ul>
+        </div>
+
       </div>
+  
     </div>
   </template>
   

@@ -1,52 +1,55 @@
 <template>
-    <div class="c-leave-page px-4 pb-4" style="margin-left: 240px;">
+    <div class="c-leave-page">
       <header-component />
-  
-      <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
-        <div class="text-right">
-          <span class="text-lg font-bold" style="float:left;">Employee Leave Details</span>
+      <div style="margin-left: 242px;">
+        <div class="selection-function pt-2 pb-3 flex justify-between">
+          <div class="text-right">
+            <span class="text-lg font-bold" style="float:left;">Employee Leave Details</span>
+          </div>
         </div>
-      </div>
-  
-      <div >
-        <table class="w-full border-gray-300">
-          <thead>
-            <tr class="bg-gray-300">
-              <th class="text-center">Employee Name</th>
-              <th class="text-center">Reason</th>
-              <th class="text-center">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Static Data -->
-            <tr>
-              <td class="text-center">John Doe</td>
-              <td class="text-center">Family Emergency</td>
-              <td class="text-center">Approved</td>
-            </tr>
-            <tr>
-              <td class="text-center">Jane Smith</td>
-              <td class="text-center">Medical Leave</td>
-              <td class="text-center">Pending</td>
-            </tr>
-            <tr>
-              <td class="text-center">Michael Brown</td>
-              <td class="text-center">Vacation</td>
-              <td class="text-center">Rejected</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="information mx-4 mt-5 p-4 rounded-lg">
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="text-2xl font-semibold">Information</h4>
-          <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+    
+        <div >
+          <table class="w-full border-gray-300">
+            <thead>
+              <tr class="bg-gray-300">
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Reason</th>
+                <th class="text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Static Data -->
+              <tr>
+                <td class="text-center">John Doe</td>
+                <td class="text-center">Family Emergency</td>
+                <td class="text-center">Approved</td>
+              </tr>
+              <tr>
+                <td class="text-center">Jane Smith</td>
+                <td class="text-center">Medical Leave</td>
+                <td class="text-center">Pending</td>
+              </tr>
+              <tr>
+                <td class="text-center">Michael Brown</td>
+                <td class="text-center">Vacation</td>
+                <td class="text-center">Rejected</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <ul class="list-inside">
-          <li>Leave requests and their status are displayed here.</li>
-        </ul>
+    
+        <div class="information mx-4 mt-5 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-2xl font-semibold">Information</h4>
+            <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+          </div>
+          <ul class="list-inside">
+            <li>Leave requests and their status are displayed here.</li>
+          </ul>
+        </div>
+
       </div>
+  
     </div>
   </template>
   

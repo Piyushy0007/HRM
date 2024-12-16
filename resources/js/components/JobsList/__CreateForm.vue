@@ -1,11 +1,7 @@
-
-  
-
-
  <template>
-    <div class="c-create-page px-8 pb-8 w-3/3 mx-auto  relative" style="margin-right: 1vw;">
-      <header-component class="sticky top-0 z-50 bg-white shadow-md" />
-      <div class="container mx-auto pt-5 justify-center w-full" style="margin-left: 10%;">
+    <div class="c-create-page">
+      <header-component/>
+      <div class="container pt-5 justify-center w-full" style="margin-left: 265px;">
         <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Create Job Form</h1>
         <form class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-5xl w-full mx-auto space-y-8">
           

@@ -220,6 +220,7 @@ export default {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 10;
   position: fixed; 
+  height: 100vh;
   min-width: 240px;
 }
 
@@ -270,12 +271,12 @@ export default {
   margin-left: auto;
 }
 
-/* .navigation::-webkit-scrollbar {
+.navigation::-webkit-scrollbar {
   width: 5px;
 }
 
 .navigation::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 10px;
-} */
+}
 </style>

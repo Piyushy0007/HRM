@@ -1,47 +1,49 @@
 <template>
-    <div class="c-tax-page px-4 pb-4" style="margin-left: 240px;">
+    <div>
       <header-component />
-  
-      <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
-        <div class="text-right">
-          <span class="text-lg font-bold" style="float:left;">Total Tax Details</span>
+      <div class="c-tax-page" style="margin-left: 242px;">
+        <div class="selection-function px-4 pt-2 pb-3 flex justify-between">
+          <div class="text-right">
+            <span class="text-lg font-bold" style="float:left;">Total Tax Details</span>
+          </div>
         </div>
-      </div>
-  
-      <div>
-        <table class="w-full border-gray-300">
-          <thead>
-            <tr class="bg-gray-300">
-              <th class="text-center">Employee Name</th>
-              <th class="text-center">Tax</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Static Data -->
-            <tr>
-              <td class="text-center">John Doe</td>
-              <td class="text-center">$350</td>
-            </tr>
-            <tr>
-              <td class="text-center">Jane Smith</td>
-              <td class="text-center">$420</td>
-            </tr>
-            <tr>
-              <td class="text-center">Michael Brown</td>
-              <td class="text-center">$280</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  
-      <div class="information mx-4 mt-5 p-4 rounded-lg">
-        <div class="flex justify-between items-center mb-2">
-          <h4 class="text-2xl font-semibold">Information</h4>
-          <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+    
+        <div>
+          <table class="w-full border-gray-300">
+            <thead>
+              <tr class="bg-gray-300">
+                <th class="text-center">Employee Name</th>
+                <th class="text-center">Tax</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Static Data -->
+              <tr>
+                <td class="text-center">John Doe</td>
+                <td class="text-center">$350</td>
+              </tr>
+              <tr>
+                <td class="text-center">Jane Smith</td>
+                <td class="text-center">$420</td>
+              </tr>
+              <tr>
+                <td class="text-center">Michael Brown</td>
+                <td class="text-center">$280</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <ul class="list-inside">
-          <li>All tax details for employees are listed here.</li>
-        </ul>
+    
+        <div class="information mx-4 mt-5 p-4 rounded-lg">
+          <div class="flex justify-between items-center mb-2">
+            <h4 class="text-2xl font-semibold">Information</h4>
+            <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
+          </div>
+          <ul class="list-inside">
+            <li>All tax details for employees are listed here.</li>
+          </ul>
+        </div>
+
       </div>
     </div>
   </template>
