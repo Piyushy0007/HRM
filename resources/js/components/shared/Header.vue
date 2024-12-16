@@ -216,11 +216,11 @@ export default {
 <style lang="scss" scoped>
 .navigation {
   background-color: #4E1BD7;
-  overflow: auto;
+  overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 10;
-  /* position: fixed; */
-  /* max-width: 260px; */
+  position: fixed; 
+  min-width: 240px;
 }
 
 .navigation ul {
