@@ -91,12 +91,12 @@
       </ul>
     </b-col>
 
-    <b-col cols="10" style="flex: 0 0 auto;width: 83.33333333%;float: left;background: #f2f2f2;margin-top: 85px;">
+    <b-col cols="10" style="flex: 0 0 auto; width: 83.33333333%;float: left;background: #f2f2f2;margin-top: 85px;">
 
-      <p class="removecls" style="margin-bottom: 0;padding-bottom: 75px;border-left: 2px solid #f9f9f9;margin-top: -105px;padding-left: 30px;font-family: Poppins;font-weight: bold;font-size: 22px; color: #2C1977; "> Users</p>
+      <p class="removecls" style="margin-bottom: 0;padding-bottom: 75px;border-left: 2px solid #f9f9f9; margin-top: -105px; padding-left: 30px;font-family: Poppins;font-weight: bold;font-size: 22px; color: #2C1977; "> Users</p>
 
        <nav class="removecls employee mb-1 mt-1">
-        <ul class="flex justify-center w-7/12 mx-auto">
+        <ul class="flex justify-center w-7/12 mb-0 mx-auto">
           <router-link tag="li"  :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg">
             <a href="#" class="block text-center font-semibold text-lg pt-1" style="padding-top:5px;font-size: 16px;">Users</a>
           </router-link>
@@ -124,7 +124,7 @@
 
     <div v-if="this.userRole == 'admin' ">
         <nav class="employee mb-1 mt-1">
-        <ul class="flex justify-center  w-5/12 auto mx-auto " style="justify-content:space-between;">
+        <ul class="flex justify-center mb-0  w-5/12 auto mx-auto " style="justify-content:space-between;">
           <router-link tag="li" :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Users</a>
           </router-link>
