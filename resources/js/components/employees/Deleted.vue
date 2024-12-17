@@ -20,10 +20,10 @@
                 Export to Clipboard
               </a>
             </li>
-            <li>
+            <li class="mr-4">
               <a href="#" class="flex items-center text-sm"  @click.prevent="SendMessageCheck('BulkEdit')" >
-                <font-awesome-icon icon="pencil-alt" class="-mr-1 text-custom-primary" />
                 <font-awesome-icon icon="pencil-alt" class="mr-1 text-custom-primary" />
+                <!-- <font-awesome-icon icon="pencil-alt" class="mr-1 text-custom-primary" /> -->
                 Bulk Edit
               </a>
             </li>
@@ -37,7 +37,7 @@
           <div class="w-full md:w-1/2 px-3">
             <div class="relative">
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r">
                 <font-awesome-icon icon="search" class="fill-current" />
               </div>
             </div>

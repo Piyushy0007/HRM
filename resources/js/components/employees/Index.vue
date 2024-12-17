@@ -219,7 +219,7 @@
           </thead>
           <tbody v-if="index.employees.length === 0">
             <tr>
-              <td colspan="13" class="text-center">No Records Found</td>
+              <td colspan="15" class="text-center">No Records Found</td>
             </tr>
           </tbody>
           <tbody v-else>
@@ -849,8 +849,7 @@
         </div>
        
   </form>
-        </ValidationObserver>
-        
+        </ValidationObserver>        
       </modal>
         <!-- Send Reminder end -->
         <!-- Sign in ins -->
@@ -948,13 +947,12 @@
         
         </modal>
         <!-- Send remoinder success start -->
-
-		<modal v-model="modal.addNewEmployee" class="modal-add-new-employee" size="md:w-7/12" title="Add New User with a role">
+		<modal v-model="modal.addNewEmployee" class="modal-add-new-employee" size="md:w-4/12" title="Add New User with a role" >
       <ValidationObserver v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(storeEmployee)" ref="frmAddEmployee" novalidate>
     			<!-- ================================= Full Name ================================= -->
 
-          <div class="fullname flex py-5 justify-center px-6">
+          <div class="fullname flex py-5 justify-center px-6 items-center" >
             <div class="w-2/5">
                 <div class="md:flex md:items-center">
                   <div class="md:w-2/3">
@@ -3504,10 +3502,12 @@ export default {
 		 * @param  String modal
 		 */
 		async openModal(modal, data) {
+      console.log(`openModal called with modal: ${modal}, data:`, data);
 			let vm = this
 			switch(modal) {
 				case 'AddNewEmployee':
 					vm.modal.addNewEmployee = true
+          console.log(`Modal: ${modal}, Data:`, data);
           vm.modal.getUserRole = vm.userRole
           vm.modal.getUserId = vm.userid
           vm.modal.addEmployee = {

@@ -197,6 +197,8 @@ Route::get('/jobs/{job_number}', [JobController::class, 'getJobByNumber']);
 //candidates
 Route::post('/apply-job', [JobApplicationController::class, 'applyForJob']);
 Route::get('/applications/{id}', [JobApplicationController::class, 'getApplicationWithJobDetails']);
+Route::get('/applications/job/{jobNumber}', [JobApplicationController::class, 'getApplicationsByJobNumber']);
+
 
 
 

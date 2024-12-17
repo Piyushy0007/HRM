@@ -248,7 +248,9 @@ class EmployeeController extends Controller
             "password" => Hash::make($generatedRandomPassword),
             "plain_password" => $generatedRandomPassword,
             "employee_image"=>$request->employee_image,
-            "added_by"=> $request->get('added_by')
+            "added_by"=> $request->get('added_by'),
+            "role_id" => $request->get('role_id') // Add role_id here
+
         ];
        
         try {
