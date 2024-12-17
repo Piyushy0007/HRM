@@ -49,8 +49,9 @@
         <tbody>
           <!-- No Records Found -->
           
-          <div v-if="isLoader" class="loader">Loading...</div>
-        
+          <tr v-if="isLoader">
+            <td colspan="8" class="text-center loader">Loading...</td>
+          </tr>
           <tr v-for="(job, index) in dataFromApi" :key="job.id">
             <td class="text-center" >{{ index + 1 }}
             </td>
@@ -66,7 +67,7 @@
             <td class="text-center">
               <a href="#"> <font-awesome-icon icon="pencil-alt" /> </a>
             </td>
-            <td > <a href="#" @click="navigateToCandidates"> <font-awesome-icon :icon="['fas', 'eye']" /></a>
+            <td > <a href="#" @click="navigateToCandidates(job.job_number)"> <font-awesome-icon :icon="['fas', 'eye']" /></a>
             </td>
           </tr>
         </tbody>
@@ -114,8 +115,8 @@ export default {
 
 methods: {
   
-    navigateToCandidates() {
-      this.$router.push('/candidates'); 
+    navigateToCandidates(jobId) {
+      this.$router.push({ path: '/applications', query: {jobId } });
     },
     navigateToJob(jobId) {
       this.$router.push(`/navigation/${jobId}`);

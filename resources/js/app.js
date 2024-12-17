@@ -576,9 +576,14 @@ const routes = [
         name: "apply",
     },
     {
-        path: "/candidates",
+        path: "/applications",
         component: require("./components/JobsList/__Candidates.vue").default,
-        name: "candidates",
+        name: "applications",
+    },
+    {
+        path: "/applicant",
+        component: require("./components/JobsList/__Applicant_detail_list.vue").default,
+        name: "applicant",
     }
     
 ];

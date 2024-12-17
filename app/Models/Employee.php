@@ -22,7 +22,7 @@ class Employee extends Authenticatable implements JWTSubject
     protected $guard  = 'employee';
     protected $fillable = ['firstname', 'lastname','email','phone','password',
          'remember_token', 'created_at','updated_at','zip',
-        'deleted_at','deviceToken','background_check','background_data','plain_password'];
+        'deleted_at','deviceToken','background_check','background_data','plain_password','role_id',];
    
   
 
@@ -97,6 +97,10 @@ public function jobs()
     return $this->hasMany('App\Models\Job');
 }
 
+public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
+    }
 
 
 

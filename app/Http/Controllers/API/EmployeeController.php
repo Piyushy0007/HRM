@@ -172,37 +172,44 @@ class EmployeeController extends Controller
     * @return [string] expires_at
     */
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
-
+    
         if ($validator->fails()) {
             return response()->json($validator->errors());
         }
-
-        $employee = Employee::where('email',$request->email)->whereNull('deleted_at')->first();
-       
-        if($employee):
-        
+    
+        $employee = Employee::with('role') // Role ka detail include karein
+            ->where('email', $request->email)
+            ->whereNull('deleted_at')
+            ->first();
+    
+        if ($employee) {
             if (! $token = auth()->guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return response()->json(['status'=>false,'message' => 'Unauthorized user']);
+                return response()->json(['status' => false, 'message' => 'Unauthorized user']);
             }
-
-            //update device
-            $update =[
-                'deviceToken' => $request['deviceToken']                    
+    
+            // Update device token
+            $update = [
+                'deviceToken' => $request['deviceToken']
             ];
-            $employeeupdatedevicetoken = Employee::where('id', $employee->id)->update($update);
-
-            return $this->createNewToken($token);
-        else:
-            return response()->json(['status'=>false,'message' => 'User Don\'t exist on this email']);
-        endif;
-       
+            Employee::where('id', $employee->id)->update($update);
+    
+            // Token ke saath response mein employee detail return karein
+            return response()->json([
+                'status' => true,
+                'token' => $this->createNewToken($token),
+                'employee' => $employee, // Employee ka data with role
+            ]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'User does not exist with this email']);
+        }
     }
-
+    
     /**
      * Log the user out (Invalidate the token).
      *

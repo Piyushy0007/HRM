@@ -167,7 +167,7 @@ export default {
                     let vm = this;
                     this.$v.$touch()
                     if (!this.$v.$invalid) {
-                    axios.post('/api/client-login', {
+                    axios.post('/api/login', {
                             _token: this.csrf,
                             email: this.email, 
                             password: this.password
