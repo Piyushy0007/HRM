@@ -28,16 +28,16 @@
             
             <tr>
               <th class="w-6">#</th>
-              <th class="w-32 text-sm text-left">Name</th>
-              <th class="w-32 text-sm text-left">Phone Number</th>
-              <th class="w-32 text-sm text-left">Email</th>
-              <th class="w-32 text-sm text-left">Job Title</th>
+              <th class="text-sm text-center wrap-text">Name</th>
+              <th class="text-sm text-center wrap-text">Phone Number</th>
+              <th class="text-sm text-center wrap-text">Email</th>
+              <th class="text-sm text-center wrap-text">Job Title</th>
 
-              <th class="w-32 text-sm text-left">Location</th>
+              <th class="text-sm text-center wrap-text">Location</th>
               
-              <th class="w-32 text-sm text-left">Applied Date</th>
-              <th class="w-32 text-sm text-left">Created Date</th>
-              <th class="w-32 text-sm text-left">Resume</th>
+              <th class="text-sm text-center wrap-text">Applied Date</th>
+              <!-- <th class="text-sm text-center wrap-text">Resume</th> -->
+              <th class="text-sm text-center wrap-text">View</th>
              
             </tr>
           </thead>
@@ -46,30 +46,30 @@
             
   
             <tr v-if="isLoader">
-              <td colspan="8" class="text-center loader">Loading...</td>
+              <td colspan="9" class="text-center loader">Loading...</td>
             </tr>
           
-            <tr v-else-if="dataFromApi === null || dataFromApi.length === 0">
-              <td colspan="8" class="text-center loader">No applicant found</td>
+            <tr v-else-if="dataFromApi.length === 0">
+              <td colspan="9" class="text-center loader">No applicant found</td>
             </tr>
             
             <tr v-for="(job, index) in dataFromApi" :key="index">
               <td class="text-center" >{{ index + 1 }}</td>
-              <td>{{ job.name }}</td>
+              <td class="text-sm text-center wrap-text">{{ job.application.name }}</td>
               
-              <td>{{ job.phone_number }}</td>
-              <td>{{ job.email }}</td>
-              <td>{{ job.job_title }}</td>
+              <td class="text-sm text-center wrap-text">{{ job.application.phone_number }}</td>
+              <td class="text-sm text-center wrap-text">{{ job.application.email }}</td>
+              <td class="text-sm text-center wrap-text">{{ job.job_details.job_title }}</td>
               
-              <td>{{ job.location }}</td>
-              <td>{{ job.resume }}</td>
-              <td>{{ job.applied_date }}</td>
-              <td>{{ job.created_at }}</td>
-              <td>
-                <a :href="job.resume" download :title="'Download ' + job.name + ' Resume'">
+              <td class="text-sm text-center wrap-text">{{ job.application.location }}</td>
+              <td class="text-sm text-center wrap-text">{{ job.application.applied_date }}</td>
+              <!-- <td class="text-sm text-center">
+                <a :href="job.application.resume" download :title="'Download ' + job.application.resume">
                   <font-awesome-icon :icon="['fas', 'download']" />
                 </a>
-              </td>
+              </td> -->
+              
+             
               <td class="text-center">
                 <font-awesome-icon :icon="['fas', 'eye']" />
               </td>
@@ -98,6 +98,7 @@
       return {
         isLoader: false,
         dataFromApi: [], 
+        searchQuery: '',
         error: null
   
   
@@ -105,11 +106,10 @@
      
   },
   created() {
-    const jobId = this.$route.query.id; 
-    console.log(id, "candidate job number");
+    const applicantId = this.$route.query.id; 
   
-    if (id) {
-      this.fetchData(id); 
+    if (applicantId) {
+      this.fetchData(applicantId); 
     } else {
       console.log("Job number is missing");
     }
@@ -118,14 +118,20 @@
   methods: {
     
      
-      async fetchData(id) {
+      async fetchData(applicantId) {
         
         
         this.isLoader = true;
         this.error = null;
         try {
-          const response = await axios.get(`api/applicant/${id}`);
-        this.dataFromApi = response.data; 
+          const response = await axios.get(`api/applicant/${applicantId}`);
+          const applicantData = response.data; 
+          this.dataFromApi = [
+          {
+            application: applicantData.application,
+            job_details: applicantData.job_details,
+          },
+        ];
         } catch (err) {
           console.log(err,"error in api")
           this.error = err.message || 'An error occurred while fetching data.';
@@ -141,42 +147,42 @@
   </script>
   
   <style scoped>
-  .c-job-listings {
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-add-job,
-  .btn-save-jobs {
-    background-color: #2d477f;
-  }
-  
-  .btn-add-job:hover,
-  .btn-save-jobs:hover {
-    background-color: #2d477f;
-  }
-  
-  .table-fixed th,
-  .table-fixed td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .table-fixed th {
-    background-color: #f2f2f2;
-  }
-  .loader {
-  text-align: center;
-    font-size: 20px;
-    color: #007bff;
-  }
-  
-  .error {
-    color: red;
-    font-size: 18px;
-  }
-  
-  </style>
+    .c-job-listings {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-add-job,
+    .btn-save-jobs {
+      background-color: #2d477f;
+    }
+    
+    .btn-add-job:hover,
+    .btn-save-jobs:hover {
+      background-color: #2d477f;
+    }
+    
+    .table-fixed th,
+    .table-fixed td {
+      padding: 8px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    
+    .table-fixed th {
+      background-color: #f2f2f2;
+    }
+    .loader {
+    text-align: center;
+      font-size: 20px;
+      color: #007bff;
+    }
+    
+    .error {
+      color: red;
+      font-size: 18px;
+    }
+    
+    </style>
   

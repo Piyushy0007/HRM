@@ -22,14 +22,12 @@
         </div>
       </div>
 
-      <!-- Job Listings Table -->
       <table class="w-full table-fixed">
         <thead>
           
           <tr>
             <th class="w-6">#</th>
             <th class="w-32 text-sm text-left">Candidate Name</th>
-            <!-- <th class="w-32 text-sm text-left">Job Title</th> -->
             <th class="w-32 text-sm text-left">Candidate Email</th>
             <th class="w-32 text-sm text-left">Location</th>
             <th class="w-32 text-sm text-left">Applied Date</th>
@@ -102,6 +100,7 @@ methods: {
 
   navigateToApplicant(id) {
       this.$router.push({ path: '/applicant', query: {id } });
+      console.log(id)
     },
   
    
