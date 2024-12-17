@@ -1,12 +1,9 @@
 <template>
-  <div class="c-job-listings px-4 pb-4 w-80" style="margin-left: 14vw;">
-    <!-- Loader -->
+  <div>
     <Loader msg="Loading Job Listings..." v-model="isLoader" />
-
     <header-component />
-    <!-- Header with Add Job Button and Search -->
-    <div class="px-4">
-      <div class="flex items-center justify-between my-5">
+    <div class="c-job-listings" style="margin-left: 242px;">
+      <div class="flex items-center justify-between p-2">
         <div class="flex flex-wrap -mx-3">
           <div class="w-full md:w-50 px-3">
             <div class="flex items-center relative">
@@ -38,15 +35,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-if="!applications.length">
-            <td colspan="6" class="text-center">No job applications found</td>
+
+          <tr v-if="isLoader">
+            <td colspan="6" class="text-center loader">Loading...</td>
           </tr>
-          <tr v-for="(application, index) in applications" :key="index">
-            <td class="text-center">{{ index + 1 }}</td>
-            <td>{{ application.name }}</td>
-            <td>{{ application.jobTitle }}</td>
-            <td>{{ application.location }}</td>
-            <td>{{ application.appliedDate }}</td>
+        
+          
+          
+          <tr v-for="(job, index) in applications" :key="index">
+            <td colspan="6" class="text-center">No job applications found</td>
+            <td class="text-center" >{{ index + 1 }}</td>
+            <td>{{ job.name }}</td>
+            <td>{{ job.jobTitle }}</td>
+            <td>{{ job.location }}</td>
+            <td>{{ job.appliedDate }}</td>
             <td class="text-center">
               <font-awesome-icon :icon="['fas', 'eye']" />
             </td>
@@ -68,28 +70,52 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
       isLoader: false,
-      applications: [
-        {
-          name: "Piyush",
-          jobTitle: "Software Developer",
-          location: "New York",
-          appliedDate: "2024-11-22",
-        },
-        {
-          name: "Kewal",
-          jobTitle: "Finance",
-          location: "Los Angeles",
-          appliedDate: "2024-11-20",
-        },
-      ],
-      searchQuery: "",
+      dataFromApi: [], 
+      error: null
+
+
     };
+   
+},
+
+
+methods: {
+  
+   
+    async fetchData() {
+      
+      
+      this.isLoader = true;
+      this.error = null;
+      try {
+        const response = await axios.get(`api/applications/job/2427491082427`);
+        if (response.status===200) {
+      this.dataFromApi = response.data; 
+      console.log(response.data,"kkkkkkkkkkkk")
+    } else {
+      this.dataFromApi = []; 
+      console.log("Invalid response data, expected JSON but got something else.");
+    }
+      } catch (err) {
+        console.log(err,"error in api")
+        this.error = err.message || 'An error occurred while fetching data.';
+        this.dataFromApi = [];
+      } finally {
+        this.isLoader = false; 
+      }
+    }
   },
-};
+    
+  mounted() {
+    this.fetchData(); 
+  }
+}
 </script>
 
 <style scoped>
@@ -119,4 +145,15 @@ export default {
 .table-fixed th {
   background-color: #f2f2f2;
 }
+.loader {
+text-align: center;
+  font-size: 20px;
+  color: #007bff;
+}
+
+.error {
+  color: red;
+  font-size: 18px;
+}
+
 </style>
