@@ -9,43 +9,44 @@
       <li class="w-1/3 text-center"><a href="#" @click.prevent="openModal('SignIn')">Email Sign in Instructions</a></li>
     </ul>
 
-    <div class="selection-function px-4 py-3 d-flex flex-wrap justify-content-between align-items-start rounded-md">
-      <div class="d-flex flex-column flex-md-row align-items-start">
-        <div class="d-flex align-items-center text-sm mb-3 mb-md-0 mr-md-4">
+    <div class="selection-function px-4 py-3 flex flex-wrap justify-between items-start rounded-md">
+      
+      <div class="flex flex-col md:flex-row items-start">
+        <div class="flex items-center text-sm mb-3 md:mb-0 md:mr-4">
           <font-awesome-icon icon="columns" class="mr-2" />
           Select columns
         </div>
         <div class="options py-2 px-3 rounded-md bg-light shadow-sm" >
-          <label class="font-weight-bold text-sm mb-2 d-block">Selected users:</label>
-          <ul class="list-unstyled d-flex flex-wrap">
+          <label class="font-weight-bold text-sm mb-2 block">Selected users:</label>
+          <ul class="list-unstyled flex flex-wrap">
             <li class="mr-3 mb-2">
-              <a href="#" @click.prevent="SendMessageCheck('SendReminders')" class="d-flex align-items-center text-sm text-decoration-none" title="Send scheduled reminder to those checked who are also working in a date range">
+              <a href="#" @click.prevent="SendMessageCheck('SendReminders')" class="flex items-center text-sm text-decoration-none " title="Send scheduled reminder to those checked who are also working in a date range">
                 <font-awesome-icon :icon="['far', 'list-alt']" class="mr-1"></font-awesome-icon>
                 Send reminder
               </a>
             </li>
             <li class="mr-3 mb-2">
-              <a href="#" @click.prevent="SendMessageCheck('SendMessage')" class="d-flex align-items-center text-sm text-decoration-none">
+              <a href="#" @click.prevent="SendMessageCheck('SendMessage')" class="flex items-center text-sm text-decoration-none">
                 <font-awesome-icon :icon="['far', 'envelope']" class="mr-1"></font-awesome-icon>
                 Message
               </a>
             </li>
             <li class="mr-3 mb-2">
               <vue-confirm-dialog ref="sendselect"></vue-confirm-dialog>
-              <a href="#" @click.prevent="SendMessageCheck('SendSignIn')" class="d-flex align-items-center text-sm text-decoration-none">
+              <a href="#" @click.prevent="SendMessageCheck('SendSignIn')" class="flex items-center text-sm text-decoration-none">
                 <font-awesome-icon :icon="['far', 'list-alt']" class="mr-1"></font-awesome-icon>
                 Send Sign In
               </a>
             </li>
             <li class="mr-3 mb-2">
-              <a href="#" @click.prevent="SendMessageCheck('ExportData')" class="d-flex align-items-center text-sm text-decoration-none">
+              <a href="#" @click.prevent="SendMessageCheck('ExportData')" class="flex items-center text-sm text-decoration-none">
                 <font-awesome-icon icon="external-link-square-alt" class="mr-1"></font-awesome-icon>
                 Export to Clipboard
               </a>
             </li>
           </ul>
         </div>
-        
+      </div>       
 
         <!-- <div class="options py-1 pb-2 px-6 rounded-md">
           <label class="font-bold text-sm">Selected users:</label>
@@ -78,7 +79,6 @@
             </li>
           </ul>
         </div> -->
-      </div>
       <!-- <li>
         <a href="#" 
          @click.prevent="SendMessageCheck('BulkEdit')"
@@ -89,18 +89,18 @@
         </a>
       </li> -->
 
-      <div class="text-md-right mt-3 mt-md-0">
-        <span class="d-block mb-2">Total users: {{ countTotalEmployees }}*</span>
-        <div class="row g-2">
-          <div class="col-12 col-md-6">
-            <div class="position-relative">
+      <div class="text-right">
+        <span class="block mb-2">Total users: {{ countTotalEmployees }}*</span>
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-full md:w-1/2 px-3">
+            <div class="relative">
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
               <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border-l-0">
                 <font-awesome-icon icon="search" class="fill-current" />
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-6">
+          <div class="w-full md:w-1/2 pr-3">
             <div class="relative">
               <select class="block appearance-none w-full py-1 px-4 pr-8 rounded leading-tight focus:outline-none" v-model="index.selectPosition" @change="filterResultViaPosition(index.selectPosition)">
                 <option value="">All Positions</option>
@@ -193,9 +193,9 @@
         </tbody>
       </table>
     </div> -->
-    <div class="container-fluid px-4">
-      <div class="table-responsive">
-        <table class="table table-striped table-hover">
+    <div class="px-4">
+      <div>
+        <table class="table-auto w-full border-collapse border border-gray-300">
           <thead class="thead-light">
             <tr>
               <th>
@@ -260,9 +260,9 @@
     </div>
     
 
-      <div class="conatiner-fluid px-4">
+      <div class="w-full px-4">
 
-        <div style="display: none;" ref="content" class="table-responsive tabletopbackground">
+        <div style="display: none;" ref="content" class="tabletopbackground">
         <table class="w-full tabletopposition" ref="content">
         <thead>
           <tr>
@@ -298,7 +298,7 @@
       </div>
 
     <div class="information mx-4 mt-5 p-4 rounded-lg" >
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
+      <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
         <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
         <a href="#" class="text-sm inline-flex items-center">
           Help on this topic &nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
@@ -4237,8 +4237,6 @@ export default {
 }
 .custom-main {
   margin-left: 250px;
-  /* width: 80%; */
-  
 }
 .tooltip {
   position: relative;

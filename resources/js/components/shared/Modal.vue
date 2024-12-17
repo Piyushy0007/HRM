@@ -1,5 +1,5 @@
 <template>
-  <div class="modal fixed top-0 overflow-y-auto h-full w-full" v-show="value">
+  <div class="modal fixed top-0 left-0 overflow-y-auto h-full w-full" v-show="value">
     <div class="relative bg-white rounded-lg my-10" :class="!size ? 'mx-4' : `mx-auto ${size}`">
       <a href="#" @click.prevent="close" class="btn-close absolute right-0 top-0">&times;</a>
 

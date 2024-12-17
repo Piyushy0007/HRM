@@ -1,23 +1,23 @@
 <template>
   <div>
-    <nav class="navigation text-white p-3 d-flex flex-column">
+    <nav class="navigation text-white p-3 flex flex-col">
         <!-- A-HR Logo at the Top -->
       <div class="logo mb-3 text-center">
-        <h1 class="text-white font-bold text-[32px]">A-HR</h1>
+        <h1 class="text-white font-bold text-5xl">A-HR</h1>
       </div>
-      <div class="text-center">
+      <div class="text-center mb-2">
         <h6 class="text-white p-0 m-0">Piyush Yadav</h6>
         <p class="text-white text-sm">admin@example.com</p>
       </div>
       <ul class="list-unstyled">
         <li v-for="(group, groupIndex) in menuGroups" :key="groupIndex" class="mb-3">
-          <div :class="['nav-link text-start py-2 px-2 rounded d-flex align-items-center justify-content-between cursor-pointer', group.expanded ? 'bg-primary' : '']"
+          <div :class="['nav-link text-start py-2 px-2 rounded flex items-center justify-between cursor-pointer', group.expanded ? 'bg-primary' : '']"
           @click="toggleGroup(groupIndex)">
-            <div class="d-flex align-items-center justify-content-between gap-2">
+            <div class="flex items-center justify-between gap-2">
                 <div class="me-3" style="width: 24px; text-align: center;">
                   <font-awesome-icon :icon="group.icon" style="font-size: 16px;"/>
                 </div>
-                <div class="flex-grow-1 text-truncate">{{ group.title }}</div>
+                <div class="flex-grow-1">{{ group.title }}</div>
               </div>
               <span>
                 <svg
@@ -40,7 +40,7 @@
             <!-- Group Links -->
             <ul v-if="group.expanded" class="list-unstyled ps-3 mt-2">
               <li v-for="item in group.items" :key="item.name" class="nav-item ml-2">
-                <div class="d-flex align-items-center pl-3">
+                <div class="flex items-center pl-3">
                   <span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
