@@ -46,7 +46,7 @@
             
   
             <tr v-if="isLoader">
-              <td colspan="9" class="text-center loader">Loading...</td>
+              <td colspan="8" class="text-center loader">Loading...</td>
             </tr>
           
             <tr v-else-if="dataFromApi.length === 0">
