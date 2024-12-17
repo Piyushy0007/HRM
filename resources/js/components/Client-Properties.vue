@@ -13,7 +13,7 @@
          
           <div class="w-full md:w-1/4 pr-3 mt-4 mb-4">
             <div class="relative">
-              <select  id="location" @change="selectLocation()"  class="height-41 block appearance-none w-full py-1 px-4 pr-8 rounded-10 leading-tight focus:outline-none">
+              <select  id="location" @change="selectLocation()"  class="height-36 block appearance-none w-full py-1 px-4 pr-8 rounded-10 leading-tight focus:outline-none">
                <option value="">All Locations</option>
                <option v-for="loc,index in alllocation" :key="index+loc" >{{loc}}</option>
                
@@ -25,7 +25,7 @@
           </div>
           <div class="w-full md:w-1/4 pr-3 mt-4 mb-4">
             <div class="relative">
-              <select id="status" @change="selectStatus()"  class="block appearance-none w-full py-1 px-4 pr-8 rounded-10 height-41 leading-tight focus:outline-none">
+              <select id="status" @change="selectStatus()"  class="block appearance-none w-full py-1 px-4 pr-8 rounded-10 height-36 leading-tight focus:outline-none">
                 <option value="">All Status</option>
                 <option value="active">Active</option>
                 <option value="inactive">Inactive</option>
@@ -42,7 +42,7 @@
           <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
             <div class="relative">
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r ">
                 <font-awesome-icon icon="search" class="fill-current" />
               </div>
             </div>

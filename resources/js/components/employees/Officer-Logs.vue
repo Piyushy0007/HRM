@@ -2,13 +2,13 @@
   <div class="c-employee-index client-table pb-4 " style="margin-right: 1vw; margin-left: 240px;">
 
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 " style="margin-right: 1vw;">
-      <div class="flex " style="justify-content: space-between;">
-        <h1 class="mb-4">Watcher Logs</h1>
-         <div class="w-50 px-3  md:w-2/1  2 mt-4 mb-4" style="float:right;">
+    <div class="px-4 pb-4 ">
+      <div class="flex items-center justify-between mx-2 my-3">
+        <h2>Watcher Logs</h2>
+         <div class="w-50 px-3  md:w-2/1">
             <div class="relative">
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r ">
                 <font-awesome-icon icon="search" class="fill-current" />
               </div>
             </div>

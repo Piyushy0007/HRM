@@ -4,13 +4,13 @@
   	<Loader msg="Processing ..." v-model="isLoader" />
 		
 		<div class="px-4">
-			<div class="flex items-center justify-between my-5">
-				<button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="showEmployeeEmailsToggle(hasEmail)">Show users with {{ hasEmailLabel }}</button>
+			<div class="flex items-center justify-between my-4">
+				<button class="text-white py-1 px-12 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="showEmployeeEmailsToggle(hasEmail)">Show users with {{ hasEmailLabel }}</button>
 	      <div class="flex flex-wrap -mx-3">
 	        <div class="w-full md:w-1/2 px-3">
             <div class="relative">
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r">
                 <font-awesome-icon icon="search" class="fill-current" />
               </div>
             </div>
@@ -66,7 +66,7 @@
 	      </tbody>
 	    </table>
 
-      <div class="text-center my-12">
+      <div class="text-center my-8">
         <button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="updatePublish">Save Changes</button>
       </div>
 
