@@ -25,10 +25,12 @@
       <!-- Job Listings Table -->
       <table class="w-full table-fixed">
         <thead>
+          
           <tr>
             <th class="w-6">#</th>
-            <th class="w-32 text-sm text-left">Candidate's Name</th>
-            <th class="w-32 text-sm text-left">Job Title</th>
+            <th class="w-32 text-sm text-left">Candidate Name</th>
+            <!-- <th class="w-32 text-sm text-left">Job Title</th> -->
+            <th class="w-32 text-sm text-left">Candidate Email</th>
             <th class="w-32 text-sm text-left">Location</th>
             <th class="w-32 text-sm text-left">Applied Date</th>
             <th class="w-20 text-sm leading-none px-2 py-2">Detail of Candidates</th>
@@ -36,21 +38,23 @@
         </thead>
         <tbody>
 
+          
+
           <tr v-if="isLoader">
             <td colspan="6" class="text-center loader">Loading...</td>
           </tr>
         
+          <tr v-else-if="dataFromApi === null || dataFromApi.length === 0">
+            <td colspan="6" class="text-center loader">No applicant found</td>
+          </tr>
           
-          
-          <tr v-for="(job, index) in applications" :key="index">
-            <td colspan="6" class="text-center">No job applications found</td>
+          <tr v-for="(job, index) in dataFromApi" :key="index">
             <td class="text-center" >{{ index + 1 }}</td>
             <td>{{ job.name }}</td>
-            <td>{{ job.jobTitle }}</td>
+            <td>{{ job.email }}</td>
             <td>{{ job.location }}</td>
-            <td>{{ job.appliedDate }}</td>
-            <td class="text-center">
-              <font-awesome-icon :icon="['fas', 'eye']" />
+            <td>{{ job.applied_date }}</td>
+            <td > <a href="#" @click="navigateToApplicant(job.id)"> <font-awesome-icon :icon="['fas', 'eye']" /></a>
             </td>
           </tr>
         </tbody>
@@ -83,25 +87,32 @@ export default {
     };
    
 },
+created() {
+  const jobId = this.$route.query.jobId; 
+  console.log(jobId, "candidate job number");
 
+  if (jobId) {
+    this.fetchData(jobId); 
+  } else {
+    console.log("Job number is missing");
+  }
+},
 
 methods: {
+
+  navigateToApplicant(id) {
+      this.$router.push({ path: '/applicant', query: {id } });
+    },
   
    
-    async fetchData() {
+    async fetchData(jobId) {
       
       
       this.isLoader = true;
       this.error = null;
       try {
-        const response = await axios.get(`api/applications/job/2427491082427`);
-        if (response.status===200) {
+        const response = await axios.get(`api/applications/job/${jobId}`);
       this.dataFromApi = response.data; 
-      console.log(response.data,"kkkkkkkkkkkk")
-    } else {
-      this.dataFromApi = []; 
-      console.log("Invalid response data, expected JSON but got something else.");
-    }
       } catch (err) {
         console.log(err,"error in api")
         this.error = err.message || 'An error occurred while fetching data.';
@@ -112,9 +123,7 @@ methods: {
     }
   },
     
-  mounted() {
-    this.fetchData(); 
-  }
+  
 }
 </script>
 
