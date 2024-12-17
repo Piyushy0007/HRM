@@ -1,11 +1,11 @@
 <template>
-   <div class="contsiner-fluid">
-       <div class="row">
+   <div class="w-full">
+       <div class="flex flex-wrap">
    
-                       <div class="d-none d-md-block col-md-2 pr-0 sidebar">
+                       <div class="hidden md:block md:w-1/6 pr-0 sidebar">
                            <header-component />
                          </div>
-                         <div class="col-12 col-md-10 content px-2">
+                         <div class="w-full md:w-5/6 content px-2">
                            
                              <div class="c-attendance-page p-0" >
                              
@@ -13,6 +13,7 @@
                                    <div>
                                      <span class="text-lg font-bold" style="float:left;">Monthly Attendance</span>
                                    </div>
+                                   
                                  </div>
                                <div>
                                    <table class="w-full border-gray-300">
