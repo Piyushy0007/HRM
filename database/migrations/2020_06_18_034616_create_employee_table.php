@@ -37,6 +37,7 @@ class CreateEmployeeTable extends Migration
             $table->date('hired_date');
             $table->tinyInteger('priority_group');
             $table->boolean('enable_screen_reader')->default(false);
+            $table->integer('role_id');
 
             $table->timestamps();
             $table->softDeletes();

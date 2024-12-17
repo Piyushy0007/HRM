@@ -55,5 +55,14 @@ public function getApplicationWithJobDetails($id)
     ], 200);
 }
 
+public function getApplicationsByJobNumber($jobNumber)
+{
+    $applications = Application::where('job_number', $jobNumber)
+        ->orderBy('applied_date', 'desc') // Optional: Order by application date
+        ->get();
+
+    return response()->json($applications);
+}
+
 
 }
