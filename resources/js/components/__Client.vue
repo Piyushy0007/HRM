@@ -2,7 +2,7 @@
   <div>
     <header-component />
 
-    <nav class="employee mb-1 mt-1">
+    <nav class="employee mb-1">
       <ul class="flex justify-center w-5/12 mx-auto">
       	<router-link tag="li" :to="{ name: 'clindex' }" class="w-1/4 mr-1 rounded-t-lg">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Community</a>

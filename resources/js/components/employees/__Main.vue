@@ -123,9 +123,9 @@
     </div>
 
     <div v-if="this.userRole == 'admin' ">
-        <nav class="employee mb-1 mt-1">
-        <ul class="flex justify-center mb-0  w-5/12 auto mx-auto " style="justify-content:space-between;">
-          <router-link tag="li" :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg">
+        <nav class="employee mb-1">
+        <ul class="flex justify-center mb-0  w-5/12 auto mx-auto" style="justify-content:space-between;">
+          <router-link tag="li" :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Users</a>
           </router-link>
           <router-link tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1 rounded-t-lg">

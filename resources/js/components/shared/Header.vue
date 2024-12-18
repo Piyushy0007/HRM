@@ -220,7 +220,7 @@ export default {
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   z-index: 10;
   position: fixed; 
-  height: 100vh;
+  min-height: 100vh;
   min-width: 240px;
 }
 
@@ -273,6 +273,7 @@ export default {
 
 .navigation::-webkit-scrollbar {
   width: 5px;
+  display: none;
 }
 
 .navigation::-webkit-scrollbar-thumb {
