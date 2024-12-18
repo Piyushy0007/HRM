@@ -225,9 +225,10 @@ export default {
      "Content-Type": "multipart/form-data",
   },
 });
-console.log(response,"kkkkkkkkkkkkk")
     console.log("Job created successfully:", response.data);
     alert("Job created successfully!");
+    this.$router.push('/listing');
+
     
   } catch (error) {
     console.error("Error creating job:", error);
