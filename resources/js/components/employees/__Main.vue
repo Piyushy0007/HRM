@@ -128,17 +128,17 @@
           <router-link tag="li" :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Users</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1 rounded-t-lg">
+          <router-link tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Positions</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'employee-notifications' }" class="w-1/4 mr-1 rounded-t-lg">
+          <router-link tag="li" :to="{ name: 'employee-notifications' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Notifications</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'officer-logs' }" class="w-1/4 mr-1 rounded-t-lg">
+          <router-link tag="li" :to="{ name: 'officer-logs' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Watcher Logs</a>
           </router-link>
           
-          <router-link tag="li" :to="{ name: 'employee-deleted' }" class="w-1/4 rounded-t-lg">
+          <router-link tag="li" :to="{ name: 'employee-deleted' }" class="w-1/4 rounded-t-lg mt-1">
             <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Deleted</a>
           </router-link>
         </ul>
