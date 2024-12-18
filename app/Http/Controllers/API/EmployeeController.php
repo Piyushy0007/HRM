@@ -173,42 +173,51 @@ class EmployeeController extends Controller
     */
 
     public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6',
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json($validator->errors());
-        }
-    
-        $employee = Employee::with('role') // Role ka detail include karein
-            ->where('email', $request->email)
-            ->whereNull('deleted_at')
-            ->first();
-    
-        if ($employee) {
-            if (! $token = auth()->guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return response()->json(['status' => false, 'message' => 'Unauthorized user']);
-            }
-    
-            // Update device token
-            $update = [
-                'deviceToken' => $request['deviceToken']
-            ];
-            Employee::where('id', $employee->id)->update($update);
-    
-            // Token ke saath response mein employee detail return karein
-            return response()->json([
-                'status' => true,
-                'token' => $this->createNewToken($token),
-                'employee' => $employee, // Employee ka data with role
-            ]);
-        } else {
-            return response()->json(['status' => false, 'message' => 'User does not exist with this email']);
-        }
+{
+    // Validate the input
+    $validator = Validator::make($request->all(), [
+        'email' => 'required|email',
+        'password' => 'required|string|min:6',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json($validator->errors());
     }
+
+    // Fetch the employee along with role
+    $employee = Employee::with('role')
+        ->where('email', $request->email)
+        ->whereNull('deleted_at')
+        ->first();
+
+    if (!$employee) {
+        return response()->json(['status' => false, 'message' => 'User does not exist on this email']);
+    }
+
+    // Attempt login
+    if (!$token = auth()->guard('employee')->attempt([
+        'email' => $request->email,
+        'password' => $request->password
+    ])) {
+        return response()->json(['status' => false, 'message' => 'Unauthorized user']);
+    }
+
+    // Update device token if provided
+    if ($request->has('deviceToken')) {
+        $employee->update([
+            'deviceToken' => $request->deviceToken
+        ]);
+    }
+
+    // Return token and user information including role
+    return response()->json([
+        'status' => true,
+        'message' => 'Login successful',
+        'token' => $token,
+        'employee' => $employee
+    ]);
+}
+
     
     /**
      * Log the user out (Invalidate the token).

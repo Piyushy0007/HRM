@@ -35,6 +35,7 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ClientRequestController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobApplicationController;
+use App\Http\Controllers\RoleController;
 
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
@@ -198,6 +199,9 @@ Route::get('/jobs/{job_number}', [JobController::class, 'getJobByNumber']);
 Route::post('/apply-job', [JobApplicationController::class, 'applyForJob']);
 Route::get('/applicant/{id}', [JobApplicationController::class, 'getApplicationWithJobDetails']);
 Route::get('/applications/job/{jobNumber}', [JobApplicationController::class, 'getApplicationsByJobNumber']);
+
+//role
+Route::get('/roles', [RoleController::class, 'getAllRoles']);
 
 
 
