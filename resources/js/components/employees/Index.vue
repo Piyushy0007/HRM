@@ -952,14 +952,18 @@
         <form @submit.prevent="handleSubmit(storeEmployee)" ref="frmAddEmployee" novalidate>
           <div
             class="flex flex-col mb-6 mt-3">
-            <label class="block text-gray-700 font-semibold mb-2">Select Community:</label>
+            <label class="block text-gray-700 font-semibold mb-2">Select User Role:</label>
             <select
+            v-model="modal.addEmployee.clientid" @change="clientselected"
               class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
               
             >
               <option value="">Select Community</option>
-              <option value="">HR</option>
-              <option value="">Developer</option>
+              <option v-for="role in roleList" :key="role.id" :value="role.id">
+                {{ role.role_name }}
+              </option>
+              <!-- <option value="">HR</option>
+              <option value="">Developer</option> -->
               <!-- <option :value="data.id" v-for="data in clientlist" :key="data.id">{{ data.clientname }}</option> -->
             </select>
           </div>
@@ -993,52 +997,198 @@
             </ValidationProvider>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-            <ValidationProvider rules="required|email" v-slot="{ errors }">
-              <div>
-                <label class="block text-gray-700 font-semibold mb-2">Email Address<span class="text-red-500">*</span></label>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
+         
 
-                  v-model="modal.addEmployee.email"
-                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                />
-                <small class="text-red-600">{{ errors[0] }}</small>
-              </div>
-            </ValidationProvider>
-    
-            <ValidationProvider rules="required|min:10|numeric" v-slot="{ errors }">
-              <div>
-                <label class="block text-gray-700 font-semibold mb-2">Phone Number<span class="text-red-500">*</span></label>
-                <input
-                  type="text"
-                  placeholder="Enter Phone Number"
-
-                  v-model="modal.addEmployee.phone"
-                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                />
-                <small class="text-red-600">{{ errors[0] }}</small>
-              </div>
-            </ValidationProvider>
+         
+          <div class="mb-4 mt-4">
+            <label class="block text-gray-700 font-semibold mb-2">
+              Profile Picture <span class="text-red-500">*</span>
+            </label>
+            <div class="flex items-center">
+              <!-- Hidden file input -->
+              <input
+                type="file"
+                id="profilePicInput"
+                ref="profilePic"
+                @change="handleFileUpload"
+                style="display:none;"
+              />
+              <!-- Styled "Choose File" button -->
+              <label
+                for="profilePicInput"
+                class="cursor-pointer bg-gray-100 border border-gray-300 rounded-lg py-2 px-4 text-gray-700 hover:bg-gray-200"
+              >
+                Choose File
+              </label>
+              <!-- Text input to display file name -->
+              <input
+                type="text"
+                v-model="modal.addEmployee.employee_image"
+                readonly
+                class="block w-full ml-4 py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+              />
+            </div>
+            <!-- Display uploaded image -->
+            <div v-if="uploadedImageUrl" class="mt-4">
+              <img
+                :src="uploadedImageUrl"
+                alt="Profile Picture"
+                class="h-20 w-20 rounded-full border border-gray-300"
+              />
+            </div>
           </div>
 
-          <div class="mt-6">
-            <ValidationProvider rules="required" v-slot="{ errors }">
-              <div>
-                <label class="block text-gray-700 font-semibold mb-2">Designation<span class="text-red-500">*</span></label>
+            <!-- Positions Section -->
+            <!-- v-if="modal.reqEditEmployee.enable_security_officer == 1" -->
+            <div 
+             class="py-5 mb-4">
+              <div class="flex justify-between items-center mb-4 px-6">
+                <h4 class="text-xl font-semibold mr-4">Positions</h4>
+                <a href="#" class="text-sm text-custom-primary" @click.prevent="openModal('AddNewPosition')">
+                  <strong>&plus;</strong> Add New
+                </a>
+              </div>
+          
+              <ul class="flex flex-col ml-10 mr-6" v-if="modal.positions.length === 0">
+                <li class="text-gray-500">No Records Found</li>
+              </ul>
+              <ul class="flex flex-col ml-10 mr-6" v-else>
+                <li v-for="data in modal.positions" :key="data.id" class="mb-2">
+                  <label class="flex items-center">
+                    <input
+                      type="checkbox"
+                      class="mr-2 h-4 w-4 text-custom-primary focus:ring focus:ring-custom-primary rounded"
+                      v-model="modal.selectedPositions"
+                      :value="data.id"
+                    />
+                    <span class="text-sm text-gray-700">{{ data.position }}</span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          
+            <!-- Contact Section -->
+            <div class="px-6 pb-6 mb-4">
+              <h4 class="text-xl font-semibold mb-4">Contact</h4>
+          
+              <!-- Email -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">
+                    <font-awesome-icon icon="lock" class="mr-1" size="xs" />Email
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Email"
+                    v-model="modal.addEmployee.email"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  />
+                </div>
+          
+                <!-- Phone -->
+                <div >
+                  <label class="block text-gray-700 font-semibold mb-2">
+                    <font-awesome-icon icon="lock" class="mr-1" size="xs" />Phone
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Phone Number"
+
+                    v-model="modal.addEmployee.phone"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  />
+                </div>
+              </div>
+          
+              <!-- 2nd Phone -->
+              <div >
+                <label class="block text-gray-700 font-semibold mb-2">2nd Phone</label>
                 <input
                   type="text"
-                  placeholder="Enter your designation"
+                  placeholder="Enter phone"
 
-                  v-model="modal.addEmployee.designation"
+                  v-model.number="modal.addEmployee.phone2"
+                  @input="acceptNumber2nd"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 />
-                <small class="text-red-600">{{ errors[0] }}</small>
               </div>
-            </ValidationProvider>
-          </div>
+          
+              <!-- Address -->
+              <div  class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Address</label>
+                <input
+                  type="text"
+                  placeholder="Enter Address"
+                  v-model="modal.addEmployee.address"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                />
+              </div>
+          
+              <!-- Address 2 -->
+              <div  class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Address 2</label>
+                <input
+                  type="text"
+                  placeholder="Enter Address 2"
 
+                  v-model="modal.addEmployee.address2"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                />
+              </div>
+          
+              <!-- City, State, Zip -->
+              <div  class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">City</label>
+                  <input
+                    type="text"
+                    placeholder="Enter City"
+
+                    v-model="modal.addEmployee.city"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">State</label>
+                  <input
+                    type="text"
+                    placeholder="Enter State"
+
+                    v-model="modal.addEmployee.state"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  />
+                </div>
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">Zip</label>
+                  <input
+                    type="text"
+                    placeholder="Enter Zip"
+
+                    v-model="modal.addEmployee.zip"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  />
+                </div>
+              </div>
+            </div>
+          
+            <div class="comments px-6 pb-4 mb-4 flex flex-col">
+              <!-- Comment Text -->
+              <h4 class="text-xl font-semibold mb-2">Comments</h4>
+              
+              <!-- Instruction Text -->
+              <div class="w-full mb-2">
+                <label class="text-sm text-gray-600">Your Settings currently DO NOT ALLOW users to see this comment</label>
+              </div>
+              
+              <!-- Textarea for comment -->
+              <div class="w-full">
+                <textarea rows="5" v-model="modal.addEmployee.comment" 
+                placeholder="Comment"
+
+                  class="block w-full border rounded py-2 px-4 focus:ring focus:ring-custom-primary"></textarea>
+              </div>
+            </div>
+            
 
       <div class="text-center mt-10">
         <button
@@ -1504,34 +1654,18 @@
         <!-- </div> -->
         
         </form>
+
         
       </ValidationObserver>
 
-			<!-- <div class="information">
-				<h4 class="text-xl mb-2">Information</h4>
-				<ul class="list-inside">
-					<li class="text-sm">* The account main manager can define two custom fields labels.</li>
-					<li class="text-sm">** Optional default pay rate can be set here. Pay rates per position can be set later.</li>
-				</ul>
-			</div> -->
+			
 		</modal>
 
 
     <modal v-model="modal.editEmployee" class="modal-edit-employee" size="md:w-7/12" title="Edit User">
       <ValidationObserver v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(updateEmployee)" novalidate>
-          <!-- <div class="mt-8 mb-4">
-            <div class="flex" style="float:right;">
-              <ul class="flex justify-around options">
-                  <li> 
-                    <a href="#" class="text-custom-primary" @click="resetPassword(modal.reqEditEmployee.id)">
-                      <font-awesome-icon icon="print" class="mr-1" />
-                      Reset Pass &amp; Print
-                    </a>
-                  </li>
-                </ul>
-            </div>
-          </div> -->
+        
           <div class="w-3/5 mx-auto mt-8 mb-4">
             <div class="flex justify-around items-center">
               <div>
@@ -1577,7 +1711,6 @@
                         <option :value="data.id" v-for="data in clientlist" :key="data.id">{{ data.clientname }}</option>
                     </select>
           </div>
-          <!-- ================================= Full Name ================================= -->
           <div class=" flex py-5 justify-center px-6">
             <div class="w-1/2">
               <ValidationProvider rules="required|alpha_spaces" v-slot="v">
@@ -1617,7 +1750,6 @@
               </ValidationProvider>
             </div>
           </div>
-          <!-- ================================= Full Name ================================= -->
     			<div class="flex py-5 justify-center px-6" v-if="modal.reqEditEmployee.enable_security_officer==1">
             <div class="w-2/3">
             
@@ -1639,7 +1771,6 @@
               
             </div>
     			</div>
-    			<!-- ================================= ./Full Name ================================= -->
           <div class="flex py-5 justify-center px-6">
             <div class="w-1/2">
               <ValidationProvider rules="required" v-slot="v">
@@ -1699,54 +1830,8 @@
             </div>
           </div>
 
-          <!-- ================================= ./Full Name ================================= -->
 
-          <!-- ================================= Sign in ================================= -->
-          <!-- <div class="sign-in py-5 px-6 mb-4">
-            <div class="flex justify-between items-center mb-4">
-              <h4 class="text-xl font-semibold mr-4">Sign In</h4>
-            </div>
-
-            <div class="flex justify-between">
-              <div class="w-1/2">
-                <div class="md:flex md:items-center mb-1">
-                  <div class="w-2/6">
-                    <label class="block mb-1 md:mb-0 pr-4">Email:</label>
-                  </div>
-                  <div class="w-3/6 text-left">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.reqEditEmployee.email"> 
-                 
-                   
-                  </div>
-                </div>
-              </div>
-              <div class="w-1/2">
-                <ul class="flex justify-around options">
-                  <li>
-                    <a href="#" class="text-custom-primary" @click="changeEmail(modal.reqEditEmployee.id , modal.reqEditEmployee.email)">
-                      <font-awesome-icon icon="pencil-alt" class="mr-1" />
-                      Change
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="text-custom-primary flex items-center" @click="sendEmail(modal.reqEditEmployee)">
-                      <img src="/images/icon-email.svg" class="h-4 mr-1" alt="email">
-                      Email
-                    </a>
-                   </li> 
-                  <li> 
-                    <a href="#" class="text-custom-primary" @click="resetPassword(modal.reqEditEmployee.id)">
-                      <font-awesome-icon icon="print" class="mr-1" />
-                      Reset Pass &amp; Print
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div> -->
-          <!-- ================================= ./Sign in ================================= -->
-
-          <!-- ================================= Positions ================================= -->
+         
           <div class="positions py-5 mb-4" v-if="modal.reqEditEmployee.enable_security_officer==1 ">
             <div class="flex justify-between items-center mb-4 px-6">
               <h4 class="text-xl font-semibold mr-4">Positions</h4>
@@ -1765,10 +1850,7 @@
               </li>
             </ul>
           </div>
-          <!-- ================================= ./Positions ================================= -->
 
-
-          <!-- ================================= Contact ================================= -->
           <div class="contact px-6 pb-6 mb-4">
             <h4 class="text-xl font-semibold mb-4">Contact</h4>
             <div class="md:flex md:items-center mb-1">
@@ -1807,49 +1889,7 @@
                   <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.reqEditEmployee.phone2" @input="acceptNumber2nd">
                 </div>
               </div>
-              <!-- <div class="md:flex md:items-center mb-1">
-                <div class="md:w-1/4"></div>
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div> 
-            </ValidationProvider> -->
-
-
-            <!-- <ValidationProvider rules="required" v-slot="v">
-              <div class="md:flex md:items-center">
-                <div class="md:w-1/4">
-                  <label class="block md:text-right mb-1 md:mb-0 pr-4">Cell</label>
-                </div>
-                <div class="md:w-3/4">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.reqEditEmployee.mobile" @keypress="isNumberOnly($event)" maxlength="15">
-                </div>
-              </div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-1/4"></div>
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider> -->
-
-
-            <!-- <ValidationProvider rules="required" v-slot="v">
-              <div class="md:flex md:items-center">
-                <div class="md:w-1/4">
-                  <label class="block md:text-right mb-1 md:mb-0 pr-4">Watchers #</label>
-                </div>
-                <div class="md:w-3/4">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.reqEditEmployee.employee_no" @keypress="isNumberOnly($event)" maxlength="15">
-                </div>
-              </div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-1/4"></div>
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider> -->
+              
 
 
             <ValidationProvider v-slot="v" v-if="modal.reqEditEmployee.enable_security_officer==1">
@@ -1903,11 +1943,9 @@
                 </ValidationProvider>
               </div>
             </div>
-          </div>
-          <!-- ================================= ./Contact ================================= -->
+          </div>  
 
 
-          <!-- ================================= Auto Fill Options ================================= -->
           <div class="auto-fill-options px-6 pb-6 mb-4" v-if="modal.reqEditEmployee.enable_security_officer==1 && modal.getUserRole==99990">
             <h4 class="text-xl font-semibold mb-2">AutoFill options</h4>
             <div>
@@ -2015,10 +2053,8 @@
 
             </div>
           </div>
-          <!-- ================================= ./Auto Fill Options ================================= -->
 
           
-          <!-- ================================= Pay Rate ================================= -->
           <div class="pay-rate px-6 pb-4 mb-4 flex mt-1" v-if="modal.reqEditEmployee.enable_security_officer==1 && modal.getUserRole==99990">
             <h4 class="text-xl font-semibold w-3/12">Pay Rate**</h4>
             <div class="w-4/12 mr-2">
@@ -2029,10 +2065,8 @@
             </div>
             <span class="mt-1">per hour default</span>
           </div>
-          <!-- ================================= ./Pay Rate ================================= -->
 
 
-          <!-- ================================= Custom Fields ================================= -->
           <div class="custom-fields px-6 pb-4 mb-4 flex" v-if="modal.reqEditEmployee.enable_security_officer==1 && modal.getUserRole==99990">
             <h4 class="text-xl font-semibold w-3/12">Custom Fields*</h4>
             <div class="w-9/12">
@@ -2040,10 +2074,8 @@
               <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text">
             </div>
           </div>
-          <!-- ================================= ./Custom Fields ================================= -->
 
 
-          <!-- ================================= Comments ============================api/employees===== -->
           <div class="comments px-6 pb-4 mb-4 flex" v-if="modal.reqEditEmployee.enable_security_officer==1">
             <h4 class="text-xl font-semibold w-3/12">Comments</h4>
             <div class="w-9/12">
@@ -2051,10 +2083,8 @@
               <textarea rows="5" class="w-full rounded p-2 leading-tight focus:outline-none" v-model="modal.reqEditEmployee.comment" style="border: 1px solid;"></textarea>
             </div>
           </div>
-          <!-- ================================= ./Comments ================================= -->
 
 
-          <!-- ================================= Preferences ================================= -->
           <div class="px-6 pb-4 flex items-center" v-if="modal.reqEditEmployee.enable_security_officer==1 && modal.getUserRole==99990">
             <h4 class="text-xl font-semibold w-3/12">Preferences</h4>
             <div class="w-9/12">
@@ -2617,7 +2647,11 @@ export default {
       updateworkpref: false,
       Images:{
         client_image:''
-      }
+      },
+      slectedRole:"",
+      roleList:[],
+      isLoader: false,
+      error: null
 		}
 	},
   computed: {
@@ -2663,6 +2697,7 @@ export default {
     await vm.indexEmployee()
     await vm.indexPosition('index-position')
     vm.fetchclientlist();
+    vm.fetchUserRole();
   },
   watch :{
     BulkIDS:{
@@ -2674,6 +2709,27 @@ export default {
     }
   },
 	methods: {
+
+     async fetchUserRole() {
+      
+      
+      this.isLoader = true;
+      this.error = null;
+      try {
+        const response = await axios.get(`api/roles`);
+        if (response.data.status) {
+          this.roleList = response.data.data;
+        } else {
+          this.error = response.data.message || "Failed to fetch roles.";
+        }
+        
+      } catch (err) {
+        this.error = err.message || 'An error occurred while fetching data.';
+      } finally {
+        this.isLoader = false; 
+      }
+    },
+  
     // 
     handleFileUpload1(event){
       console.log(event.target.files, 'here')
@@ -4338,6 +4394,9 @@ export default {
       })
     },
 	}
+  
+
+
 }
 
 </script>

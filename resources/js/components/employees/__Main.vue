@@ -5,7 +5,7 @@
 
     <div class="bv-example-row mx-auto" v-if="this.userRole != 'admin' ">
         <b-row>
-        <b-col cols="2" style="flex: 0 0 auto;width: 16.66666667%;float: left;">
+        <b-col cols="2" style="flex: 0 0 auto;width: 16.66666667%;">
         <ul class="justify-center mx-auto mt-3" style="margin-top: -50px;">
           <router-link  :to="{ name: 'cd' }" class="md:w-40 xl:w-64 mr-1 mb-3 mt-3 ">
             <img style="height:50px; margin-left:80px; margin-top:30px" src="/images/logo.png" alt="Eyewitness" class="">
@@ -91,7 +91,7 @@
       </ul>
     </b-col>
 
-    <b-col cols="10" style="flex: 0 0 auto; width: 83.33333333%;float: left;background: #f2f2f2;margin-top: 85px;">
+    <b-col cols="10" class="flex-auto w-full float-left bg-gray-200">
 
       <p class="removecls" style="margin-bottom: 0;padding-bottom: 75px;border-left: 2px solid #f9f9f9; margin-top: -105px; padding-left: 30px;font-family: Poppins;font-weight: bold;font-size: 22px; color: #2C1977; "> Users</p>
 
