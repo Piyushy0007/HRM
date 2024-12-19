@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navigation text-white p-3 flex flex-col">
+    <nav class="navigation text-white p-3 flex flex-col" style="overflow: scroll; height: 100vh;">
         <!-- A-HR Logo at the Top -->
       <div class="logo mb-3 text-center">
         <h1 class="text-white font-bold text-5xl">A-HR</h1>
@@ -215,13 +215,13 @@ export default {
 
 <style lang="scss" scoped>
 .navigation {
-  background-color: #4E1BD7;
-  overflow-y: auto;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  position: fixed; 
   min-height: 100vh;
   min-width: 240px;
+  overflow: scroll;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  background-color: #4E1BD7;
+  z-index: 10;
+  position: fixed; 
 }
 
 .navigation ul {
@@ -231,7 +231,7 @@ export default {
 
 .text-truncate {
   max-width: 106px;
-  overflow: hidden;
+  /* overflow: hidden; */
   white-space: nowrap;
   text-overflow: ellipsis;
 }

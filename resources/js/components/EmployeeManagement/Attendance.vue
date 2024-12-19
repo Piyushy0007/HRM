@@ -2,7 +2,7 @@
    <div>
        <header-component />
     <div style="margin-left: 242px;">
-        <div class="max-w-7xl mx-auto p-4">
+        <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
            <div
             class="flex items-center justify-between bg-white p-4 shadow-md rounded-lg mb-5"
           >
@@ -53,97 +53,99 @@
             </div>   
             </div>   
          <!-- Table Container -->
-         <div class="bg-white shadow-lg rounded-lg">
+         <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
            <!-- Table Header -->
-           <table class="w-full table-auto">
-             <thead>
-               <tr class="text-left border-b">
-                 <th class="py-3 px-4 text-blue-600">Employee</th>
-                 <th class="py-3 px-4 text-blue-600">Designation</th>
-                 <th class="py-3 px-4 text-blue-600">Date</th>
-                 <th class="py-3 px-4 text-blue-600">Check-in Time</th>
-                 <th class="py-3 px-4 text-blue-600">Checkout Time</th>
-                 <th class="py-3 px-4 text-blue-600">Status</th>
-                 <th class="py-3 px-4 text-blue-600">Details</th>
-               </tr>
-             </thead>
-             <tbody>
-               <!-- Row 1 -->
-               <tr class="border-b">
-                 <td class="py-3 px-4 flex items-center gap-2">
-                   <img
-                     src="https://via.placeholder.com/40"
-                     alt="Employee"
-                     class="rounded-full"
-                   />
-                   John Doe
-                 </td>
-                 <td class="py-3 px-4">Software Engineer</td>
-                 <td class="py-3 px-4">20-08-2021</td>
-                 <td class="py-3 px-4">05-12-1992</td>
-                 <td class="py-3 px-4">03008951423</td>
-                 <td class="py-3 px-4">Leave</td>
-                 <td class="py-3 px-4">
-                   <button
-                     class="text-blue-500 border border-blue-400 px-4 py-1 rounded-full hover:bg-blue-100"
-                   >
-                     View
-                   </button>
-                 </td>
-               </tr>
-     
-               <!-- Row 2 -->
-               <tr class="border-b">
-                 <td class="py-3 px-4 flex items-center gap-2">
-                   <img
-                     src="https://via.placeholder.com/40"
-                     alt="Employee"
-                     class="rounded-full"
-                   />
-                   John Doe
-                 </td>
-                 <td class="py-3 px-4">Software Engineer</td>
-                 <td class="py-3 px-4">20-08-2021</td>
-                 <td class="py-3 px-4">05-12-1992</td>
-                 <td class="py-3 px-4">03008951423</td>
-                 <td class="py-3 px-4">Present</td>
-                 <td class="py-3 px-4">
-                   <button
-                     class="text-blue-500 border border-blue-400 px-4 py-1 rounded-full hover:bg-blue-100"
-                   >
-                     View
-                   </button>
-                 </td>
-               </tr>
-     
-               <!-- Row 3 -->
-               <tr class="border-b">
-                 <td class="py-3 px-4 flex items-center gap-2">
-                   <img
-                     src="https://via.placeholder.com/40"
-                     alt="Employee"
-                     class="rounded-full"
-                   />
-                   John Doe
-                 </td>
-                 <td class="py-3 px-4">UI/UX Designer</td>
-                 <td class="py-3 px-4">20-08-2021</td>
-                 <td class="py-3 px-4">05-12-1992</td>
-                 <td class="py-3 px-4">03008951423</td>
-                 <td class="py-3 px-4">Absent</td>
-                 <td class="py-3 px-4">
-                   <button
-                     class="text-blue-500 border border-blue-400 px-4 py-1 rounded-full hover:bg-blue-100"
-                   >
-                     View
-                   </button>
-                 </td>
-               </tr>
-             </tbody>
-           </table>
+           <div class="flex-grow overflow-auto">
+             <table class="w-full table-auto">
+               <thead>
+                 <tr class="text-left border-b">
+                   <th class="py-3 px-4 text-blue-600">Employee</th>
+                   <th class="py-3 px-4 text-blue-600">Designation</th>
+                   <th class="py-3 px-4 text-blue-600">Date</th>
+                   <th class="py-3 px-4 text-blue-600">Check-in Time</th>
+                   <th class="py-3 px-4 text-blue-600">Checkout Time</th>
+                   <th class="py-3 px-4 text-blue-600">Status</th>
+                   <th class="py-3 px-4 text-blue-600">Details</th>
+                 </tr>
+               </thead>
+               <tbody>
+                 <!-- Row 1 -->
+                 <tr class="border-b">
+                   <td class="py-3 px-4 flex items-center gap-2">
+                     <img
+                       src="https://via.placeholder.com/40"
+                       alt="Employee"
+                       class="rounded-full"
+                     />
+                     John Doe
+                   </td>
+                   <td class="py-3 px-4">Software Engineer</td>
+                   <td class="py-3 px-4">20-08-2021</td>
+                   <td class="py-3 px-4">05-12-1992</td>
+                   <td class="py-3 px-4">03008951423</td>
+                   <td class="py-3 px-4">Leave</td>
+                   <td class="py-3 px-4">
+                     <button
+                       class="text-blue-500 border border-blue-400 px-4 py-1 rounded-full hover:bg-blue-100"
+                     >
+                       View
+                     </button>
+                   </td>
+                 </tr>
+       
+                 <!-- Row 2 -->
+                 <tr class="border-b">
+                   <td class="py-3 px-4 flex items-center gap-2">
+                     <img
+                       src="https://via.placeholder.com/40"
+                       alt="Employee"
+                       class="rounded-full"
+                     />
+                     John Doe
+                   </td>
+                   <td class="py-3 px-4">Software Engineer</td>
+                   <td class="py-3 px-4">20-08-2021</td>
+                   <td class="py-3 px-4">05-12-1992</td>
+                   <td class="py-3 px-4">03008951423</td>
+                   <td class="py-3 px-4">Present</td>
+                   <td class="py-3 px-4">
+                     <button
+                       class="text-blue-500 border border-blue-400 px-4 py-1 rounded-full hover:bg-blue-100"
+                     >
+                       View
+                     </button>
+                   </td>
+                 </tr>
+       
+                 <!-- Row 3 -->
+                 <tr class="border-b">
+                   <td class="py-3 px-4 flex items-center gap-2">
+                     <img
+                       src="https://via.placeholder.com/40"
+                       alt="Employee"
+                       class="rounded-full"
+                     />
+                     John Doe
+                   </td>
+                   <td class="py-3 px-4">UI/UX Designer</td>
+                   <td class="py-3 px-4">20-08-2021</td>
+                   <td class="py-3 px-4">05-12-1992</td>
+                   <td class="py-3 px-4">03008951423</td>
+                   <td class="py-3 px-4">Absent</td>
+                   <td class="py-3 px-4">
+                     <button
+                       class="text-blue-500 border border-blue-400 px-4 py-1 rounded-full hover:bg-blue-100"
+                     >
+                       View
+                     </button>
+                   </td>
+                 </tr>
+               </tbody>
+             </table>            
+           </div>
      
            <!-- Pagination Section -->
-           <div class="flex items-center justify-between p-4">
+           <div class="flex items-center justify-between p-4 border-t">
              <div class="flex items-center gap-2">
                <label for="show" class="text-gray-600">Show</label>
                <select

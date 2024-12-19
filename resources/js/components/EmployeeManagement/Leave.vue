@@ -2,51 +2,63 @@
     <div class="c-leave-page">
       <header-component />
       <div style="margin-left: 242px;">
-        <div class="selection-function pt-2 pb-3 flex justify-between">
-          <div class="text-right">
-            <span class="text-lg font-bold" style="float:left;">Employee Leave Details</span>
+        <div class="p-8 bg-gray-50 min-h-screen">
+          <!-- Leave Form -->
+          <div class="bg-white shadow-md rounded-lg p-6">
+            <h2 class="text-lg font-semibold mb-4 text-blue-600">Leave Form</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <!-- Left Column -->
+              <div>
+                <div class="mb-4">
+                  <label class="block text-black-600 text-sm mb-1">Employee Name</label>
+                  <input type="text" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="Enter Your Name"  />
+                </div>
+                <div class="mb-4">
+                  <label class="block text-black-600 text-sm mb-1">Email</label>
+                  <input type="email" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="example@email.com"  />
+                </div>
+                <div class="mb-4">
+                  <label class="block text-black-600 text-sm mb-1">From Date</label>
+                  <input type="text" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="dd/mm/yyyy"  />
+                </div>
+              </div>
+              <!-- Right Column -->
+              <div>
+                <div class="mb-4">
+                  <label class="block text-black-600 text-sm mb-1">Submitted Date</label>
+                  <input type="text" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="dd/mm/yyyy"  />
+                </div>
+                <div class="mb-4">
+                  <label class="block text-black-600 text-sm mb-1">Leave Type</label>
+                  <select class="w-full border-gray-300 rounded-lg text-sm p-2 ">
+                    <option>Casual</option>
+                    <option>Medical</option>
+                    <option>General</option>
+                  </select>
+                </div>
+                <div class="mb-4">
+                  <label class="block text-black-600 text-sm mb-1">To Date</label>
+                  <input type="text" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="dd/mm/yyyy"  />
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <!-- Reason -->
+          <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+            <h2 class="text-lg font-semibold mb-4 text-blue-600">Reason</h2>
+            <textarea class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="Reason for Leave" rows="3"></textarea>
+          </div>
+        
+          <!-- Manager Approval -->
+          <div class="bg-white shadow-md rounded-lg p-6 mt-6">
+            <div class="flex items-center space-x-4">
+              <button class="bg-green-500 text-white px-4 py-1 rounded-lg">Submit</button>
+              <button class="bg-red-500 text-white px-4 py-1 rounded-lg">Cancel</button>
+            </div>
           </div>
         </div>
-    
-        <div >
-          <table class="w-full border-gray-300">
-            <thead>
-              <tr class="bg-gray-300">
-                <th class="text-center">Employee Name</th>
-                <th class="text-center">Reason</th>
-                <th class="text-center">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Static Data -->
-              <tr>
-                <td class="text-center">John Doe</td>
-                <td class="text-center">Family Emergency</td>
-                <td class="text-center">Approved</td>
-              </tr>
-              <tr>
-                <td class="text-center">Jane Smith</td>
-                <td class="text-center">Medical Leave</td>
-                <td class="text-center">Pending</td>
-              </tr>
-              <tr>
-                <td class="text-center">Michael Brown</td>
-                <td class="text-center">Vacation</td>
-                <td class="text-center">Rejected</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-    
-        <div class="information mx-4 mt-5 p-4 rounded-lg">
-          <div class="flex justify-between items-center mb-2">
-            <h4 class="text-2xl font-semibold">Information</h4>
-            <a href="#" class="text-sm">Help on this topic <strong>More</strong></a>
-          </div>
-          <ul class="list-inside">
-            <li>Leave requests and their status are displayed here.</li>
-          </ul>
-        </div>
+        
 
       </div>
   
