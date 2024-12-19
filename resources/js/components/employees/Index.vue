@@ -947,14 +947,14 @@
         
         </modal>
         <!-- Send remoinder success start -->
-		<modal v-model="modal.addNewEmployee" class="modal-add-new-employee" size="md:w-4/12" title="Add New User with a role" >
+		<modal v-model="modal.addNewEmployee" class="modal-add-new-employee" size="md:w-7/12" title="Add New User with a role" >
       <ValidationObserver v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(storeEmployee)" ref="frmAddEmployee" novalidate>
           <div
             class="flex flex-col mb-6 mt-3">
             <label class="block text-gray-700 font-semibold mb-2">Select User Role:</label>
             <select
-            v-model="modal.addEmployee.clientid" @change="clientselected"
+            v-model="modal.addEditPositions.clientid" @change="clientselected"
               class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
               
             >
@@ -997,53 +997,104 @@
             </ValidationProvider>
           </div>
 
-         
+          <!-- gender and employee status -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
 
-         
-          <div class="mb-4 mt-4">
-            <label class="block text-gray-700 font-semibold mb-2">
-              Profile Picture <span class="text-red-500">*</span>
-            </label>
-            <div class="flex items-center">
-              <!-- Hidden file input -->
-              <input
+            <!-- Selected Gender -->
+<div class="mb-4">
+<label class="block text-gray-700 font-semibold mb-2">
+  <font-awesome-icon icon="user" class="mr-1" size="xs" />Gender
+</label>
+<select
+  v-model="modal.addEmployee.gender"
+  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+>
+  <option value="">Select Gender</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+  <option value="other">Other</option>
+</select>
+</div>
+
+<!-- Employee Status -->
+<div class="mb-4">
+<label class="block text-gray-700 font-semibold mb-2">
+  <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Employee Status
+</label>
+<select
+  v-model="modal.addEmployee.employeeStatus"
+
+  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+>
+  <option value="">Select Status</option>
+  <option value="full-time">Full Time</option>
+  <option value="part-time">Part Time</option>
+  <option value="hourly">Hourly</option>
+</select>
+</div>
+            </div>
+
+
+            <!-- employee type and location type -->
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+
+             <!-- Employment Type -->
+    <div class="mb-4">
+      <label class="block text-gray-700 font-semibold mb-2">
+        <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Employment Type
+      </label>
+      <select
+        v-model="modal.addEmployee.employmentType"
+        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+      >
+        <option value="">Select Employment Type</option>
+        <option value="contract">Contract</option>
+        <option value="permanent">Permanent</option>
+        <option value="freelance">Freelance</option>
+      </select>
+    </div>
+
+    <!-- Location Type -->
+    <div class="mb-4">
+      <label class="block text-gray-700 font-semibold mb-2">
+        <font-awesome-icon icon="map-marker-alt" class="mr-1" size="xs" />Location Type
+      </label>
+      <select
+        v-model="modal.addEmployee.locationType"
+        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+      >
+        <option value="">Select Location Type</option>
+        <option value="remote">Remote</option>
+        <option value="inhouse">Inhouse</option>
+      </select>
+    </div>
+
+            </div>
+
+         <!-- 
+            add profile and salry type -->
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+
+
+
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Profile Picture </label>
+                <input
                 type="file"
                 id="profilePicInput"
                 ref="profilePic"
                 @change="handleFileUpload"
-                style="display:none;"
-              />
-              <!-- Styled "Choose File" button -->
-              <label
-                for="profilePicInput"
-                class="cursor-pointer bg-gray-100 border border-gray-300 rounded-lg py-2 px-4 text-gray-700 hover:bg-gray-200"
-              >
-                Choose File
-              </label>
-              <!-- Text input to display file name -->
-              <input
-                type="text"
-                v-model="modal.addEmployee.employee_image"
-                readonly
-                class="block w-full ml-4 py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
-              />
-            </div>
-            <!-- Display uploaded image -->
-            <div v-if="uploadedImageUrl" class="mt-4">
-              <img
-                :src="uploadedImageUrl"
-                alt="Profile Picture"
-                class="h-20 w-20 rounded-full border border-gray-300"
-              />
-            </div>
-          </div>
-
-            <!-- Positions Section -->
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                />
+              </div>
+          <!-- Positions Section -->
             <!-- v-if="modal.reqEditEmployee.enable_security_officer == 1" -->
             <div 
              class="py-5 mb-4">
               <div class="flex justify-between items-center mb-4 px-6">
-                <h4 class="text-xl font-semibold mr-4">Positions</h4>
+                <h4 class="text-xl font-semibold mr-4">Positions <span class="text-red-500">*</span></h4>
                 <a href="#" class="text-sm text-custom-primary" @click.prevent="openModal('AddNewPosition')">
                   <strong>&plus;</strong> Add New
                 </a>
@@ -1067,12 +1118,20 @@
               </ul>
             </div>
           
+    </div>
+
+
+           
+          
             <!-- Contact Section -->
-            <div class="px-6 pb-6 mb-4">
+            <div class="border-t border-b border-gray-700 py-6 px-6 mb-6">
               <h4 class="text-xl font-semibold mb-4">Contact</h4>
           
+
+
               <!-- Email -->
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+              <div  class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
                 <div>
                   <label class="block text-gray-700 font-semibold mb-2">
                     <font-awesome-icon icon="lock" class="mr-1" size="xs" />Email
@@ -1098,22 +1157,32 @@
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                   />
                 </div>
-              </div>
-          
               <!-- 2nd Phone -->
-              <div >
-                <label class="block text-gray-700 font-semibold mb-2">2nd Phone</label>
-                <input
-                  type="text"
-                  placeholder="Enter phone"
 
-                  v-model.number="modal.addEmployee.phone2"
-                  @input="acceptNumber2nd"
-                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                />
+                <div >
+                  <label class="block text-gray-700 font-semibold mb-2">
+                    <font-awesome-icon icon="lock" class="mr-1" size="xs" /> 2 Phone
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Enter phone"
+  
+                    v-model.number="modal.addEmployee.phone2"
+                    @input="acceptNumber2nd"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  />
+                </div>
               </div>
+
+
+             
+          
+             
           
               <!-- Address -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+
+
               <div  class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">Address</label>
                 <input
@@ -1134,6 +1203,7 @@
                   v-model="modal.addEmployee.address2"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 />
+              </div>
               </div>
           
               <!-- City, State, Zip -->
@@ -1170,24 +1240,387 @@
                 </div>
               </div>
             </div>
-          
-            <div class="comments px-6 pb-4 mb-4 flex flex-col">
+
+
+            
+            
+           
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+
+    
+
+    
+
+     
+    
+
+    <!-- education and experience -->
+
+    <!-- Education Section -->
+  
+
+
+              
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">
+          <font-awesome-icon icon="user-graduate" class="mr-1" size="xs" />Education Details
+        </label>
+        <select
+          v-model="modal.addEmployee.educationDegree"
+          class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+        >
+          <option value="">Select Education Degree</option>
+          <option value="BSc">Bachelor of Science</option>
+          <option value="MCA">Master of Computer Applications (MCA)</option>
+          <option value="MBA">Master of Business Administration (MBA)</option>
+          <option value="PhD">Doctor of Philosophy (PhD)</option>
+        </select>
+      </div>
+      
+                    <!-- Work Experience Section -->
+    
+      <div class="mb-4">
+        <label class="block text-gray-700 font-semibold mb-2">
+          <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Experience Duration
+        </label>
+        <select
+          v-model="modal.addEmployee.experience"
+          class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+        >
+          <option value="">Select Experience Duration</option>
+          <option value="1">1 Year</option>
+          <option value="2">2 Years</option>
+          <option value="3">3 Years</option>
+          <option value="4">4 Years</option>
+          <option value="5">5 Years</option>
+        </select>
+      </div>
+                  
+    
+    </div>
+    
+
+    <!-- salary  full detail -->
+
+    <div class="border-t border-b border-gray-700 py-6 px-6 mb-6 mt-4">
+      <!-- Salary Details Section -->
+      <h4 class="text-xl font-semibold mb-4">Salary Details</h4>
+      
+      <!-- Grid Layout for Salary Fields -->
+
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+ <!-- Basic Salary -->
+ <div>
+  <label class="block text-gray-700 font-semibold mb-2">Basic Salary</label>
+  <input
+    type="text"
+    placeholder="Enter Basic Salary"
+    v-model="modal.addEmployee.basicSalary"
+    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+  />
+</div>
+
+<!-- Gross Salary -->
+<div>
+  <label class="block text-gray-700 font-semibold mb-2">Gross Salary</label>
+  <input
+    type="text"
+    placeholder="Enter Gross Salary"
+    v-model="modal.addEmployee.grossSalary"
+    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+  />
+</div>
+
+        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+       
+    
+        <!-- Net Salary -->
+        <div>
+          <label class="block text-gray-700 font-semibold mb-2">Net Salary</label>
+          <input
+            type="text"
+            placeholder="Enter Net Salary"
+            v-model="modal.addEmployee.netSalary"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          />
+        </div>
+         <!-- Salary Type -->
+    <div>
+      <label class="block text-gray-700 font-semibold mb-2">
+        <font-awesome-icon icon="dollar-sign" class="mr-1" size="xs" />Salary Type
+      </label>
+      <select
+        v-model="modal.addEmployee.salaryType"
+        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+      >
+        <option value="">Select Salary Type</option>
+        <option value="hourly">Hourly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+      </div>
+    
+      <!-- Components of Salary Section -->
+      <h4 class="text-xl font-semibold mt-6 mb-4">Components of Salary</h4>
+      
+      <!-- Grid Layout for Allowances and Deductions -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Allowances -->
+        <div>
+          <label class="block text-gray-700 font-semibold mb-2">Allowances</label>
+          <select
+            v-model="modal.addEmployee.allowances"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          >
+            <option value="">Select Allowance</option>
+            <option value="housing-allowance">Housing Allowance</option>
+            <option value="transport-allowance">Transport Allowance</option>
+            <option value="medical-allowance">Medical Allowance</option>
+            <option value="other-allowance">Other Allowances (if applicable)</option>
+          </select>
+        </div>
+      
+        <!-- Deductions -->
+        <div>
+          <label class="block text-gray-700 font-semibold mb-2">Deductions</label>
+          <select
+            v-model="modal.addEmployee.deductions"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          >
+            <option value="">Select Deduction</option>
+            <option value="tax-deduction">Tax Deduction (e.g., Income Tax, Professional Tax)</option>
+            <option value="provident-fund">Provident Fund</option>
+            <option value="other-deductions">Other Deductions (e.g., loans, insurance)</option>
+          </select>
+        </div>
+      </div>
+    
+      <!-- Payroll Metadata Section -->
+      <h4 class="text-xl font-semibold mt-6 mb-4">Payroll Metadata</h4>
+      
+      <!-- Grid Layout for Payroll Fields -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Pay Period -->
+        <div>
+          <label class="block text-gray-700 font-semibold mb-2">Pay Period</label>
+          <select
+            v-model="modal.addEmployee.payPeriod"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          >
+            <option value="">Select Pay Period</option>
+            <option value="monthly">Monthly</option>
+            <option value="weekly">Weekly</option>
+            <option value="bi-weekly">Bi-weekly</option>
+          </select>
+        </div>
+         <!-- Payment Mode -->
+         <div>
+          <label class="block text-gray-700 font-semibold mb-2">Payment Mode</label>
+          <select
+            v-model="modal.addEmployee.paymentMode"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          >
+            <option value="">Select Payment Mode</option>
+            <option value="bank-transfer">Bank Transfer</option>
+            <option value="check">Check</option>
+            <option value="cash">Cash</option>
+          </select>
+        </div>
+    
+        <!-- Payment Date -->
+        <div>
+          <label class="block text-gray-700 font-semibold mb-2">Payment Date</label>
+          <input
+            type="date"
+            v-model="modal.addEmployee.paymentDate"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          />
+        </div>
+    
+       
+        
+      </div>
+
+      <div class="border-t border-b border-gray-700 py-6 px-6 mb-6 mt-4">
+        <h4 class="text-xl font-semibold mb-4">Bank Account Details</h4>
+    
+        <!-- Grid Layout for Bank Account Fields -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Bank Name -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Bank Name</label>
+            <input
+              type="text"
+              placeholder="Enter Bank Name"
+              v-model="modal.addEmployee.bankName"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+          <!-- Account Number -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Account Number</label>
+            <input
+              type="text"
+              placeholder="Enter Account Number"
+              v-model="modal.addEmployee.accountNumber"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+          <!-- IFSC Code -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">IFSC Code</label>
+            <input
+              type="text"
+              placeholder="Enter IFSC Code"
+              v-model="modal.addEmployee.ifscCode"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+          <!-- Bank Branch -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Bank Branch</label>
+            <input
+              type="text"
+              placeholder="Enter Bank Branch"
+              v-model="modal.addEmployee.bankBranch"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+        </div>
+      </div>
+
+
+      <div class="py-6 px-6 mb-2 mt-2">
+        <!-- Additional Fields Section -->
+        <h4 class="text-xl font-semibold mb-4">Other Salary Details</h4>
+    
+       
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Overtime Hours -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Overtime Hours</label>
+            <input
+              type="number"
+              placeholder="Enter Overtime Hours"
+              v-model="modal.addEmployee.overtimeHours"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+          <!-- Overtime Pay -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Overtime Pay</label>
+            <input
+              type="number"
+              placeholder="Enter Overtime Pay"
+              v-model="modal.addEmployee.overtimePay"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+          </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Bonuses</label>
+            <input
+              type="number"
+              placeholder="Enter Bonuses"
+              v-model="modal.addEmployee.bonuses"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+          <!-- Commission -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Commission</label>
+            <input
+              type="number"
+              placeholder="Enter Commission"
+              v-model="modal.addEmployee.commission"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+          <!-- Taxable Income -->
+          <div>
+            <label class="block text-gray-700 font-semibold mb-2">Taxable Income</label>
+            <input
+              type="number"
+              placeholder="Enter Taxable Income"
+              v-model="modal.addEmployee.taxableIncome"
+              class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+            />
+          </div>
+      
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+
+   <!-- Non-Taxable Income -->
+   <div>
+    <label class="block text-gray-700 font-semibold mb-2">Non-Taxable Income</label>
+    <input
+      type="number"
+      placeholder="Enter Non-Taxable Income"
+      v-model="modal.addEmployee.nonTaxableIncome"
+      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+    />
+  </div>
+   <!-- Salary Slips -->
+   <div>
+    <label class="block text-gray-700 font-semibold mb-2">Salary Slips</label>
+    <input
+      type="file"
+      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+    />
+  </div>
+   <!-- History -->
+   <div>
+    <label class="block text-gray-700 font-semibold mb-2">Salary History</label>
+    <input
+      type="file"
+      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+    />
+  </div>
+</div>
+          </div>
+        </div>
+
+
+        <div class="comments px-6 pb-4 mb-4 flex flex-col">
+          <label class="block text-gray-700 font-semibold mb-2">Adjustments</label>
+          <textarea
+            rows="4"
+            placeholder="Notes or reasons for salary increments or deductions."
+            v-model="modal.addEmployee.adjustments"
+            class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+          ></textarea>
+        </div>
+            <!-- comment section -->
+            <!-- <div class="comments px-6 pb-4 mb-4 flex flex-col"> -->
               <!-- Comment Text -->
-              <h4 class="text-xl font-semibold mb-2">Comments</h4>
+              <!-- <h4 class="text-xl font-semibold mb-2">Comments</h4> -->
               
               <!-- Instruction Text -->
-              <div class="w-full mb-2">
+              <!-- <div class="w-full mb-2">
                 <label class="text-sm text-gray-600">Your Settings currently DO NOT ALLOW users to see this comment</label>
-              </div>
+              </div> -->
               
               <!-- Textarea for comment -->
-              <div class="w-full">
+              <!-- <div class="w-full">
                 <textarea rows="5" v-model="modal.addEmployee.comment" 
                 placeholder="Comment"
 
                   class="block w-full border rounded py-2 px-4 focus:ring focus:ring-custom-primary"></textarea>
               </div>
-            </div>
+            </div> -->
             
 
       <div class="text-center mt-10">
@@ -2716,7 +3149,7 @@ export default {
       this.isLoader = true;
       this.error = null;
       try {
-        const response = await axios.get(`api/roles`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/roles`);
         if (response.data.status) {
           this.roleList = response.data.data;
         } else {
