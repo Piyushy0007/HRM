@@ -15,7 +15,7 @@ header('Access-Control-Allow-Origin: *');
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-    <div id="app" class="mb-12">
+    <div id="app">
 
         <!-- <nav class="navigation bg-custom-primary">
             <ul class="flex justify-center">
