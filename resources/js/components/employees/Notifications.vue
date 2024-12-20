@@ -1,8 +1,8 @@
 <template>
-  <div class="c-employee-notifications pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
+  <div class="c-employee-notifications pb-4">
 
   	<Loader msg="Processing ..." v-model="isLoader" />
-		
+    <div style="margin-left: 240px;">
 		<div class="px-4">
 			<div class="flex items-center justify-between my-4">
 				<button class="text-white py-1 px-12 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="showEmployeeEmailsToggle(hasEmail)">Show users with {{ hasEmailLabel }}</button>
@@ -157,6 +157,7 @@
 		</modal>
 
 
+  </div>
   </div>
 </template>
 

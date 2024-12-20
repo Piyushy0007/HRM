@@ -95,13 +95,8 @@
     <modal v-model="modal.createclient" class="modal-add-new-employee" size="md:w-5/12" title="Create Community">
       <ValidationObserver v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(storeEmployee('create'))" ref="frmcreateclient" novalidate>
-
-
     			<!-- ================================= Contact ================================= -->
     		  <div class=" px-4 mb-4 mt-4">
-           
-
-            
             <ValidationProvider rules="required" v-slot="v">
       				<div class=" md:items-center">
       					<div class="md:w-4/4">
@@ -149,7 +144,6 @@
               </div>
             </ValidationProvider>
             <div id="map"></div>
-
             <ValidationProvider rules="required" v-slot="v">
       				<div class=" md:items-center">
       					<div class="md:w-4/4">
@@ -160,13 +154,11 @@
       					</div>
       				</div>
               <div class="md:flex md:items-center mb-1">
-             
                 <div class="md:w-3/4">
                   <small class="text-red-600">{{ v.errors[0] }}</small>
                 </div>
               </div>
             </ValidationProvider>
-
             <ValidationProvider rules="required" v-slot="v">
       				<div class="md:items-center">
       					<div class="md:w-4/4">
@@ -183,7 +175,6 @@
                 </div>
               </div>
             </ValidationProvider>
-
              <ValidationProvider rules="required" v-slot="v">
       				<div class=" md:items-center">
       					<div class="md:w-4/4">
@@ -201,7 +192,6 @@
                 </div>
               </div>
             </ValidationProvider>
-
             <ValidationProvider rules="required" v-slot="v">
               <div class=" md:items-center">
                 <div class="md:w-4/4">
@@ -218,8 +208,6 @@
                 </div>
               </div>
             </ValidationProvider>
-
-
               <div class=" md:items-center">
                 <div class="md:w-4/4">
                   <label class="block mb-1 md:mb-0 pr-4">Police Email</label>
@@ -228,8 +216,6 @@
                   <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.createClient.police_email">
                 </div>
               </div>
-
-           
       				<div class=" md:items-center">
       					<div class="md:w-4/4">
       						<label class="block mb-1 md:mb-0 pr-4">Website</label>
@@ -247,53 +233,11 @@
         					<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.createClient.job_title">
       					</div>
       				</div>
-             
-            
-           
-<!--            
-            <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Status(Active/Inactive)<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-                 <b-form-checkbox
-                  class="switch-check"
-                  size="lg"
-                  v-model="modal.createClient.switch"
-                  switch
-                  button-variant="info"
-                  name='switch'
-                  checked
-                >
-              </b-form-checkbox>
-      					
-      					</div>
-      				</div>
-
-              <div class="md:flex md:items-center mb-1">
-              
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider> -->
-           
-           
-
-
-
-
-
-
-
-    		  </div>
+            </div>
     		  <!-- ================================= ./Contact ================================= -->
           <div class="text-center mt-2 mb-2">
     				<button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">Save</button>
           </div>
-
-    		
         </form>
       </ValidationObserver>
 		</modal>

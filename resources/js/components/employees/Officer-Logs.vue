@@ -1,88 +1,87 @@
 <template>
-  <div class="c-employee-index client-table pb-4 " style="margin-right: 1vw; margin-left: 240px;">
-
+  <div class="c-employee-index client-table pb-4">
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 ">
-      <div class="flex items-center justify-between mx-2 my-3">
-        <h2>Watcher Logs</h2>
-         <div class="w-50 px-3  md:w-2/1">
-            <div class="relative">
-              <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r ">
-                <font-awesome-icon icon="search" class="fill-current" />
+    <div style="margin-left: 240px;">
+      <div class="px-4 pb-4 ">
+        <div class="flex items-center justify-between mx-2 my-3">
+          <h2>Watcher Logs</h2>
+          <div class="w-50 px-3  md:w-2/1">
+              <div class="relative">
+                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r ">
+                  <font-awesome-icon icon="search" class="fill-current" />
+                </div>
               </div>
             </div>
-          </div>
-        <!-- <button class="add-blue-button" @click="openClientModal()">Create Community</button> -->
-      </div>
-        <div class="flex">
-          <div class="w-full flex md:w-1/10">
-         
+          <!-- <button class="add-blue-button" @click="openClientModal()">Create Community</button> -->
+        </div>
+          <div class="flex">
+            <div class="w-full flex md:w-1/10">      
 
-       
-         </div>
-          <div class="w-full md:w-1/2">
-          <!-- <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
-            <div class="relative">
-              <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
-                <font-awesome-icon icon="search" class="fill-current" />
-              </div>
-            </div>
-          </div> -->
-          </div>
-         
-           </div>
-      <table class="w-full">
-        <thead>
-          <tr>
-           <th style="width:15%;" class="text-center heading-sort ">Officer Name <b-icon-arrow-down-up @click="namesort()" /> </th>
-           <th style="width:15%;" class="text-center">Clocked in </th>
-           <th style="width:15%;" class="text-center">Clocked out</th>
-           <th style="width:25%;" class="text-center">Perimeter violation</th>
-           <th style="width:15%;" class="text-center">Lunch</th>
-           <th style="width:15%;" class="text-center">Break</th>
-          
-          </tr>
-        </thead>
         
-        <tbody >
-          <template v-if="officerdata.length!= 0">
-          <tr v-for="(data) in officerdata" :key="data.id">
-          <!-- <tr> -->
+          </div>
+            <div class="w-full md:w-1/2">
+            <!-- <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
+              <div class="relative">
+                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border border-custom-border border-l-0">
+                  <font-awesome-icon icon="search" class="fill-current" />
+                </div>
+              </div>
+            </div> -->
+            </div>
           
-            <td class="text-center text-transform-capitalise">{{ data.employee.firstname || '-'}} {{ data.employee.lastname}} </td>
-            <td class="text-center">{{ data.start_time }} </td>
-            <td class="text-center">{{ data.end_time || '-'}}</td>
-            <td class="text-center perimeter-time tooltip1">
-              <span class="data" v-for="(peri , index) in data.detect_shift" :key="peri.id">
-                <span class="text-transform-capitalize" v-if="index == 0"> {{peri.clock_in_time}} -  {{peri.clock_out_time}} to </span>
-                <span class="text-transform-capitalize" v-if="index == data.detect_shift.length - 1 "> {{peri.clock_in_time}} -  {{peri.clock_out_time}} </span>
-              </span>
-             
-              <span class="tooltiptext1">
-                   <span class="text-transform-capitalize" v-for="(peri) in data.detect_shift" :key="peri.id">
-                   {{peri.clock_in_time}} - {{peri.clock_out_time}}<br>
-                   </span>
-              </span>
-            </td>
-            <td class="text-center" v-if="data.lunch_start">{{ data.lunch_start}} - {{ data.lunch_end}}</td>
-            <td class="text-center" v-else>-</td>
-            <td class="text-center" v-if="data.break_start">{{ data.break_start}} - {{ data.break_end}}</td>
-            <td class="text-center" v-else>-</td>
-           
-         
+            </div>
+        <table class="w-full">
+          <thead>
+            <tr>
+            <th style="width:15%;" class="text-center heading-sort ">Officer Name <b-icon-arrow-down-up @click="namesort()" /> </th>
+            <th style="width:15%;" class="text-center">Clocked in </th>
+            <th style="width:15%;" class="text-center">Clocked out</th>
+            <th style="width:25%;" class="text-center">Perimeter violation</th>
+            <th style="width:15%;" class="text-center">Lunch</th>
+            <th style="width:15%;" class="text-center">Break</th>
+            
+            </tr>
+          </thead>
           
-           
-          </tr>
-           </template>
-          <template v-else>
-            No Records Found
-          </template>
-        </tbody>
-      </table>
+          <tbody >
+            <template v-if="officerdata.length!= 0">
+            <tr v-for="(data) in officerdata" :key="data.id">
+            <!-- <tr> -->
+            
+              <td class="text-center text-transform-capitalise">{{ data.employee.firstname || '-'}} {{ data.employee.lastname}} </td>
+              <td class="text-center">{{ data.start_time }} </td>
+              <td class="text-center">{{ data.end_time || '-'}}</td>
+              <td class="text-center perimeter-time tooltip1">
+                <span class="data" v-for="(peri , index) in data.detect_shift" :key="peri.id">
+                  <span class="text-transform-capitalize" v-if="index == 0"> {{peri.clock_in_time}} -  {{peri.clock_out_time}} to </span>
+                  <span class="text-transform-capitalize" v-if="index == data.detect_shift.length - 1 "> {{peri.clock_in_time}} -  {{peri.clock_out_time}} </span>
+                </span>
+              
+                <span class="tooltiptext1">
+                    <span class="text-transform-capitalize" v-for="(peri) in data.detect_shift" :key="peri.id">
+                    {{peri.clock_in_time}} - {{peri.clock_out_time}}<br>
+                    </span>
+                </span>
+              </td>
+              <td class="text-center" v-if="data.lunch_start">{{ data.lunch_start}} - {{ data.lunch_end}}</td>
+              <td class="text-center" v-else>-</td>
+              <td class="text-center" v-if="data.break_start">{{ data.break_start}} - {{ data.break_end}}</td>
+              <td class="text-center" v-else>-</td>
+            
+          
+            
+            
+            </tr>
+            </template>
+            <template v-else>
+              No Records Found
+            </template>
+          </tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 </template>
 

@@ -133,6 +133,8 @@ import {
     faUserShield,
     faChartLine,
     faBriefcase,
+    faChevronRight,
+    faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
@@ -173,7 +175,9 @@ library.add(
     faBuilding,        // Added for 'Branches'
     faUserShield,      // Added for 'Admin Users'
     faChartLine,       // Added for 'Reports & Analytics'
-    faBriefcase
+    faBriefcase,
+    faChevronDown,
+    faChevronRight
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("font-awesome-layers", FontAwesomeLayers);
@@ -528,6 +532,11 @@ const routes = [
         path: "/leave/",
         component: require("./components/EmployeeManagement/Leave.vue").default,
         name: "leave",
+    },
+	{
+        path: "/requests/",
+        component: require("./components/EmployeeManagement/Requests.vue").default,
+        name: "requests",
     },
 	{
         path: "/payroll/",

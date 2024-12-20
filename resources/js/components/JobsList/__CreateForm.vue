@@ -2,14 +2,14 @@
     <div class="c-create-page">
       <header-component/>
       <div class="container pt-5 justify-center w-full" style="margin-left: 265px;">
-        <h1 class="text-2xl font-bold mb-4 text-center text-gray-800">Create Job Form</h1>
+        <h1 class="mb-4 text-center text-2xl font-semibold mb-4 text-blue-600">Create Job Form</h1>
         <form class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-5xl w-full mx-auto space-y-8">
           
 
           <div v-if="step === 1">
 
           <div>
-            <label for="jobTitle" class="block text-sm font-bold text-black-700 mb-1">Job Title</label>
+            <label for="jobTitle" class="block text-sm text-black-600 mb-1">Job Title</label>
             <input
               type="text"
                v-model="formData.job_title"
@@ -17,7 +17,7 @@
                 @input="handleChange"
               id="jobTitle"
               placeholder="Enter job title"
-              class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+              class="w-full border mb-4 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
             <span v-if="validationErrors.job_title" class="text-red-500 text-sm">
         {{ validationErrors.job_title }}
@@ -26,7 +26,7 @@
 
            <!-- Salary -->
            <div>
-            <label for="jobSalary" class="block text-sm font-bold text-black-700 mb-1">Salary</label>
+            <label for="jobSalary" class="block text-sm text-black-600 mb-1">Salary</label>
             <input
               type="number"
                v-model="formData.salary"
@@ -35,7 +35,7 @@
 
               id="jobSalary"
               placeholder="Enter salary"
-              class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+              class="w-full border mb-4 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
             <span v-if="validationErrors.salary" class="text-red-500 text-sm">
         {{ validationErrors.salary }}
@@ -43,7 +43,7 @@
           </div>
           <!-- Job Location -->
           <div>
-            <label for="jobLocation" class="block text-sm font-bold text-black-700 mb-1">City</label>
+            <label for="jobLocation" class="block text-sm text-black-600 mb-1">City</label>
             <input
               type="text"
                v-model="formData.city"
@@ -52,7 +52,7 @@
 
               id="jobLocation"
               placeholder="Enter job location"
-              class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
+              class="w-full border mb-4 border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500"
             />
             <span v-if="validationErrors.city" class="text-red-500 text-sm">
         {{ validationErrors.city }}
@@ -70,7 +70,7 @@
                 <div>
                 <label
                     for="area"
-                    class="block text-sm font-bold text-black-700 mb-1"
+                    class="block text-sm text-black-600 mb-1"
                 >
                     Area
                 </label>
@@ -93,7 +93,7 @@
                 <div>
                 <label
                     for="pincode"
-                    class="block text-sm font-bold text-black-700 mb-1"
+                    class="block text-sm text-black-600 mb-1"
                 >
                     Pincode
                 </label>
@@ -113,11 +113,11 @@
 
 <div class="mt-4">
 
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Job posting location</h2>
+            <h2 class="text-lg font-semibold mb-4 text-blue-600">Job posting location</h2>
 <div class="mb-4">
     <label
       for="locationOption"
-      class="block text-sm font-medium text-gray-700 mb-1"
+      class="block text-sm text-black-600 mb-1"
     >
       Which option best describes this job's location? <span class="text-red-500">*</span>
     </label>
@@ -143,8 +143,7 @@
     
           <div class="flex justify-end mt-4">
             <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" disabled>Back</button> -->
-            <button type="button" @click.prevent="validateAndContinue" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
-            style="background-color:#2C1977"
+            <button type="button" @click.prevent="validateAndContinue" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             >Continue</button>
           </div>
           
@@ -361,8 +360,7 @@ name="cv_option"
             <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400" 
              @click="prevStep"
             >Back</button>
-            <button type="button"@click.prevent="validateAndContinue" class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
-            style="background-color:#2C1977"
+            <button type="button"@click.prevent="validateAndContinue" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2" 
             >Continue</button>
           </div>
 

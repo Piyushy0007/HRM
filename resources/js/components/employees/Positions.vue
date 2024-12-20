@@ -1,407 +1,399 @@
 <template>
-  
-  <div class="c-employee-positions pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
-
+  <div class="c-employee-positions pb-4">
     <Loader msg="Processing ..." v-model="isLoader" />
-		
-		<div class="px-4">
-			<div class="flex items-center justify-between my-5">
-				<button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="openModal('AddEditPositions')">Add/Delete Position</button>
-	      <div class="flex flex-wrap -mx-3">
-	        <div class="w-full md:w-1/2 px-3">
-            <div class="relative">
-              <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r">
-                <font-awesome-icon icon="search" class="fill-current" />
+    <div style="margin-left: 240px;">		
+      <div class="px-4">
+        <div class="flex items-center justify-between my-5">
+          <button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="openModal('AddEditPositions')">Add/Delete Position</button>
+          <div class="flex flex-wrap -mx-3">
+            <div class="w-full md:w-1/2 px-3">
+              <div class="relative">
+                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
+                <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r">
+                  <font-awesome-icon icon="search" class="fill-current" />
+                </div>
               </div>
             </div>
-	        </div>
-	        <div class="w-full md:w-1/2 pr-3">
-	          <div class="relative">
-	            <select class="block appearance-none w-full py-1 px-4 pr-8 rounded leading-tight focus:outline-none" v-model="selectedPosition">
-	              <option value="">All Positions</option>
-	              <option v-for="data in positions" :key="data.id" :value="data.id">{{ data.position }}</option>
-	            </select>
-	            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-	              <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-	            </div>
-	          </div>
-	        </div>
-	      </div>
-			</div>
-
-	    <table class="w-full table-fixed">
-	      <thead>
-	        <tr>
-	          <th class="w-6">Select</th>
-	          <th class="w-20 text-sm leading-none px-2 py-2">Edit Pos Prefs</th>
-	          <th class="w-32 text-sm text-left">First</th>
-	          <th class="w-32 text-sm text-left">Last</th>
-	          <th v-for="data in positions" :key="data.id" class="w-1/12 py-2 text-sm leading-none truncate cursor-pointer" v-if="selectedPosition == '' || selectedPosition == data.id"
-              v-tooltip="{
-                content: data.position,
-                classes: ['rounded','bg-black','text-white','py-1','px-3'],
-              }">
-	          	{{ data.position }}
-              <a href="#" @click.prevent="openModal('EditPosition', data)">
-	          	  <font-awesome-icon icon="pencil-alt" class="block mx-auto mt-1" />
-              </a>
-	          </th>
-	        </tr>
-	      </thead>
-	      <tbody>
-	      	
-          <tr v-if="employees.length === 0">
-            <td :colspan="(4 + positions.length)">No Records Found</td>
-          </tr>
-	      	<tr v-for="(data, index) in employees" :key="data.id">
-	      		<td class="text-center">
-              <input type="checkbox" v-model="checkEmpPositions[index]" @click="checkEmpPosition(index)" class="form-checkbox h-3 w-3 text-blue-600" >
-            </td>
-	      		<td class="text-center">
-              <a href="#" @click.prevent="editEmpPosition(data, index)"> <font-awesome-icon icon="pencil-alt"  /></a>
-             </td>
-	      		<td>{{ data.firstname }}</td>
-	      		<td>{{ data.lastname }}</td>
-            <!-- display all positions -->
-	      		<td v-for="data2 in positions" class="text-center class-color-here" :key="data2.id" v-if="selectedPosition == '' || selectedPosition == data2.id">
-               <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
-              <!-- <span v-for="data1 in mapEmployeePosition1[index]" v-bind:key="data1.id">
-                <template  v-if="data1.id == data2.id">
-                  <input type="checkbox" :class="data1.preference" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
-                </template>
-              </span> -->
-            </td>
-	      	</tr>
-	      </tbody>
-	    </table>
-
-      <div class="text-center my-12">
-        <button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="updateEmployeePositions">Save Changes</button>
-      </div>
-
-      <div class="information mt-5 p-4 rounded-lg">
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
-          <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
-          <a href="#" class="text-sm inline-flex items-center">
-            Help on this topic&nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
-          </a>
+            <div class="w-full md:w-1/2 pr-3">
+              <div class="relative">
+                <select class="block appearance-none w-full py-1 px-4 pr-8 rounded leading-tight focus:outline-none" v-model="selectedPosition">
+                  <option value="">All Positions</option>
+                  <option v-for="data in positions" :key="data.id" :value="data.id">{{ data.position }}</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <ul class="ml-2 mb-1 instructions">
-          <li class="mb-1">Check the boxes for the positions each users can work and click the "Save" button.</li>
-          <li class="mb-1">Check the title row box to check/uncheck all users for that position.</li>
-          <li class="mb-1">Check the box to the left of an users to check/uncheck all positions for that users.</li>
-          <li>Optional: Click pencil icon to set that users position preferences.</li>
-        </ul>
+        <table class="w-full table-fixed">
+          <thead>
+            <tr>
+              <th class="w-6">Select</th>
+              <th class="w-20 text-sm leading-none px-2 py-2">Edit Pos Prefs</th>
+              <th class="w-32 text-sm text-left">First</th>
+              <th class="w-32 text-sm text-left">Last</th>
+              <th v-for="data in positions" :key="data.id" class="w-1/12 py-2 text-sm leading-none truncate cursor-pointer" v-if="selectedPosition == '' || selectedPosition == data.id"
+                v-tooltip="{
+                  content: data.position,
+                  classes: ['rounded','bg-black','text-white','py-1','px-3'],
+                }">
+                {{ data.position }}
+                <a href="#" @click.prevent="openModal('EditPosition', data)">
+                  <font-awesome-icon icon="pencil-alt" class="block mx-auto mt-1" />
+                </a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr v-if="employees.length === 0">
+              <td :colspan="(4 + positions.length)">No Records Found</td>
+            </tr>
+            <tr v-for="(data, index) in employees" :key="data.id">
+              <td class="text-center">
+                <input type="checkbox" v-model="checkEmpPositions[index]" @click="checkEmpPosition(index)" class="form-checkbox h-3 w-3 text-blue-600" >
+              </td>
+              <td class="text-center">
+                <a href="#" @click.prevent="editEmpPosition(data, index)"> <font-awesome-icon icon="pencil-alt"  /></a>
+              </td>
+              <td>{{ data.firstname }}</td>
+              <td>{{ data.lastname }}</td>
+              <!-- display all positions -->
+              <td v-for="data2 in positions" class="text-center class-color-here" :key="data2.id" v-if="selectedPosition == '' || selectedPosition == data2.id">
+                <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
+                <!-- <span v-for="data1 in mapEmployeePosition1[index]" v-bind:key="data1.id">
+                  <template  v-if="data1.id == data2.id">
+                    <input type="checkbox" :class="data1.preference" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
+                  </template>
+                </span> -->
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-        <div class="flex justify-between flex-md-row flex-column items-end">
-          <ul>
-            <li class="flex items-center">
-              <span class="inline-block w-20 h-8 mr-1" style="background-color: #FFA700">&nbsp;</span>
-              Cell changes not saved.
-            </li>
-            <li class="flex items-center">
-              <span class="inline-block w-20 h-8 mr-1" style="background-color: #67FF91">&nbsp;</span>
-              Position preference set to PREFER (can be used by AutoFill)
-            </li>
-            <li class="flex items-center">
-              <span class="inline-block w-20 h-8 mr-1" style="background-color: #FF8F92">&nbsp;</span>
-              Position preference set to DISLIKE (can be used by AutoFill)
-            </li>
+        <div class="text-center my-12">
+          <button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="updateEmployeePositions">Save Changes</button>
+        </div>
+
+        <div class="information mt-5 p-4 rounded-lg">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
+            <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
+            <a href="#" class="text-sm inline-flex items-center">
+              Help on this topic&nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
+            </a>
+          </div>
+
+          <ul class="ml-2 mb-1 instructions">
+            <li class="mb-1">Check the boxes for the positions each users can work and click the "Save" button.</li>
+            <li class="mb-1">Check the title row box to check/uncheck all users for that position.</li>
+            <li class="mb-1">Check the box to the left of an users to check/uncheck all positions for that users.</li>
+            <li>Optional: Click pencil icon to set that users position preferences.</li>
           </ul>
-          <div class="text-sm float-right ">
-            Trouble with grid displaying?&nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
+
+          <div class="flex justify-between flex-md-row flex-column items-end">
+            <ul>
+              <li class="flex items-center">
+                <span class="inline-block w-20 h-8 mr-1" style="background-color: #FFA700">&nbsp;</span>
+                Cell changes not saved.
+              </li>
+              <li class="flex items-center">
+                <span class="inline-block w-20 h-8 mr-1" style="background-color: #67FF91">&nbsp;</span>
+                Position preference set to PREFER (can be used by AutoFill)
+              </li>
+              <li class="flex items-center">
+                <span class="inline-block w-20 h-8 mr-1" style="background-color: #FF8F92">&nbsp;</span>
+                Position preference set to DISLIKE (can be used by AutoFill)
+              </li>
+            </ul>
+            <div class="text-sm float-right ">
+              Trouble with grid displaying?&nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-
-
-    <!-- ============================================ Modal ============================================ -->
-     <!-- Bulk edit start -->
-     <modal v-model="modal.editEmpPositionModal" class="modal-add-edit-positions BulkEditEmp" size="md:w-7/12" :title="editEmpPositiondata.firstname">
-		    <ValidationObserver v-slot="{ handleSubmit }">
-        <form @submit.prevent="handleSubmit(editEmpPositionForm)" novalidate ref="editEmpPosition">
-          <div class="center">
-            <table class="module">  
-              <tbody><tr><td class="wgt"><b class="titleBox">Optional Position Settings</b></td></tr>
-              <tr><td style="padding:0 5px 10px 5px;">
-              <table cellspacing="1" cellpadding="1" width="100%" style="border-collapse:separate;">
-              <tbody>
-                  <tr><td align="center" width="33.33%" rowspan="2" valign="center"><b class="title">Position Preferences</b><br><span class="smaller">click position name below to set</span></td>
-                <td align="center" width="33.33%"><span class="small">Default</span><br>
-                
-                <ValidationProvider rules="required" v-slot="v">
-                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="editEmpPositiondata.pay_rate" maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
-                <small class="text-red-600 block">{{ v.errors[0] }}</small>
-              </ValidationProvider>
-                </td>
-                <!--
-                <!CHECK  !HELP>
-                -->
-                <td align="center" width="33.33%"><span class="small">&nbsp;&nbsp;&nbsp;&nbsp; Default</span><br><nobr>
-                 </nobr>
-                <ValidationProvider rules="required" v-slot="v">
-                      <date-picker valueType="format"  v-model="editEmpPositiondata.alert_date"
-                        input-class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border border-custom-border"
-                        :clearable="false"
-                        :shortcuts="[
-                          { text: 'Yesterday', onClick: () => {
-                            let date = new Date()
-                            date.setTime( date.getTime() - 3600 * 1000 * 24 )
-                            return date
-                          } },
-                          { text: 'Today', onClick: () => new Date() },
-                        ]"></date-picker>
-                      <small class="text-red-600 block">{{ v.errors[0] }}</small>
-                    </ValidationProvider>
-                </td>
-                <!--
-                <!/CHECK>
-                -->
-                </tr>
-                <tr>
-                <td align="center" valign="bottom"><b class="title">Pay Rate</b></td>
-                <!--
-                <!CHECK  !HELP>
-                -->
-                <td align="center" class="title" valign="bottom" style="padding-left:20px; background-color: #E3E5F1;"><b class="title">Alert Date</b></td>
-                <!--
-                <!/CHECK>
-                -->
-                </tr>
-                <tr align="center" v-for="position in  editEmpPositiondata.position" :key="position.id" >
-                <td class="small" :class="position.preference" v-on:click="setPreference(position)"  :id="position.position.id"  >{{position.position.position}}</td>
-                <!-- <td class="small"   :id="position.position.id"  >{{position.position.position}}</td>   -->
-                <td style="height: 25px margin: 7px 7px;
-    padding: 7px 7px;">
+      <!-- ============================================ Modal ============================================ -->
+      <!-- Bulk edit start -->
+      <modal v-model="modal.editEmpPositionModal" class="modal-add-edit-positions BulkEditEmp" size="md:w-7/12" :title="editEmpPositiondata.firstname">
+          <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(editEmpPositionForm)" novalidate ref="editEmpPosition">
+            <div class="center">
+              <table class="module">  
+                <tbody><tr><td class="wgt"><b class="titleBox">Optional Position Settings</b></td></tr>
+                <tr><td style="padding:0 5px 10px 5px;">
+                <table cellspacing="1" cellpadding="1" width="100%" style="border-collapse:separate;">
+                <tbody>
+                    <tr><td align="center" width="33.33%" rowspan="2" valign="center"><b class="title">Position Preferences</b><br><span class="smaller">click position name below to set</span></td>
+                  <td align="center" width="33.33%"><span class="small">Default</span><br>
                   
-                   <ValidationProvider rules="required" v-slot="v">
-                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="position.pay_rate"  maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
-                <small class="text-red-600 block">{{ v.errors[0] }}</small>
-              </ValidationProvider>
+                  <ValidationProvider rules="required" v-slot="v">
+                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="editEmpPositiondata.pay_rate" maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
+                  <small class="text-red-600 block">{{ v.errors[0] }}</small>
+                </ValidationProvider>
                   </td>
-                <!--
-                <!CHECK  !HELP>
-                -->
-                <td style="height: 25px margin: 7px 7px;
-    padding: 7px 7px;"><nobr>
-                  <!-- <ValidationProvider rules="required" v-slot="v"> -->
-                      <date-picker valueType="format"  v-model="position.alter_date"
-                        input-class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border border-custom-border"
-                        :clearable="false"
-                        :shortcuts="[
-                          { text: 'Yesterday', onClick: () => {
-                            let date = new Date()
-                            date.setTime( date.getTime() - 3600 * 1000 * 24 )
-                            return date
-                          } },
-                          { text: 'Today', onClick: () => new Date() },
-                        ]"></date-picker>
-                      <!-- <small class="text-red-600 block">{{ v.errors[0] }}</small> -->
-                    <!-- </ValidationProvider> -->
+                  <!--
+                  <!CHECK  !HELP>
+                  -->
+                  <td align="center" width="33.33%"><span class="small">&nbsp;&nbsp;&nbsp;&nbsp; Default</span><br><nobr>
                   </nobr>
+                  <ValidationProvider rules="required" v-slot="v">
+                        <date-picker valueType="format"  v-model="editEmpPositiondata.alert_date"
+                          input-class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border border-custom-border"
+                          :clearable="false"
+                          :shortcuts="[
+                            { text: 'Yesterday', onClick: () => {
+                              let date = new Date()
+                              date.setTime( date.getTime() - 3600 * 1000 * 24 )
+                              return date
+                            } },
+                            { text: 'Today', onClick: () => new Date() },
+                          ]"></date-picker>
+                        <small class="text-red-600 block">{{ v.errors[0] }}</small>
+                      </ValidationProvider>
                   </td>
-                <!--
-                <!/CHECK>
-                -->
-                </tr>
-              <tr><td class="small">Use the <b>users&gt;Positions Grid </b>page to select more positions
-              for this users</td></tr>
-              </tbody></table>
-              </td></tr>
-              </tbody></table>
-          </div>
-          <!-- ================================= Comments ================================= -->
-          <div class="comments px-6 pb-4 mb-4 flex">
-            <h4 class="text-xl font-semibold w-3/12">Comments</h4>
-            <div class="w-9/12">
-              <textarea rows="5" class="w-full rounded p-2 leading-tight focus:outline-none" style="border: 1px solid #707070;"  v-model="editEmpPositiondata.comment"></textarea>
+                  <!--
+                  <!/CHECK>
+                  -->
+                  </tr>
+                  <tr>
+                  <td align="center" valign="bottom"><b class="title">Pay Rate</b></td>
+                  <!--
+                  <!CHECK  !HELP>
+                  -->
+                  <td align="center" class="title" valign="bottom" style="padding-left:20px; background-color: #E3E5F1;"><b class="title">Alert Date</b></td>
+                  <!--
+                  <!/CHECK>
+                  -->
+                  </tr>
+                  <tr align="center" v-for="position in  editEmpPositiondata.position" :key="position.id" >
+                  <td class="small" :class="position.preference" v-on:click="setPreference(position)"  :id="position.position.id"  >{{position.position.position}}</td>
+                  <!-- <td class="small"   :id="position.position.id"  >{{position.position.position}}</td>   -->
+                  <td style="height: 25px margin: 7px 7px;
+      padding: 7px 7px;">
+                    
+                    <ValidationProvider rules="required" v-slot="v">
+                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="position.pay_rate"  maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
+                  <small class="text-red-600 block">{{ v.errors[0] }}</small>
+                </ValidationProvider>
+                    </td>
+                  <!--
+                  <!CHECK  !HELP>
+                  -->
+                  <td style="height: 25px margin: 7px 7px;
+      padding: 7px 7px;"><nobr>
+                    <!-- <ValidationProvider rules="required" v-slot="v"> -->
+                        <date-picker valueType="format"  v-model="position.alter_date"
+                          input-class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border border-custom-border"
+                          :clearable="false"
+                          :shortcuts="[
+                            { text: 'Yesterday', onClick: () => {
+                              let date = new Date()
+                              date.setTime( date.getTime() - 3600 * 1000 * 24 )
+                              return date
+                            } },
+                            { text: 'Today', onClick: () => new Date() },
+                          ]"></date-picker>
+                        <!-- <small class="text-red-600 block">{{ v.errors[0] }}</small> -->
+                      <!-- </ValidationProvider> -->
+                    </nobr>
+                    </td>
+                  <!--
+                  <!/CHECK>
+                  -->
+                  </tr>
+                <tr><td class="small">Use the <b>users&gt;Positions Grid </b>page to select more positions
+                for this users</td></tr>
+                </tbody></table>
+                </td></tr>
+                </tbody></table>
             </div>
-          </div>
-          <!-- ================================= ./Comments ================================= -->
-        
-
-          <div class="flex justify-between mt-10 mb-8 text-center">
-            <div style="width:100%; text-align:center;">
-              <button class="text-white py-3 px-12 rounded-full bg-custom-primary focus:outline-none" type="submit">Save</button>
-              
+            <!-- ================================= Comments ================================= -->
+            <div class="comments px-6 pb-4 mb-4 flex">
+              <h4 class="text-xl font-semibold w-3/12">Comments</h4>
+              <div class="w-9/12">
+                <textarea rows="5" class="w-full rounded p-2 leading-tight focus:outline-none" style="border: 1px solid #707070;"  v-model="editEmpPositiondata.comment"></textarea>
+              </div>
             </div>
-          </div>
-        </form>
-      </ValidationObserver>
-      <table class="module">
-<tbody>
-  <tr><td class="wgt"><b class="titleBox">Information</b></td></tr>
-<tr><td class="bwgt">  
-- Choose your preferences for this users positions: click position label above to change to <b><span style="background-color: #90F68E">prefer</span>, <span style="background-color: #FFAEAE">dislike</span></b> and <span style="background:white;"> <b>no preference</b></span> <br>
-Can be used by Autofill and when viewing available users for a shift.
-- To allow this users to work more positions, use the <b>users&gt; Positions Grid</b> page.
-<br><br>
-- Pay Rates - enter default pay rate at the top or edit pay rates per position.<br><span class="small">Can be used to view approximate payroll.</span>
-<br><br>
-- Alert dates - set default date for all positions or edit individual position dates.
-<br><span class="small">Can be used, for example, for certification expirations.</span>
-<br><br>
-- Click the "Save" button when finished.
-<br><br>- Changes will be reflected on the "Positions Grid" the next time that page is reloaded.</td></tr>
-</tbody></table>
+            <!-- ================================= ./Comments ================================= -->
+          
 
-        
-        </modal>
-    
-    <!-- bulk edit end -->
-		<modal v-model="modal.addEditPositions" class="modal-add-edit-positions" size="md:w-7/12" title="Add/Delete Positions">
-			<div class="new-position px-6 py-6">
-        <ValidationObserver v-slot="{ handleSubmit }">
-          <form @submit.prevent="handleSubmit(addPosition)">
-    				<div class="flex items-center justify-between mb-5">
-    					<h4 class="text-xl font-semibold">New Position</h4>
-    					<button class="text-white py-2 px-16 rounded-full text-sm bg-custom-primary" type="submit">Add</button>
-    				</div>
-            <ValidationProvider rules="required" v-slot="v">
-      				<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none mb-1" type="text" v-model="modal.addPosition.position">
-              <small class="text-red-600 block">{{ v.errors[0] }}</small>
-      				<p class="text-sm">After adding, set which users can work each position on the <strong>users>Positions Grid</strong></p>
-            </ValidationProvider>
+            <div class="flex justify-between mt-10 mb-8 text-center">
+              <div style="width:100%; text-align:center;">
+                <button class="text-white py-3 px-12 rounded-full bg-custom-primary focus:outline-none" type="submit">Save</button>
+                
+              </div>
+            </div>
           </form>
         </ValidationObserver>
-			</div>
+        <table class="module">
+  <tbody>
+    <tr><td class="wgt"><b class="titleBox">Information</b></td></tr>
+  <tr><td class="bwgt">  
+  - Choose your preferences for this users positions: click position label above to change to <b><span style="background-color: #90F68E">prefer</span>, <span style="background-color: #FFAEAE">dislike</span></b> and <span style="background:white;"> <b>no preference</b></span> <br>
+  Can be used by Autofill and when viewing available users for a shift.
+  - To allow this users to work more positions, use the <b>users&gt; Positions Grid</b> page.
+  <br><br>
+  - Pay Rates - enter default pay rate at the top or edit pay rates per position.<br><span class="small">Can be used to view approximate payroll.</span>
+  <br><br>
+  - Alert dates - set default date for all positions or edit individual position dates.
+  <br><span class="small">Can be used, for example, for certification expirations.</span>
+  <br><br>
+  - Click the "Save" button when finished.
+  <br><br>- Changes will be reflected on the "Positions Grid" the next time that page is reloaded.</td></tr>
+  </tbody></table>
 
-		  <div class="list-of-positions py-5 mb-4">
-		  	<div class="flex justify-between items-center mb-5 px-6">
-		  		<div class="flex items-center leading-none">
-		  			<h4 class="text-xl font-semibold">Positions</h4>
-		  		</div>
-		  		<button class="text-white py-2 px-16 rounded-full text-sm bg-custom-primary" type="button" @click.prevent="openModal('EditDeletePositions')">Delete</button>
-		  	</div>
-
-        <ul class="flex flex-col flex-wrap ml-10 mr-6 mb-4" v-if="modal.positions.length===0">
-          <li class="text-sm">No Records Found</li>
-        </ul>  
-				<ul class="flex flex-col flex-wrap ml-10 mr-6 mb-4" v-else>
-					<li class="text-sm" v-for="data in modal.positions" :key="data.id">{{ data.position }}</li>
-				</ul>
-		  </div>
-
-		  <div class="deleted-positions py-5 mb-4">
-		  	<div class="flex justify-between items-center mb-5 px-6">
-		  		<div class="flex items-center leading-none">
-		  			<h4 class="text-xl font-semibold">
-		  				Recently Deleted
-		  				<span class="text-sm font-normal">Click Position to restore it.</span>
-		  			</h4>
-		  		</div>
-		  	</div>
-
-				<ul class="flex flex-col flex-wrap ml-10 mr-6 mb-4">
-          <li v-if="modal.trashedPositions.length===0" class="text-sm">No Records Found</li>
-					<li v-else class="text-sm" v-for="(data, index) in modal.trashedPositions">
-            <a href="#" @click.prevent="restorePosition(data.id, index)">{{ data.position }}</a>
-          </li>
-				</ul>
-		  </div>
-
-			<div class="information">
-				<h4 class="text-xl mb-2">Information</h4>
-				<ul class="list-inside">
-					<li class="text-sm">Sort order of positions is alphabetical. You can edit positions to have a leading space or hyphen to list them first</li>
-					<li class="text-sm">Only the main manager on the account can delete positions.</li>
-				</ul>
-			</div>
-		</modal>
-
-    <modal v-model="modal.editDeletePositions" class="modal-edit-delete-positions" size="md:w-6/12" :title="`Delete Positions`">
-      <nav class="my-4 edit-delete-positions">
-        <ul class="flex justify-center w-5/12 mx-auto">
-          <li class="w-2/4 mr-1 rounded-t-lg" :class="{ active: isActive('edit') }" style="display:none;">
-            <a href="#" class="block text-center font-semibold text-lg pt-1" @click.prevent="setActive('edit')">Edit</a>
-          </li>
-          <li class="w-2/4 mr-1 rounded-t-lg" :class="{ active: isActive('delete') }">
-            <a href="#" class="block text-center font-semibold text-lg pt-1" @click.prevent="setActive('delete')">Delete</a>
-          </li>
-        </ul>
-      </nav>
-      
-      <!-- ==================================== Edit position ==================================== -->
-      <div v-if="activeItem == 'edit'">
-        <div class="flex items-center justify-between">
-          <div>
-            <h4 class="text-xl font-semibold">Current positions</h4>
-            <a href="#" class="text-custom-primary" @click.prevent="sortAlphabetically">Sort alphabetically</a>
-          </div>
-          <!-- <button class="text-white py-2 px-12 rounded-full text-sm bg-custom-primary" type="button" @click.prevent="saveSortedPosition">Save</button> -->
+          
+      </modal>
+      <!-- bulk edit end -->
+      <modal v-model="modal.addEditPositions" class="modal-add-edit-positions" size="md:w-7/12" title="Add/Delete Positions">
+        <div class="new-position px-6 py-6">
+          <ValidationObserver v-slot="{ handleSubmit }">
+            <form @submit.prevent="handleSubmit(addPosition)">
+              <div class="flex items-center justify-between mb-5">
+                <h4 class="text-xl font-semibold">New Position</h4>
+                <button class="text-white py-2 px-16 rounded-full text-sm bg-custom-primary" type="submit">Add</button>
+              </div>
+              <ValidationProvider rules="required" v-slot="v">
+                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none mb-1" type="text" v-model="modal.addPosition.position">
+                <small class="text-red-600 block">{{ v.errors[0] }}</small>
+                <p class="text-sm">After adding, set which users can work each position on the <strong>users>Positions Grid</strong></p>
+              </ValidationProvider>
+            </form>
+          </ValidationObserver>
         </div>
-        <draggable v-model="modal.positions" tag="ul" class="w-9/12 mx-auto my-10" handle=".handle"
-          @start="isDragging=true" @end="isDragging=false">
-          <transition-group type="transition" name="flip-list">
-            <li v-for="(data) in modal.positions" :key="data.id" class="flex items-center justify-between border border-custom-primary mb-2 px-3 py-1 rounded-md">
-              <a href="#" @click.prevent="openModal('EditPosition', data)">{{ data.position }}</a>
-              <a href="#"><font-awesome-icon icon="bars" class="text-custom-primary handle" /></a>
+
+        <div class="list-of-positions py-5 mb-4">
+          <div class="flex justify-between items-center mb-5 px-6">
+            <div class="flex items-center leading-none">
+              <h4 class="text-xl font-semibold">Positions</h4>
+            </div>
+            <button class="text-white py-2 px-16 rounded-full text-sm bg-custom-primary" type="button" @click.prevent="openModal('EditDeletePositions')">Delete</button>
+          </div>
+
+          <ul class="flex flex-col flex-wrap ml-10 mr-6 mb-4" v-if="modal.positions.length===0">
+            <li class="text-sm">No Records Found</li>
+          </ul>  
+          <ul class="flex flex-col flex-wrap ml-10 mr-6 mb-4" v-else>
+            <li class="text-sm" v-for="data in modal.positions" :key="data.id">{{ data.position }}</li>
+          </ul>
+        </div>
+
+        <div class="deleted-positions py-5 mb-4">
+          <div class="flex justify-between items-center mb-5 px-6">
+            <div class="flex items-center leading-none">
+              <h4 class="text-xl font-semibold">
+                Recently Deleted
+                <span class="text-sm font-normal">Click Position to restore it.</span>
+              </h4>
+            </div>
+          </div>
+
+          <ul class="flex flex-col flex-wrap ml-10 mr-6 mb-4">
+            <li v-if="modal.trashedPositions.length===0" class="text-sm">No Records Found</li>
+            <li v-else class="text-sm" v-for="(data, index) in modal.trashedPositions">
+              <a href="#" @click.prevent="restorePosition(data.id, index)">{{ data.position }}</a>
             </li>
-          </transition-group>
-        </draggable>
-
-        <div class="text-center">
-          <button class="text-white py-2 px-12 rounded-full text-sm bg-custom-primary" type="button" @click.prevent="saveSortedPosition">Save</button>
-        </div>
-        
-        <div class="information mt-5 pt-3">
-          <h4 class="text-xl mb-2">Information</h4>
-          <ul class="ml-2">
-            <li class="text-sm">Click position name to edit and change the name on all schedules (past and future).</li>
-            <li class="text-sm">Default sort order of positions is alphabetical. You can change sort order by dragging positions using the [<font-awesome-icon icon="bars" size="xs" />] icon</li>
           </ul>
-          <p class="text-red-700 text-sm">* Only the main manager on the account can delete positions.</p>
         </div>
-      </div>
-      <!-- ==================================== ./Edit position ==================================== -->
 
-      <!-- ==================================== Delete position ==================================== -->
-      <div v-if="activeItem == 'delete'">
-        <div class="flex items-center justify-between">
-          <div>
-            <h4 class="text-xl font-semibold">Current positions</h4>
-            <a href="#" class="text-custom-primary" @click.prevent="sortAlphabetically">Sort alphabetically</a>
+        <div class="information">
+          <h4 class="text-xl mb-2">Information</h4>
+          <ul class="list-inside">
+            <li class="text-sm">Sort order of positions is alphabetical. You can edit positions to have a leading space or hyphen to list them first</li>
+            <li class="text-sm">Only the main manager on the account can delete positions.</li>
+          </ul>
+        </div>
+      </modal>
+      <modal v-model="modal.editDeletePositions" class="modal-edit-delete-positions" size="md:w-6/12" :title="`Delete Positions`">
+        <nav class="my-4 edit-delete-positions">
+          <ul class="flex justify-center w-5/12 mx-auto">
+            <li class="w-2/4 mr-1 rounded-t-lg" :class="{ active: isActive('edit') }" style="display:none;">
+              <a href="#" class="block text-center font-semibold text-lg pt-1" @click.prevent="setActive('edit')">Edit</a>
+            </li>
+            <li class="w-2/4 mr-1 rounded-t-lg" :class="{ active: isActive('delete') }">
+              <a href="#" class="block text-center font-semibold text-lg pt-1" @click.prevent="setActive('delete')">Delete</a>
+            </li>
+          </ul>
+        </nav>
+        
+        <!-- ==================================== Edit position ==================================== -->
+        <div v-if="activeItem == 'edit'">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-xl font-semibold">Current positions</h4>
+              <a href="#" class="text-custom-primary" @click.prevent="sortAlphabetically">Sort alphabetically</a>
+            </div>
+            <!-- <button class="text-white py-2 px-12 rounded-full text-sm bg-custom-primary" type="button" @click.prevent="saveSortedPosition">Save</button> -->
           </div>
-          <button class="text-white py-2 px-12 rounded-full text-sm" type="button">Save</button>
-        </div>
+          <draggable v-model="modal.positions" tag="ul" class="w-9/12 mx-auto my-10" handle=".handle"
+            @start="isDragging=true" @end="isDragging=false">
+            <transition-group type="transition" name="flip-list">
+              <li v-for="(data) in modal.positions" :key="data.id" class="flex items-center justify-between border border-custom-primary mb-2 px-3 py-1 rounded-md">
+                <a href="#" @click.prevent="openModal('EditPosition', data)">{{ data.position }}</a>
+                <a href="#"><font-awesome-icon icon="bars" class="text-custom-primary handle" /></a>
+              </li>
+            </transition-group>
+          </draggable>
 
-        <ul class="w-9/12 mx-auto my-10">
-          <li v-for="(data, i) in modal.positions" :key="data.id" class="flex items-center justify-between border border-custom-primary mb-2 px-3 py-1 rounded-md">
-            <a href="#">{{ data.position }}</a>
-            <a href="#" @click.prevent="removePosition(data, i)"><font-awesome-icon :icon="['far', 'trash-alt']" class="text-red-700" /></a>
-          </li>
-        </ul>
-
-        <div class="text-center">
-          <button class="text-white py-2 px-12 rounded-full text-sm" type="button">Save</button>
+          <div class="text-center">
+            <button class="text-white py-2 px-12 rounded-full text-sm bg-custom-primary" type="button" @click.prevent="saveSortedPosition">Save</button>
+          </div>
+          
+          <div class="information mt-5 pt-3">
+            <h4 class="text-xl mb-2">Information</h4>
+            <ul class="ml-2">
+              <li class="text-sm">Click position name to edit and change the name on all schedules (past and future).</li>
+              <li class="text-sm">Default sort order of positions is alphabetical. You can change sort order by dragging positions using the [<font-awesome-icon icon="bars" size="xs" />] icon</li>
+            </ul>
+            <p class="text-red-700 text-sm">* Only the main manager on the account can delete positions.</p>
+          </div>
         </div>
-        
-        <div class="information mt-5 pt-3">
-          <h4 class="text-xl mb-2">Information</h4>
-          <ul class="ml-2">
-            <li class="text-sm">Default sort order of positions is alphabetical. You can change sort order by dragging positions using the [<font-awesome-icon :icon="['far', 'trash-alt']" size="xs" class="text-red-700" />] icon</li>
+        <!-- ==================================== ./Edit position ==================================== -->
+
+        <!-- ==================================== Delete position ==================================== -->
+        <div v-if="activeItem == 'delete'">
+          <div class="flex items-center justify-between">
+            <div>
+              <h4 class="text-xl font-semibold">Current positions</h4>
+              <a href="#" class="text-custom-primary" @click.prevent="sortAlphabetically">Sort alphabetically</a>
+            </div>
+            <button class="text-white py-2 px-12 rounded-full text-sm" type="button">Save</button>
+          </div>
+
+          <ul class="w-9/12 mx-auto my-10">
+            <li v-for="(data, i) in modal.positions" :key="data.id" class="flex items-center justify-between border border-custom-primary mb-2 px-3 py-1 rounded-md">
+              <a href="#">{{ data.position }}</a>
+              <a href="#" @click.prevent="removePosition(data, i)"><font-awesome-icon :icon="['far', 'trash-alt']" class="text-red-700" /></a>
+            </li>
           </ul>
-          <p class="text-red-700 text-sm">* Only the main manager on the account can delete positions.</p>
-        </div>
-      </div>
-      <!-- ==================================== ./Delete position ==================================== -->
-    </modal>
 
-    <modal v-model="modal.showEditPosition" class="modal-edit-delete-positions text-center" size="md:w-4/12" title="Edit this position">
-      <p class="w-2/3 mx-auto my-3">This edited position name will display for all existing {{ modal.reqEditPositionDisplay }} shifts in all schedules including PAST schedules.</p>
-      <form @submit.prevent="editPosition">
-        <input class="appearance-none block w-full rounded py-1 px-4 mb-4 leading-tight focus:outline-none" type="text" v-model="modal.reqEditPosition.position" required>
-        <div>
-          <button class="text-white text-center py-2 rounded-full bg-custom-primary w-32" type="submit">Ok</button>
-          <button class="text-white text-center py-2 rounded-full bg-red-700 w-32 ml-2" type="button" @click.prevent="modal.showEditPosition = !modal.showEditPosition">Cancel</button>
+          <div class="text-center">
+            <button class="text-white py-2 px-12 rounded-full text-sm" type="button">Save</button>
+          </div>
+          
+          <div class="information mt-5 pt-3">
+            <h4 class="text-xl mb-2">Information</h4>
+            <ul class="ml-2">
+              <li class="text-sm">Default sort order of positions is alphabetical. You can change sort order by dragging positions using the [<font-awesome-icon :icon="['far', 'trash-alt']" size="xs" class="text-red-700" />] icon</li>
+            </ul>
+            <p class="text-red-700 text-sm">* Only the main manager on the account can delete positions.</p>
+          </div>
         </div>
-      </form>
-    </modal>
-
+        <!-- ==================================== ./Delete position ==================================== -->
+      </modal>
+      <modal v-model="modal.showEditPosition" class="modal-edit-delete-positions text-center" size="md:w-4/12" title="Edit this position">
+        <p class="w-2/3 mx-auto my-3">This edited position name will display for all existing {{ modal.reqEditPositionDisplay }} shifts in all schedules including PAST schedules.</p>
+        <form @submit.prevent="editPosition">
+          <input class="appearance-none block w-full rounded py-1 px-4 mb-4 leading-tight focus:outline-none" type="text" v-model="modal.reqEditPosition.position" required>
+          <div>
+            <button class="text-white text-center py-2 rounded-full bg-custom-primary w-32" type="submit">Ok</button>
+            <button class="text-white text-center py-2 rounded-full bg-red-700 w-32 ml-2" type="button" @click.prevent="modal.showEditPosition = !modal.showEditPosition">Cancel</button>
+          </div>
+        </form>
+      </modal>
+    </div>
   </div>
 </template>
 

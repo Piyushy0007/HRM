@@ -3,7 +3,7 @@ nav.navigation {
 
   ul li {
     // width: 10rem;
-    text-align: center;
+    // text-align: center;
 
     &.active {
       position: relative;
@@ -28,8 +28,8 @@ nav.navigation {
     a {
       color: #fff ;
       display: block;
-      padding-top: 12px;
-      padding-bottom: 12px;
+      padding-top: 6px;
+      padding-bottom: 6px;
       text-decoration: none;
     }
   }

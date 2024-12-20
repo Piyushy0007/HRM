@@ -2,7 +2,7 @@
   <div class="c-employee-index client-table">
 
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
+    <div class="pb-4 px-2" style="margin-left: 242px;">
 		<div class="flex " style="justify-content: space-between;">
 			<h1 class="mb-4 mt-4">Parking Tickets</h1>
 		</div>

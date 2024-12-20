@@ -11,70 +11,74 @@
       </div>
       <ul class="list-unstyled">
         <li v-for="(group, groupIndex) in menuGroups" :key="groupIndex" class="mb-3">
-          <div :class="['nav-link text-start py-2 px-2 rounded flex items-center justify-between cursor-pointer', group.expanded ? 'bg-primary' : '']"
-          @click="toggleGroup(groupIndex)">
-            <div class="flex items-center justify-between gap-2">
-                <div class="me-3" style="width: 24px; text-align: center;">
-                  <font-awesome-icon :icon="group.icon" style="font-size: 16px;"/>
-                </div>
-                <div class="flex-grow-1">{{ group.title }}</div>
+          <!-- Parent Group -->
+          <div 
+            class="nav-link text-start py-2 px-2 rounded flex items-center justify-between cursor-pointer"
+            :class="{ 'bg-primary': group.expanded }"
+            @click="toggleGroup(groupIndex)"
+          >
+            <div class="flex items-center gap-2">
+              <div class="me-3" style="width: 24px; text-align: center;">
+                <font-awesome-icon :icon="group.icon" style="font-size: 16px;" />
               </div>
-              <span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currentColor"
-                  class="bi"
-                  :class="group.expanded ? 'bi-chevron-right' : 'bi-chevron-down'"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M1.5 1.5l7 7-7 7L0 14l6-6L0 2l1.5-1.5z"
-                    :transform="group.expanded ? 'rotate(90 8 8)' : 'rotate(360 8 8)'"
-                  />
-                </svg>
-              </span>
+              <span>{{ group.title }}</span>
+            </div>
+            <span>
+              <font-awesome-icon :icon="group.expanded ? 'chevron-down' : 'chevron-right'" />
+            </span>
           </div>
-            <!-- Group Links -->
-            <ul v-if="group.expanded" class="list-unstyled ps-3 mt-2">
-              <li v-for="item in group.items" :key="item.name" class="nav-item ml-2">
-                <div class="flex items-center pl-3">
-                  <span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      class="bi"
-                      :class="group.expanded ? 'bi-chevron-right' : 'bi-chevron-down'"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M1.5 1.5l7 7-7 7L0 14l6-6L0 2l1.5-1.5z"
-                        :transform="group.expanded ? '' : 'rotate(360 6 6)'"
-                      />
-                    </svg>
-                  </span>
-                  <router-link
-                    tag="a"
-                    class="sub-nav-link text-white text-start py-1 px-3 rounded"
-                    :to="{ name: item.name }"
+          <!-- Child Items -->
+          <ul v-if="group.expanded" class="list-unstyled ps-3 mt-2">
+            <li 
+              v-for="(item, itemIndex) in group.items" 
+              :key="itemIndex" 
+              class="mb-2 flex flex-col"
+            >
+              <div 
+                v-if="item.children" 
+                class="sub-nav-link text-white py-1 px-2 cursor-pointer flex items-center justify-between gap-2"
+                @click="toggleChild(groupIndex, itemIndex)"
+                style="margin-left: 16px;"
+              >
+              <span>{{ item.label }}</span>
+              <font-awesome-icon :icon="item.expanded ? 'chevron-down' : 'chevron-right'" />
+              </div>
+              <router-link 
+                v-else 
+                tag="a" 
+                class="sub-nav-link text-white py-1 rounded"
+                style="margin-right: auto; margin-left: 24px;" 
+                :to="{ name: item.name }"
+              >
+                {{ item.label }}
+              </router-link>
+              <!-- Nested Children -->
+              <ul v-if="item.expanded" class="list-unstyled ps-3">
+                <li 
+                  v-for="child in item.children" 
+                  :key="child.name" 
+                  class="py-1 flex flex-col"
+                  style="margin-left: 22px;"
+                >
+                  <router-link 
+                    tag="a" 
+                    class="sub-nav-link text-white py-1 px-3 rounded" 
+                    :to="{ name: child.name }"
                   >
-                    {{ item.label }}
+                    {{ child.label }}
                   </router-link>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item mt-auto">
-            <a href="#" @click="logout()" class="nav-link text-start py-2 px-3 rounded">
-              SIGNOUT
-            </a>
-          </li>
-        </ul>      
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <!-- Logout -->
+        <li class="nav-item mt-auto">
+          <a href="#" @click="logout()" class="nav-link text-start py-2 px-3 rounded">
+            SIGNOUT
+          </a>
+        </li>
+      </ul>     
     </nav>
   </div>
 </template>
@@ -94,20 +98,25 @@ export default {
       menuGroups: [
         {
           title: 'Management',
-          icon: ['fas', 'users'], // Icon representing multiple users/employees
+          icon: ['fas', 'users'],
           expanded: false,
           items: [
             { name: 'employees', label: 'Employees' },
             { name: 'attendance', label: 'Attendance' },
-            { name: 'leave', label: 'Leave' },
+            {
+              label: 'Leave',
+              expanded: false,
+              children: [
+                { name: 'leave', label: 'Apply Leave' },
+                { name: 'requests', label: 'Leave Requests' },
+              ],
+            },
             { name: 'onoffboarding', label: 'On/Off Boarding' },
-            // { name: 'onoffboarding', label: 'Onboarding/Offboarding' },
           ],
         },
         {
           title: 'Payroll',
-          icon: ['fas', 'money-check-alt'], // Icon for payroll/financial management
-          expanded: false,
+          icon: ['fas', 'money-check-alt'], 
           items: [
             { name: 'Salary', label: 'Salary' },
             { name: 'Tax', label: 'Tax' },
@@ -116,19 +125,19 @@ export default {
         },
         {
           title: 'Branches',
-          icon: ['fas', 'building'], // Icon representing office branches or locations
+          icon: ['fas', 'building'], 
           expanded: false,
           items: [{ name: 'clindex', label: 'Branches' }],
         },
         {
           title: 'Admin Users',
-          icon: ['fas', 'user-shield'], // Icon for administrators or secure users
+          icon: ['fas', 'user-shield'], 
           expanded: false,
           items: [{ name: 'adminindex', label: 'Admin Users' }],
         },
         {
           title: 'Shift & Schedules',
-          icon: ['fas', 'calendar-alt'], // Icon representing schedules or calendars
+          icon: ['fas', 'calendar-alt'], 
           expanded: false,
           items: [
             { name: 'schedules', label: 'Schedule' },
@@ -137,7 +146,7 @@ export default {
         },
         {
           title: 'Messaging',
-          icon: ['far', 'envelope'], // Icon for messaging or email
+          icon: ['far', 'envelope'],
           expanded: false,
           items: [
             {
@@ -148,7 +157,7 @@ export default {
         },
         {
           title: 'Reports & Analytics',
-          icon: ['fas', 'chart-line'], // Icon representing reports or analytics
+          icon: ['fas', 'chart-line'], 
           expanded: false,
           items: [
             { name: 'reports', label: 'Reports' },
@@ -159,14 +168,13 @@ export default {
         },
         {
           title: 'Jobs',
-          icon: ['fas', 'briefcase'], // Icon representing jobs or employment
+          icon: ['fas', 'briefcase'], 
           expanded: false,
           items: [
             { name: 'Create', label: 'Create' },
             { name: 'Listing', label: 'Listing' },
           ],
         },
-
       ],
     };
   },
@@ -177,15 +185,16 @@ export default {
   methods: {
     toggleGroup(index) {
       this.menuGroups.forEach((group, i) => {
-      if (i !== index) group.expanded = false;
+        if (i !== index) group.expanded = false;
       });
       this.menuGroups[index].expanded = !this.menuGroups[index].expanded;
-      this.selectedGroupIndex = index;
     },
-    selectItem(groupIndex, itemName) {
-    this.selectedGroupIndex = groupIndex;
-    this.selectedItemName = itemName;
-  },
+    toggleChild(groupIndex, itemIndex) {
+      const item = this.menuGroups[groupIndex].items[itemIndex];
+      if (item.children) {
+        item.expanded = !item.expanded;
+      }
+    },
     message_count() {
       axios.post('/api/adminmessagecount', {
         admin_id: this.userid,

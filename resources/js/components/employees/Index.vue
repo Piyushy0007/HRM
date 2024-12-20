@@ -1,7 +1,9 @@
 <template>
-  <div class=" pb-4 custom-main col-xm-10" >
-    
+  <div class=" pb-4 col-xm-10" >
     <Loader msg="Processing ..." v-model="isLoader" />
+    <div class="custom-main">
+
+    
 
     <ul class="flex c-secondary-nav">
       <li class="w-1/3 text-center"><a href="#" @click.prevent="openModal('AddNewEmployee')">Add New User with a role</a></li>
@@ -2887,6 +2889,8 @@
     		</template>
   </b-modal>
   </div>
+  </div>
+
 </template>
 
 <script>
