@@ -184,10 +184,17 @@ export default {
   },
   methods: {
     toggleGroup(index) {
-      this.menuGroups.forEach((group, i) => {
-        if (i !== index) group.expanded = false;
-      });
-      this.menuGroups[index].expanded = !this.menuGroups[index].expanded;
+    this.$set(this.menuGroups, index, {
+      ...this.menuGroups[index],
+      expanded: !this.menuGroups[index].expanded,
+    });
+    // toggleGroup(index) {
+    //   this.menuGroups.forEach((group, i) => {
+    //     // if (i !== index) group.expanded = false;
+    //     // both of line we use one of them 
+    //     group.expanded = i === index ? !group.expanded : false;
+    //   });
+      // this.menuGroups[index].expanded = !this.menuGroups[index].expanded;
     },
     toggleChild(groupIndex, itemIndex) {
       const item = this.menuGroups[groupIndex].items[itemIndex];
