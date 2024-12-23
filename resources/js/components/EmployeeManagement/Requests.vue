@@ -9,8 +9,39 @@
                 <!-- Left Section -->
                 <div class="flex items-center">
                   <span class="font-semibold text-lg text-gray-800">Leave Requests</span>
+                  <!-- <span class="text-gray-600 ml-1">From- {{ fromDate }}</span>
+                  <span class="text-gray-600 ml-1">To- {{ toDate }}</span> -->
                 </div>
+
+            <!-- Right Section -->
+            <div class="flex items-center space-x-4">
+              <!-- From Date Selector -->
+              <div class="flex items-center">
+                <label for="fromDate" class="text-gray-600 mr-2">From</label>
+                <input
+                  type="date"
+                  id="fromDate"
+                  v-model="fromDate"
+                  @change="fetchLeaveRequests"
+                  class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
+          
+              <!-- To Date Selector -->
+              <div class="flex items-center">
+                <label for="toDate" class="text-gray-600 mr-2">To</label>
+                <input
+                  type="date"
+                  id="toDate"
+                  v-model="toDate"
+                  @change="fetchLeaveRequests"
+                  class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+              </div>
             </div>
+          
+          </div>
+
 
             <!-- Table Container -->
             <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
@@ -29,15 +60,22 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
+                    <tr v-if="paginatedData.length === 0">
+                      <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
+                    </tr>
+                    <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
                       <td class="py-3 px-4 flex items-center gap-2">
-                        <img :src="employee.image" alt="Employee" class="rounded-full" />
-                        {{ truncateText(employee.name, 15) }}
+                        <img
+                        :src="employee.employee.employee_image || 'default-avatar.png'"
+                        alt="Employee"
+                        class="rounded-full w-10 h-10"
+                      />
+                      {{ truncateText(employee.employee.firstname + ' ' + employee.employee.lastname, 15) }}
                       </td>
-                      <td class="py-2 px-4">{{ employee.designation }}</td>
-                      <td class="py-2 px-4">{{ employee.dateFrom }}</td>
-                      <td class="py-2 px-4">{{ employee.dateTo }}</td>
-                      <td class="py-2 px-4">{{ employee.leaveType }}</td>
+                      <td class="py-2 px-4">{{ employee.employee.role }}</td>
+                      <td class="py-2 px-4">{{ employee.leave_date }}</td>
+                      <td class="py-2 px-4">{{ employee.leave_date }}</td>
+                      <td class="py-2 px-4">{{ employee.status === 1 ? 'Approved' : 'Pending' }}</td>
                       <td class="py-2 px-4">{{ truncateText(employee.reason, 35) }}</td>
                       <td class="py-2 px-4">
                         <div class="gap-2 flex justify-center items-center">
@@ -126,143 +164,9 @@ export default {
             currentPage: 1, // Tracks the current active page
             itemsPerPage: 6,
             isModalOpen: false,
-            employees: [
-            {
-                "name": "Aarav Sharma",
-                "designation": "Software Engineer",
-                "dateFrom": "01-01-2022",
-                "dateTo": "10-01-2022",
-                "leaveType": "Casual Leave",
-                "reason": "Family function in hometown.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Isha Verma",
-                "designation": "Data Analyst",
-                "dateFrom": "15-03-2022",
-                "dateTo": "20-03-2022",
-                "leaveType": "Sick Leave",
-                "reason": "Health issues.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Rahul Khanna",
-                "designation": "Project Manager",
-                "dateFrom": "05-05-2022",
-                "dateTo": "15-05-2022",
-                "leaveType": "Maternity Leave",
-                "reason": "Wife’s delivery scheduled.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Sneha Patel",
-                "designation": "UI/UX Designer",
-                "dateFrom": "10-07-2022",
-                "dateTo": "12-07-2022",
-                "leaveType": "Casual Leave",
-                "reason": "Travel with family.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Aditya Singh",
-                "designation": "QA Engineer",
-                "dateFrom": "01-06-2022",
-                "dateTo": "03-06-2022",
-                "leaveType": "Casual Leave",
-                "reason": "Attending a wedding.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Priya Mehta",
-                "designation": "Software Developer",
-                "dateFrom": "25-08-2022",
-                "dateTo": "30-08-2022",
-                "leaveType": "Sick Leave",
-                "reason": "Severe back pain.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Amit Kapoor",
-                "designation": "Business Analyst",
-                "dateFrom": "15-09-2022",
-                "dateTo": "20-09-2022",
-                "leaveType": "Casual Leave",
-                "reason": "Short vacation.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Kavya Joshi",
-                "designation": "Frontend Developer",
-                "dateFrom": "20-10-2022",
-                "dateTo": "25-10-2022",
-                "leaveType": "Medical Leave",
-                "reason": "Minor surgery recovery.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Arjun Nair",
-                "designation": "Backend Developer",
-                "dateFrom": "05-11-2022",
-                "dateTo": "10-11-2022",
-                "leaveType": "Casual Leave",
-                "reason": "Festival celebration at home.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Riya Gupta",
-                "designation": "HR Manager",
-                "dateFrom": "10-12-2022",
-                "dateTo": "15-12-2022",
-                "leaveType": "Casual Leave",
-                "reason": "Trip with friends.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Mohit Saxena",
-                "designation": "DevOps Engineer",
-                "dateFrom": "20-01-2023",
-                "dateTo": "25-01-2023",
-                "leaveType": "Sick Leave",
-                "reason": "Hospitalization due to illness.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Sanjana Roy",
-                "designation": "Content Writer",
-                "dateFrom": "01-02-2023",
-                "dateTo": "05-02-2023",
-                "leaveType": "Casual Leave",
-                "reason": "Relocation to a new city.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Karan Malhotra",
-                "designation": "Database Administrator",
-                "dateFrom": "15-03-2023",
-                "dateTo": "20-03-2023",
-                "leaveType": "Medical Leave",
-                "reason": "Dental surgery recovery.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Ananya Desai",
-                "designation": "Marketing Specialist",
-                "dateFrom": "10-04-2023",
-                "dateTo": "15-04-2023",
-                "leaveType": "Casual Leave",
-                "reason": "Family trip to Goa.",
-                "image": "https://via.placeholder.com/40"
-            },
-            {
-                "name": "Rohan Choudhary",
-                "designation": "Tech Lead",
-                "dateFrom": "20-05-2023",
-                "dateTo": "25-05-2023",
-                "leaveType": "Casual Leave",
-                "reason": "Adventure trek.",
-                "image": "https://via.placeholder.com/40"
-            }
-        ]
+            fromDate: "", // Holds the selected "From" date
+            toDate: "",
+            employees: [],
         };
     },
     computed: {
@@ -273,8 +177,39 @@ export default {
     totalPages() {
       return Math.ceil(this.employees.length / this.itemsPerPage);
     },
+    // // Computed property to format the "From" date
+    // formattedFromDate() {
+    //   return this.formatDate(this.fromDate);
+    // },
+    // // Computed property to format the "To" date
+    // formattedToDate() {
+    //   return this.formatDate(this.toDate);
+    // },
     },
     methods: {
+      async fetchLeaveRequests() {
+      if (this.fromDate && this.toDate) {
+        console.log("fromDate value:", this.fromDate);
+        console.log("toDate value:", this.toDate);
+      if (this.fromDate && this.toDate) {
+      try {
+        const response = await axios.get(`http://192.168.29.127:8000/api/leave-requests?start_date=${this.fromDate}&end_date=${this.toDate}`) 
+        console.log("API Response:", response.data);
+        if (response.status === 200 && response.data) {
+          this.employees = response.data; // Update this based on the actual API response format
+        } else {
+          console.error("Unexpected API response:", response);
+          this.employees = [];
+        }
+      } catch (error) {
+        console.error("Error fetching leave requests:", error);
+        this.employees = []; // Reset employees on error
+      }
+    } else {
+      console.log("Both fromDate and toDate are required.");
+    }
+  }
+},
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
@@ -302,6 +237,15 @@ export default {
       alert("Approved!");
       this.closeModal(); // Close the modal
     },
+    // Method to format the date into "dd-mm-yyyy"
+    formatDate(date) {
+      if (!date) return "";
+      const [year, month, day] = date.split("-");
+      return `${day}-${month}-${year}`;
+    },
+    },
+    mounted() {
+    this.fetchLeaveRequests();
     },
 };
 </script>
