@@ -69,5 +69,24 @@ class AttendanceController extends Controller
     ]);
 }
 
+public function getAttendancesByDateRange(Request $request)
+{
+    $startDate = $request->query('start_date');
+    $endDate = $request->query('end_date');
+
+    // Fetch attendance records with related employee data
+    $attendances = Attendance::with('employee') // Eager load employee relation
+                              ->whereBetween('attendance_date', [$startDate, $endDate])
+                              ->get();
+
+    // Check if data exists
+    if ($attendances->isEmpty()) {
+        return response()->json(null);
+    }
+
+    return response()->json($attendances);
+}
+
+
     
 }

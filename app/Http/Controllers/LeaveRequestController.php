@@ -52,4 +52,22 @@ class LeaveRequestController extends Controller
     
         return response()->json($leaveRequests);
     }
+   
+    public function getLeaveRequestsByDateRange(Request $request)
+{
+    $startDate = $request->query('start_date');
+    $endDate = $request->query('end_date');
+
+    $leaveRequests = LeaveRequest::with('employee')  // Eager load employee relation
+                                  ->whereBetween('leave_date', [$startDate, $endDate])
+                                  ->get();
+
+    // Check if data exists
+    if ($leaveRequests->isEmpty()) {
+        return response()->json(null);
+    }
+
+    return response()->json($leaveRequests);
+}
+    
 }
