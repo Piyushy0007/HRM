@@ -54,20 +54,28 @@ class LeaveRequestController extends Controller
     }
    
     public function getLeaveRequestsByDateRange(Request $request)
-{
-    $startDate = $request->query('start_date');
-    $endDate = $request->query('end_date');
-
-    $leaveRequests = LeaveRequest::with('employee')  // Eager load employee relation
-                                  ->whereBetween('leave_date', [$startDate, $endDate])
-                                  ->get();
-
-    // Check if data exists
-    if ($leaveRequests->isEmpty()) {
-        return response()->json(null);
+    {
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+    
+        // Check if both start_date and end_date are provided
+        if ($startDate && $endDate) {
+            // If both dates are provided, filter by date range
+            $leaveRequests = LeaveRequest::with('employee')
+                                          ->whereBetween('leave_date', [$startDate, $endDate])
+                                          ->get();
+        } else {
+            // If no date range is provided, fetch all leave requests
+            $leaveRequests = LeaveRequest::with('employee')->get();
+        }
+    
+        // If no data is found, return null
+        if ($leaveRequests->isEmpty()) {
+            return response()->json(null);
+        }
+    
+        // Return the leave requests with employee details
+        return response()->json($leaveRequests);
     }
-
-    return response()->json($leaveRequests);
-}
     
 }
