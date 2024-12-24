@@ -1,5 +1,6 @@
 <template>
    <div>
+    <Loader msg="Loading Attendance Listings..." v-model="isLoader" />
       <header-component />
       <div style="margin-left: 242px;">
           <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
@@ -9,48 +10,34 @@
               <!-- Left Section -->
               <div class="flex items-center">
                 <span class="font-semibold text-lg text-gray-800">Attendance</span>
-                <span class="text-gray-600 ml-1">Month- {{ selectedMonth }}</span>
+                <!-- <span class="text-gray-600 ml-1">Month- {{ selectedMonth }}</span> -->
               </div>
       
               <!-- Right Section -->
               <div class="flex items-center space-x-4">
-                <!-- Year Select -->
+                <!-- From Date Selector -->
                 <div class="flex items-center">
-                  <label for="year" class="text-gray-600 mr-1">Year</label>
-                  <select
-                    id="year"
+                  <label for="fromDate" class="text-gray-600 mr-2">From</label>
+                  <input
+                    type="date"
+                    id="fromDate"
+                    v-model="fromDate"
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  >
-                    <option>2021</option>
-                    <option>2022</option>
-                    <option>2023</option>
-                    <option>2024</option>
-                  </select>
+                  />
                 </div>
-      
-                <!-- Month Select -->
+            
+                <!-- To Date Selector -->
                 <div class="flex items-center">
-                  <label for="month" class="text-gray-600 mr-1">Month</label>
-                  <select
-                    v-model="selectedMonth"
-                    id="month"
+                  <label for="toDate" class="text-gray-600 mr-2">To</label>
+                  <input
+                    type="date"
+                    id="toDate"
+                    v-model="toDate"
+                    @change="fetchAttendanceData"
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                  >
-                  <option value="January">Jan</option>
-                  <option value="February">Feb</option>
-                  <option value="March">Mar</option>
-                  <option value="April">Apr</option>
-                  <option value="May">May</option>
-                  <option value="June">Jun</option>
-                  <option value="July">Jul</option>
-                  <option value="August" selected>Aug</option>
-                  <option value="September">Sep</option>
-                  <option value="October">Oct</option>
-                  <option value="November">Nov</option>
-                  <option value="December">Dec</option>
-                  </select>
+                  />
                 </div>
-              </div>   
+              </div>      
               </div>   
           <!-- Table Container -->
           <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
@@ -70,68 +57,21 @@
                 </thead>
                 <tbody>
                   <!-- Row 1 -->
-                  <tr class="border-b">
-                    <td class="py-3 px-4 flex items-center gap-2">
-                      <img
-                        src="https://via.placeholder.com/40"
-                        alt="Employee"
-                        class="rounded-full"
-                      />
-                      John Doe
-                    </td>
-                    <td class="py-3 px-4">Software Engineer</td>
-                    <td class="py-3 px-4">20-08-2021</td>
-                    <td class="py-3 px-4">05-12-1992</td>
-                    <td class="py-3 px-4">03008951423</td>
-                    <td class="py-3 px-4">Leave</td>
-                    <td class="py-3 px-4">
-                      <button
-                        class="text-blue-500 border border-blue-400 px-3 text-sm py-1 rounded-full hover:bg-blue-100 flex justify-center items-center gap-1"
-                      >
-                      <b-icon-list-task />View
-                      </button>
-                    </td>
+                  <tr v-if="isLoader">
+                    <td colspan="7" class="text-center loader py-4">Loading...</td>
                   </tr>
-        
-                  <!-- Row 2 -->
-                  <tr class="border-b">
-                    <td class="py-3 px-4 flex items-center gap-2">
-                      <img
-                        src="https://via.placeholder.com/40"
-                        alt="Employee"
-                        class="rounded-full"
-                      />
-                      John Doe
-                    </td>
-                    <td class="py-3 px-4">Software Engineer</td>
-                    <td class="py-3 px-4">20-08-2021</td>
-                    <td class="py-3 px-4">05-12-1992</td>
-                    <td class="py-3 px-4">03008951423</td>
-                    <td class="py-3 px-4">Present</td>
-                    <td class="py-3 px-4">
-                      <button
-                        class="text-blue-500 border border-blue-400 px-3 text-sm py-1 rounded-full hover:bg-blue-100 flex justify-center items-center gap-1"
-                      >
-                      <b-icon-list-task />View
-                      </button>
-                    </td>
+                  <tr v-else-if="paginatedData.length === 0">
+                    <td colspan="7" class="text-center py-4">No attendance data found for the selected date range.</td>
                   </tr>
-        
-                  <!-- Row 3 -->
-                  <tr class="border-b">
-                    <td class="py-3 px-4 flex items-center gap-2">
-                      <img
-                        src="https://via.placeholder.com/40"
-                        alt="Employee"
-                        class="rounded-full"
-                      />
-                      John Doe
+                  <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b">
+                    <td class="py-3 px-4">
+                      {{ employee.employee.firstname + ' ' + employee.employee.lastname }}
                     </td>
-                    <td class="py-3 px-4">UI/UX Designer</td>
-                    <td class="py-3 px-4">20-08-2021</td>
-                    <td class="py-3 px-4">05-12-1992</td>
-                    <td class="py-3 px-4">03008951423</td>
-                    <td class="py-3 px-4">Absent</td>
+                    <td class="py-3 px-4">{{ employee.employee.role }}</td>
+                    <td class="py-3 px-4">{{ employee.attendance_date }}</td>
+                    <td class="py-3 px-4">{{ employee.attendance_date }}</td>
+                    <td class="py-3 px-4">{{ employee.attendance_date }}</td>
+                    <td class="py-3 px-4">{{ employee.status === 1 ? 'Present' : 'Absent' }}</td>
                     <td class="py-3 px-4">
                       <button
                         class="text-blue-500 border border-blue-400 px-3 text-sm py-1 rounded-full hover:bg-blue-100 flex justify-center items-center gap-1"
@@ -150,6 +90,7 @@
                 <label for="show" class="text-gray-600">Show</label>
                 <select
                   id="show"
+                  v-model="itemsPerPage"
                   class="border border-gray-300 rounded px-2 py-1 focus:outline-none"
                 >
                   <option value="6">6</option>
@@ -192,17 +133,59 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "attendance",
     data() {
         return {
-            selectedYear: "2021", // Default year
-            selectedMonth: "August", // Default month
+            isLoader: false,
+            // selectedYear: "2021", 
+            // selectedMonth: "August", 
             currentPage: 1, // Tracks the current active page
-            totalPages: 3, // Total number of pages (adjustable)
+            itemsPerPage: 6,
+            fromDate: "", 
+            toDate: "",
+            employees: [],
         };
     },
+    computed: {
+      paginatedData() {
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        return this.employees.slice(start, start + this.itemsPerPage);
+      },
+      totalPages() {
+        return Math.ceil(this.employees.length / this.itemsPerPage);
+      },
+    },
     methods: {
+      async fetchAttendanceData() {
+        if (this.fromDate && this.toDate) {
+          console.log("fromDate value:", this.fromDate);
+          console.log("toDate value:", this.toDate);
+        if (this.fromDate && this.toDate) {
+          this.isLoader = true;
+          this.error = null;
+        try {
+
+          const response = await axios.get(`/api/attendances?start_date=${this.fromDate}&end_date=${this.toDate}`) 
+          console.log("API Response:", response.data);
+          if (response.status === 200 && response.data) {
+            this.employees = response.data; // Update this based on the actual API response format
+            console.log(response,"jbks");
+            console.log(response.employee_id,"sdjhajgdaj");
+          } else {
+            console.error("Unexpected API response:", response);
+            this.employees = [];
+          }
+        } catch (error) {
+          console.error("Error fetching leave requests:", error);
+          this.employees = []; // Reset employees on error
+        } finally {
+        this.isLoader = false; 
+        }
+        }
+      }
+      },
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
@@ -217,6 +200,28 @@ export default {
       this.currentPage = page;
     },
   },
+  formatDate(date) {
+      if (!date) return "";
+      const [year, month, day] = date.split("-");
+      return `${day}-${month}-${year}`;
+  },
+  mounted() {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const formatDate = (date) => {
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
+      return `${yyyy}-${mm}-${dd}`;
+    }
+
+    this.fromDate = formatDate(yesterday);
+    this.toDate = formatDate(today);
+
+    this.fetchAttendanceData();
+  },
 };
 </script>
 
@@ -227,8 +232,11 @@ export default {
 .content {
   overflow-y: auto; 
 }
-
-
+.loader {
+text-align: center;
+  font-size: 20px;
+  color: #007bff;
+}
 .c-attendance-page {
     .selection-function {
         background-color: #f9fafb;
