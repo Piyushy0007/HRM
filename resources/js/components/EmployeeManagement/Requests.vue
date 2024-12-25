@@ -1,6 +1,6 @@
 <template>
     <div>
-      <Loader msg="Loading Attendance Listings..." v-model="isLoader" />
+      <Loader msg="Loading Leave Request Listings..." v-model="isLoader" />
         <header-component />
         <div style="margin-left: 242px;">
             <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
@@ -46,12 +46,12 @@
               <div class="flex-grow overflow-auto">
                 <table class="w-full table-auto">
                   <thead>
-                    <tr class="text-left border-b">
+                    <tr class="text-center border-b">
                       <th class="py-3 px-4 text-blue-600">Employee</th>
                       <th class="py-3 px-4 text-blue-600">Designation</th>
                       <th class="py-3 px-4 text-blue-600">Date from</th>
                       <th class="py-3 px-4 text-blue-600">Date to</th>
-                      <th class="py-3 px-4 text-blue-600">Leave Type</th>
+                      <th class="py-3 px-4 text-blue-600">Status</th>
                       <th class="py-3 px-4 text-blue-600">Reason</th>
                       <th class="py-3 px-4 text-blue-600">Details</th>
                     </tr>
@@ -60,35 +60,48 @@
                     <tr v-if="isLoader">
                       <td colspan="7" class="text-center loader py-4">Loading...</td>
                     </tr>
-                    <tr v-else-if="paginatedData.length === 0">
+                    <tr v-else-if="employees.length === 0">
                       <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
                     </tr>
                     <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
-                      <td class="py-3 px-4">
-                        <!-- <img
+                      <td class="py-3 px-4 text-center flex items-center gap-2">
+                        <img
                         :src="employee.employee.employee_image || 'default-avatar.png'"
                         alt="Employee"
                         class="rounded-full w-10 h-10"
-                      /> -->
+                      />
                       {{ truncateText(employee.employee.firstname + ' ' + employee.employee.lastname, 15) }}
                       </td>
-                      <td class="py-2 px-4">{{ employee.employee.role }}</td>
-                      <td class="py-2 px-4">{{ employee.leave_date }}</td>
-                      <td class="py-2 px-4">{{ employee.leave_date }}</td>
-                      <td class="py-2 px-4">{{ employee.status === 1 ? 'Approved' : 'Pending' }}</td>
-                      <td class="py-2 px-4">{{ truncateText(employee.reason, 35) }}</td>
-                      <td class="py-2 px-4">
+                      <td class="py-2 px-4 text-center">{{ employee.employee.role }}</td>
+                      <td class="py-2 px-4 text-center">{{ employee.leave_date }}</td>
+                      <td class="py-2 px-4 text-center">{{ employee.leave_date }}</td>
+                      <td class="py-2 px-4 text-center">{{ 
+                        employee.status === 0 
+                          ? 'Pending' 
+                          : employee.status === 1 
+                            ? 'Approved' 
+                            : 'Rejected' 
+                        }}
+                      </td>
+                      <td class="py-2 px-4 text-center">{{ truncateText(employee.reason, 35) }}</td>
+                      <td class="py-2 px-4 text-center">
                         <div class="gap-2 flex justify-center items-center">
-                            <button class="text-blue-500 border border-blue-400 px-2 py-1 rounded-full hover:bg-blue-100 text-sm flex justify-center items-center gap-1">
+                            <button 
+                            @click="openViewModal(employee.reason)"
+                            class="text-blue-500 border border-blue-400 px-2 py-1 rounded-full hover:bg-blue-100 text-sm flex justify-center items-center gap-1">
                             <b-icon-list-task />View
                             </button>
                             <button 
+                            v-if="employee.status === 0"
                             class="text-green-500 border border-green-400 px-2 py-1 rounded-full text-sm hover:bg-green-100 flex justify-center items-center gap-1"
-                            @click="openModal"
+                            @click="openModal(employee.id)"
                             >
                             <b-icon-check-circle />Approve
                             </button>
-                            <button class="text-red-500 border border-red-400 px-2 text-sm py-1 rounded-full hover:bg-red-100 flex justify-center items-center gap-1">
+                            <button 
+                            v-if="employee.status === 0"
+                            @click="openRejectModal(employee.id)"
+                            class="text-red-500 border border-red-400 px-2 text-sm py-1 rounded-full hover:bg-red-100 flex justify-center items-center gap-1">
                             <b-icon-x-circle /> Reject
                             </button>
 
@@ -98,7 +111,6 @@
                   </tbody>
                 </table>            
               </div>
-        
               <!-- Pagination Section -->
               <div class="flex items-center justify-between p-4 border-t">
                 <div class="flex items-center gap-2">
@@ -150,9 +162,28 @@
               <p class="mb-4">Are you sure you want to approve this?</p>
               <div class="flex justify-end gap-2">
                 <button class="bg-gray-300 px-4 py-2 rounded" @click="closeModal">Cancel</button>
-                <button class="bg-blue-500 text-white px-4 py-2 rounded" @click="confirmApproval">Confirm</button>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded" @click="updateLeaveRequestStatus(tempEmployeeId, 1)">Confirm</button>
               </div>
             </div>
+        </div>
+        <div v-if="isRejectModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div class="bg-white rounded-lg p-6 w-1/3">
+            <h2 class="text-lg font-bold mb-4">Reject Confirmation</h2>
+            <p class="mb-4">Are you sure you want to reject this leave request?</p>
+            <div class="flex justify-end gap-2">
+              <button class="bg-gray-300 px-4 py-2 rounded" @click="closeRejectModal">Cancel</button>
+              <button class="bg-red-500 text-white px-4 py-2 rounded" @click="updateLeaveRequestStatus(tempEmployeeId, 2)">Confirm</button>
+            </div>
+          </div>
+        </div>
+        <div v-if="isViewModalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div class="bg-white rounded-lg p-6 w-1/3">
+            <h2 class="text-lg font-bold mb-4">Leave Reason</h2>
+            <p class="mb-4">{{ selectedReason }}</p>
+            <div class="flex justify-end gap-2">
+              <button class="bg-gray-300 px-4 py-2 rounded" @click="closeViewModal">Close</button>
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -166,35 +197,39 @@ export default {
             currentPage: 1, 
             itemsPerPage: 6,
             isModalOpen: false,
+            isRejectModalOpen: false,
+            tempEmployeeId: null,
             fromDate: "", 
+            isViewModalOpen: false, 
+            selectedReason: '',
             toDate: "",
             employees: [],
         };
     },
     computed: {
-    paginatedData() {
-      const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.employees.slice(start, start + this.itemsPerPage);
-    },
-    totalPages() {
-      return Math.ceil(this.employees.length / this.itemsPerPage);
-    },
+      paginatedData() {
+        if (!Array.isArray(this.employees)) {
+            return []; // Ensure it always returns an array
+        }
+        const start = (this.currentPage - 1) * this.itemsPerPage;
+        return this.employees.slice(start, start + this.itemsPerPage);
+      },
+      totalPages() {
+          return Math.ceil((this.employees || []).length / this.itemsPerPage);
+      },
     },
     
     methods: {
       async fetchLeaveRequests() {
         if (this.fromDate && this.toDate) {
-          console.log("fromDate value:", this.fromDate);
-          console.log("toDate value:", this.toDate);
-        if (this.fromDate && this.toDate) {
-          this.isLoader = true;
           this.error = null;
+          this.isLoader = true;
         try {
           const response = await axios.get(`/api/leave-requests?start_date=${this.fromDate}&end_date=${this.toDate}`) 
           console.log("API Response:", response.data);
-          if (response.status === 200 && response.data) {
+          if (response.status === 200 && Array.isArray(response.data)) {
             this.employees = response.data;
-            console.log(response,"gjgcjgjgsj") // Update this based on the actual API response format
+            console.log(response.data)
           } else {
             console.error("Unexpected API response:", response);
             this.employees = [];
@@ -206,7 +241,31 @@ export default {
         this.isLoader = false; 
         }
       }
-    }
+    },
+    async updateLeaveRequestStatus(employeeId, status) {
+      console.log("gasjhfgjsd", employeeId);
+      this.isLoader = true;
+      try{
+        const response = await axios.put(`/api/LeaveRequest/${employeeId}/Status`, 
+        {
+        status: status,
+        });
+        if(response.status === 200) {
+          alert(
+            status === 1
+              ? "Leave Request approved successfully"
+              : "Leave request rejected successfully"
+          );
+          this.fetchLeaveRequests();
+        } else {
+            alert("Failed to approve leave request.");
+        }
+      } catch(error) {
+        console.error("Error approving leave request:", error);
+        alert("An error occurred while approving the leave request.");
+      } finally {
+        this.isLoader = false;
+      }
     },
     prevPage() {
       if (this.currentPage > 1) {
@@ -224,15 +283,29 @@ export default {
     truncateText(text, maxLength) {
             return text.length > maxLength ? text.slice(0, maxLength) + "...." : text;
     },
-    openModal() {
-      this.isModalOpen = true; // Show the modal
+    openModal(employeeId) {
+      this.tempEmployeeId = employeeId;
+      this.isModalOpen = true; 
     },
     closeModal() {
-      this.isModalOpen = false; // Hide the modal
+      this.tempEmployeeId = null,
+      this.isModalOpen = false; 
     },
-    confirmApproval() {
-      alert("Approved!");
-      this.closeModal(); // Close the modal
+    openRejectModal(employeeId) {
+      this.tempEmployeeId = employeeId;
+      this.isRejectModalOpen = true; 
+    },
+    closeRejectModal() {
+      this.tempEmployeeId = null;
+      this.isRejectModalOpen = false; 
+    },
+    openViewModal(reason) {
+      this.selectedReason = reason;
+      this.isViewModalOpen = true; 
+    },
+    closeViewModal() {
+      this.selectedReason = '';
+      this.isViewModalOpen = false;
     },
     formatDate(date) {
       if (!date) return "";
