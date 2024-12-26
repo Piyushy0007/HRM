@@ -12,38 +12,46 @@ class CreateEmployeeTable extends Migration
      * @return void
      */
     public function up()
-    {
-        Schema::create('tblm_employee', function (Blueprint $table) {
-            $table->id();
-            $table->string('firstname', 50);
-            $table->string('lastname', 50);
-            $table->string('phone');
-            $table->string('phone2')->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->string('password');
-            $table->string('plain_password');
+{
+    Schema::create('tblm_employee', function (Blueprint $table) {
+        $table->id();
+        $table->string('firstname', 50);
+        $table->string('lastname', 50);
+        $table->string('phone');
+        $table->string('phone2')->nullable();
+        $table->string('email')->unique()->nullable();
+        $table->string('password');
+        $table->string('plain_password');
 
-            $table->string('address');
-            $table->string('address2')->nullable();
-            $table->string('city');
-            $table->string('state');
-            $table->string('zip');
+        $table->string('address');
+        $table->string('address2')->nullable();
+        $table->string('city');
+        $table->string('state');
+        $table->string('zip');
 
-            $table->tinyInteger('max_weekly_hours');
-            $table->tinyInteger('max_weekly_days');
-            $table->tinyInteger('max_day_hours');
-            $table->tinyInteger('max_day_shifts');
-            $table->float('pay_rate', 8, 2);
-            $table->date('hired_date');
-            $table->tinyInteger('priority_group');
-            $table->boolean('enable_screen_reader')->default(false);
-            $table->integer('role_id');
+        $table->tinyInteger('max_weekly_hours');
+        $table->tinyInteger('max_weekly_days');
+        $table->tinyInteger('max_day_hours');
+        $table->tinyInteger('max_day_shifts');
+        $table->float('pay_rate', 8, 2);
+        $table->date('hired_date');
+        $table->tinyInteger('priority_group');
+        $table->boolean('enable_screen_reader')->default(false);
+        $table->integer('role_id');
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-    }
+        // New Fields
+        $table->enum('gender', ['male', 'female', 'other']);
+        $table->enum('employee_status', ['full-time', 'part-time', 'hourly']);
+        $table->enum('employee_type', ['contract', 'freelance', 'permanent']);
+        $table->enum('location_type', ['remote', 'inoffice']);
+        $table->enum('position', ['frontend', 'backend', 'fullstack', 'devops']);
+        $table->enum('education_detail', ['bsc', 'btech', 'mtech']);
+        $table->enum('experience_duration', ['1+', '2+', '3+', '5+']);
 
+        $table->timestamps();
+        $table->softDeletes();
+    });
+}
     /**
      * Reverse the migrations.
      *

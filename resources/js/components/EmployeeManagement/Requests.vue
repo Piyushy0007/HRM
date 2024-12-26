@@ -65,11 +65,11 @@
                     </tr>
                     <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
                       <td class="py-3 px-4">
-                        <!-- <img
+                        <img
                         :src="employee.employee.employee_image || 'default-avatar.png'"
                         alt="Employee"
                         class="rounded-full w-10 h-10"
-                      /> -->
+                      />
                       {{ truncateText(employee.employee.firstname + ' ' + employee.employee.lastname, 15) }}
                       </td>
                       <td class="py-2 px-4">{{ employee.employee.role }}</td>
