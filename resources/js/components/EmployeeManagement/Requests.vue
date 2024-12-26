@@ -64,11 +64,7 @@
                       <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
                     </tr>
                     <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
-<<<<<<< HEAD
-                      <td class="py-3 px-4">
-=======
                       <td class="py-3 px-4 text-center flex items-center gap-2">
->>>>>>> 60d74a97cff5bd5c4635119b10f8c6856c1e2a9b
                         <img
                         :src="employee.employee.employee_image || 'default-avatar.png'"
                         alt="Employee"
