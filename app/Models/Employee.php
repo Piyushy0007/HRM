@@ -22,7 +22,8 @@ class Employee extends Authenticatable implements JWTSubject
     protected $guard  = 'employee';
     protected $fillable = ['firstname', 'lastname','email','phone','password',
          'remember_token', 'created_at','updated_at','zip',
-        'deleted_at','deviceToken','background_check','background_data','plain_password','role_id',];
+        'deleted_at','deviceToken','background_check','background_data','plain_password','role_id','gender', 'employee_status', 'employee_type', 'location_type', 
+        'position', 'education_detail', 'experience_duration',];
    
   
 
