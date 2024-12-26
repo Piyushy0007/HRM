@@ -178,7 +178,6 @@ export default {
                                 localStorage.setItem('user',JSON.stringify(res.data.employee));
                                 localStorage.setItem('accesstoken',JSON.stringify(res.data.token));
                                 localStorage.setItem("role",JSON.stringify(res.data.employee.role.role_name));
-
                                 vm.$router.push('/employees');
 
                             }

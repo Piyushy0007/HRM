@@ -182,6 +182,8 @@ export default {
                                  localStorage.removeItem('user')
                                 localStorage.setItem('admin',JSON.stringify(res.data.user));
                                 localStorage.setItem('userId',JSON.stringify(res.data.user.id));
+                                localStorage.setItem('role',JSON.stringify(res.data.user.role));
+                                console.log(res.data.user.role, 'roleloginnn admin')
                                 localStorage.setItem('accesstoken',JSON.stringify(res.data.access_token));
                                 // vm.$router.push('/cd');
                                 vm.$router.push('/schedules');
