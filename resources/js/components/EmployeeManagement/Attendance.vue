@@ -60,7 +60,7 @@
                   <tr v-if="isLoader">
                     <td colspan="7" class="text-center loader py-4">Loading...</td>
                   </tr>
-                  <tr v-else-if="paginatedData.length === 0">
+                  <tr v-else-if="employees.length === 0">
                     <td colspan="7" class="text-center py-4">No attendance data found for the selected date range.</td>
                   </tr>
                   <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b">
@@ -139,9 +139,7 @@ export default {
     data() {
         return {
             isLoader: false,
-            // selectedYear: "2021", 
-            // selectedMonth: "August", 
-            currentPage: 1, // Tracks the current active page
+            currentPage: 1, 
             itemsPerPage: 6,
             fromDate: "", 
             toDate: "",
@@ -150,18 +148,18 @@ export default {
     },
     computed: {
       paginatedData() {
+        if (!Array.isArray(this.employees)) {
+            return []; // Ensure it always returns an array
+        }
         const start = (this.currentPage - 1) * this.itemsPerPage;
         return this.employees.slice(start, start + this.itemsPerPage);
       },
       totalPages() {
-        return Math.ceil(this.employees.length / this.itemsPerPage);
+          return Math.ceil((this.employees || []).length / this.itemsPerPage);
       },
     },
     methods: {
       async fetchAttendanceData() {
-        if (this.fromDate && this.toDate) {
-          console.log("fromDate value:", this.fromDate);
-          console.log("toDate value:", this.toDate);
         if (this.fromDate && this.toDate) {
           this.isLoader = true;
           this.error = null;
@@ -169,7 +167,7 @@ export default {
 
           const response = await axios.get(`/api/attendances?start_date=${this.fromDate}&end_date=${this.toDate}`) 
           console.log("API Response:", response.data);
-          if (response.status === 200 && response.data) {
+          if (response.status === 200 && Array.isArray(response.data)) {
             this.employees = response.data; // Update this based on the actual API response format
             console.log(response,"jbks");
             console.log(response.employee_id,"sdjhajgdaj");
@@ -184,7 +182,6 @@ export default {
         this.isLoader = false; 
         }
         }
-      }
       },
     prevPage() {
       if (this.currentPage > 1) {
