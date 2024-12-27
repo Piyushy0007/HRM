@@ -7,8 +7,8 @@
              <input type="hidden" name="_token" v-bind:value="csrf">	
 
                 <img src="../../../images/logo.png" class="mx-auto mb-3" alt="" style="margin-top: -165px;" >
-            
-                <h2 class="text-center text-3xl font-bold leading-none mb-8">CLIENT LOGIN</h2>
+            c
+                <h2 class="text-center text-3xl font-bold leading-none mb-8">EMPLOYEE LOGIN</h2>
                 
                 <!-- @if ( $errors->any() )
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">

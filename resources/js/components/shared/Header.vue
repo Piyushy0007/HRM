@@ -356,6 +356,7 @@ export default {
         logout() {
             localStorage.removeItem("admin");
             localStorage.removeItem("accesstoken");
+            localStorage.removeItem("role");
             this.$router.push("/login");
         },
         indexPositions() {

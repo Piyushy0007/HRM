@@ -218,7 +218,10 @@ const routes = [
         component: require("./components/__Schedules.vue").default,
         name: "schedules",
         redirect: "/schedules",
-        meta: {},
+        meta: {
+            requiresAuth: true, 
+            roles: ["admin", "HR"], // Admin or HR roles can access this
+        },
         children: [
             {
                 path: "",
@@ -238,7 +241,10 @@ const routes = [
         component: require("./components/__MainReports.vue").default,
         name: "reports",
         redirect: "/reports/",
-        meta: {},
+        meta: {
+            requiresAuth: true, 
+            roles: ["admin", "HR"], // Admin or HR roles can access this
+        },
         children: [
             {
                 path: "report-index",
@@ -267,12 +273,19 @@ const routes = [
         component: require("./components/employees/__Main.vue").default,
         name: "employees",
         redirect: "/employees/",
-        meta: {},
+        meta: {
+            requiresAuth: true, 
+            roles: ["admin"]
+        },
         children: [
             {
                 path: "/",
                 component: require("./components/employees/Index.vue").default,
-                name: "employee-index"
+                name: "employee-index",
+                meta: {
+            requiresAuth: true, 
+            roles: ["admin"], 
+        },
             },
             {
                 path: "positions",
@@ -517,6 +530,10 @@ const routes = [
         path: "/salary/",
         component: require("./components/Payrole/__Salary.vue").default,
         name: "Salary",
+        meta: {
+            requiresAuth: false, 
+            roles: ["admin"], 
+          },
     },
 	{
         path: "/tax/",
@@ -605,8 +622,16 @@ const router = new VueRouter({
         return { x: 0, y: 0 };
     }
 });
-
+function getUserInfo() {
+    return {
+        isAuthenticated: !!localStorage.getItem("accesstoken"),
+       role: localStorage.getItem("role") || "guest"
+    };
+}
 router.beforeEach((to, from, next) => {
+const { isAuthenticated, role } = getUserInfo();
+
+console.log(isAuthenticated, role,"FROMTO SE SET KARA ");
     axios.interceptors.response.use(
         function(response) {
             return response;
@@ -624,7 +649,7 @@ router.beforeEach((to, from, next) => {
     axios.defaults.headers.common["Accept"] = `application/json`;
     axios.defaults.headers.common["Authorization"] =
         `Bearer ` + JSON.parse(localStorage.getItem("accesstoken"));
-    var isAuthenticated = !!localStorage.getItem("user");
+    // var isAuthenticated = !!localStorage.getItem("user");
     // if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
     if (to.name == "profile" || to.name == "cmsg") {
         var arr = [
@@ -639,10 +664,38 @@ router.beforeEach((to, from, next) => {
 
             document.head.appendChild(link_el);
         });
+
+        
         next();
     } else {
         next();
+
+
+
     }
+
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (!isAuthenticated) {
+            return next({ path: '/login' }); 
+        }
+
+        if (to.matched.some(record => record.meta.roles)) {
+
+                // Check if the user's role is included in the allowed roles
+                console.log("User Role:", role);
+                console.log("Required Roles for this route:", to.meta.roles);
+
+                if (to.meta.roles.includes(role)) {
+                    console.log("Role is allowed to access this route");
+                    return next(); 
+                } else {
+                    return next({ path: '/unauthorized' });
+                }
+        } else {
+            return next(); // Allow access if no role-based control is required
+        }
+    }
+     next();
 });
 const app = new Vue({
     el: "#app",
