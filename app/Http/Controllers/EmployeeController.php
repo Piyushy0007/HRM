@@ -14,6 +14,7 @@ use App\Message;
 use App\MessageGroup;
 use App\Models\ReportAlert;
 use App\Models\EmployeeClient;
+use App\Models\Salary;
 use App\EmployeePosition;
 use App\ClientAlertReport;
 use Illuminate\Http\Request;
@@ -191,86 +192,104 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    $generatedRandomPassword = $this->password_generate(12);
+    {
+        $generatedRandomPassword = $this->password_generate(12);
+        
+        if ($employee_image = $request->file('employee_image')) {
+            $request->employee_image = Storage::disk('public')->put('employee_image', $employee_image);
+        } else {
+            $filename = 'logo.png';
+            $request->employee_image = 'employee_image/' . $filename;
+        }
     
-    if ($employee_image = $request->file('employee_image')) {
-        $request->employee_image = Storage::disk('public')->put('employee_image', $employee_image);
-    } else {
-        $filename = 'logo.png';
-        $request->employee_image = 'employee_image/' . $filename;
-    }
+        $getmethod = $request->get('enable_security_officer') === 'undefined' ? 0 : $request->get('enable_security_officer');
+    
+        // Define the employee payload
+        $payload = [
+            "firstname" => $request->get('firstname'),
+            "lastname"  => $request->get('lastname'),
+            "phone"     => $request->get('phone') ?? '',
+            "phone2"    => $request->get('phone2') ?? '',
+            "email"     => $request->get('email'),
+            "address"   => $request->get('address') ?? '',
+            "address2"  => $request->get('address2') ?? '',
+            "city"      => $request->get('city') ?? '',
+            "state"     => $request->get('state') ?? '',
+            "zip"       => $request->get('zip') ?? '',
+            "max_weekly_hours" => $request->get('max_weekly_hours'),
+            "max_weekly_days"  => $request->get('max_weekly_days'),
+            "max_day_hours"    => $request->get('max_day_hours'),
+            "max_day_shifts"   => $request->get('max_day_shifts'),
+            "pay_rate"  => $request->get('pay_rate'),
+            "hired_date" => $request->get('hired_date'),
+            "priority_group" => $request->get('priority_group'),
+            "enable_screen_reader" => $request->get('enable_screen_reader') ?? false,
+            "enable_security_officer" => $getmethod,
+            "password" => Hash::make($generatedRandomPassword),
+            "plain_password" => $generatedRandomPassword,
+            "employee_image" => $request->employee_image,
+            "added_by" => $request->get('added_by'),
+            "role_id" => $request->get('role_id'),
+    
+            // New Fields
+            "gender" => $request->get('gender') ?? 'other',
+            "employee_status" => $request->get('employee_status') ?? 'full-time',
+            "employee_type" => $request->get('employee_type') ?? 'permanent',
+            "location_type" => $request->get('location_type') ?? 'inoffice',
+            "position" => $request->get('position') ?? 'backend',
+            "education_detail" => $request->get('education_detail') ?? 'btech',
+            "experience_duration" => $request->get('experience_duration') ?? '1+',
+        ];
+    
+        try {
+           // Create the employee record
+            $employee = Employee::create($payload);
 
-    $getmethod = $request->get('enable_security_officer') === 'undefined' ? 0 : $request->get('enable_security_officer');
+            if ($employee) {
 
-    $payload = [
-        "firstname" => $request->get('firstname'),
-        "lastname"  => $request->get('lastname'),
-        "phone"     => $request->get('phone') ?? '',
-        "phone2"    => $request->get('phone2') ?? '',
-        "email"     => $request->get('email'),
-        "address"   => $request->get('address') ?? '',
-        "address2"  => $request->get('address2') ?? '',
-        "city"      => $request->get('city') ?? '',
-        "state"     => $request->get('state') ?? '',
-        "zip"       => $request->get('zip') ?? '',
-        "max_weekly_hours" => $request->get('max_weekly_hours'),
-        "max_weekly_days"  => $request->get('max_weekly_days'),
-        "max_day_hours"    => $request->get('max_day_hours'),
-        "max_day_shifts"   => $request->get('max_day_shifts'),
-        "pay_rate"  => $request->get('pay_rate'),
-        "hired_date" => $request->get('hired_date'),
-        "priority_group" => $request->get('priority_group'),
-        "enable_screen_reader" => $request->get('enable_screen_reader') ?? false,
-        "enable_security_officer" => $getmethod,
-        "password" => Hash::make($generatedRandomPassword),
-        "plain_password" => $generatedRandomPassword,
-        "employee_image" => $request->employee_image,
-        "added_by" => $request->get('added_by'),
-        "role_id" => $request->get('role_id'),
-
-        // New Fields
-        "gender" => $request->get('gender') ?? 'other',
-        "employee_status" => $request->get('employee_status') ?? 'full-time',
-        "employee_type" => $request->get('employee_type') ?? 'permanent',
-        "location_type" => $request->get('location_type') ?? 'inoffice',
-        "position" => $request->get('position') ?? 'backend',
-        "education_detail" => $request->get('education_detail') ?? 'btech',
-        "experience_duration" => $request->get('experience_duration') ?? '1+',
-    ];
-
-    try {
-        $employee = Employee::create($payload);
-
-        if ($employee) {
-            if ($request->positions) {
-                $positions = explode(',', $request->positions);
-                foreach ($positions as $position) {
+                 // Create the salary record first
+                $salaryPayload = [
+                    'basic_salary' => $request->get('basic_salary'),
+                    'hra' => $request->get('hra'),
+                    'da' => $request->get('da'),
+                    'pf' => $request->get('pf'),
+                    'tax' => $request->get('tax'),
+                    'gross_salary' => $request->get('gross_salary'),
+                    'salary_type' => $request->get('salary_type'),
+                    'employee_id'=> $employee->id
+                ];  
+        
+                $salary = Salary::create($salaryPayload);  // Create salary record
+                
+                if ($request->positions) {
+                    $positions = explode(',', $request->positions);
+                    foreach ($positions as $position) {
+                        EmployeePosition::create([
+                            'employee_id' => $employee->id,
+                            'position_id' => $position
+                        ]);
+                    }
+                } else {
                     EmployeePosition::create([
                         'employee_id' => $employee->id,
-                        'position_id' => $position
+                        'position_id' => 16
                     ]);
                 }
-            } else {
-                EmployeePosition::create([
-                    'employee_id' => $employee->id,
-                    'position_id' => 16
-                ]);
+    
+                $when = now()->addMinutes(1);
+                $mailClass = $getmethod == 1 ? new SignInInstructionuser($employee) : new SignInInstruction($employee);
+                Mail::to($request->email)->later($when, $mailClass);
+    
+                return response()->json(['data' => Employee::find($employee->id)]);
             }
-
-            $when = now()->addMinutes(1);
-            $mailClass = $getmethod == 1 ? new SignInInstructionuser($employee) : new SignInInstruction($employee);
-            Mail::to($request->email)->later($when, $mailClass);
-
-            return response()->json(['data' => Employee::find($employee->id)]);
-        }
-    } catch (QueryException $e) {
-        $errorCode = $e->errorInfo[1];
-        if ($errorCode == 1062) {
-            return response('The e-mail or employee_no you input existed already!', 500);
+        } catch (QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) {
+                return response('The e-mail or employee_no you input existed already!', 500);
+            }
         }
     }
-}
+    
 
     /**
      * Display the specified resource.
