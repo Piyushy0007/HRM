@@ -275,17 +275,14 @@ const routes = [
         redirect: "/employees/",
         meta: {
             requiresAuth: true, 
-            roles: ["admin"]
+            roles: ["HR"]
         },
         children: [
             {
                 path: "/",
                 component: require("./components/employees/Index.vue").default,
                 name: "employee-index",
-                meta: {
-            requiresAuth: true, 
-            roles: ["admin"], 
-        },
+           
             },
             {
                 path: "positions",
@@ -610,6 +607,11 @@ const routes = [
         path: "/applicant",
         component: require("./components/JobsList/__Applicant_detail_list.vue").default,
         name: "applicant",
+    },
+    {
+        path: "/unauthorized",
+        component: require("./components/Unauthorized.vue").default,
+        name: "unauthorized",
     }
     
 ];
@@ -681,18 +683,18 @@ const { isAuthenticated, role } = getUserInfo();
         
     }
 
-    if (to.meta.requiresAuth) {
-        const hasPermission = to.meta.roles.includes(role);
+    // if (to.meta.requiresAuth) {
+    //     const hasPermission = to.meta.roles.includes(role);
           
-          console.log("Has Permission:", hasPermission);
+    //       console.log("Has Permission:", hasPermission);
 
     
-        if (hasPermission) {
-          next();
-        } else {
-          next("/unauthorized");
-        }
-    }
+    //     if (hasPermission) {
+    //       next();
+    //     } else {
+    //       next("/unauthorized");
+    //     }
+    // }
      next();
 });
 const app = new Vue({
