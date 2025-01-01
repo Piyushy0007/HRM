@@ -220,7 +220,7 @@ const routes = [
         redirect: "/schedules",
         meta: {
             requiresAuth: true, 
-            roles: ["admin", "HR"], // Admin or HR roles can access this
+            roles: ["HR"], 
         },
         children: [
             {
@@ -631,7 +631,6 @@ function getUserInfo() {
 router.beforeEach((to, from, next) => {
 const { isAuthenticated, role } = getUserInfo();
 
-console.log(isAuthenticated, role,"FROMTO SE SET KARA ");
     axios.interceptors.response.use(
         function(response) {
             return response;
@@ -679,20 +678,19 @@ console.log(isAuthenticated, role,"FROMTO SE SET KARA ");
             return next({ path: '/login' }); 
         }
 
-        if (to.matched.some(record => record.meta.roles)) {
+        
+    }
 
-                // Check if the user's role is included in the allowed roles
-                console.log("User Role:", role);
-                console.log("Required Roles for this route:", to.meta.roles);
+    if (to.meta.requiresAuth) {
+        const hasPermission = to.meta.roles.includes(role);
+          
+          console.log("Has Permission:", hasPermission);
 
-                if (to.meta.roles.includes(role)) {
-                    console.log("Role is allowed to access this route");
-                    return next(); 
-                } else {
-                    return next({ path: '/unauthorized' });
-                }
+    
+        if (hasPermission) {
+          next();
         } else {
-            return next(); // Allow access if no role-based control is required
+          next("/unauthorized");
         }
     }
      next();
