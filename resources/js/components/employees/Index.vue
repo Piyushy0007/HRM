@@ -774,7 +774,7 @@
               class="flex flex-col mb-6 mt-3">
               <label class="block text-gray-700 font-semibold mb-2">Select User Role:</label>
               <select
-              v-model="modal.addEditPositions.clientid" @change="clientselected"
+              v-model="modal.addEditPositions.roletId" @change="clientselected"
                 class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary" 
               >
                 <option value="">Select Community</option>
@@ -3398,6 +3398,7 @@ export default {
     storeEmployee() {
       let vm = this
       if (vm.modal.addEmployee.enable_security_officer==1 && Object.keys(vm.modal.selectedPositions).length === 0 ) {
+      
         vm.$swal({
           icon: 'error',
           title: 'At least select a position',
@@ -3407,48 +3408,64 @@ export default {
         return false
       }
       vm.isLoader = true
-      const mypostparameters= new FormData();
-      mypostparameters.append('firstname', vm.modal.addEmployee.firstname);
-      mypostparameters.append('lastname', vm.modal.addEmployee.lastname);
-      mypostparameters.append('gender', vm.modal.addEmployee.gender);
-      mypostparameters.append('employeeStatus', vm.modal.addEmployee.employeeStatus);
-      mypostparameters.append('employmentType', vm.modal.addEmployee.employmentType);
-      mypostparameters.append('locationType', vm.modal.addEmployee.locationType);
-      mypostparameters.append('email', vm.modal.addEmployee.email);  
-      mypostparameters.append('employee_image', vm.modal.addEmployee.employee_image);
-      mypostparameters.append('priority_group', vm.modal.addEmployee.priority_group);
-      mypostparameters.append('phone', vm.modal.addEmployee.phone);
-      mypostparameters.append('phone2', vm.modal.addEmployee.phone2);
-      mypostparameters.append('city', vm.modal.addEmployee.city);
-      mypostparameters.append('state', vm.modal.addEmployee.state);
-      mypostparameters.append('zip', vm.modal.addEmployee.zip);
-      mypostparameters.append('educationDegree', vm.modal.addEmployee.educationDegree);
-      mypostparameters.append('experience', vm.modal.addEmployee.experience);
-      mypostparameters.append('address', vm.modal.addEmployee.address);
-      mypostparameters.append('address2', vm.modal.addEmployee.address2);
-      mypostparameters.append('max_weekly_hours', vm.modal.addEmployee.max_weekly_hours);
-      mypostparameters.append('max_weekly_days', vm.modal.addEmployee.max_weekly_days);
-      mypostparameters.append('max_day_hours', vm.modal.addEmployee.max_day_hours);
-      mypostparameters.append('max_day_shifts', vm.modal.addEmployee.max_day_shifts);
-      mypostparameters.append('hired_date', vm.modal.addEmployee.hired_date);
-      mypostparameters.append('pay_rate', vm.modal.addEmployee.pay_rate);
-      mypostparameters.append('comments', vm.modal.addEmployee.comments);
-      mypostparameters.append('positions', vm.modal.selectedPositions);
-      mypostparameters.append('enable_screen_reader', vm.modal.addEmployee.enable_screen_reader);
-      mypostparameters.append('enable_security_officer', vm.modal.addEmployee.enable_security_officer);
-      if(vm.modal.addEmployee.clientid!=undefined && vm.modal.addEmployee.clientid!=""){
-        mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
-      }else {
-        mypostparameters.append('added_by', vm.userid);
-      }
-      mypostparameters.append('userRole', vm.userRole);
-      mypostparameters.append('SendEmail', vm.modal.addEmployee.SendEmail);
-      if(this.Images.client_image){
-				for( var i = 0; i <  this.Images.client_image.length; i++ ){
-				let file =  this.Images.client_image[i];
-				mypostparameters.set('employee_image', file);
-				}
-			}
+      const mypostparameters = new FormData();
+
+mypostparameters.append('firstname', vm.modal.addEmployee.firstname);
+mypostparameters.append('lastname', vm.modal.addEmployee.lastname);
+mypostparameters.append('gender', vm.modal.addEmployee.gender);
+mypostparameters.append('employee_status', vm.modal.addEmployee.employeeStatus);
+mypostparameters.append('employee_type', vm.modal.addEmployee.employmentType);
+mypostparameters.append('location_type', vm.modal.addEmployee.locationType);
+mypostparameters.append('email', vm.modal.addEmployee.email);
+mypostparameters.append('phone', vm.modal.addEmployee.phone);
+mypostparameters.append('phone2', vm.modal.addEmployee.phone2);
+mypostparameters.append('city', vm.modal.addEmployee.city);
+mypostparameters.append('state', vm.modal.addEmployee.state);
+mypostparameters.append('zip', vm.modal.addEmployee.zip);
+mypostparameters.append('education_detail', vm.modal.addEmployee.education_detail);
+mypostparameters.append('experience_duration', vm.modal.addEmployee.experience_duration);
+mypostparameters.append('address', vm.modal.addEmployee.address);
+mypostparameters.append('address2', vm.modal.addEmployee.address2);
+mypostparameters.append('max_weekly_hours', vm.modal.addEmployee.max_weekly_hours);
+mypostparameters.append('max_weekly_days', vm.modal.addEmployee.max_weekly_days);
+mypostparameters.append('max_day_hours', vm.modal.addEmployee.max_day_hours);
+mypostparameters.append('max_day_shifts', vm.modal.addEmployee.max_day_shifts);
+mypostparameters.append('hired_date', vm.modal.addEmployee.hired_date);
+mypostparameters.append('pay_rate', vm.modal.addEmployee.pay_rate);
+mypostparameters.append('priority_group', vm.modal.addEmployee.priority_group);
+mypostparameters.append('enable_screen_reader', vm.modal.addEmployee.enable_screen_reader);
+mypostparameters.append('enable_security_officer', vm.modal.addEmployee.enable_security_officer);
+mypostparameters.append('position', vm.modal.selectedPositions);
+mypostparameters.append('basic_salary', vm.modal.addEmployee.basic_salary);
+mypostparameters.append('net_salary', vm.modal.addEmployee.net_salary);
+mypostparameters.append('allowances', vm.modal.addEmployee.allowances);
+mypostparameters.append('deductions', vm.modal.addEmployee.deductions);
+mypostparameters.append('salary_type', vm.modal.addEmployee.salaryType);
+mypostparameters.append('payment_mode', vm.modal.addEmployee.paymentMode);
+mypostparameters.append('payment_date', vm.modal.addEmployee.paymentDate);
+mypostparameters.append('positions', vm.modal.selectedPositions);
+mypostparameters.append('bank_name', vm.modal.addEmployee.bankName);
+mypostparameters.append('account_number', vm.modal.addEmployee.accountNumber);
+mypostparameters.append('ifsc_code', vm.modal.addEmployee.ifscCode);
+mypostparameters.append('branch_name', vm.modal.addEmployee.branchName);
+mypostparameters.append('role_id', vm.modal.addEmployee.roleId);
+
+if (vm.modal.addEmployee.clientid !== undefined && vm.modal.addEmployee.clientid !== "") {
+  mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
+} else {
+  mypostparameters.append('added_by', vm.userid);
+}
+
+mypostparameters.append('userRole', vm.userRole);
+mypostparameters.append('SendEmail', vm.modal.addEmployee.SendEmail);
+
+if (this.Images.client_image) {
+  for (let i = 0; i < this.Images.client_image.length; i++) {
+    let file = this.Images.client_image[i];
+    mypostparameters.set('employee_image', file);
+  }
+}
+
       axios
         .post('/api/addemployee',mypostparameters)
         .then(res => {
