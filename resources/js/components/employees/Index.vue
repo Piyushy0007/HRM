@@ -1023,7 +1023,7 @@
                     <font-awesome-icon icon="user-graduate" class="mr-1" size="xs" />Education Details
                   </label>
                   <select
-                    v-model="modal.addEmployee.educationDegree"
+                    v-model="modal.addEmployee.education_detail"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                   >
                     <option value="">Select Education Degree</option>
@@ -1039,7 +1039,7 @@
                     <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Experience Duration
                   </label>
                   <select
-                    v-model="modal.addEmployee.experience"
+                    v-model="modal.addEmployee.experience_duration"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                   >
                     <option value="">Select Experience Duration</option>
@@ -1060,7 +1060,7 @@
                   <!-- Basic Salary -->
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Basic Salary</label>
-                    <input type="text" placeholder="Enter Basic Salary" v-model="modal.addEmployee.basicSalary"
+                    <input type="text" placeholder="Enter Basic Salary" v-model="modal.addEmployee.basic_salary"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     />
                   </div>
@@ -1070,7 +1070,7 @@
                     <input
                       type="text"
                       placeholder="Enter Gross Salary"
-                      v-model="modal.addEmployee.grossSalary"
+                      v-model="modal.addEmployee.gross_salary"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     />
                   </div>
@@ -1079,7 +1079,7 @@
                   <!-- Net Salary -->
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Net Salary</label>
-                    <input type="text" placeholder="Enter Net Salary" v-model="modal.addEmployee.netSalary"
+                    <input type="text" placeholder="Enter Net Salary" v-model="modal.addEmployee.net_salary"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     />
                   </div>
@@ -1087,7 +1087,7 @@
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">
                       <font-awesome-icon icon="dollar-sign" class="mr-1" size="xs" />Salary Type</label>
-                      <select v-model="modal.addEmployee.salaryType"
+                      <select v-model="modal.addEmployee.salary_type"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       >
                         <option value="">Select Salary Type</option>
@@ -1147,7 +1147,7 @@
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Payment Mode</label>
                     <select
-                      v-model="modal.addEmployee.paymentMode"
+                      v-model="modal.addEmployee.payment_mode"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     >
                       <option value="">Select Payment Mode</option>
@@ -1161,7 +1161,7 @@
                     <label class="block text-gray-700 font-semibold mb-2">Payment Date</label>
                     <input
                       type="date"
-                      v-model="modal.addEmployee.paymentDate"
+                      v-model="modal.addEmployee.payment_date"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     />
                   </div>
@@ -1176,7 +1176,7 @@
                       <input
                         type="text"
                         placeholder="Enter Bank Name"
-                        v-model="modal.addEmployee.bankName"
+                        v-model="modal.addEmployee.bank_name"
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
@@ -1186,7 +1186,7 @@
                       <input
                         type="text"
                         placeholder="Enter Account Number"
-                        v-model="modal.addEmployee.accountNumber"
+                        v-model="modal.addEmployee.account_number"
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
@@ -1196,7 +1196,7 @@
                       <input
                         type="text"
                         placeholder="Enter IFSC Code"
-                        v-model="modal.addEmployee.ifscCode"
+                        v-model="modal.addEmployee.ifsc_code"
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
@@ -1206,17 +1206,15 @@
                       <input
                         type="text"
                         placeholder="Enter Bank Branch"
-                        v-model="modal.addEmployee.bankBranch"
+                        v-model="modal.addEmployee.branch_name"
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
                   </div>
                 </div>
-                <div class="py-6 px-6 mb-2 mt-2">
-                  <!-- Additional Fields Section -->
+                <!-- <div class="py-6 px-6 mb-2 mt-2">
                   <h4 class="text-xl font-semibold mb-4">Other Salary Details</h4>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Overtime Hours -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Overtime Hours</label>
                       <input
@@ -1226,7 +1224,6 @@
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
-                    <!-- Overtime Pay -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Overtime Pay</label>
                       <input
@@ -1247,7 +1244,6 @@
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
-                    <!-- Commission -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Commission</label>
                       <input
@@ -1257,7 +1253,6 @@
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
-                    <!-- Taxable Income -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Taxable Income</label>
                       <input
@@ -1269,7 +1264,6 @@
                     </div>
                   </div>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
-                    <!-- Non-Taxable Income -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Non-Taxable Income</label>
                       <input
@@ -1279,7 +1273,6 @@
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
-                    <!-- Salary Slips -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Salary Slips</label>
                       <input
@@ -1287,7 +1280,6 @@
                         class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       />
                     </div>
-                    <!-- History -->
                     <div>
                       <label class="block text-gray-700 font-semibold mb-2">Salary History</label>
                       <input
@@ -1296,9 +1288,9 @@
                       />
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
-              <div class="comments px-6 pb-4 mb-4 flex flex-col">
+              <!-- <div class="comments px-6 pb-4 mb-4 flex flex-col">
                 <label class="block text-gray-700 font-semibold mb-2">Adjustments</label>
                 <textarea
                   rows="4"
@@ -1306,7 +1298,7 @@
                   v-model="modal.addEmployee.adjustments"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 ></textarea>
-              </div>
+              </div> -->
               <div class="text-center mt-10">
                 <button
                   type="submit"

@@ -40,13 +40,13 @@ class CreateEmployeeTable extends Migration
         $table->integer('role_id');
 
         // New Fields
-        $table->enum('gender', ['male', 'female', 'other']);
-        $table->enum('employee_status', ['full-time', 'part-time', 'hourly']);
-        $table->enum('employee_type', ['contract', 'freelance', 'permanent']);
-        $table->enum('location_type', ['remote', 'inoffice']);
-        $table->enum('position', ['frontend', 'backend', 'fullstack', 'devops']);
-        $table->enum('education_detail', ['bsc', 'btech', 'mtech']);
-        $table->enum('experience_duration', ['1+', '2+', '3+', '5+']);
+        $table->string('gender');
+        $table->string('employee_status');
+        $table->string('employee_type');
+        $table->string('location_type');
+        $table->string('position');
+        $table->string('education_detail');
+        $table->string('experience_duration');
 
         $table->timestamps();
         $table->softDeletes();

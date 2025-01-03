@@ -17,12 +17,13 @@ class CreateSalariesTable extends Migration
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->decimal('basic_salary', 10, 2);
-            $table->decimal('hra', 10, 2)->nullable();
-            $table->decimal('da', 10, 2)->nullable();
-            $table->decimal('pf', 10, 2)->nullable();
-            $table->decimal('tax', 10, 2)->nullable();
-            $table->decimal('gross_salary', 10, 2)->nullable();
+            $table->decimal('net_salary', 10, 2);
+            $table->decimal('gross_salary', 10, 2);
+            $table->string('allowances')->nullable(); // Allowances as a string
+            $table->string('deductions')->nullable(); // Deductions as a string
             $table->string('salary_type'); // Monthly or Yearly
+            $table->string('payment_mode'); // Payment mode (e.g., Bank Transfer, Cash)
+            $table->date('payment_date'); // Payment date
             $table->timestamps();
         });
     }

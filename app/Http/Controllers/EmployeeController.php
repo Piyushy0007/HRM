@@ -15,6 +15,7 @@ use App\MessageGroup;
 use App\Models\ReportAlert;
 use App\Models\EmployeeClient;
 use App\Models\Salary;
+use App\Models\BankDetail;
 use App\EmployeePosition;
 use App\ClientAlertReport;
 use Illuminate\Http\Request;
@@ -250,17 +251,31 @@ class EmployeeController extends Controller
                  // Create the salary record first
                 $salaryPayload = [
                     'basic_salary' => $request->get('basic_salary'),
-                    'hra' => $request->get('hra'),
-                    'da' => $request->get('da'),
-                    'pf' => $request->get('pf'),
-                    'tax' => $request->get('tax'),
+                    'net_salary' => $request->get('net_salary'),
                     'gross_salary' => $request->get('gross_salary'),
+                    'allowances' => $request->get('allowances') ?? '',
+                    'deductions' => $request->get('deductions') ?? '',
                     'salary_type' => $request->get('salary_type'),
-                    'employee_id'=> $employee->id
+                    'payment_mode' => $request->get('payment_mode'),
+                    'payment_date' => $request->get('payment_date'),
+                    'employee_id' => $employee->id
                 ];  
         
                 $salary = Salary::create($salaryPayload);  // Create salary record
                 
+                 // Create bank details record
+            $bankPayload = [
+                'bank_name' => $request->get('bank_name'),
+                'account_number' => $request->get('account_number'),
+                'ifsc_code' => $request->get('ifsc_code'),
+                'branch_name' => $request->get('branch_name'),
+                'employee_id' => $employee->id
+            ];
+
+            BankDetail::create($bankPayload);
+
+
+
                 if ($request->positions) {
                     $positions = explode(',', $request->positions);
                     foreach ($positions as $position) {

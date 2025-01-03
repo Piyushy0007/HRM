@@ -97,6 +97,10 @@ public function jobs()
 {
     return $this->hasMany('App\Models\Jobs');
 }
+public function bankDetail()
+{
+    return $this->hasOne(BankDetail::class);
+}
 
     
     

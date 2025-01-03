@@ -10,19 +10,26 @@ class Salary extends Model
 
     protected $table = 'salaries';
     protected $fillable = [
+        'employee_id',
         'basic_salary',
-        'hra',
-        'da',
-        'pf',
-        'tax',
-        'gross_salary',
+        'net_salary',
+        'allowances',
+        'deductions',
         'salary_type',
-        'employee_id'
+        'payment_mode',
+        'payment_date'
     ];
 
-    // Automatic Gross Salary Calculation
-    public static function calculateGrossSalary($basic_salary, $hra, $da, $pf, $tax)
+    protected $appends = ['gross_salary'];
+
+    // Gross salary is calculated as the sum of basic salary and net salary
+    public function getGrossSalaryAttribute()
     {
-        return ($basic_salary + $hra + $da) - ($pf + $tax);
+        return $this->basic_salary + $this->net_salary;
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
     }
 }
