@@ -774,7 +774,7 @@
               class="flex flex-col mb-6 mt-3">
               <label class="block text-gray-700 font-semibold mb-2">Select User Role:</label>
               <select
-              v-model="modal.addEditPositions.roletId" @change="clientselected"
+              v-model="modal.addEmployee.role_id" @change="clientselected"
                 class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary" 
               >
                 <option value="">Select Community</option>
@@ -3440,7 +3440,7 @@ mypostparameters.append('basic_salary', vm.modal.addEmployee.basic_salary);
 mypostparameters.append('net_salary', vm.modal.addEmployee.net_salary);
 mypostparameters.append('allowances', vm.modal.addEmployee.allowances);
 mypostparameters.append('deductions', vm.modal.addEmployee.deductions);
-mypostparameters.append('salary_type', vm.modal.addEmployee.salaryType);
+mypostparameters.append('salary_type', vm.modal.addEmployee.salary_type);
 mypostparameters.append('payment_mode', vm.modal.addEmployee.payment_mode);
 mypostparameters.append('payment_date', vm.modal.addEmployee.payment_date);
 mypostparameters.append('positions', vm.modal.selectedPositions);
@@ -3448,7 +3448,7 @@ mypostparameters.append('bank_name', vm.modal.addEmployee.bank_name);
 mypostparameters.append('account_number', vm.modal.addEmployee.account_number);
 mypostparameters.append('ifsc_code', vm.modal.addEmployee.ifsc_code);
 mypostparameters.append('branch_name', vm.modal.addEmployee.branch_name);
-mypostparameters.append('role_id', vm.modal.addEmployee.roleId);
+mypostparameters.append('role_id', vm.modal.addEmployee.role_id);
 
 // if (vm.modal.addEmployee.clientid !== undefined && vm.modal.addEmployee.clientid !== "") {
 //   mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
