@@ -115,6 +115,8 @@ import {
     faExternalLinkSquareAlt,
     faPencilAlt,
     faSearch,
+    faSave,
+    faBookmark,
     faColumns,
     faPlus,
     faUserPlus,
@@ -142,7 +144,7 @@ import {
     faCheckSquare,
     faSquare,
     faTrashAlt,
-    faCalendar
+    faCalendar,
 } from "@fortawesome/free-regular-svg-icons";
 import {
     FontAwesomeIcon,
@@ -153,6 +155,8 @@ library.add(
     faExternalLinkSquareAlt,
     faPencilAlt,
     faSearch,
+    faSave,
+    faBookmark,
     faColumns,
     faEnvelope,
     faCheckSquare,

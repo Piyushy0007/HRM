@@ -10,10 +10,6 @@
               <!-- Left Column -->
               <div>
                 <div class="mb-4">
-                  <label class="block text-black-600 text-sm mb-1">Employee Name</label>
-                  <input type="text" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="Enter Your Name"  />
-                </div>
-                <div class="mb-4">
                   <label class="block text-black-600 text-sm mb-1">Email</label>
                   <input type="email" class="w-full border-gray-300 rounded-lg text-sm p-2 border" placeholder="example@email.com"  />
                 </div>

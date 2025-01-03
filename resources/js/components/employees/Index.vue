@@ -1411,7 +1411,7 @@
                     <div class="flex"> 
                       <!-- <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="file" :value="modal.addEmployee.employee_image">                  -->
                       <input type="file" id="file2" ref="myFiles" @change="handleFileUpload" style="display:none;"  />
-                      <label for="file2" style="border: 1px solid #707070; padding: 5px;margin: 0px 5px;">Choose File </label> <input type="text" readonly v-model="modal.reqEditEmployee.employee_image" /> 
+                      <label for="file2" style="border: 1px solid #707070 padding: 5px;margin: 0px 5px;">Choose File </label> <input type="text" readonly v-model="modal.reqEditEmployee.employee_image" /> 
                     </div>
                   </div>
               </div>

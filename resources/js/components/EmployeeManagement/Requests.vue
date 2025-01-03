@@ -12,6 +12,26 @@
                   <span class="font-semibold text-lg text-gray-800">Leave Requests</span>
                 </div>
 
+              <!-- Center Section - Search Bar with Font Awesome Icon -->
+
+                <div class="flex items-center flex-grow mx-12 relative">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    class="w-full border border-gray-300 rounded-md pl-3 pr-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    style="height: 36px;"
+                    v-model="searchQuery"
+                    @input="handleSearch"
+                  />
+                  <div>
+                    <font-awesome-icon
+                    icon="search"
+                    class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+                    style="font-size: 20px"
+                    />
+                  </div>
+                </div>
+
               <!-- Right Section -->
               <div class="flex items-center space-x-4">
                 <!-- From Date Selector -->
