@@ -3441,30 +3441,30 @@ mypostparameters.append('net_salary', vm.modal.addEmployee.net_salary);
 mypostparameters.append('allowances', vm.modal.addEmployee.allowances);
 mypostparameters.append('deductions', vm.modal.addEmployee.deductions);
 mypostparameters.append('salary_type', vm.modal.addEmployee.salaryType);
-mypostparameters.append('payment_mode', vm.modal.addEmployee.paymentMode);
-mypostparameters.append('payment_date', vm.modal.addEmployee.paymentDate);
+mypostparameters.append('payment_mode', vm.modal.addEmployee.payment_mode);
+mypostparameters.append('payment_date', vm.modal.addEmployee.payment_date);
 mypostparameters.append('positions', vm.modal.selectedPositions);
-mypostparameters.append('bank_name', vm.modal.addEmployee.bankName);
-mypostparameters.append('account_number', vm.modal.addEmployee.accountNumber);
-mypostparameters.append('ifsc_code', vm.modal.addEmployee.ifscCode);
-mypostparameters.append('branch_name', vm.modal.addEmployee.branchName);
+mypostparameters.append('bank_name', vm.modal.addEmployee.bank_name);
+mypostparameters.append('account_number', vm.modal.addEmployee.account_number);
+mypostparameters.append('ifsc_code', vm.modal.addEmployee.ifsc_code);
+mypostparameters.append('branch_name', vm.modal.addEmployee.branch_name);
 mypostparameters.append('role_id', vm.modal.addEmployee.roleId);
 
-if (vm.modal.addEmployee.clientid !== undefined && vm.modal.addEmployee.clientid !== "") {
-  mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
-} else {
-  mypostparameters.append('added_by', vm.userid);
-}
+// if (vm.modal.addEmployee.clientid !== undefined && vm.modal.addEmployee.clientid !== "") {
+//   mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
+// } else {
+//   mypostparameters.append('added_by', vm.userid);
+// }
 
-mypostparameters.append('userRole', vm.userRole);
-mypostparameters.append('SendEmail', vm.modal.addEmployee.SendEmail);
+// mypostparameters.append('userRole', vm.userRole);
+// mypostparameters.append('SendEmail', vm.modal.addEmployee.SendEmail);
 
-if (this.Images.client_image) {
-  for (let i = 0; i < this.Images.client_image.length; i++) {
-    let file = this.Images.client_image[i];
-    mypostparameters.set('employee_image', file);
-  }
-}
+// if (this.Images.client_image) {
+//   for (let i = 0; i < this.Images.client_image.length; i++) {
+//     let file = this.Images.client_image[i];
+//     mypostparameters.set('employee_image', file);
+//   }
+// }
 
       axios
         .post('/api/addemployee',mypostparameters)
