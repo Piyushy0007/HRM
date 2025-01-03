@@ -10,33 +10,30 @@ class LeaveRequestController extends Controller
     // Create a leave request
     public function create(Request $request, $employeeId)
 {
-    // Validate incoming data, including new fields
+    // Validate incoming data (removed leave_date and email validation)
     $validated = $request->validate([
         'reason' => 'required|string|max:255',
-        'leave_date' => 'required|date', // Ensure leave_date is valid
-        'email' => 'required|string|email|max:255', // Validate email
-        'leave_type' => 'required|string|max:50', // Validate leave type
-        'start_date' => 'required|date|after_or_equal:today', // Ensure start_date is valid
-        'end_date' => 'required|date|after_or_equal:start_date', // Ensure end_date is after start_date
+        'leave_type' => 'required|string|max:50',
+        'start_date' => 'required|date|after_or_equal:today',
+        'end_date' => 'required|date|after_or_equal:start_date',
     ]);
 
-    // Optional: Add a check if the employee exists
+    // Optional: Check if employee exists
     $employee = Employee::find($employeeId);
     if (!$employee) {
         return response()->json(['message' => 'Employee not found'], 404);
     }
 
-    // Create the leave request with all the fields
+    // Create the leave request with the current date for leave_date
     try {
         $leaveRequest = LeaveRequest::create([
             'employee_id' => $employeeId,
-            'email' => $validated['email'],
             'leave_type' => $validated['leave_type'],
             'start_date' => $validated['start_date'],
             'end_date' => $validated['end_date'],
             'reason' => $validated['reason'],
-            'leave_date' => $validated['leave_date'],
-            'status' => LeaveRequest::STATUS_PENDING, // default status
+            'leave_date' => now(),  // Auto-set leave_date to current date
+            'status' => LeaveRequest::STATUS_PENDING,
         ]);
     } catch (\Exception $e) {
         return response()->json(['message' => 'Failed to create leave request', 'error' => $e->getMessage()], 500);
@@ -45,6 +42,7 @@ class LeaveRequestController extends Controller
     // Return success response
     return response()->json(['message' => 'Leave request created successfully', 'data' => $leaveRequest], 201);
 }
+
 
     // Update the status of a leave request
     public function updateStatus(Request $request, $leaveRequestId)
