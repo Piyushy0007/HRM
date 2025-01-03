@@ -1,18 +1,35 @@
 <template>
-   <div>
+  <div>
     <Loader msg="Loading Attendance Listings..." v-model="isLoader" />
       <header-component />
       <div style="margin-left: 242px;">
           <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
-            <div
-              class="flex items-center justify-between bg-white p-4 shadow-md rounded-lg mb-5"
-            >
+            <div class="flex items-center justify-between bg-white p-4 shadow-md rounded-lg mb-5">
               <!-- Left Section -->
               <div class="flex items-center">
                 <span class="font-semibold text-lg text-gray-800">Attendance</span>
                 <!-- <span class="text-gray-600 ml-1">Month- {{ selectedMonth }}</span> -->
               </div>
-      
+            
+              <!-- Center Section - Search Bar with Font Awesome Icon -->
+              <div class="flex items-center flex-grow mx-12 relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  class="w-full border border-gray-300 rounded-md pl-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  style="height: 36px;"
+                  v-model="searchQuery"
+                  @input="handleSearch"
+                />
+                <div>
+                  <font-awesome-icon
+                  icon="search"
+                  class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+                  style="font-size: 20px"
+                  />
+                </div>
+              </div>
+            
               <!-- Right Section -->
               <div class="flex items-center space-x-4">
                 <!-- From Date Selector -->
@@ -37,8 +54,10 @@
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 </div>
-              </div>      
-              </div>   
+              </div>
+            </div>
+            
+               
           <!-- Table Container -->
           <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
             <!-- Table Header -->
@@ -91,6 +110,7 @@
                 <select
                   id="show"
                   v-model="itemsPerPage"
+                  @change="fetchAttendanceData"
                   class="border border-gray-300 rounded px-2 py-1 focus:outline-none"
                 >
                   <option value="6">6</option>
@@ -129,7 +149,7 @@
           </div>
         </div>
       </div>
-   </div>
+  </div>
 </template>
 
 <script>
@@ -141,60 +161,91 @@ export default {
             isLoader: false,
             currentPage: 1, 
             itemsPerPage: 6,
+            totalItems: 0,
             fromDate: "", 
             toDate: "",
+            searchQuery: "",
             employees: [],
         };
     },
     computed: {
-      paginatedData() {
-        if (!Array.isArray(this.employees)) {
-            return []; // Ensure it always returns an array
-        }
-        const start = (this.currentPage - 1) * this.itemsPerPage;
-        return this.employees.slice(start, start + this.itemsPerPage);
-      },
+      // paginatedData() {
+      //   if (!Array.isArray(this.employees)) {
+      //       return []; // Ensure it always returns an array
+      //   }
+      //   const start = (this.currentPage - 1) * this.itemsPerPage;
+      //   return this.employees.slice(start, start + this.itemsPerPage);
+      // },
+      // totalPages() {
+      //     return Math.ceil((this.employees || []).length / this.itemsPerPage);
+      // },
       totalPages() {
-          return Math.ceil((this.employees || []).length / this.itemsPerPage);
-      },
+      return Math.ceil(this.totalItems / this.itemsPerPage);
+    },
     },
     methods: {
+      handleSearch() {
+        // You can directly call fetchAttendanceData here to trigger the API call when the user types
+        this.fetchAttendanceData();
+      },
       async fetchAttendanceData() {
         if (this.fromDate && this.toDate) {
           this.isLoader = true;
           this.error = null;
         try {
-
-          const response = await axios.get(`/api/attendances?start_date=${this.fromDate}&end_date=${this.toDate}`) 
+          const params = {
+          start_date: this.fromDate,
+          end_date: this.toDate,
+          page: this.currentPage,
+          per_page: this.itemsPerPage,
+        };
+        if (this.searchQuery) {
+        params.search = this.searchQuery;
+        }
+        console.log("Request Params:", params);
+          const response = await axios.get(`/api/attendances`, { params });
           console.log("API Response:", response.data);
-          if (response.status === 200 && Array.isArray(response.data)) {
-            this.employees = response.data; // Update this based on the actual API response format
+          if (response.status === 200 && response.data.data) {
+            this.employees = response.data.data;
+            this.totalItems = response.data.total; // Update this based on the actual API response format
             console.log(response,"jbks");
             console.log(response.employee_id,"sdjhajgdaj");
           } else {
             console.error("Unexpected API response:", response);
             this.employees = [];
+            this.totalItems = 0;
           }
         } catch (error) {
           console.error("Error fetching leave requests:", error);
           this.employees = []; // Reset employees on error
+          this.totalItems = 0;
         } finally {
         this.isLoader = false; 
         }
         }
       },
     prevPage() {
+      // if (this.currentPage > 1) {
+      //   this.currentPage--;
+      // }
       if (this.currentPage > 1) {
         this.currentPage--;
+        this.fetchAttendanceData();
       }
     },
     nextPage() {
+      // if (this.currentPage < this.totalPages) {
+      //   this.currentPage++;
+      // }
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
+        this.fetchAttendanceData();
       }
     },
     goToPage(page) {
+      // this.currentPage = page;
       this.currentPage = page;
+      this.fetchAttendanceData();
     },
   },
   formatDate(date) {
@@ -202,6 +253,7 @@ export default {
       const [year, month, day] = date.split("-");
       return `${day}-${month}-${year}`;
   },
+  
   mounted() {
     const today = new Date();
     const yesterday = new Date();
@@ -213,7 +265,6 @@ export default {
       const dd = String(date.getDate()).padStart(2, "0");
       return `${yyyy}-${mm}-${dd}`;
     }
-
     this.fromDate = formatDate(yesterday);
     this.toDate = formatDate(today);
 

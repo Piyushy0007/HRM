@@ -1,17 +1,17 @@
 <template>
-  <div class="c-job-details px-10 pb-12 max-w-7xl mx-auto rounded-2xl shadow-2xl bg-gradient-to-br from-blue-50 to-white" >
+  <div class="c-job-details px-10 pb-12 max-w-7xl mx-auto rounded-2xl shadow-md bg-gradient-to-br from-blue-50 to-white" >
     <!-- Two-Column Layout -->
-    <div class="flex flex-wrap -mx-4">
+    <div class="flex items-center my-2">
       
       <!-- Left Section: Application Form -->
-      <div class="w-full md:w-1/2 px-8">
-        <div class="p-6 bg-white shadow-lg rounded-xl border-t-4 border-blue-600" >
-          <h2 class="text-3xl font-bold text-blue-700 mb-4">Application Form</h2>
+      <div class="w-11/12  px-8">
+        <div class="p-6 bg-white shadow-md rounded-xl  border-gray-300" >
+          <h2 class="text-2xl font-bold text-blue-700 mb-4">Application Form</h2>
           
           <form   @submit.prevent="submitApplication"  class="space-y-6">
             <!-- Name -->
             <div>
-              <label for="name" class="block text-lg font-medium text-gray-700">Full Name</label>
+              <label for="name" class="block text-md font-medium text-gray-700">Full Name</label>
               <input
                 type="text"
                 id="name"
@@ -19,7 +19,7 @@
                 v-model="formData.name"
                  @input="handleChange"
 
-                class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="mt-2 p-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your full name"
                 required
               />
@@ -27,7 +27,7 @@
 
             <!-- Email -->
             <div>
-              <label for="email" class="block text-lg font-medium text-gray-700">Email</label>
+              <label for="email" class="block text-md font-medium text-gray-700">Email</label>
               <input
                 type="email"
                 id="email"
@@ -35,7 +35,7 @@
                 v-model="formData.email"
                  @input="handleChange"
 
-                class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="mt-2 p-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your email"
                 required
               />
@@ -43,7 +43,7 @@
 
             <!-- Phone Number -->
             <div>
-              <label for="phone" class="block text-lg font-medium text-gray-700">Phone Number</label>
+              <label for="phone" class="block text-md font-medium text-gray-700">Phone Number</label>
               <input
                 type="text"
                 id="phone"
@@ -51,13 +51,13 @@
                 v-model="formData.phone_number"
                  @input="handleChange"
 
-                class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="mt-2 p-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your phone number"
                 required
               />
             </div>
             <div>
-              <label for="phone" class="block text-lg font-medium text-gray-700">Job Number</label>
+              <label for="phone" class="block text-md font-medium text-gray-700">Job Number</label>
               <input
                 type="text"
                 id="phone"
@@ -65,7 +65,7 @@
                 v-model="formData.job_number"
                  @input="handleChange"
 
-                class="mt-2 p-3 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                class="mt-2 p-2 w-full border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter your job number"
                 required
               />
@@ -98,12 +98,10 @@
               />
             </div>
 
-            <div class="flex justify-end mt-4" style="margin-top: 5%;">
-            <!-- <button type="button" class="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400"
-            @click="prevStep">Back</button> -->
-<button
+            <div class="flex justify-center mt-4" style="margin-top: 5%;">
+            <button
               type="submit"
-              class="bg-[#2C1977] text-white px-6 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
+              class="bg-[#2C1977] text-white px-6 py-1 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2"
             style="background-color:#2C1977 "
             >
               Create Job
@@ -115,39 +113,39 @@
       </div>
       
       <!-- Right Section: Job Description -->
-      <div class="w-full md:w-1/2 px-4">
-    <div class="p-6 bg-white shadow-lg rounded-xl border-t-4 border-gray-400">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Job Description</h2>
-      <p class="text-gray-700 leading-relaxed mb-4">
-        <strong>Position:</strong> Production Planning and Quality Incharge
-      </p>
-      <p class="text-gray-700 leading-relaxed mb-4">
-        <strong>Company:</strong> BROHAWK EXPORTS
-      </p>
-      <p class="text-gray-700 leading-relaxed mb-4">
-        <strong>Location:</strong> Mohali, Punjab
-      </p>
-      <p class="text-gray-700 leading-relaxed">
-        Knowledge of Raw Material, Castings, Welding, Pressing Inspection.
-        Able to do daily production planning and capable of managing workstations efficiently.
-      </p>
-      <!-- Hidden content -->
-      <div v-if="isDescriptionVisible" class="mt-4">
+      <div class="w-full  px-4">
+      <div class="p-6 bg-white shadow-md rounded-xl border-gray-300">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Job Description</h2>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          <strong>Position:</strong> Production Planning and Quality Incharge
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          <strong>Company:</strong> BROHAWK EXPORTS
+        </p>
+        <p class="text-gray-700 leading-relaxed mb-4">
+          <strong>Location:</strong> Mohali, Punjab
+        </p>
         <p class="text-gray-700 leading-relaxed">
-          <strong>Additional Responsibilities:</strong> Ensuring quality standards for all production activities. Coordinating with the purchasing department for raw material procurement.
+          Knowledge of Raw Material, Castings, Welding, Pressing Inspection.
+          Able to do daily production planning and capable of managing workstations efficiently.
         </p>
-        <p class="text-gray-700 leading-relaxed mt-2">
-          <strong>Requirements:</strong> Strong knowledge of manufacturing processes and excellent team management skills.
-        </p>
+        <!-- Hidden content -->
+        <div v-if="isDescriptionVisible" class="mt-4">
+          <p class="text-gray-700 leading-relaxed">
+            <strong>Additional Responsibilities:</strong> Ensuring quality standards for all production activities. Coordinating with the purchasing department for raw material procurement.
+          </p>
+          <p class="text-gray-700 leading-relaxed mt-2">
+            <strong>Requirements:</strong> Strong knowledge of manufacturing processes and excellent team management skills.
+          </p>
+        </div>
+        <!-- Toggle button -->
+        <button
+          @click="toggleDescription"
+          class="text-blue-500 hover:text-blue-600 transition-all font-semibold mt-4"
+        >
+          {{ isDescriptionVisible ? "Hide full job description ⬆️" : "View full job description ⬇️" }}
+        </button>
       </div>
-      <!-- Toggle button -->
-      <button
-        @click="toggleDescription"
-        class="text-blue-500 hover:text-blue-700 font-semibold mt-4"
-      >
-        {{ isDescriptionVisible ? "Hide full job description ⬆️" : "View full job description ⬇️" }}
-      </button>
-    </div>
   </div>
     </div>
   </div>
@@ -253,7 +251,6 @@ export default {
 .c-job-details {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(to bottom, #e0f7fa, #ffffff);
-  border-radius: 16px;
   box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
