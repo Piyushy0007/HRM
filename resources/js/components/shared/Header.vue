@@ -9,8 +9,8 @@
                 <h1 class="text-white font-bold text-5xl">A-HR</h1>
             </div>
             <div class="text-center mb-2">
-                <h6 class="text-white p-0 m-0">Piyush Yadav</h6>
-                <p class="text-white text-sm">admin@example.com</p>
+                    <h6 class="text-white p-0 m-0">{{userName}}</h6>
+                    <p class="text-white text-sm">{{userEmail}}</p>
             </div>
             <ul class="list-unstyled">
                 <!-- Dynamically Render Menu Groups -->
@@ -120,6 +120,7 @@ export default {
     data() {
         return {
             role: JSON.parse(localStorage.getItem("role")) || "default",
+            
             currentDate: new Date(),
             positions: {},
             selectedPosition: "",
@@ -305,12 +306,19 @@ export default {
     },
 
     created() {
+
         this.indexPositions();
         this.message_count();
         this.updateRole();
     },
 
     computed: {
+        userName() {
+      return localStorage.getItem("userName") || "";
+    },
+   userEmail() {
+      return localStorage.getItem("userEmail") || "";
+    },
       activeMenuGroups() {
     if (this.role === "admin") {
         return this.menuGroups;
