@@ -8,7 +8,7 @@ header('Access-Control-Allow-Origin: *');
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="refresh" content="7200;url=/login" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Eyewitness</title>
+    <title>AHR</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
     <link rel="icon" href="/favicon.ico">
