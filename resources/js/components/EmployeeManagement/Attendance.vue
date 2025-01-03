@@ -205,8 +205,8 @@ export default {
         console.log("Request Params:", params);
           const response = await axios.get(`/api/attendances`, { params });
           console.log("API Response:", response.data);
-          if (response.status === 200 && response.data.data) {
-            this.employees = response.data.data;
+          if (response.status === 200 && response.data) {
+            this.employees = response.data;
             this.totalItems = response.data.total; // Update this based on the actual API response format
             console.log(response,"jbks");
             console.log(response.employee_id,"sdjhajgdaj");
