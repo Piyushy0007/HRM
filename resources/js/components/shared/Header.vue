@@ -193,6 +193,7 @@ export default {
                     expanded: false,
                     items: [
                         { name: "reports", label: "Reports" },
+                        { name: "attendance-chart", label: "Graph" },
                         { name: "performance", label: "Performance" },
                         { name: "attendance", label: "Attendance" },
                         { name: "payroll", label: "Payroll" }
