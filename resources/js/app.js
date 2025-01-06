@@ -543,6 +543,15 @@ const routes = [
     //         roles: ["admin"], 
     //       },
     // },
+	// {
+    //     path: "/salary/",
+    //     component: require("./components/Payrole/__Salary.vue").default,
+    //     name: "Salary",
+    //     meta: {
+    //         requiresAuth: false, 
+    //         roles: ["admin"], 
+    //       },
+    // },
 	{
         path: "/attendance/",
         component: require("./components/EmployeeManagement/Attendance.vue").default,
@@ -633,6 +642,11 @@ const routes = [
         path: "/tdscalculation",
         component: require("./components/Payrole/PayrollPage.vue").default,
         name: "tdscalculation",
+    },
+    {
+        path: "/attendance-chart",
+        component: require("./components/Chart/PieChart.vue").default,
+        name: "attendance-chart",
     },
     {
         path: "/unauthorized",
