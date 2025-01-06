@@ -529,15 +529,15 @@ const routes = [
         component: require("./components/Payrole/__Claims.vue").default,
         name: "Claims",
     },
-	{
-        path: "/salary/",
-        component: require("./components/Payrole/__Salary.vue").default,
-        name: "Salary",
-        meta: {
-            requiresAuth: false, 
-            roles: ["admin"], 
-          },
-    },
+	// {
+    //     path: "/salary/",
+    //     component: require("./components/Payrole/__Salary.vue").default,
+    //     name: "Salary",
+    //     meta: {
+    //         requiresAuth: false, 
+    //         roles: ["admin"], 
+    //       },
+    // },
 	{
         path: "/attendance/",
         component: require("./components/EmployeeManagement/Attendance.vue").default,
@@ -618,6 +618,11 @@ const routes = [
         path: "/applicant",
         component: require("./components/JobsList/__Applicant_detail_list.vue").default,
         name: "applicant",
+    },
+    {
+        path: "/attendance-chart",
+        component: require("./components/Chart/PieChart.vue").default,
+        name: "attendance-chart",
     },
     {
         path: "/unauthorized",
