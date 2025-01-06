@@ -1,5 +1,6 @@
 <template>
   <div class=" pb-4 col-xm-10" >
+    
     <Loader msg="Processing ..." v-model="isLoader" />
     <div class="custom-main">
       <ul class="flex c-secondary-nav">
@@ -8,46 +9,12 @@
         <li class="w-1/3 text-center"><a href="#" @click.prevent="openModal('SignIn')">Email Sign in Instructions</a></li>
       </ul>
       <div class="selection-function px-4 py-3 flex flex-wrap justify-between items-start rounded-md">
-        <div class="flex flex-col md:flex-row items-start">
-          <div class="flex items-center text-sm mb-3 md:mb-0 md:mr-4">
-            <font-awesome-icon icon="columns" class="mr-2" />
-            Select columns
-          </div>
-          <div class="options py-2 px-3 rounded-md bg-light shadow-sm" >
-            <label class="font-weight-bold text-sm mb-2 block">Selected users:</label>
-            <ul class="list-unstyled flex flex-wrap">
-              <li class="mr-3 mb-2">
-                <a href="#" @click.prevent="SendMessageCheck('SendReminders')" class="flex items-center text-sm text-decoration-none " title="Send scheduled reminder to those checked who are also working in a date range">
-                  <font-awesome-icon :icon="['far', 'list-alt']" class="mr-1"></font-awesome-icon>
-                  Send reminder
-                </a>
-              </li>
-              <li class="mr-3 mb-2">
-                <a href="#" @click.prevent="SendMessageCheck('SendMessage')" class="flex items-center text-sm text-decoration-none">
-                  <font-awesome-icon :icon="['far', 'envelope']" class="mr-1"></font-awesome-icon>
-                  Message
-                </a>
-              </li>
-              <li class="mr-3 mb-2">
-                <vue-confirm-dialog ref="sendselect"></vue-confirm-dialog>
-                <a href="#" @click.prevent="SendMessageCheck('SendSignIn')" class="flex items-center text-sm text-decoration-none">
-                  <font-awesome-icon :icon="['far', 'list-alt']" class="mr-1"></font-awesome-icon>
-                  Send Sign In
-                </a>
-              </li>
-              <li class="mr-3 mb-2">
-                <a href="#" @click.prevent="SendMessageCheck('ExportData')" class="flex items-center text-sm text-decoration-none">
-                  <font-awesome-icon icon="external-link-square-alt" class="mr-1"></font-awesome-icon>
-                  Export to Clipboard
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>       
+        
         <div class="text-right">
-          <span class="block mb-2">Total users: {{ countTotalEmployees }}*</span>
+          
           <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3">
+              <span class="block mb-2">Total users: {{ countTotalEmployees }}*</span>
               <div class="relative">
                 <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border-l-0">
@@ -57,10 +24,6 @@
             </div>
             <div class="w-full md:w-1/2 pr-3">
               <div class="relative">
-                <select class="block appearance-none w-full py-1 px-4 pr-8 rounded leading-tight focus:outline-none" v-model="index.selectPosition" @change="filterResultViaPosition(index.selectPosition)">
-                  <option value="">All Positions</option>
-                  <option v-for="data in index.positions" :value="data.id" :key="data.id">{{ data.position }}</option>
-                </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                 </div>
@@ -82,7 +45,7 @@
                 <th class="text-left">Last</th>
                 <th class="text-left">Phone</th>
                 <th class="text-left">Email</th>
-                <th class="text-left">User Type</th>
+                <th class="text-left">Role</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Days</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Hours</th>
@@ -104,28 +67,27 @@
                   <input :id="data.id" :index="index" :value="data" v-model="checkedNames" type="checkbox">
                 </td>
                 <td class="text-center">
-                  <a href="#" @click.prevent="openModal('EditEmployee', data, index)" v-if="data.employee.added_by==modal.getUserId">
+                  <a href="#" @click.prevent="openModal('EditEmployee', data, index)">
                     <font-awesome-icon icon="pencil-alt" />
                   </a>
                 </td>
-                <td>{{ data.employee.firstname }}</td>
-                <td>{{ data.employee.lastname }}</td>
-                <td>{{ data.employee.phone }}</td>
-                <td class="text-truncate" style="max-width: 150px;">{{ data.employee.email || '-----' }}</td>
-                <td v-if="data.employee.enable_security_officer == 0">Concerned Citizen</td>
-                <td v-if="data.employee.enable_security_officer == 1">Watcher</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_weekly_hours }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_weekly_days }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_day_hours }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.employee.max_day_shifts }}</td>
-                <td class="text-center">{{ data.employee.zip }}</td>
-                <td class="text-center">{{ data.employee.hired_date | moment('MM-DD-YYYY') }}</td>
-                <td class="text-center">{{ data.employee.priority_group }}</td>
+                <td>{{ data.firstname }}</td>
+                <td>{{ data.lastname }}</td>
+                <td>{{ data.phone }}</td>
+                <td class="text-truncate" style="max-width: 150px;">{{ data.email || '-----' }}</td>
+                <td class="text-truncate">{{ data.role.role_name }}</td>
+                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
+                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
+                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
+                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td>
+                <td class="text-center">{{ data.zip }}</td>
+                <td class="text-center">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
+                <td class="text-center">{{ data.priority_group }}</td>
                 <td class="text-center">
-                  <a v-if="data.employee.added_by == modal.getUserId" href="#" @click.prevent="SetClockinTime(data.employee.id)" class="btn btn-sm btn-outline-danger">
+                  <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
                   </a>
-                  <a v-if="data.employee.added_by == modal.getUserId" href="#" @click.prevent="removeEmployee(data.employee.id, data.employee.firstname, data.employee.lastname)" class="btn btn-sm btn-outline-success">
+                  <a href="#" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
                     <font-awesome-icon :icon="['far', 'trash-alt']" />
                   </a>
                 </td>
@@ -153,46 +115,22 @@
           </thead>        
           <tbody>
             <tr v-for="data in checkedNames" :key="data.id">
-              <td>{{ data.employee.firstname }}</td>
-              <td>{{ data.employee.lastname }}</td>
-              <td>{{ data.employee.mobile }}</td>
-              <td>{{ data.employee.email || '-----' }}</td>
-              <td class="text-center">{{ data.employee.max_weekly_hours }}</td>
-              <td class="text-center">{{ data.employee.max_weekly_days }}</td>
-              <td class="text-center">{{ data.employee.max_day_hours }}</td>
-              <td class="text-center">{{ data.employee.max_day_shifts }}</td>
-              <td class="text-center">{{ data.employee.hired_date | moment( 'MM-DD-YYYY' ) }}</td>
-              <td class="text-center">{{ data.employee.priority_group }}</td>
+              <td>{{ data.firstname }}</td>
+              <td>{{ data.lastname }}</td>
+              <td>{{ data.mobile }}</td>
+              <td>{{ data.email || '-----' }}</td>
+              <td class="text-center">{{ data.max_weekly_hours }}</td>
+              <td class="text-center">{{ data.max_weekly_days }}</td>
+              <td class="text-center">{{ data.max_day_hours }}</td>
+              <td class="text-center">{{ data.max_day_shifts }}</td>
+              <td class="text-center">{{ data.hired_date | moment( 'MM-DD-YYYY' ) }}</td>
+              <td class="text-center">{{ data.priority_group }}</td>
             </tr>
           </tbody>
           </table>
         </div>
       </div>
-      <div class="information mx-4 mt-5 p-4 rounded-lg" >
-        <div class="flex flex-col md:flex-row justify-between md:items-center mb-2">
-          <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
-          <a href="#" class="text-sm inline-flex items-center">
-            Help on this topic &nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
-          </a>
-        </div>
-        <ul class="mb-3">
-          <li class="mb-1">
-            <span class="inline-block w-20 px-2" style="background-color: #FCFF3C">None: </span>
-            No notifications selected for this email.
-          </li>
-          <li class="mb-1">
-            <span class="inline-block w-20 px-2" style="background-color: #FF0000">Invalid </span>
-            The system adds "Invalid" when notifications to this email were returned as undeliverable so now notifications are no longer being sent to that address.
-          </li>
-          <li class="mb-1">
-            <span class="inline-block w-20" style="background-color: #FFA700">&nbsp;</span>
-            Changes not saved.
-          </li>
-        </ul>
-        <ul class="list-inside">
-          <li class="mb-1">To delete users click the pencil icon next to their name and then click "Delete" (users cannot be bulk deleted.)</li>
-        </ul>
-      </div>
+      
 		  <!-- ================================================ modal ================================================ -->
       <!-- Bulk edit start -->
       <modal v-model="modal.BulkEditEmp" class="modal-add-edit-positions BulkEditEmp" size="md:w-5/12" title="Users bulk EDIT">
@@ -433,7 +371,7 @@
               <h4 class="text-xl font-semibold w-3/12">To:</h4>
               <div class="w-9/12">
                  <!-- <label class="text-sm" v-for="names in checkedNames" :key="names.id">{{names.employee.email}}</label> -->
-                <b class="titleBox text-xl font-semibold comma_after_content"><span class="CheckedDescription" v-for="names in checkedNames" :key="names.id"> {{names.employee.email}}</span></b>
+                <b class="titleBox text-xl font-semibold comma_after_content"><span class="CheckedDescription" v-for="names in checkedNames" :key="names.id"> {{names.email}}</span></b>
               </div>
             </div>
             <!-- ================================= ./To ================================= -->
@@ -541,7 +479,7 @@
                     </td>
                     <td class="wgt" width="80%" style="padding-bottom:10px;" valign="top">
                       <b class="titleBox text-xl font-semibold comma_after_content">
-                        <span class="CheckedDescription" v-for="names in checkedNames" :key="names.id"> {{names.employee.email}}</span>
+                        <span class="CheckedDescription" v-for="names in checkedNames" :key="names.id"> {{names.email}}</span>
                       </b>
                     </td>
                   </tr>
@@ -1091,8 +1029,9 @@
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       >
                         <option value="">Select Salary Type</option>
-                        <option value="hourly">Hourly</option>
-                        <option value="monthly">Monthly</option>
+                        <option value="Hourly">Hourly</option>
+                        <option value="Monthly">Monthly</option>
+                        <option value="Contract">Contract</option>
                       </select>
                   </div>
                 </div>
@@ -1151,9 +1090,9 @@
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     >
                       <option value="">Select Payment Mode</option>
-                      <option value="bank-transfer">Bank Transfer</option>
-                      <option value="check">Check</option>
-                      <option value="cash">Cash</option>
+                      <option value="Bank Transfer">Bank Transfer</option>
+                      <option value="Check">Check</option>
+                      <option value="Cash">Cash</option>
                     </select>
                   </div>
                   <!-- Payment Date -->
@@ -1330,32 +1269,6 @@
                 </div>
               </div>
             </div>
-            <div class="fullname flex py-5 justify-center px-6">
-              <div class="w-2/5">
-                  <div class="md:flex md:items-center">
-                    <div class="md:w-2/3">
-                      <input class="mr-1 leading-tight font-semibold" type="radio" v-model="modal.reqEditEmployee.enable_security_officer" value="0" style="float: left;margin-top: 7px;margin-right: 10px;"> 
-                      <label class="block md:text-left md:mb-0">Concerned Citizen</label>              
-                    </div>
-                  </div>
-              </div>
-              <div class="w-1/5">
-                  <div class="md:flex md:items-center">
-                    
-                    <div class="md:w-2/3">
-                      <input class="mr-1 leading-tight font-semibold" type="radio" v-model="modal.reqEditEmployee.enable_security_officer" value="1" style="float: left;margin-top: 7px;margin-right: 10px;">
-                      <label class="block md:text-left md:mb-0">Watcher</label>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <div class="fullname flex py-5 justify-center px-6" v-if="modal.getUserRole==0">
-                  <div style="width:190px;">Select Community:</div>
-                      <select style="appearance:menulist;" class="block appearance-none w-full py-1 px-4 pr-8 rounded-10 height-41 leading-tight focus:outline-none" v-model="modal.reqEditEmployee.clientid" @change="clientselected">
-                          <option value="">Select Community</option>  
-                          <option :value="data.id" v-for="data in clientlist" :key="data.id">{{ data.clientname }}</option>
-                      </select>
-            </div>
             <div class=" flex py-5 justify-center px-6">
               <div class="w-1/2">
                 <ValidationProvider rules="required|alpha_spaces" v-slot="v">
@@ -1394,7 +1307,7 @@
                 </ValidationProvider>
               </div>
             </div>
-            <div class="flex py-5 justify-center px-6" v-if="modal.reqEditEmployee.enable_security_officer==1">
+            <div class="flex py-5 justify-center px-6" >
               <div class="w-2/3">
                   <div class="md:flex md:items-center">
                     <div class="md:w-1/3">
@@ -1496,7 +1409,7 @@
                   </div>
                 </div>
               </div>
-              <div class="md:flex md:items-center mb-1" v-if="modal.reqEditEmployee.enable_security_officer==1">
+              <div class="md:flex md:items-center mb-1" >
                 <div class="md:w-1/4">
                   <label class="block md:text-right mb-1 md:mb-0 pr-4 flex items-center justify-end">
                     <font-awesome-icon icon="lock" class="mr-1" size="xs" />Phone
@@ -1507,7 +1420,7 @@
                 </div>
               </div>
               <!-- <ValidationProvider rules="required" v-slot="v"> -->
-                <div class="md:flex md:items-center" v-if="modal.reqEditEmployee.enable_security_officer==1">
+                <div class="md:flex md:items-center" >
                   <div class="md:w-1/4">
                     <label class="block md:text-right mb-1 md:mb-0 pr-4">2nd Phone</label>
                   </div> 
@@ -1515,7 +1428,7 @@
                     <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.reqEditEmployee.phone2" @input="acceptNumber2nd">
                   </div>
                 </div>
-              <ValidationProvider v-slot="v" v-if="modal.reqEditEmployee.enable_security_officer==1">
+              <ValidationProvider v-slot="v" >
                 <div class="md:flex md:items-center">
                   <div class="md:w-1/4">
                     <label class="block md:text-right mb-1 md:mb-0 pr-4">Address </label>
@@ -1531,7 +1444,7 @@
                   </div>
                 </div>
               </ValidationProvider>
-              <div class="md:flex md:items-center mb-1" v-if="modal.reqEditEmployee.enable_security_officer==1">
+              <div class="md:flex md:items-center mb-1" >
                 <div class="md:w-1/4">
                   <label class="block md:text-right mb-1 md:mb-0 pr-4">Address 2</label>
                 </div>
@@ -1539,7 +1452,7 @@
                   <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.address2">
                 </div>
               </div>
-              <div class="flex" v-if="modal.reqEditEmployee.enable_security_officer==1">
+              <div class="flex" >
                 <div class="md:w-3/12">
                   <label class="block md:text-right mb-1 mt-1 md:mb-0 pr-4">City, State, Zip</label>
                 </div>
@@ -1677,7 +1590,7 @@
                 <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text">
               </div>
             </div>
-            <div class="comments px-6 pb-4 mb-4 flex" v-if="modal.reqEditEmployee.enable_security_officer==1">
+            <div class="comments px-6 pb-4 mb-4 flex" >
               <h4 class="text-xl font-semibold w-3/12">Comments</h4>
               <div class="w-9/12">
                 <label class="text-sm">Your Settings currently DO NOT ALLOW users to see this comment</label>
@@ -3150,7 +3063,7 @@ export default {
       vm.searchTimer = setTimeout(() => {
         vm.isLoader = true
         axios
-          .get(`/api/employee-search?kw=${vm.searchKeyword}&position_id=${vm.index.selectPosition}&userid=${vm.userid}&userRole=${vm.userRole}&has_email=both`)
+          .get(`/api/employees?kw=${vm.searchKeyword}`)
           .then(res => {
             vm.index.employees = res.data
             vm.isLoader = false
@@ -3191,49 +3104,49 @@ export default {
 					break
         case 'EditEmployee':
           vm.modal.editEmployee = true
-          vm.modal.getUserRole = vm.userRole
-          vm.modal.getUserId = vm.userid
+          // vm.modal.getUserRole = vm.userRole
+          // vm.modal.getUserId = vm.userid
           // Show the prev/next button
           vm.modal.getEmployeeRecord.prev.show = true
           vm.modal.getEmployeeRecord.next.show = true
           vm.isLoader = true
           // This will filter the arrow if it already meet it's first/last record
-          let filterPrevNextBtn = await axios.get(`/api/employee/${data.employee.id}/prevnextrecord`)
+          let filterPrevNextBtn = await axios.get(`/api/employee/${data.id}/prevnextrecord`)
           vm.modal.getEmployeeRecord.prev.show = (filterPrevNextBtn.data.prev == null)?false:true
           vm.modal.getEmployeeRecord.next.show = (filterPrevNextBtn.data.next == null)?false:true
           // Get the employee's position(s)
-          let fetchEmployeePositions = await axios.get(`/api/employee/${data.employee.id}/positions`)
+          let fetchEmployeePositions = await axios.get(`/api/employee/${data.id}/positions`)
           // Map employee's position to checkbox
           let arrPositionIds = []
-          fetchEmployeePositions.data.forEach(val => arrPositionIds.push(val.position_id))
-          vm.modal.selectedPositions = arrPositionIds
-          vm.modal.fullname = `${data.employee.firstname} ${data.employee.lastname}`
+          // fetchEmployeePositions.data.forEach(val => arrPositionIds.push(val.position_id))
+          // vm.modal.selectedPositions = arrPositionIds
+          vm.modal.fullname = `${data.firstname} ${data.lastname}`
           vm.modal.reqEditEmployee = {
-            id: data.employee.id,
-            firstname: data.employee.firstname,
-            lastname: data.employee.lastname,
-            email: data.employee.email,
-            employee_image: data.employee.employee_image,
-            password: data.employee.plain_password,
-            phone: data.employee.phone,
-            phone2: data.employee.phone2,
-            mobile: data.employee.mobile,
-            employee_no: data.employee.employee_no,
-            address: data.employee.address,
-            address2: data.employee.address2,
-            city: data.employee.city,
-            state: data.employee.state,
-            zip: data.employee.zip,
-            comment: data.employee.comment,
-            enable_security_officer: data.employee.enable_security_officer,
-            max_weekly_hours: data.employee.max_weekly_hours,
-            max_weekly_days: data.employee.max_weekly_days,
-            max_day_hours: data.employee.max_day_hours,
-            max_day_shifts: data.employee.max_day_shifts,
+            id: data.id,
+            firstname: data.firstname,
+            lastname: data.lastname,
+            email: data.email,
+            employee_image: data.employee_image,
+            password: data.plain_password,
+            phone: data.phone,
+            phone2: data.phone2,
+            mobile: data.mobile,
+            employee_no: data.employee_no,
+            address: data.address,
+            address2: data.address2,
+            city: data.city,
+            state: data.state,
+            zip: data.zip,
+            comment: data.comment,
+            enable_security_officer: data.enable_security_officer,
+            max_weekly_hours: data.max_weekly_hours,
+            max_weekly_days: data.max_weekly_days,
+            max_day_hours: data.max_day_hours,
+            max_day_shifts: data.max_day_shifts,
 
-            pay_rate: data.employee.pay_rate,
-            hired_date: moment( data.employee.hired_date ).format('YYYY-MM-DD'),
-            priority_group: data.employee.priority_group,
+            pay_rate: data.pay_rate,
+            hired_date: moment( data.hired_date ).format('YYYY-MM-DD'),
+            priority_group: data.priority_group,
             // position: fetchEmployeePositions.data,
           }
           vm.indexPosition('modal-position')
@@ -3282,11 +3195,11 @@ export default {
       vm.isLoader = false
       vm.modal.getUserId = vm.userid
       axios
-        .get(`/api/employees?position_id=${position}&userid=${vm.userid}&userRole=${vm.userRole}&kw=${vm.searchKeyword}&has_email=both`)
+        .get(`/api/employees?kw=${vm.searchKeyword}`)
         .then(res => {
-          vm.index.employees = res.data
-          
+          console.log('employees res:',res.data); 
           vm.isLoader = false
+          vm.index.employees = res.data                    
         })
     },
     // Send Mail To New Employee Added
@@ -3573,7 +3486,7 @@ mypostparameters.append('role_id', vm.modal.addEmployee.role_id);
       mypostparameters.append('id', vm.modal.reqEditEmployee.id);
       mypostparameters.append('email', vm.modal.reqEditEmployee.email);
       mypostparameters.append('plain_password', vm.modal.reqEditEmployee.password);
-      mypostparameters.append('added_by', vm.modal.reqEditEmployee.clientid);
+      // mypostparameters.append('added_by', vm.modal.reqEditEmployee.clientid);
       mypostparameters.append('enable_security_officer', vm.modal.reqEditEmployee.enable_security_officer);
       if(this.Images.client_image){
 				for( var i = 0; i <  this.Images.client_image.length; i++ ){

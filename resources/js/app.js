@@ -135,6 +135,7 @@ import {
     faUserShield,
     faChartLine,
     faBriefcase,
+    faDollarSign,
     faChevronRight,
     faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
@@ -180,6 +181,7 @@ library.add(
     faUserShield,      // Added for 'Admin Users'
     faChartLine,       // Added for 'Reports & Analytics'
     faBriefcase,
+    faDollarSign,
     faChevronDown,
     faChevronRight
 );
@@ -537,11 +539,6 @@ const routes = [
           },
     },
 	{
-        path: "/tax/",
-        component: require("./components/Payrole/__Tax.vue").default,
-        name: "Tax",
-    },
-	{
         path: "/attendance/",
         component: require("./components/EmployeeManagement/Attendance.vue").default,
         name: "attendance",
@@ -576,6 +573,16 @@ const routes = [
         component: require("./components/JobsList/__Listing.vue").default,
         name: "Listing",
     },
+    // {
+    //     path: "/payrole/payments",
+    //     component: require("./components/Payrole/__payments.vue").default,
+    //     name: "payments",
+    // },
+    // {
+    //     path: "/payrole/tds",
+    //     component: require("./components/Payrole/__tax.vue").default,
+    //     name: "tax",
+    // },
     {
         path: "/create/",
         component: require("./components/JobsList/__CreateForm.vue").default,

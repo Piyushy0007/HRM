@@ -10,5 +10,15 @@ class Position extends Model
 	use SoftDeletes;
 
 	protected $table = 'tblm_positions';
-    protected $guarded = [ 'id' ];
+
+	protected $fillable = [
+        'position',
+        'created_at',
+    ];
+	
+    // protected $guarded = [ 'id' ];
+	public function employees()
+    {
+        return $this->hasOne(Employee::class, 'position');
+    }
 }

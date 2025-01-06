@@ -12,15 +12,14 @@ class Salary extends Model
     protected $fillable = [
         'employee_id',
         'basic_salary',
+        'gross_salary',
         'net_salary',
-        'allowances',
-        'deductions',
         'salary_type',
         'payment_mode',
         'payment_date'
     ];
 
-    protected $appends = ['gross_salary'];
+    // protected $appends = ['gross_salary'];
 
     // Gross salary is calculated as the sum of basic salary and net salary
     public function getGrossSalaryAttribute()

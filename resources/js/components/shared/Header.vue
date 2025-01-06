@@ -206,7 +206,16 @@ export default {
                         { name: "Create", label: "Create" },
                         { name: "Listing", label: "Listing" }
                     ]
-                }
+                },
+                {
+                    title: "Payroll",
+                    icon: ["fas", "dollar-sign"],
+                    expanded: false,
+                    items: [
+                        { name: "paymentdetails", label: "Payment Details" },
+                        { name: "tdscalculation", label: "TDS Calculation" },                                                
+                    ]
+                },
             ],
 
             HRmenuGroups: [
@@ -253,7 +262,16 @@ export default {
                         { name: "Create", label: "Create" },
                         { name: "Listing", label: "Listing" }
                     ]
-                }
+                },
+                {
+                    title: "Payroll",
+                    icon: ["fas", "dollar-sign"],
+                    expanded: false,
+                    items: [
+                        { name: "paymentdetails", label: "Payment Details" },
+                        { name: "tdscalculation", label: "TDS Calculation" },                                                
+                    ]
+                },
             ],
             employeeMenuGroups: [
                 {

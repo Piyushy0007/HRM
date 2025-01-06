@@ -11,24 +11,44 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class Employee extends Authenticatable implements JWTSubject
 {
-	 use Notifiable,SoftDeletes;
+    use Notifiable, SoftDeletes;
 
-	protected $table = 'tblm_employee';
-     /**
+    protected $table = 'tblm_employee';
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $guard  = 'employee';
-    protected $fillable = ['firstname', 'lastname','email','phone','password',
-         'remember_token', 'created_at','updated_at','zip',
-        'deleted_at','deviceToken','background_check','background_data','plain_password','role_id','gender', 'employee_status', 'employee_type', 'location_type', 
-        'position', 'education_detail', 'experience_duration',];
-   
-  
+    protected $fillable = [
+        'firstname',
+        'lastname',
+        'email',
+        'phone',
+        'password',
+        'remember_token',
+        'created_at',
+        'updated_at',
+        'zip',
+        'deleted_at',
+        'deviceToken',
+        'background_check',
+        'background_data',
+        'plain_password',
+        'role_id',
+        'gender',
+        'employee_status',
+        'employee_type',
+        'location_type',
+        'position',
+        'education_detail',
+        'experience_duration',
+    ];
 
 
-   
+
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,7 +56,8 @@ class Employee extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -49,7 +70,8 @@ class Employee extends Authenticatable implements JWTSubject
     ];
 
 
-    public function shifts() {
+    public function shifts()
+    {
         return $this->belongsToMany('App\Models\Shift', 'tblm_shifts');
     }
 
@@ -59,27 +81,30 @@ class Employee extends Authenticatable implements JWTSubject
      *
      * @return mixed
      */
-    public function getJWTIdentifier() {
+    public function getJWTIdentifier()
+    {
         return $this->getKey();
     }
 
 
-     /**
+    /**
      * Return a key value array, containing any custom claims to be added to the JWT.
      *
      * @return array
      */
-    public function getJWTCustomClaims() {
+    public function getJWTCustomClaims()
+    {
         return [];
-    } 
-    
-
-    public function timeoff(){
-        return $this->hasMany('App\Timeoff');
-
     }
 
-    public function clockin(){
+
+    public function timeoff()
+    {
+        return $this->hasMany('App\Timeoff');
+    }
+
+    public function clockin()
+    {
         return $this->hasMany('App\Clockin');
     }
 
@@ -89,18 +114,23 @@ class Employee extends Authenticatable implements JWTSubject
     }
 
     public function clientRequests()
-{
-    return $this->hasMany(ClientRequest::class, 'employee_id');
-}
+    {
+        return $this->hasMany(ClientRequest::class, 'employee_id');
+    }
 
-public function jobs()
-{
-    return $this->hasMany('App\Models\Job');
-}
+    public function jobs()
+    {
+        return $this->hasMany('App\Models\Job');
+    }
 
-public function role()
+    public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class, 'position');
     }
 
 
@@ -111,7 +141,7 @@ public function role()
     //     return $this->hasMany('App\SalarySlips');
     // }
 
-    
+
 
 
 }

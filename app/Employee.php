@@ -99,8 +99,12 @@ public function jobs()
 }
 public function bankDetail()
 {
-    return $this->hasOne(BankDetail::class);
+    return $this->hasOne('App\Models\BankDetail'::class);
 }
+public function role()
+    {
+        return $this->belongsTo('App\Models\Role'::class, 'role_id', 'id');
+    }
 
     
     

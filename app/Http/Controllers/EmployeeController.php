@@ -47,98 +47,16 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {        
+        $search = $request->get('kw');    
+        $employee = Employee::with(['role','position'])        
+        ->where('firstname', 'like', "%{$search}%")
+        ->orWhere('lastname', 'like', "%{$search}%")
+        ->orderBy('created_at', 'desc')
+        ->get();
         
-        $search = $request->get('kw');
-        $hasEmail = $request->get('has_email');
-        $userRole = $request->get('userRole');
-        $userid = $request->get('userid');
-        //$user = Auth::user();
-        
-        //$user->id
-        if(@$userRole=='client'){
-            //get community clients data
-            $getemployeelist = EmployeeClient::where('client_id', $userid)->get();
-            $getclientList = array();
-            foreach($getemployeelist as $getemployeelistval){
-                $getclientList[] = $getemployeelistval->employee_id;
-            }
-
-            $employee = EmployeePosition::with(['employee' => function($q) use ($search, $hasEmail, $userid, $getclientList) {
-                if ( $hasEmail == 'both'  ) {
-                    $q->where('added_by',$userid)
-                    ->orWhereIn('id',$getclientList)
-                    ->where(function($qq) use ($search) {
-                        $qq->where('firstname', 'like', "%{$search}%")
-                           ->orWhere('lastname', 'like', "%{$search}%");
-                    });
-                } else if ( $hasEmail ) {
-                    $q->where('email', '!=', NULL)
-                    ->where('added_by',$userid)
-                    ->orWhereIn('id',$getclientList)
-                    ->where(function($qq) use ($search) {
-                    $qq->where('firstname', 'like', "%{$search}%")
-                        ->orWhere('lastname', 'like', "%{$search}%");
-                    });
-                } else if ( !$hasEmail ) {
-                    $q->where('email', '=', NULL)
-                    ->where('added_by',$userid)
-                    ->orWhereIn('id',$getclientList)
-                    ->where(function($qq) use ($search) {
-                        $qq->where('firstname', 'like', "%{$search}%")
-                        ->orWhere('lastname', 'like', "%{$search}%");
-                    });
-                }
-            }])
-            ->groupBy('employee_id')
-            ->orderBy('employee_id', 'desc'); 
-        }else { 
-            $employee = EmployeePosition::with(['employee' => function($q) use ($search, $hasEmail) {
-                if ( $hasEmail == 'both'  ) {
-                    $q->where('added_by',0)
-                     ->where(function($qq) use ($search) {
-                        $qq->where('firstname', 'like', "%{$search}%")
-                           ->orWhere('lastname', 'like', "%{$search}%");
-                    });
-                } else if ( $hasEmail ) {
-                    $q->where('email', '!=', NULL)
-                      ->where('added_by',0)
-                      ->where(function($qq) use ($search) {
-                        $qq->where('firstname', 'like', "%{$search}%")
-                           ->orWhere('lastname', 'like', "%{$search}%");
-                      });
-                } else if ( !$hasEmail ) {
-                    $q->where('email', '=', NULL)
-                      ->where('added_by',0)
-                      ->where(function($qq) use ($search) {
-                        $qq->where('firstname', 'like', "%{$search}%")
-                           ->orWhere('lastname', 'like', "%{$search}%");
-                      });
-                }
-            }])
-            ->groupBy('employee_id')
-            ->orderBy('employee_id', 'desc'); 
-        }
-
-
-        if ( $request->get('position_id') && $request->get('position_id') != '' ) {
-            $aw = [];
-            foreach ($employee->where('position_id', $request->get('position_id'))->get() as $value) {
-                if($value->employee == null) continue;
-                $aw[] = $value;
-            }
-            //dd($aw);
-        return $aw;
-        }
-       
-        // workaround 
-        $aw = [];
-        foreach ($employee->get() as $value) {
-            if($value->employee == null) continue;
-            $aw[] = $value;
-        }
-        return $aw;
+        // echo "<pre>"; print_r($employee); exit;        
+        return $employee;
     }
 
 
@@ -248,34 +166,47 @@ class EmployeeController extends Controller
 
             if ($employee) {
 
-                 // Create the salary record first
-                $salaryPayload = [
-                    'basic_salary' => $request->get('basic_salary'),
-                    'net_salary' => $request->get('net_salary'),
-                    'gross_salary' => $request->get('gross_salary'),
-                    'allowances' => $request->get('allowances') ?? '',
-                    'deductions' => $request->get('deductions') ?? '',
-                    'salary_type' => $request->get('salary_type'),
-                    'payment_mode' => $request->get('payment_mode'),
-                    'payment_date' => $request->get('payment_date'),
-                    'employee_id' => $employee->id
-                ];  
-        
-                $salary = Salary::create($salaryPayload);  // Create salary record
+                try {
+                    $salaryPayload = [
+                        'basic_salary' => $request->get('basic_salary'),
+                        'net_salary' => null,
+                        'gross_salary' => null,
+                        'salary_type' => $request->get('salary_type'),
+                        'payment_mode' => $request->get('payment_mode'),
+                        'employee_id' => $employee->id,
+                    ];
                 
-                 // Create bank details record
-            $bankPayload = [
-                'bank_name' => $request->get('bank_name'),
-                'account_number' => $request->get('account_number'),
-                'ifsc_code' => $request->get('ifsc_code'),
-                'branch_name' => $request->get('branch_name'),
-                'employee_id' => $employee->id
-            ];
+                    // Debugging: Check payload
+                    // dd($salaryPayload);
+                
+                    $salary = Salary::create($salaryPayload);
+                
+                    // Success response or further processing
+                } catch (QueryException $e) {
+                    // Log and display error
+                    // Log::error('Salary creation failed: ' . $e->getMessage());
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
+            
+                
+                try {                                    
+                    // Create bank details record
+                    $bankPayload = [
+                        'bank_name' => $request->get('bank_name'),
+                        'account_number' => $request->get('account_number'),
+                        'ifsc_code' => $request->get('ifsc_code'),
+                        'branch_name' => $request->get('branch_name'),
+                        'employee_id' => $employee->id
+                    ];
 
-            BankDetail::create($bankPayload);
-
-
-
+                    BankDetail::create($bankPayload);                
+                    // Success response or further processing
+                } catch (QueryException $e) {
+                    // Log and display error
+                    // Log::error('Salary creation failed: ' . $e->getMessage());
+                    return response()->json(['error' => $e->getMessage()], 500);
+                }
+                
                 if ($request->positions) {
                     $positions = explode(',', $request->positions);
                     foreach ($positions as $position) {
@@ -299,9 +230,9 @@ class EmployeeController extends Controller
             }
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
-            if ($errorCode == 1062) {
-                return response('The e-mail or employee_no you input existed already!', 500);
-            }
+            // if ($errorCode == 1062) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            // }
         }
     }
     

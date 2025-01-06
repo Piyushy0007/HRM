@@ -183,8 +183,8 @@ export default {
                                 localStorage.setItem('admin',JSON.stringify(res.data.user));
                                 localStorage.setItem('userId',JSON.stringify(res.data.user.id));
                                 localStorage.setItem('role',JSON.stringify(res.data.user.role));
-                                localStorage.setItem('userName',JSON.stringify(res.data.user.firstname));
-                                localStorage.setItem('userEmail',JSON.stringify(res.data.user.email));
+                                localStorage.setItem('userName',res.data.user.firstname);
+                                localStorage.setItem('userEmail',res.data.user.email);
 
                                 localStorage.setItem('accesstoken',JSON.stringify(res.data.access_token));
                                 // vm.$router.push('/cd');
