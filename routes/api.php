@@ -36,6 +36,7 @@ use App\Http\Controllers\ClientRequestController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalaryController;
 
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
@@ -204,6 +205,9 @@ Route::get('/applications/job/{jobNumber}', [JobApplicationController::class, 'g
 
 //role
 Route::get('/roles', [RoleController::class, 'getAllRoles']);
+
+//salaries
+Route::get('/salaries', [SalaryController::class, 'index']);
 
 
 
