@@ -124,6 +124,8 @@ import {
     faTimes,
     faBars,
     faEyeSlash,
+    faCheck,
+    faExclamation,
     faEye,
     faPrint,
     faLock,
@@ -151,6 +153,7 @@ import {
     FontAwesomeIcon,
     FontAwesomeLayers
 } from "@fortawesome/vue-fontawesome";
+import { component } from "vuedraggable";
 library.add(
     faListAlt,
     faExternalLinkSquareAlt,
@@ -163,6 +166,7 @@ library.add(
     faCheckSquare,
     faSquare,
     faPlus,
+    faCheck,
     faUserPlus,
     faCalendarAlt,
     faArrowCircleRight,
@@ -171,6 +175,7 @@ library.add(
     faTrashAlt,
     faEyeSlash,
     faEye,
+    faExclamation,
     faPrint,
     faLock,
     faStar,
@@ -529,15 +534,15 @@ const routes = [
         component: require("./components/Payrole/__Claims.vue").default,
         name: "Claims",
     },
-	{
-        path: "/salary/",
-        component: require("./components/Payrole/__Salary.vue").default,
-        name: "Salary",
-        meta: {
-            requiresAuth: false, 
-            roles: ["admin"], 
-          },
-    },
+	// {
+    //     path: "/salary/",
+    //     component: require("./components/Payrole/__Salary.vue").default,
+    //     name: "Salary",
+    //     meta: {
+    //         requiresAuth: false, 
+    //         roles: ["admin"], 
+    //       },
+    // },
 	{
         path: "/attendance/",
         component: require("./components/EmployeeManagement/Attendance.vue").default,
@@ -618,6 +623,16 @@ const routes = [
         path: "/applicant",
         component: require("./components/JobsList/__Applicant_detail_list.vue").default,
         name: "applicant",
+    },
+    {
+        path: "/paymentdetails",
+        component: require("./components/Payrole/PaymentDetails.vue").default,
+        name: "paymentdetails",
+    },
+    {
+        path: "/tdscalculation",
+        component: require("./components/Payrole/PayrollPage.vue").default,
+        name: "tdscalculation",
     },
     {
         path: "/unauthorized",
