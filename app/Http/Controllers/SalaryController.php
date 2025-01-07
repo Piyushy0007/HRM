@@ -17,7 +17,7 @@ class SalaryController extends Controller
     $sortBy = $request->input('sortBy', 'salary_date');  // Sort by date column
     $sortOrder = $request->input('sortOrder', 'desc');
     $month = $request->input('month');
-    $year = $request->input('year');
+   
 
     $query = SalaryDisbursed::with(['employee', 'salary'])
         ->orderBy($sortBy, $sortOrder)
@@ -25,9 +25,8 @@ class SalaryController extends Controller
         ->limit($limit);
 
     // Use direct where for month and year
-    if (!empty($month) && !empty($year)) {
-        $query->where('month', $month)
-              ->where('year', $year);
+    if (!empty($month) ) {
+        $query->where('month', $month);
     }
 
     $salaries = $query->get();
