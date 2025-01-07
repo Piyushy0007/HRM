@@ -11,18 +11,30 @@ class SalaryController extends Controller
 {
     // Show all salary disbursed records with pagination and sorting by month
     public function index(Request $request)
-    {
-        $limit = $request->input('limit', 10);
-        $offset = $request->input('offset', 0);
-        $sortBy = $request->input('sortBy', 'month');
-        $sortOrder = $request->input('sortOrder', 'desc');
+{
+    $limit = $request->input('limit', 10);
+    $offset = $request->input('offset', 0);
+    $sortBy = $request->input('sortBy', 'salary_date');  // Sort by date column
+    $sortOrder = $request->input('sortOrder', 'desc');
+    $month = $request->input('month');
+    $year = $request->input('year');
 
-        $salaries = SalaryDisbursed::with(['employee', 'salary'])
-            ->orderBy($sortBy, $sortOrder)
-            ->offset($offset)
-            ->limit($limit)
-            ->get();
+    $query = SalaryDisbursed::with(['employee', 'salary'])
+        ->orderBy($sortBy, $sortOrder)
+        ->offset($offset)
+        ->limit($limit);
 
-        return response()->json($salaries);
+    // Use direct where for month and year
+    if (!empty($month) && !empty($year)) {
+        $query->where('month', $month)
+              ->where('year', $year);
     }
+
+    $salaries = $query->get();
+
+    return response()->json($salaries);
+}
+
+
+    
 }
