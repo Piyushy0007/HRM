@@ -145,7 +145,11 @@ import {
     faCaretLeft,
     faSlidersH,
     faCaretRight,
+<<<<<<< HEAD
     faCoins
+=======
+    faSignal
+>>>>>>> d7941101d50da27e9535f53f5970534139673908
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
@@ -200,7 +204,8 @@ library.add(
     faBriefcase,
     faDollarSign,
     faChevronDown,
-    faChevronRight
+    faChevronRight,
+    faSignal
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("font-awesome-layers", FontAwesomeLayers);
