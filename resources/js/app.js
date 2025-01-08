@@ -596,7 +596,7 @@ const routes = [
     // },
     {
         path: "/payrole/tds",
-        component: require("./components/Payrole/__tax.vue").default,
+        component: require("./components/Payrole/__Tax.vue").default,
         name: "Tax",
     },
     {
