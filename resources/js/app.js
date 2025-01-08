@@ -139,7 +139,12 @@ import {
     faBriefcase,
     faDollarSign,
     faChevronRight,
-    faChevronDown
+    faChevronDown,
+    faHome,
+    faEllipsisH,
+    faCaretLeft,
+    faSlidersH,
+    faCaretRight,
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
@@ -159,12 +164,17 @@ library.add(
     faExternalLinkSquareAlt,
     faPencilAlt,
     faSearch,
+    faCaretLeft,
+    faCaretRight,
+    faEllipsisH,
+    faSlidersH,
     faSave,
     faBookmark,
     faColumns,
     faEnvelope,
     faCheckSquare,
     faSquare,
+    faHome,
     faPlus,
     faCheck,
     faUserPlus,
@@ -292,13 +302,11 @@ const routes = [
             {
                 path: "/",
                 component: require("./components/employees/Index.vue").default,
-                name: "employee-index",
-           
+                name: "employee-index",           
             },
             {
                 path: "positions",
-                component: require("./components/employees/Positions.vue")
-                    .default,
+                component: require("./components/employees/Positions.vue").default,
                 name: "employee-positions"
             },
             {
@@ -528,30 +536,20 @@ const routes = [
         name: "print-schedule",
         meta: {}
     },
-
     {
         path: "/claims/",
         component: require("./components/Payrole/__Claims.vue").default,
         name: "Claims",
     },
-	// {
-    //     path: "/salary/",
-    //     component: require("./components/Payrole/__Salary.vue").default,
-    //     name: "Salary",
-    //     meta: {
-    //         requiresAuth: false, 
-    //         roles: ["admin"], 
-    //       },
-    // },
-	// {
-    //     path: "/salary/",
-    //     component: require("./components/Payrole/__Salary.vue").default,
-    //     name: "Salary",
-    //     meta: {
-    //         requiresAuth: false, 
-    //         roles: ["admin"], 
-    //       },
-    // },
+	{
+        path: "/Salary/",
+        component: require("./components/Payrole/__payments.vue").default,
+        name: "Salary",
+        meta: {
+            requiresAuth: false, 
+            roles: ["admin"], 
+          },
+    },
 	{
         path: "/attendance/",
         component: require("./components/EmployeeManagement/Attendance.vue").default,
@@ -592,11 +590,11 @@ const routes = [
     //     component: require("./components/Payrole/__payments.vue").default,
     //     name: "payments",
     // },
-    // {
-    //     path: "/payrole/tds",
-    //     component: require("./components/Payrole/__tax.vue").default,
-    //     name: "tax",
-    // },
+    {
+        path: "/payrole/tds",
+        component: require("./components/Payrole/__tax.vue").default,
+        name: "Tax",
+    },
     {
         path: "/create/",
         component: require("./components/JobsList/__CreateForm.vue").default,
@@ -704,25 +702,16 @@ const { isAuthenticated, role } = getUserInfo();
             link_el.setAttribute("id", "bootstrapcss");
 
             document.head.appendChild(link_el);
-        });
-
-        
+        });        
         next();
     } else {
         next();
-
-
-
     }
-
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!isAuthenticated) {
             return next({ path: '/login' }); 
-        }
-
-        
+        }        
     }
-
     // if (to.meta.requiresAuth) {
     //     const hasPermission = to.meta.roles.includes(role);
           

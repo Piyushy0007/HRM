@@ -98,7 +98,7 @@
   
   <script>
   export default {
-    name: "salary",
+    name: "Salary",
     data() {
       return {
         currentPage: 1, 
