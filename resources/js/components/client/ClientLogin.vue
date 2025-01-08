@@ -1,28 +1,12 @@
-<template>
-  
+<template>  
     <div class="h-screen flex items-center client-login" id="app"> 
         <div class="mx-auto mt-5" style="width: 450px">
             <b-form @submit.prevent="submit" class="bg-white px-16 pt-32 pb-5">
             <!-- <form class="bg-white px-16 pt-20 pb-5" action="client-login" method="POST"> -->
-             <input type="hidden" name="_token" v-bind:value="csrf">	
+             <input type="hidden" name="_token" v-bind:value="csrf">	 
 
-                <img src="../../../images/logo.png" class="mx-auto mb-3" alt="" style="margin-top: -165px;" >
-            c
+                <img src="../../../images/logo.png" class="mx-auto mb-3" alt="" style="margin-top: -165px; width: 140px; height: 140px;" >
                 <h2 class="text-center text-3xl font-bold leading-none mb-8">EMPLOYEE LOGIN</h2>
-                
-                <!-- @if ( $errors->any() )
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                    <strong class="font-bold">Error!</strong>
-                    <span class="block sm:inline">{{ $errors->all()[0] }}</span>
-                </div>
-                @endif
-
-                @if ( session('error') )
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                    <strong class="font-bold">Error!</strong>
-                    <span class="block sm:inline"> {{ session('error') }}</span>
-                </div>
-                @endif -->
 
                 <div class="mb-4">
                     <label class="block text-sm px-4" for="username">Username or E-mail</label>
@@ -76,16 +60,14 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="mb-4">
                     <label class="block text-gray-700 px-4">
                         <input class="mr-2 leading-tight" type="checkbox" name="remember">
                         <span class="text-sm">Keep me signed in</span>
                     </label>
                 </div>
-
                 <div class="text-center">
-                    <b-button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 rounded-full focus:outline-none focus:shadow-outline w-full mb-8" type="submit">Sign In</b-button>
+                    <b-button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 rounded-full focus:outline-none focus:shadow-outline w-full mb-4" type="submit">Sign In</b-button>
                       <b-alert
                         :show="hasError"
                         variant="danger"
@@ -101,7 +83,6 @@
             <!-- </form> -->
             </b-form>
         </div>
-
     </div>
 
 
@@ -124,8 +105,8 @@
   import { validationMixin } from 'vuelidate'
   import { required, email, minLength } from 'vuelidate/lib/validators'
   import axios from 'axios'
-export default {  
-     name: 'ClientLogin',
+  export default {  
+    name: 'ClientLogin',
     mixins: [validationMixin],
 	  data(){
           return {
@@ -146,9 +127,7 @@ export default {
 	  },
 	  mounted(){
 		document.getElementById('email').focus()
-		document.getElementById('eyeOpen').style.display = 'none'
-			
-			
+		document.getElementById('eyeOpen').style.display = 'none'			
 	  },
 	  methods: {
           togglePasswordVisibility() {
@@ -200,22 +179,20 @@ export default {
 						"https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css",
 					].forEach((route) => {
 						const link_el = document.createElement("link");
-
 						link_el.setAttribute("rel", "stylesheet");
 						link_el.setAttribute("id", "bootstrapcss");
 						link_el.setAttribute("href", route);
-
 						document.head.appendChild(link_el);
 					});
 					},
 	  },
-	    async beforeDestroy() {
-			$(
-			'link[href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"]'
-			).remove();
-			$(
+      async beforeDestroy() {
+        $(
+            'link[href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"]'
+		).remove();
+		$(
 			'link[href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css"]'
-			).remove();
+		).remove();
 		},
-}
+ }
 </script>

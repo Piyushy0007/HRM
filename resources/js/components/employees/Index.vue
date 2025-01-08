@@ -8,10 +8,8 @@
         <li class="w-1/3 text-center"><a href="#" @click.prevent="openModal('AddEditPositions')">Add/Edit Positions</a></li>
         <li class="w-1/3 text-center"><a href="#" @click.prevent="openModal('SignIn')">Email Sign in Instructions</a></li>
       </ul>
-      <div class="selection-function px-4 py-3 flex flex-wrap justify-between items-start rounded-md">
-        
-        <div class="text-right">
-          
+      <div class="selection-function px-4 py-3 rounded-md">        
+        <div class="text-right">          
           <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3">
               <span class="block mb-2">Total users: {{ countTotalEmployees }}*</span>
@@ -63,27 +61,27 @@
             </tbody>
             <tbody v-else>
               <tr v-for="(data, index) in index.employees" :key="data.id">
-                <td class="text-center">
+                <td class="text-center py-1">
                   <input :id="data.id" :index="index" :value="data" v-model="checkedNames" type="checkbox">
                 </td>
-                <td class="text-center">
+                <td class="text-center py-1">
                   <a href="#" @click.prevent="openModal('EditEmployee', data, index)">
                     <font-awesome-icon icon="pencil-alt" />
                   </a>
                 </td>
-                <td>{{ data.firstname }}</td>
-                <td>{{ data.lastname }}</td>
-                <td>{{ data.phone }}</td>
-                <td class="text-truncate" style="max-width: 150px;">{{ data.email || '-----' }}</td>
-                <td class="text-truncate">{{ data.role.role_name }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
-                <td class="text-center" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td>
-                <td class="text-center">{{ data.zip }}</td>
-                <td class="text-center">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
-                <td class="text-center">{{ data.priority_group }}</td>
-                <td class="text-center">
+                <td class="py-1">{{ data.firstname }}</td>
+                <td class="py-1">{{ data.lastname }}</td>
+                <td class="py-1">{{ data.phone }}</td>
+                <td class="text-truncate py-1" style="max-width: 150px;">{{ data.email || '-----' }}</td>
+                <td class="text-truncate py-1">{{ data.role.role_name }}</td>
+                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
+                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
+                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
+                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td>
+                <td class="text-center py-1">{{ data.zip }}</td>
+                <td class="text-center py-1">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
+                <td class="text-center py-1">{{ data.priority_group }}</td>
+                <td class="text-center flex items-center gap-2 py-1">
                   <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
                   </a>
