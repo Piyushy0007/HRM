@@ -131,7 +131,7 @@
         </tbody>
 		   
         <div class="text-center">
-        <vue-confirm-dialog ref="sendsign"></vue-confirm-dialog>
+        <!-- <vue-confirm-dialog ref="sendsign"></vue-confirm-dialog> -->
         <input class="timereqoff" type="button" value="Ok" @click="showMsgBoxOne" title="ok">
          </div>
         </modal>

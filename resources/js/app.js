@@ -12,7 +12,7 @@ import VTooltip from "v-tooltip";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
-import VueConfirmDialog from "vue-confirm-dialog";
+// import VueConfirmDialog from "vue-confirm-dialog";
 // import Dialog from 'bootstrap-vue-dialog'
 import VueSimpleAlert from "vue-simple-alert";
 
@@ -202,7 +202,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
 Vue.use(require("vue-moment"));
 Vue.use(VTooltip);
-Vue.use(VueConfirmDialog);
+// Vue.use(VueConfirmDialog);
 // Vue.use(Dialog)
 Vue.use(VueSimpleAlert);
 
@@ -216,7 +216,7 @@ Vue.component(
     "client-header-component",
     require("./components/shared/ClientHeader").default
 );
-Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
+// Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
 
 const routes = [
     {

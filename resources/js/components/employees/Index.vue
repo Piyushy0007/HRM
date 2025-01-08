@@ -640,7 +640,7 @@
           </tr>
         </tbody>
         <div class="text-center">
-          <vue-confirm-dialog ref="sendsign"></vue-confirm-dialog>
+          <!-- <vue-confirm-dialog ref="sendsign"></vue-confirm-dialog> -->
           <!-- click showMsgBoxOne sendEmailToAll -->
           <input class="send_ins" type="button" value="Send Instructions" @click="sendEmailToAll()" 
           title="Click to open a window and choose to send out sign in instructions to all users who have e-mails but have not received them">
