@@ -145,11 +145,8 @@ import {
     faCaretLeft,
     faSlidersH,
     faCaretRight,
-<<<<<<< HEAD
-    faCoins
-=======
+    faCoins,
     faSignal
->>>>>>> d7941101d50da27e9535f53f5970534139673908
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
