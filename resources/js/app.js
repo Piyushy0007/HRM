@@ -145,6 +145,7 @@ import {
     faCaretLeft,
     faSlidersH,
     faCaretRight,
+    faCoins
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
@@ -164,6 +165,7 @@ library.add(
     faExternalLinkSquareAlt,
     faPencilAlt,
     faSearch,
+    faCoins,
     faCaretLeft,
     faCaretRight,
     faEllipsisH,

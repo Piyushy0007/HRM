@@ -25,7 +25,7 @@
                   <th class="py-3 px-4 text-blue-600">Gross Salary</th>
                   <th class="py-3 px-4 text-blue-600">Net Salary</th>
                   <th class="py-3 px-4 text-blue-600">Payday</th>
-                  <th class="py-3 px-4 text-blue-600">Status</th>
+                  <th class="py-3 px-4 flex justify-center text-blue-600">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,7 +39,8 @@
                   <td class="py-2 px-4">
                     <div class="gap-2 flex justify-center items-center">
                         <button class="text-blue-500 border border-blue-400 px-2 py-1 rounded-full hover:bg-blue-100 text-sm flex justify-center items-center gap-1">
-                        <b-icon-list-task />View
+                        <font-awesome-icon :icon="['fas', 'coins']" />
+                        TDS
                         </button>
                     </div>
                   </td>
