@@ -12,7 +12,7 @@ import VTooltip from "v-tooltip";
 import VueSweetalert2 from "vue-sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
-import VueConfirmDialog from "vue-confirm-dialog";
+// import VueConfirmDialog from "vue-confirm-dialog";
 // import Dialog from 'bootstrap-vue-dialog'
 import VueSimpleAlert from "vue-simple-alert";
 
@@ -139,7 +139,14 @@ import {
     faBriefcase,
     faDollarSign,
     faChevronRight,
-    faChevronDown
+    faChevronDown,
+    faHome,
+    faEllipsisH,
+    faCaretLeft,
+    faSlidersH,
+    faCaretRight,
+    faCoins,
+    faSignal
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
@@ -159,12 +166,18 @@ library.add(
     faExternalLinkSquareAlt,
     faPencilAlt,
     faSearch,
+    faCoins,
+    faCaretLeft,
+    faCaretRight,
+    faEllipsisH,
+    faSlidersH,
     faSave,
     faBookmark,
     faColumns,
     faEnvelope,
     faCheckSquare,
     faSquare,
+    faHome,
     faPlus,
     faCheck,
     faUserPlus,
@@ -188,7 +201,8 @@ library.add(
     faBriefcase,
     faDollarSign,
     faChevronDown,
-    faChevronRight
+    faChevronRight,
+    faSignal
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("font-awesome-layers", FontAwesomeLayers);
@@ -202,7 +216,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSweetalert2);
 Vue.use(require("vue-moment"));
 Vue.use(VTooltip);
-Vue.use(VueConfirmDialog);
+// Vue.use(VueConfirmDialog);
 // Vue.use(Dialog)
 Vue.use(VueSimpleAlert);
 
@@ -216,7 +230,7 @@ Vue.component(
     "client-header-component",
     require("./components/shared/ClientHeader").default
 );
-Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
+// Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
 
 const routes = [
     {
@@ -292,13 +306,11 @@ const routes = [
             {
                 path: "/",
                 component: require("./components/employees/Index.vue").default,
-                name: "employee-index",
-           
+                name: "employee-index",           
             },
             {
                 path: "positions",
-                component: require("./components/employees/Positions.vue")
-                    .default,
+                component: require("./components/employees/Positions.vue").default,
                 name: "employee-positions"
             },
             {
@@ -528,30 +540,20 @@ const routes = [
         name: "print-schedule",
         meta: {}
     },
-
     {
         path: "/claims/",
         component: require("./components/Payrole/__Claims.vue").default,
         name: "Claims",
     },
-	// {
-    //     path: "/salary/",
-    //     component: require("./components/Payrole/__Salary.vue").default,
-    //     name: "Salary",
-    //     meta: {
-    //         requiresAuth: false, 
-    //         roles: ["admin"], 
-    //       },
-    // },
-	// {
-    //     path: "/salary/",
-    //     component: require("./components/Payrole/__Salary.vue").default,
-    //     name: "Salary",
-    //     meta: {
-    //         requiresAuth: false, 
-    //         roles: ["admin"], 
-    //       },
-    // },
+	{
+        path: "/Salary/",
+        component: require("./components/Payrole/__payments.vue").default,
+        name: "Salary",
+        meta: {
+            requiresAuth: false, 
+            roles: ["admin"], 
+          },
+    },
 	{
         path: "/attendance/",
         component: require("./components/EmployeeManagement/Attendance.vue").default,
@@ -592,11 +594,11 @@ const routes = [
     //     component: require("./components/Payrole/__payments.vue").default,
     //     name: "payments",
     // },
-    // {
-    //     path: "/payrole/tds",
-    //     component: require("./components/Payrole/__tax.vue").default,
-    //     name: "tax",
-    // },
+    {
+        path: "/payrole/tds",
+        component: require("./components/Payrole/__tax.vue").default,
+        name: "Tax",
+    },
     {
         path: "/create/",
         component: require("./components/JobsList/__CreateForm.vue").default,
@@ -704,25 +706,16 @@ const { isAuthenticated, role } = getUserInfo();
             link_el.setAttribute("id", "bootstrapcss");
 
             document.head.appendChild(link_el);
-        });
-
-        
+        });        
         next();
     } else {
         next();
-
-
-
     }
-
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (!isAuthenticated) {
             return next({ path: '/login' }); 
-        }
-
-        
+        }        
     }
-
     // if (to.meta.requiresAuth) {
     //     const hasPermission = to.meta.roles.includes(role);
           

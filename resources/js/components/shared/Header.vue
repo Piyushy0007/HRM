@@ -200,6 +200,14 @@ export default {
                     ]
                 },
                 {
+                    title: "Attendance Status",
+                    icon: ["fas","signal"],
+                    expanded: false,
+                    items: [
+                        { name: "attendance-chart", label: "Graph" },
+                    ]
+                },
+                {
                     title: "Jobs",
                     icon: ["fas", "briefcase"],
                     expanded: false,

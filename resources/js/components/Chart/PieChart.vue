@@ -7,100 +7,47 @@
                 class="flex items-center bg-white p-3 rounded-lg shadow-sm max-w-full whitespace-nowrap"
             >
                 <!-- Home Icon -->
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 576 512"
-                    width="30"
-                    height="30"
-                >
-                    <path
-                        d="M280.4 148.3L96 300.1V464a16 16 0 0 0 16 16l112.1-.3a16 16 0 0 0 15.9-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.6a16 16 0 0 0 16 16.1L464 480a16 16 0 0 0 16-16V300L295.7 148.3a12.2 12.2 0 0 0 -15.3 0zM571.6 251.5L488 182.6V44.1a12 12 0 0 0 -12-12h-56a12 12 0 0 0 -12 12v72.6L318.5 43a48 48 0 0 0 -61 0L4.3 251.5a12 12 0 0 0 -1.6 16.9l25.5 31A12 12 0 0 0 45.2 301l235.2-193.7a12.2 12.2 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0 -1.7-16.9z"
-                    />
-                </svg>
+                <font-awesome-icon icon="home" style="font-size: 20;" />
 
                 <!-- Breadcrumb Links -->
                 <div class="flex items-center text-sm text-gray-600 ml-3">
                     <!-- First Item -->
-                    <span
-                        class="truncate cursor-pointer hover:text-blue-500 font-bold text-lg"
-                    >
+                    <span class="truncate cursor-pointer hover:text-blue-500 font-bold text-lg">
                         Attendance process
                     </span>
 
                     <!-- Divider -->
-                    <font-awesome-icon
-                        :icon="['fas', 'chevron-right']"
-                        class="mx-2"
-                    />
+                    <font-awesome-icon :icon="['fas', 'chevron-right']" class="mx-2"/>
 
                     <!-- Second Item -->
-                    <span
-                        class="truncate cursor-pointer hover:text-blue-500 font-bold text-lg"
-                    >
+                    <span class="truncate cursor-pointer hover:text-blue-500 font-bold text-lg">
                         Daily attendance status
                     </span>
 
-                    <font-awesome-icon
-                        :icon="['fas', 'chevron-down']"
-                        class="mx-2"
-                    />
+                    <font-awesome-icon :icon="['fas', 'chevron-down']" class="mx-2" />
                 </div>
                 <div class="flex flex-row items-center justify-center gap-5 ml-auto">
-                  <a
-                    href="#"
-                    class="text-2xl text-gray-600 hover:text-blue-600 transition duration-300"
-                    >◀</a
-                  >
+                  <font-awesome-icon icon="caret-left" class="text-primary" style="font-size: 24px;" />
                   <input
                     type="date"
                     id="fromDate"
                     v-model="fromDate"
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
-                  <a
-                    href="#"
-                    class="text-2xl text-gray-600 hover:text-blue-600 transition duration-300"
-                    >▶</a
-                  >
+                  <font-awesome-icon icon="caret-right" class="text-primary" style="font-size: 24px;" />
                 </div>
                 
 
-                <div
-                    class="flex flex-row items-center justify-center gap-5 ml-auto"
-                >
+                <div class="flex flex-row items-center justify-center gap-5 ml-auto">
                     <font-awesome-icon :icon="['fas', 'ellipsis-v']" />
                 </div>
                 
-                <div
-                    class="h-8 w-10 flex items-center justify-center bg-gray-200 rounded-lg mr-2"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 512 512"
-                        width="20"
-                        height="20"
-                    >
-                        <!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
-                        <path
-                            d="M496 384H160v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h80v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h336c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160h-80v-16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h336v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h80c8.8 0 16-7.2 16-16v-32c0-8.8-7.2-16-16-16zm0-160H288V48c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v16H16C7.2 64 0 71.2 0 80v32c0 8.8 7.2 16 16 16h208v16c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16v-16h208c8.8 0 16-7.2 16-16V80c0-8.8-7.2-16-16-16z"
-                        />
-                    </svg>
-                </div>
-                
+                <div class="h-8 w-10 flex items-center justify-center bg-gray-200 rounded-lg mr-2">
+                    <font-awesome-icon icon="sliders-h" />
+                </div>               
 
-                <div
-                    class="h-8 w-10 flex items-center justify-center bg-gray-200 rounded-lg"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 192 512"
-                    >
-                        <path
-                            d="M96 184c39.8 0 72 32.2 72 72s-32.2 72-72 72-72-32.2-72-72 32.2-72 72-72zM24 80c0 39.8 32.2 72 72 72s72-32.2 72-72S135.8 8 96 8 24 40.2 24 80zm0 352c0 39.8 32.2 72 72 72s72-32.2 72-72-32.2-72-72-72-72 32.2-72 72z"
-                        />
-                    </svg>
+                <div class="h-8 w-10 flex items-center justify-center bg-gray-200 rounded-lg">
+                    <font-awesome-icon icon="ellipsis-h" :transform="'rotate-90'" />
                 </div>
             </div>
 
@@ -360,6 +307,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Add additional styles if necessary */
-</style>

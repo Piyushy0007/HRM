@@ -277,6 +277,7 @@ export default {
               : "Leave request rejected successfully"
           );
           this.fetchLeaveRequests();
+          this.closeModal();
         } else {
             alert("Failed to approve leave request.");
         }

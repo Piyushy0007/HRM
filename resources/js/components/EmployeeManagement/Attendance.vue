@@ -82,7 +82,7 @@
                   <tr v-else-if="employees.length === 0">
                     <td colspan="7" class="text-center py-4">No attendance data found for the selected date range.</td>
                   </tr>
-                  <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b">
+                  <tr v-else v-for="(employee, index) in employees" :key="index" class="border-b">
                     <td class="py-3 px-4">
                       {{ employee.employee.firstname + ' ' + employee.employee.lastname }}
                     </td>
@@ -212,12 +212,12 @@ export default {
             console.log(response.employee_id,"sdjhajgdaj");
           } else {
             console.error("Unexpected API response:", response);
-            this.employees = [];
+            // this.employees = [];
             this.totalItems = 0;
           }
         } catch (error) {
           console.error("Error fetching leave requests:", error);
-          this.employees = []; // Reset employees on error
+          // this.employees = []; // Reset employees on error
           this.totalItems = 0;
         } finally {
         this.isLoader = false; 
