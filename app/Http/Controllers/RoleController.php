@@ -16,7 +16,7 @@ class RoleController extends Controller
         try {
             // Fetch all roles
             $roles = Role::orderBy('role_name', 'asc')->get();
-
+            // dd($roles);
             // Return response
             return response()->json([
                 'status' => true,
