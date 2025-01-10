@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\API;
-use App\Http\Controllers\API\Traits\OTPSMS;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -56,7 +55,6 @@ use App\Mail\SignInInstructionwatcher;
 
 class EmployeeController extends Controller
 {
-    use OTPSMS;
 
 
     protected function redirectTo($request)

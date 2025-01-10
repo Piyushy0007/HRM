@@ -707,50 +707,9 @@ class GroupChatController extends Controller
     */
      //Route::post('send-sms', [EmployeeController::class,'sendOtp']);
     public function sendOtp(Request $request){
-
-        //Validate requested data
-        $validator = Validator::make($request->all(), [
-            'phone' => 'required|numeric|min:10'
-        ]);
-
-        if ($validator->fails())
-        {
-            return response([
-                'errors'=>$validator->errors()->all()
-            ], 422);
-        }
-
-        $employee = Employee::where('phone', $request->phone)->first();
-
-        if($employee){
-            $dailCode = "91";
-               $otp = rand(100000,999999);
-
-            if ($this->sendSMS($otp, $dailCode, $request->phone, 'Mobile Number verification') ) {
-                $update_data = array(
-                            'phone'=>$request->phone,
-                            'verification_code'=>$otp,
-                               'isVerified' => false,
-                        );
-                $update = Employee::where('phone', $request->phone)->update($update_data);
-
-                return response()->json([
-                    'type'=>'success',
-                    'message'=> 'OTP sent!',
-                    'data' => [ 'mobile' => "+{$dailCode}{$request->phone}" ]
-                                        ], 201);
-            }
-            return response()->json(['type'=>'error',
-                'message'=> 'OTP failed!',
-                'data' => [ 'mobile' => "+{$request->dailCode}{$request->phone}" ]
-                ], 201);
-
-        }else{
-            return response()->json([
-               'message' => 'Mobile Number dont exist. Please check your number you have entered',
-            ], 201);
-        }
-    
+        return response()->json([
+            'message' => 'Mobile Number dont exist. Please check your number you have entered',
+         ], 201);
 }
 
  /*
@@ -766,42 +725,7 @@ class GroupChatController extends Controller
 * BY TWILLO
 */
 //Route::post('verify', [EmployeeController::class,'verifyOtp']);
-public function verifyOtp(Request $request){
-    // validation check
-    $validator = Validator::make($request->all(), [
-        'verification_code' => 'required|numeric'
-    ]);
-    // return validation data
-    if ($validator->fails())
-    {
-        return response(['errors'=>$validator->errors()->all()], 422);
-    }
-
-    // get here the data by
-    $employee = Employee::where('phone', $request->phone)->first();
-   // dd($employee);
-    // check here user account is verified or not
-    if($employee['isVerified'] == true){
-        return response()->json([
-            'message' => 'Your Phone number is also verified!',
-           'data'=>$employee
-        ], 201);
-        // match her ethe verfication code
-    }else if($employee['verification_code'] == $request->verification_code ){
-            $update_data = array(
-                'isVerified' => 1,
-            );
-            // update here the employee information
-            $update = Employee::where('id', $employee['id'])->update($update_data);
-        return response()->json([
-            'message' => 'Phone number is !',
-               'data'=>$employee
-        ], 201);
-    }else{
-        return response()->json([
-           'message' => 'Verification code is invalid. Please check!',
-        ], 201);
-    }
+public function verifyOtp(Request $request){   
     return response()->json([
        'message' => 'Request token missing access denied!',
     ], 201);

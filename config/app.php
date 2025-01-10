@@ -237,7 +237,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GeoFence' => \Salman\GeoFence\Facades\GeoFence::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        // 'PDF' => Barryvdh\DomPDF\Facade::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
