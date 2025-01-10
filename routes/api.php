@@ -208,6 +208,7 @@ Route::get('/roles', [RoleController::class, 'getAllRoles']);
 
 //salaries
 Route::get('/salaries', [SalaryController::class, 'index']);
+Route::post('calculate-tds', [SalaryController::class, 'calculateTds']);
 
 
 

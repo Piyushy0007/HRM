@@ -24,6 +24,7 @@ class CreateSalariesTable extends Migration
             $table->string('salary_type'); // Monthly or Yearly
             $table->string('payment_mode'); // Payment mode (e.g., Bank Transfer, Cash)
             $table->date('payment_date'); // Payment date
+            $table->decimal('pf_amount', 10, 2)->nullable(); // Provident Fund amount
             $table->timestamps();
         });
     }
