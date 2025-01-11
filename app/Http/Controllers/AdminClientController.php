@@ -22,9 +22,9 @@ use App\Clockin;
 use App\Shift;
 use Carbon\Carbon;
 use JWTFactory;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 use JWTAuthException;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
 
 class AdminClientController extends Controller

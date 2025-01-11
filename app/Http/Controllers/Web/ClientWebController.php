@@ -26,9 +26,9 @@ use Auth;
 use Exception;
 use Carbon\Carbon;
 use JWTFactory;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 use JWTAuthException;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Storage;
 
 

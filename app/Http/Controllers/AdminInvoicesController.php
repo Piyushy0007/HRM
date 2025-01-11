@@ -16,9 +16,9 @@ use App\ClientProperties;
 use App\Invoices;
 use Carbon\Carbon;
 use JWTFactory;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 use JWTAuthException;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ClientInvoiceExport;
 

@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Auth\AuthenticationException;
 use Closure;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 use Exception;
 
 class Authenticate extends Middleware
@@ -18,9 +18,9 @@ class Authenticate extends Middleware
     //     try {
     //         $user = JWTAuth::toUser($request->input('access_token'));
     //     } catch (Exception $e) {
-    //         if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException){
+    //         if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenInvalidException){
     //             return response()->json(['error'=>'Token is Invalid']);
-    //         }else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException){
+    //         }else if ($e instanceof \PHPOpenSourceSaver\JWTAuth\Exceptions\TokenExpiredException){
     //             return response()->json(['error'=>'Token is Expired']);
     //         }else{
     //             return response()->json(['error'=>'Something is wrong']);

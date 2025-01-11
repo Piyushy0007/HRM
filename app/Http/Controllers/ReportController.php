@@ -16,7 +16,7 @@ use App\Shift;
 use App\Reportslog;
 use App\ReportType;
 use App\ReportSubType; 
-use PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class ReportController extends Controller
 {

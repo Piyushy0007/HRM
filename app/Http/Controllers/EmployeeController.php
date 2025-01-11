@@ -37,7 +37,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 
 
 class EmployeeController extends Controller

@@ -39,9 +39,9 @@ use Illuminate\Support\ServiceProvider;
 use Exception;
 use Illuminate\Database\QueryException;
 use JWTFactory;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 use JWTAuthException;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use App\Mail\EmployeeSendOTP;
 use App\Mail\EmployeeAlertReport;
 use App\Mail\EmployeeResetPassword;

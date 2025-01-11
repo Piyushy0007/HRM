@@ -181,7 +181,7 @@ return [
         Berkayk\OneSignal\OneSignalServiceProvider::class,
         NotificationChannels\OneSignal\OneSignalServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+        PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         
     ],
@@ -238,8 +238,8 @@ return [
         'GeoFence' => \Salman\GeoFence\Facades\GeoFence::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
         // 'PDF' => Barryvdh\DomPDF\Facade::class,
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
-        'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
+        'JWTAuth' => PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth::class,
+        'JWTFactory' => PHPOpenSourceSaver\JWTAuth\Facades\JWTFactory::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],

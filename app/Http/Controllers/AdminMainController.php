@@ -16,9 +16,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\QueryException;
 use Exception;
 use JWTFactory;
-use JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
 use JWTAuthException;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
 class AdminMainController extends Controller
 {

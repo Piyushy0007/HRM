@@ -8,33 +8,30 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "barryvdh/laravel-dompdf": "^1.0",
-        "berkayk/onesignal-laravel": "^1.0",
+        "php": "^8.1",
+        "barryvdh/laravel-dompdf": "^2.0",
+        "berkayk/onesignal-laravel": "^2.0",
         "beyondcode/laravel-websockets": "^1.12",
-        "craftsys/msg91-laravel": "^0.13.0",
-        "doctrine/dbal": "^3.0",
-        "fideloper/proxy": "^4.2",
-        "fruitcake/laravel-cors": "^2.0",
+        "doctrine/dbal": "^3.0",        
         "guzzlehttp/guzzle": "^7.0",
-        "laravel-notification-channels/onesignal": "^2.3",
-        "laravel/framework": "^9.0",
-        "laravel/passport": "~11.0",
+        "laravel-notification-channels/onesignal": "^2.5",
+        "laravel/framework": "^10.0",
+        "laravel/passport": "^11.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^3.0",
+        "laravel/ui": "^4.0",
         "lcobucci/jwt": "4.0",
         "maatwebsite/excel": "^3.1",
-        "pusher/pusher-php-server": "^5.0",
+        "pusher/pusher-php-server": "^7.0",
         "salmanzafar/laravel-geo-fence": "^1.0",
-        "spatie/laravel-ignition": "*",
+        "spatie/laravel-ignition": "^2.0",
         "twilio/sdk": "6.15.1",
-        "tymon/jwt-auth": "^1.0"
+        "php-open-source-saver/jwt-auth": "^2.0"
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.9.1",
+        "fakerphp/faker": "^1.20",
         "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.0"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0"
         
     },
     "config": {
@@ -61,7 +58,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
