@@ -50,15 +50,8 @@ class JobController extends Controller
 
     public function index(Request $request)
     {
-        // Ensure employee_id is provided in the request
-        $employeeId = $request->input('employee_id');
-    
-        if (!$employeeId) {
-            return response()->json(['error' => 'Employee ID is required'], 400);
-        }
-    
         // Retrieve jobs by employee_id
-        $jobs = Job::where('employee_id', $employeeId)->get();
+        $jobs = Job::get();
     
         // Return jobs in JSON format
         return response()->json($jobs);

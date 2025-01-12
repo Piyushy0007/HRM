@@ -717,7 +717,7 @@ name="cv_option"
         pay_minimum: 0,
         pay_maximum: 0,
         communication_preference_email: true,
-        employee_id: null,
+        employee_id: 2,
         // deadlineOption:"yes",
         // sendUpdate:"",
         cv_option:0,

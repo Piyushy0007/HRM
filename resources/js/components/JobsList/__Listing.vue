@@ -128,7 +128,7 @@ methods: {
       this.error = null;
       try {
         const userId= localStorage.getItem("userId")
-        const response = await axios.get(`api/jobs?employee_id=${userId}`);
+        const response = await axios.get(`api/jobs`);
         this.dataFromApi = response.data; 
       } catch (err) {
         this.error = err.message || 'An error occurred while fetching data.';
