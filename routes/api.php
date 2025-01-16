@@ -169,22 +169,23 @@ Route::group([
     // Employee
     Route::get('/employees/on_now', [EmployeeController2::class,'onNow']);
     Route::get('/employees/on_later', [EmployeeController2::class,'onLater']);
-
-
+    Route::post('/employees/register_face', [EmployeeController2::class,'registerFace']);
+    Route::get('/employees/getEmployeesWithEmbeddings', [EmployeeController2::class,'getEmployeesWithEmbeddings']);
+    
     //attendence
     Route::post('/attendance', [AttendanceController::class, 'markAttendance']);
     Route::get('/attendance/monthly/{employeeId}', [AttendanceController::class, 'getMonthlyAttendance']);
     Route::post('/attendances', [AttendanceController::class, 'getAttendancesByDateRange']);
+    
     Route::get('/attendanceSummary', [AttendanceController::class, 'getAttendanceSummary']);
     Route::post('/attendance', [AttendanceController::class, 'markedAttendance']);
 
 
     //LeaveRequest
-
     Route::post('/employee/{employeeId}/LeaveRequest', [LeaveRequestController::class, 'create']);
-Route::get('/employee/{employeeId}/LeaveRequests', [LeaveRequestController::class, 'show']);
-Route::put('/LeaveRequest/{leaveRequestId}/Status', [LeaveRequestController::class, 'updateStatus']);
-Route::get('/leave-requests', [LeaveRequestController::class, 'getLeaveRequestsByDateRange']);
+    Route::get('/employee/{employeeId}/LeaveRequests', [LeaveRequestController::class, 'show']);
+    Route::put('/LeaveRequest/{leaveRequestId}/Status', [LeaveRequestController::class, 'updateStatus']);
+    Route::get('/leave-requests', [LeaveRequestController::class, 'getLeaveRequestsByDateRange']);
 
 
 //expirence     

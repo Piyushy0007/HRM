@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth; // Ensure this import is present
+use Illuminate\Http\JsonResponse;
 
 
 class EmployeeController extends Controller
@@ -1558,6 +1559,59 @@ class EmployeeController extends Controller
         } 
     }
 
+    
+    /***
+     *  Update Face IN EMPLOYEE EDIT
+     * 
+     */
+    public function registerFace(Request $request){
+        try{
+            $check_email = Employee::where('email',$request->name)->first();
+            
+            if ($check_email != null):
+                $data = ['embedding'=>$request->embedding];
+                $update_employee = Employee::where('id',$check_email->id)->update($data);
+                if($update_employee):
+                    $response = ['status'=>true,'message'=>'Face Updated Successfully!'];
+                else:
+                    $response = ['status'=>false,'message'=>'Face not updated'];
+                endif;
+            else:
+                $response = ['status'=>false,'message'=>'Email does not exist!'];
+            endif;
+            return response($response);
+        }catch (\Exception $e) {
+            return response()->json(['error'=>$e->getMessage()]);   
+        } 
+    }
+
+    /**
+     * Get employees with embeddings.
+     *
+     * @return JsonResponse
+     */
+    public function getEmployeesWithEmbeddings(): JsonResponse
+    {
+        // Fetch employees with non-null embeddings
+        $employees = Employee::whereNotNull('embedding')
+            ->get([
+                'id',
+                'firstname',
+                'lastname',
+                'embedding'
+            ]);
+
+        // Format the response
+        $formattedEmployees = $employees->map(function ($employee) {
+            return [
+                'id' => $employee->id,
+                'name' => $employee->firstname .' '. $employee->lastname,
+                'embedding' => array_map('floatval', explode(',', $employee->embedding)),
+            ];
+        });
+
+        return response()->json($formattedEmployees);
+    }
 
     /** 
      * GENERATE RANDOM PASSWORD

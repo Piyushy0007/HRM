@@ -43,6 +43,7 @@ class Employee extends Authenticatable implements JWTSubject
         'position',
         'education_detail',
         'experience_duration',
+        'embedding'
     ];
 
 
