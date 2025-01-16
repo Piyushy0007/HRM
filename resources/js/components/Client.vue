@@ -72,15 +72,15 @@
                 <tbody >
                   <template v-if="clientdata.length!= 0">
                   <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id" class="border-b">                  
-                    <td class="py-3 px-4 text-transform-capitalise">{{ data.clientname || '-'}} </td>
-                    <td class="py-3 px-4">{{data.address ? data.address : '-'}}</td>
-                    <td class="text-left py-3 px-4">{{ data.email }}</td>
-                    <td class="text-left py-3 px-4">{{ data.phone || '-' }}</td>
+                    <td class="px-4 text-transform-capitalise">{{ data.clientname || '-'}} </td>
+                    <td class="px-4">{{data.address ? data.address : '-'}}</td>
+                    <td class="text-left px-4">{{ data.email }}</td>
+                    <td class="text-left px-4">{{ data.phone || '-' }}</td>
                     <!-- <td class="text-center">{{ data.name }}</td> -->
                     <!-- <td class="text-center">{{data.created_at  | moment('MM/DD/YYYY')}}</td> -->
-                    <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-center py-3 px-4'" >{{ data.status }}</td>
-                    <td class="text-left py-3 px-4"  @click='resetPassword(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-24"  /></b-button></td>
-                    <td class="text-left py-3 px-4"  @click='openView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-24"  /></b-button></td>
+                    <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-center px-4'" >{{ data.status }}</td>
+                    <td class="text-left px-4"  @click='resetPassword(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-24"  /></b-button></td>
+                    <td class="text-left px-4"  @click='openView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-24"  /></b-button></td>
                     <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
                   </tr>
                    </template>
