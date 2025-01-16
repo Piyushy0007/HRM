@@ -2,94 +2,96 @@
   <div class="c-employee-index client-table">
 
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 w-80 " style="margin-right: 1vw; margin-left: 240px;">
-      <div class="flex " style="justify-content: space-between;">
-        <h1 class="mb-4">Community</h1>
-        <button class="add-blue-button" @click="openClientModal()">Create Community</button>
-      </div>
-        <div class="flex">
-          <div class="w-full flex md:w-1/10">
-         
-          <div class="w-full md:w-1/4 pr-3 mt-4 mb-4">
-            <div class="relative">
-              <select id="location" @change="selectLocation()"  class="height-36 block appearance-none w-full py-1 px-4 pr-8 rounded-10 leading-tight focus:outline-none">
-               <option value="">All Locations</option>
-              <option v-for="loc,index in alllocation" :key="index+loc" >{{loc}}</option>
-              </select>
-              <!-- <region-select id="location" @change="selectLocation()"  class="height-41 block appearance-none w-full py-1 px-4 pr-8 rounded-10 leading-tight focus:outline-none" v-model="region" placeholder='All Locations' :region="region" /> -->
-            
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-              </div>
-            </div>
-          </div>
-          <div class="w-full md:w-1/4 pr-3 mt-4 mb-4">
-            <div class="relative">
-              <select id="status" @change="selectStatus()" class="height-36 block appearance-none w-full py-1 px-4 pr-8 rounded-10 leading-tight focus:outline-none">
-                <option value="">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>  
-                
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-              </div>
-            </div>
-          </div>
-          <!-- <b-button variant="outline-primary">Filter</b-button> -->
-         </div>
-          <div class="w-full md:w-1/2">
-          <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
-            <div class="relative">
-              <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r">
-                <font-awesome-icon icon="search" class="fill-current" />
-              </div>
-            </div>
-          </div>
-          </div>
-         
-           </div>
-      <table class="w-full client-table-list">
-        <thead>
-          <tr>
-           <th class="text-left heading-sort ">Community Name <b-icon-arrow-down-up @click="namesort()" /> </th>
-           <th class="text-left">Location</th>
-           <th class="text-left heading-sort">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
-           <th class="text-left">Contact Number</th>
-           <!-- <th class="text-center">Username</th> -->
-           <!-- <th class="text-center">Date Registered</th> -->
-           <th class="text-left">Status</th>
-           <th class="text-left"></th>
-           <th class="text-left"></th>
-           <th class="text-left"></th>
-          </tr>
-        </thead>
+    <div style="margin-left: 240px;">
+      <div class="p-4 max-w-7xl mx-auto h-screen flex flex-col ">
         
-        <tbody >
-          <template v-if="clientdata.length!= 0">
-
-         
-          <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id">
-          
-            <td class="text-left text-transform-capitalise">{{ data.clientname || '-'}} </td>
-            <td class="text-left">{{data.address ? data.address : '-'}}</td>
-            <td class="text-left">{{ data.email }}</td>
-            <td class="text-left">{{ data.phone || '-' }}</td>
-            <!-- <td class="text-center">{{ data.name }}</td> -->
-            <!-- <td class="text-center">{{data.created_at  | moment('MM/DD/YYYY')}}</td> -->
-            <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-left'" >{{ data.status }}</td>
-            <td class="text-left"  @click='resetPassword(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-24"  /></b-button></td>
-            <td class="text-left"  @click='openView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-24"  /></b-button></td>
-            <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
-           
-          </tr>
-           </template>
-          <template v-else>
-            No Records Found
-          </template>
-        </tbody>
-      </table>
+        <div class="flex justify-between items-center-">
+          <p class="text-3xl">Community</p>
+          <button class="add-blue-button" @click="openClientModal()">Create Community</button>
+        </div>
+        <div class="flex flex-col bg-white p-4 shadow-md rounded-lg mb-4">
+          <div class="flex flex-col md:flex-row w-full gap-2 items-stretch ">
+            <div class="w-full md:w-1/2 flex flex-col md:flex-row mb-4">
+              <div class=" w-full md:w-1/2 pr-3 mb-4">
+                <div class="relative">
+                  <select id="location" @change="selectLocation()"  class="w-full border border-gray-300 rounded px-2 py-2 focus:outline-none">
+                    <option value="">All Locations</option>
+                    <option v-for="loc,index in alllocation" :key="index+loc" >{{loc}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class=" w-full md:w-1/2 pr-3 mb-4">
+                <div class="relative">
+                  <select id="status" @change="selectStatus()" class="w-full border border-gray-300 rounded px-2 py-2 focus:outline-none">
+                    <option value="">All Status</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>                    
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="w-full md:w-1/2">
+              <div class="flex items-center flex-grow relative">
+                <input 
+                  class="w-full rounded pl-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                  style="height: 38px; border: 1px solid #d1d5db;"
+                  type="text" 
+                  placeholder="Search" 
+                  v-model="searchKeyword" @keyup="search()">
+                <div>
+                  <font-awesome-icon
+                  icon="search"
+                  class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+                  style="font-size: 20px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+            <!-- <div class="w-full md:w-1/2">
+              <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
+                
+              </div>
+            </div> -->
+            <div class="flex-grow overflow-auto">
+              <table class="w-full table-auto">
+                <thead>
+                  <tr class="text-left border-b">
+                   <th class="py-3 px-4 text-blue-600 heading-sort ">Community Name <b-icon-arrow-down-up @click="namesort()" /> </th>
+                   <th class="py-3 px-4 text-blue-600">Location</th>
+                   <th class="py-3 px-4 text-blue-600 heading-sort">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
+                   <th class="py-3 px-4 text-blue-600">Contact Number</th>
+                   <!-- <th class="text-center">Username</th> -->
+                   <!-- <th class="text-center">Date Registered</th> -->
+                   <th class="py-3 px-4 text-blue-600">Status</th>
+                   <th class="text-left"></th>
+                   <th class="text-left"></th>
+                   <th class="text-left"></th>
+                  </tr>
+                </thead>                
+                <tbody >
+                  <template v-if="clientdata.length!= 0">
+                  <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id" class="border-b">                  
+                    <td class="px-4 text-transform-capitalise">{{ data.clientname || '-'}} </td>
+                    <td class="px-4">{{data.address ? data.address : '-'}}</td>
+                    <td class="text-left px-4">{{ data.email }}</td>
+                    <td class="text-left px-4">{{ data.phone || '-' }}</td>
+                    <!-- <td class="text-center">{{ data.name }}</td> -->
+                    <!-- <td class="text-center">{{data.created_at  | moment('MM/DD/YYYY')}}</td> -->
+                    <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-center px-4'" >{{ data.status }}</td>
+                    <td class="text-left px-4"  @click='resetPassword(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-24"  /></b-button></td>
+                    <td class="text-left px-4"  @click='openView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-24"  /></b-button></td>
+                    <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
+                  </tr>
+                   </template>
+                  <template v-else>
+                    No Records Found
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+      </div>
     </div>
 
     <modal v-model="modal.createclient" class="modal-add-new-employee" size="md:w-5/12" title="Create Community">

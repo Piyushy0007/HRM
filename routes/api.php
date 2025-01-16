@@ -177,6 +177,10 @@ Route::group([
     Route::get('/attendance/monthly/{employeeId}', [AttendanceController::class, 'getMonthlyAttendance']);
     Route::post('/attendances', [AttendanceController::class, 'getAttendancesByDateRange']);
     
+    Route::get('/attendanceSummary', [AttendanceController::class, 'getAttendanceSummary']);
+    Route::post('/attendance', [AttendanceController::class, 'markedAttendance']);
+
+
     //LeaveRequest
     Route::post('/employee/{employeeId}/LeaveRequest', [LeaveRequestController::class, 'create']);
     Route::get('/employee/{employeeId}/LeaveRequests', [LeaveRequestController::class, 'show']);
