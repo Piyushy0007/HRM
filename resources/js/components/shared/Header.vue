@@ -21,31 +21,34 @@
                 >
                     <!-- Parent Group -->
                     <div
-                        class="nav-link text-start py-2 px-2 rounded flex items-center justify-between cursor-pointer"
+                        class="nav-link text-start py-2 px-2 rounded cursor-pointer"
                         :class="{ 'bg-primary': group.expanded }"
                         @click="toggleGroup(groupIndex)"
                     >
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="me-3"
-                                style="width: 24px; text-align: center;"
-                            >
-                                <font-awesome-icon
-                                    :icon="group.icon"
-                                    style="font-size: 16px;"
-                                />
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2 ">
+                                <div                                    
+                                    style="width: 24px; text-align: center;"
+                                >
+                                    <font-awesome-icon
+                                        :icon="group.icon"
+                                        style="font-size: 16px;"
+                                    />
+                                </div>
+                                <span>{{ group.title }}</span>
                             </div>
-                            <span>{{ group.title }}</span>
+                            <div>
+                                <span>
+                                    <font-awesome-icon
+                                        :icon="
+                                            group.expanded
+                                                ? 'chevron-down'
+                                                : 'chevron-right'
+                                        "
+                                    />
+                                </span>
+                            </div>
                         </div>
-                        <span>
-                            <font-awesome-icon
-                                :icon="
-                                    group.expanded
-                                        ? 'chevron-down'
-                                        : 'chevron-right'
-                                "
-                            />
-                        </span>
                     </div>
                     <!-- Child Items -->
                     <ul v-if="group.expanded" class="list-unstyled ps-3 mt-2">

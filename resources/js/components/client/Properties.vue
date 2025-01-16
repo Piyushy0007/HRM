@@ -1,6 +1,6 @@
 <template>
   <div class="c-employee-index client-table  client-add ">
-     <client-header-component />
+    <client-header-component />
     <Loader msg="Processing ..." v-model="isLoader" />
     <p style="margin-bottom: 0;padding-bottom: 75px;border-left: 2px solid #f9f9f9;margin-top: -52px;padding-left: 30px;font-family: Poppins;font-weight: bold;font-size: 22px; color: #2C1977; "> Location</p>
     <div class="px-4 pb-4  flex mr-1 tabletopbackground">
@@ -8,18 +8,11 @@
         <thead class="thed">
           <tr >
            <th class="text1one" style="width: 25%;">Watchers Assigned   </th>
-
            <th class="text1one" style="width: 30%;">Location </th>
-
            <th style="width: 30%;"> -  </th>
-
-           <th class="text1one" style="width: 15%;padding-left: 0;"> Action  </th>
-
-          
+           <th class="text1one" style="width: 15%;padding-left: 0;"> Action  </th>          
           </tr>
         </thead>
-        
-        
         <tbody style= "height: 498px;overflow: scroll;" >
           <template v-if="propertiesdata == '' ">
              <tr class="w-12/12" style="width: 100%;">
@@ -27,40 +20,31 @@
              </tr>
           </template>
           <template  v-else >
-    
-          
-          <tr class="w-12/12"  v-for="data in  propertiesdata" :key="data.id" style="width: 100%;">
-     <td class="w-3/12 text-left text-transform-capitalise">{{ data.properties_name || '-'}} </td>
-            <td class=" w-3/12 text-left address">{{data.properties_address ? data.properties_address : '-'}}</td>
-            <td style="width: 30%;"class="w-3/12 text-center empl-names" v-if="data.employees.length != 0" >
-              <span v-for="(empname , index) in data.employees" :key='index'>
-                <template v-if="data.employees.length == 1">
-                   <span class="text-transform-capitalize"> {{empname.emp_firstname}} {{empname.emp_lastname}}</span>
-                </template>
-                <template v-else>
-
-                <span class="text-transform-capitalize" v-if="index == 0"> {{empname.emp_firstname}} {{empname.emp_lastname}} - </span>
-                <span class="text-transform-capitalize" v-if="index == data.employees.length - 1 ">{{empname.emp_firstname}} {{empname.emp_lastname}}</span>
-                </template>
-                            
-              </span>
-              
-            </td>
-
-            <td style="width: 30%;" class="w-3/12 text-center empl-names" v-else >
-              -
-            </td>
-            
-            <td class="w-3/12 text-center" style="width: 15%; text-align: right !important;"><button :class="data.employees.length == 0 ? 'add-purple-button ' : 'add-purple-button'" @click="sendMessage1(data)">Message</button>
-         
-            </td>
-          
-          </tr>
+            <tr class="w-12/12"  v-for="data in  propertiesdata" :key="data.id" style="width: 100%;">
+              <td class="w-3/12 text-left text-transform-capitalise">{{ data.properties_name || '-'}} </td>
+              <td class=" w-3/12 text-left address">{{data.properties_address ? data.properties_address : '-'}}</td>
+              <td style="width: 30%;"class="w-3/12 text-center empl-names" v-if="data.employees.length != 0" >
+                <span v-for="(empname , index) in data.employees" :key='index'>
+                  <template v-if="data.employees.length == 1">
+                    <span class="text-transform-capitalize"> {{empname.emp_firstname}} {{empname.emp_lastname}}</span>
+                  </template>
+                  <template v-else>
+                    <span class="text-transform-capitalize" v-if="index == 0"> {{empname.emp_firstname}} {{empname.emp_lastname}} - </span>
+                    <span class="text-transform-capitalize" v-if="index == data.employees.length - 1 ">{{empname.emp_firstname}} {{empname.emp_lastname}}</span>
+                  </template>
+                </span>
+              </td>
+              <td style="width: 30%;" class="w-3/12 text-center empl-names" v-else > - </td>
+              <td class="w-3/12 text-center" style="width: 15%; text-align: right !important;">
+                <button :class="data.employees.length == 0 ? 'add-purple-button ' : 'add-purple-button'" 
+                @click="sendMessage1(data)">Message</button>
+              </td>
+            </tr>
           </template>
         </tbody>
       </table>
     </div>
-     <!-- <modal v-model="modal.createmessage" class="modal-add-new-employee" size="md:w-5/12" title="Message">
+    <!-- <modal v-model="modal.createmessage" class="modal-add-new-employee" size="md:w-5/12" title="Message">
       <ValidationObserver v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(sendEmail())" ref="frmcreateclient" novalidate>
     	
@@ -88,151 +72,34 @@
         </form>
       </ValidationObserver>
 		</modal> -->
-        <b-modal centered  class="modal-add-new-employee" id="datepicker" title="Send Message" style="margin:0 auto;">
-            <div class=" px-4 mb-1 mt-1">
-          
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Subject <span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input type="text"  class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-500"  v-model="modal.sendMessage.subject" style="border-color: #a0aec0 !important;" />
-      					</div>
-      				</div>
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Message <span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<textarea class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-500"  v-model="modal.sendMessage.message"></textarea>
-      					</div>
-      				</div>
-    		  </div>
-		
-          <template #modal-footer="{ }">
-            <div class="text-center mt-2 mb-2" style="margin:0 auto;">
-                <button @click="sendEmail()" style="border-radius: 5px;" class="text-white py-2 px-10 bg-custom-primary" type="submit">Send</button>
-                  </div>
-            </template>
+      <b-modal centered  class="modal-add-new-employee" id="datepicker" title="Send Message" style="margin:0 auto;">
+        <div class=" px-4 mb-1 mt-1">
+          <div class=" md:items-center">
+            <div class="md:w-4/4">
+              <label class="block mb-1 md:mb-0 pr-4">Subject <span class="req_form_fields">*</span></label>
+            </div>
+            <div class="md:w-4/4">
+              <input type="text"  class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-500"  v-model="modal.sendMessage.subject" style="border-color: #a0aec0 !important;" />
+            </div>
+          </div>
+          <div class=" md:items-center">
+            <div class="md:w-4/4">
+              <label class="block mb-1 md:mb-0 pr-4">Message <span class="req_form_fields">*</span></label>
+      			</div>
+            <div class="md:w-4/4">
+              <textarea class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-500"  v-model="modal.sendMessage.message"></textarea>
+      			</div>
+      		</div>
+    		</div>
+        <template #modal-footer="{ }">
+          <div class="text-center mt-2 mb-2" style="margin:0 auto;">
+            <button @click="sendEmail()" style="border-radius: 5px;" class="text-white py-2 px-10 bg-custom-primary" type="submit">Send</button>
+          </div>
+        </template>
       </b-modal>
-
-
   </div>
 </template>
-<style lang="scss"
 
-.text1one{
-  font-family: Poppins;
-  font-size: 20px;
-  padding-left:15px;
-}
-.text{
-  display:flex;
-  flex-direction:row;
-}
-.backnew{
-  background-color:#E5E5E5;
-}
- th {
-     font-family: Poppins;
-     font-size: 20px;
-     color: #FFFFFF;
-     background: #AD9E58;
-     }
-  tr,
- td {
-       background: #FFFFFF;
-        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-     }
-         td,th {
-            text-align: left;
-            padding: 8px;
-            border-bottom: 1px solid #ddd;
-          }
-        tr:nth-child(even) {
-           border: 1px solid rgba(24, 109, 65, 0.082);
-           
-        }
-        
-        .border {
-            width: 1057px;
-            height: 71px;
-            background: #FFFFFF;
-            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-            border-left: #2630c9;
-        }
-       
-.client-properties{
-    thead{
-    tr{
-      th{
-         padding: 1px 0px 1px 25px;
-      }
-    }
-  }
-  tbody{
-    tr{
-    td{
-       padding: 1px 0px 1px 25px;
-         
-    }
-      .address{
-        white-space: nowrap;
-        max-width: 200px;
-        padding: 1px 0px 1px 25px;
-        
-      }
-      .add-client{
-        overflow:auto;
-         }
-    }
-  }
-}
-.add-blue-button.disable{
-  pointer-events: none;
-  background-color: grey !important;
-}
-table td:first-child {
-    background: white !important;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    background-color:none;
-    border-left:3px solid rgb(16, 43, 100)
-   
-}
-table tbody td {
-  border-bottom: 13px solid #ffffff;
-  text-align: center !important;
-}
-
-.tooltip1 {
-  position: relative;
- 
-}
-
-/* Tooltip text */
-.tooltip1 .tooltiptext1 {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  padding: 5px 0;
-  border-radius: 1px;
-  position: fixed;
-  z-index: 1;
-}
-
-.tooltip1:hover .tooltiptext1 {
-  visibility: visible;
-}
-
-}
-
-
-
-
-}
-</style>
 <script>
 
 import Modal from '../shared/Modal'
@@ -328,12 +195,9 @@ export default {
           max_day_hours: 14,
           max_day_shifts: 1
         },
-
-
         positions: [],
         trashedPositions: {},
         addPosition: {},
-
         // Add employee
         selectedPositions: [],
         // This is un/ticking checkbox
@@ -353,7 +217,6 @@ export default {
         comment: ''
       },
       SendReminderSuccessData:[],
-
       index: {
         employees: {},
         positions: {},
@@ -538,5 +401,110 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	@import '../../../sass/client/employees';
+  @import '../../../sass/client/employees';
+  .text1one{
+    font-family: Poppins;
+    font-size: 20px;
+    padding-left:15px;
+  }
+  .text{
+    display:flex;
+    flex-direction:row;
+  }
+  .backnew{
+    background-color:#E5E5E5;
+  }
+  th {
+      font-family: Poppins;
+      font-size: 20px;
+      color: #FFFFFF;
+      background: #AD9E58;
+      }
+    tr,
+  td {
+        background: #FFFFFF;
+          box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+      }
+          td,th {
+              text-align: left;
+              padding: 8px;
+              border-bottom: 1px solid #ddd;
+            }
+          tr:nth-child(even) {
+            border: 1px solid rgba(24, 109, 65, 0.082);
+            
+          }
+          
+          .border {
+              width: 1057px;
+              height: 71px;
+              background: #FFFFFF;
+              box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+              border-left: #2630c9;
+          }
+        
+  .client-properties{
+      thead{
+      tr{
+        th{
+          padding: 1px 0px 1px 25px;
+        }
+      }
+    }
+    tbody{
+      tr{
+      td{
+        padding: 1px 0px 1px 25px;
+          
+      }
+        .address{
+          white-space: nowrap;
+          max-width: 200px;
+          padding: 1px 0px 1px 25px;
+          
+        }
+        .add-client{
+          overflow:auto;
+          }
+      }
+    }
+  }
+  .add-blue-button.disable{
+    pointer-events: none;
+    background-color: grey !important;
+  }
+  table td:first-child {
+      background: white !important;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+      background-color:none;
+      border-left:3px solid rgb(16, 43, 100)
+    
+  }
+  table tbody td {
+    border-bottom: 13px solid #ffffff;
+    text-align: center !important;
+  }
+
+  .tooltip1 {
+    position: relative;
+  
+  }
+
+  /* Tooltip text */
+  .tooltip1 .tooltiptext1 {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 1px;
+    position: fixed;
+    z-index: 1;
+  }
+
+  .tooltip1:hover .tooltiptext1 {
+    visibility: visible;
+  }
+
 </style>

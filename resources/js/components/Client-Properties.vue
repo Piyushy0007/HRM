@@ -1,100 +1,93 @@
 <template>
   <div class="c-employee-index client-table">
-
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
-      <div class="flex " style="justify-content: space-between;">
-        <h1 class="mb-4">Properties</h1>
+    <div class="p-4 max-w-7xl mx-auto h-screen flex flex-col " style=" margin-left: 240px;">
+      <div class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg mb-5 ">
+        <p class="text-3xl">Properties</p>
         <button class="add-blue-button"  @click="create('create')" >Create new property</button>
-        <!-- <button class="add-blue-button" @click="addclient()">Create new property</button> -->
       </div>
-        <div class="flex">
-          <div class="w-full flex md:w-1/10">
-         
-          <div class="w-full md:w-1/4 pr-3 mt-4 mb-4">
-            <div class="relative">
-              <select  id="location" @change="selectLocation()"  class="height-36 block appearance-none w-full py-1 px-4 pr-8 rounded-10 leading-tight focus:outline-none">
-               <option value="">All Locations</option>
-               <option v-for="loc,index in alllocation" :key="index+loc" >{{loc}}</option>
-               
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+      <div class="flex flex-col bg-white p-4 shadow-md rounded-lg mb-4">
+        <div class="flex flex-col md:flex-row w-full gap-2 items-stretch ">
+          <div class="w-full md:w-1/2 flex flex-col md:flex-row mb-4">
+            <div class="w-full md:w-1/2 pr-3 mb-4">
+              <div class="relative">
+                <select  id="location" @change="selectLocation()" class="w-full border border-gray-300 rounded px-2 py-2 focus:outline-none">
+                  <option value="">All Locations</option>
+                  <option v-for="loc,index in alllocation" :key="index+loc" >{{loc}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="w-full md:w-1/2 pr-3 mb-4">
+              <div class="relative">
+                <select id="status" @change="selectStatus()"  class="w-full border border-gray-300 rounded px-2 py-2 focus:outline-none">
+                  <option value="">All Status</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
               </div>
             </div>
           </div>
-          <div class="w-full md:w-1/4 pr-3 mt-4 mb-4">
-            <div class="relative">
-              <select id="status" @change="selectStatus()"  class="block appearance-none w-full py-1 px-4 pr-8 rounded-10 height-36 leading-tight focus:outline-none">
-                <option value="">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-                
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-              </div>
-            </div>
-          </div>
-          <!-- <b-button variant="outline-primary">Filter</b-button> -->
-         </div>
           <div class="w-full md:w-1/2">
-          <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
-            <div class="relative">
-              <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search">
-              <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r ">
-                <font-awesome-icon icon="search" class="fill-current" />
+            <div class="flex items-center flex-grow relative" >
+              <input class="w-full rounded pl-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                style="height: 38px; border: 1px solid #d1d5db;"
+                type="text" 
+                placeholder="Search" 
+                v-model="searchKeyword" @keyup="search"
+              >
+              <div>
+                <font-awesome-icon
+                  icon="search"
+                  class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+                  style="font-size: 20px"
+                />
               </div>
             </div>
           </div>
-          </div>
-         
-           </div>
-      <table class="w-full property-table-list">
-        <thead>
-          <tr>
-           <th width="15%" class="text-left heading-sort">Property Name <b-icon-arrow-down-up @click="namesort()" /></th>
-           <th width="20%" class="text-left">Location</th>
-           <th width="10%" class="text-left">Community Name</th>
-           <th width="10%" class="text-left heading-sort">Email </th>
-           <th width="10%" class="text-left">Contact Number</th>
-           <!-- <th class="text-center">Username</th> -->
-           <th width="20%" class="text-left">Date Registered</th>
-           <th width="5%" class="text-left">Status</th>
-           <th width="5%" class="text-left"></th>
-           <th width="5%" class="text-left"></th>
-          </tr>
-        </thead>
-        
+        </div>
+        <table class="w-full property-table-list">
+          <thead>
+            <tr>
+              <th width="15%" class="text-left py-3 px-4 text-blue-600 heading-sort">Property Name <b-icon-arrow-down-up @click="namesort()" /></th>
+              <th width="20%" class="text-left py-3 px-4 text-blue-600">Location</th>
+              <th width="10%" class="text-left py-3 px-4 text-blue-600">Community Name</th>
+              <th width="10%" class="text-left py-3 px-4 text-blue-600 heading-sort">Email </th>
+              <th width="10%" class="text-left py-3 px-4 text-blue-600">Contact Number</th>
+              <!-- <th class="text-center">Username</th> -->
+              <th width="20%" class="text-left py-3 px-4 text-blue-600">Date Registered</th>
+              <th width="5%" class="text-left py-3 px-4 text-blue-600">Status</th>
+              <th width="5%" class="text-left"></th>
+              <th width="5%" class="text-left"></th>
+            </tr>
+          </thead>
         <tbody >
           <template v-if="propertiesdata.length != 0">
-          <tr v-for="(data) in propertiesdata" :key="data.id">
-           
-            <td class="text-left text-transform-capitalise">{{ data.name || '-'}}  </td>
-            <td class="text-left location">{{data.address ? data.address : '-'}}</td>
-            <td class="text-left text-transform-capitalise">{{ data.client ? data.client.clientname : '-'}} </td>
-            <td class="text-left">{{ data.client ? data.client.email : '' }}</td>
-            <td class="text-left">{{ data.client ? data.client.phone : '-' }}</td>
-            <!-- <td class="text-center">{{ data.name }}</td> -->
-            <td class="text-left" v-if="data.created_at">{{data.created_at  | moment('MM/DD/YYYY') }}</td>
-            <td class="text-left" v-else>-</td>
-            <td :class="data.status == 'active' ? 'active text-center' : 'inactive text-center'" >{{ data.status ? data.status : '-' }}</td>
-            <td class="text-left"   @click="create('edit', data)" ><b-button class="m-3" variant="success"> <font-awesome-icon icon="pencil-alt"  class="text-gray-500 font-size-24"  /></b-button></td>
-            <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
-           
-          </tr>
-           </template>
-            <template v-else>
-              No Records Found
-            </template>
+            <tr v-for="(data) in propertiesdata" :key="data.id">
+              <td class="text-left text-transform-capitalise">{{ data.name || '-'}}  </td>
+              <td class="text-left location">{{data.address ? data.address : '-'}}</td>
+              <td class="text-left text-transform-capitalise">{{ data.client ? data.client.clientname : '-'}} </td>
+              <td class="text-left">{{ data.client ? data.client.email : '' }}</td>
+              <td class="text-left">{{ data.client ? data.client.phone : '-' }}</td>
+              <!-- <td class="text-center">{{ data.name }}</td> -->
+              <td class="text-left" v-if="data.created_at">{{data.created_at  | moment('MM/DD/YYYY') }}</td>
+              <td class="text-left" v-else>-</td>
+              <td :class="data.status == 'active' ? 'active text-center' : 'inactive text-center'" >{{ data.status ? data.status : '-' }}</td>
+              <td class="text-left"   @click="create('edit', data)" ><b-button class="m-3" variant="success"> <font-awesome-icon icon="pencil-alt"  class="text-gray-500 font-size-24"  /></b-button></td>
+              <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
+            </tr>
+          </template>
+          <template v-else>
+            No Records Found
+          </template>
         </tbody>
       </table>
     </div>
-      <modal v-model="modal.geoLoc1" size="md:w-7/12" :title="updateprop ? 'Update Property' : 'Create Property'">
-      <ValidationObserver v-slot="{ handleSubmit }">
-        <form @submit.prevent="handleSubmit(propertyModel1())" ref="frmpropertymodel1" novalidate>
-    		  <div class=" px-4 mb-4 mt-4" style="">
-            <!-- <template v-if="updateprop">
+  </div>
+  <modal v-model="modal.geoLoc1" size="md:w-7/12" :title="updateprop ? 'Update Property' : 'Create Property'">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form @submit.prevent="handleSubmit(propertyModel1())" ref="frmpropertymodel1" novalidate>
+    		<div class=" px-4 mb-4 mt-4">
+          <!-- <template v-if="updateprop">
                <div class="flex" style="display:flex;">
             <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
       				<div class=" md:items-center">
@@ -129,125 +122,89 @@
              
             </div>
             </template> -->
-            <template>
-               <div class="flex" style="display:flex;">
+          <template>
+            <div class="flex" style="display:flex;">
               <template v-if="!updateprop">
-            <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Community<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-                <select style="appearance:menulist;" class="block appearance-none w-full py-1 px-4 pr-8 rounded-10 height-41 leading-tight focus:outline-none" v-model="modal.geoloc.clientid" @change="clientselected">
-                  <option value="">Select Community</option>  
-                  <option :value="data.id" v-for="data in clientlist" :key="data.id">{{ data.clientname }}</option>
-                </select>
-        					
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
+                <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Community<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <select style="appearance:menulist;" class="block appearance-none w-full py-1 px-4 pr-8 rounded-10 height-41 leading-tight focus:outline-none" v-model="modal.geoloc.clientid" @change="clientselected">
+                        <option value="">Select Community</option>  
+                        <option :value="data.id" v-for="data in clientlist" :key="data.id">{{ data.clientname }}</option>
+                      </select>        					
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
               </template>
-            <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Property Name<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.geoloc.propertyname">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
+              <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
+                <div class=" md:items-center">
+                  <div class="md:w-4/4">
+                    <label class="block mb-1 md:mb-0 pr-4">Property Name<span class="req_form_fields">*</span></label>
+                  </div>
+                  <div class="md:w-4/4">
+                    <input class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.geoloc.propertyname">
+                  </div>
                 </div>
-              </div>
-            </ValidationProvider>
-             
-            <ValidationProvider rules="required" v-slot="v"  class=" m-3" style="display:block; width:47%;">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Property Address<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input id="pac-input" class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" >
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
+                <div class="md:flex md:items-center mb-1">
+                  <div class="md:w-3/4">
+                    <small class="text-red-600">{{ v.errors[0] }}</small>
+                  </div>
                 </div>
-              </div>
-            </ValidationProvider>
+              </ValidationProvider>
+              <ValidationProvider rules="required" v-slot="v"  class=" m-3" style="display:block; width:47%;">
+                <div class=" md:items-center">
+                  <div class="md:w-4/4">
+                    <label class="block mb-1 md:mb-0 pr-4">Property Address<span class="req_form_fields">*</span></label>
+                  </div>
+                  <div class="md:w-4/4">
+                    <input id="pac-input" class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" >
+                  </div>
+                </div>
+                <div class="md:flex md:items-center mb-1">
+                  <div class="md:w-3/4">
+                    <small class="text-red-600">{{ v.errors[0] }}</small>
+                  </div>
+                </div>
+              </ValidationProvider>
             </div>
-
-            </template>
-           
-            <div class="d-flex">
-              <div id="map"></div>
-               <b-button v-if="resettrue"
-                class="m-3 text-center"
-                style="border: 1px solid black"
-                @click="resetCoordinates()"
-                >Reset</b-button>
-            </div>
-    		  </div>
-    		  <!-- ================================= ./Contact ================================= -->
-          <div class="text-center mt-2 mb-2">
-            	<span  v-if="resettrue" class="text-white py-3 px-12 rounded-full  bg-custom-primary" @click="close()">
-               <span>Cancel</span>
-            </span>
-    				<button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">Save</button>
+          </template>
+          <div class="d-flex">
+            <div id="map"></div>
+            <b-button v-if="resettrue"
+              class="m-3 text-center"
+              style="border: 1px solid black"
+              @click="resetCoordinates()">
+              Reset
+            </b-button>
           </div>
-        </form>
-      </ValidationObserver>
-    </modal>
+    		</div>
+    		<!-- ================================= ./Contact ================================= -->
+        <div class="text-center mt-2 mb-2">
+          <span  v-if="resettrue" class="text-white py-3 px-12 rounded-full  bg-custom-primary" @click="close()">
+            <span>Cancel</span>
+          </span>
+          <button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">Save</button>
+        </div>
+      </form>
+    </ValidationObserver>
+  </modal>
   </div>
 </template>
-<style lang="scss" scoped>
-.property-table-list {
-  thead{
-    tr{
-      th{
-         padding: 1px 0px 1px 25px;
-      }
-    }
-  }
-  tbody{
-    tr{
-      td.location{
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 200px;
-        padding: 1px 0px 1px 25px;
-      }
-      td{
-        padding: 1px 0px 1px 25px;
-      }
-    }
-  }
-}
-#map {
-  width: 100%;
-  height: 300px;
-}
-table td:first-child {
-    background: none !important;
-}
-</style>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfX422PdA9Yy6GOf4HeRBRTtfoz-AGQdU&callback=initMap&libraries=drawing,places&v=weekly"></script>
 <script src="https://maps.google.com/maps/api/js?libraries=places,drawing&key=AIzaSyDfX422PdA9Yy6GOf4HeRBRTtfoz-AGQdU"></script>
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
 <script>
-
 import Modal from './shared/Modal'
 import Loader from './shared/Loader'
 import axios from 'axios'
@@ -257,11 +214,9 @@ import 'vue2-datepicker/index.css'
 import draggable from 'vuedraggable'
 // import { BModal, VBModal } from 'bootstrap-vue'
 import { BButton } from 'bootstrap-vue'
-
   const removeAllSelections = () => {
     window.getSelection().removeAllRanges()
   }
-
   const selectContent = element => {
     let range = document.createRange()
     range.selectNode(element)
@@ -270,14 +225,12 @@ import { BButton } from 'bootstrap-vue'
     document.execCommand('copy')
     removeAllSelections();
   }
-
   const copySelection = () => {
     setTimeout(() => {
       document.execCommand('copy')
       removeAllSelections()
     })
   }
-
 export default {
 	components: {
 		Modal,
@@ -409,7 +362,6 @@ export default {
     modalEmployeeName() {
       return this.modal.reqEditEmployee.firstname + ' ' + this.modal.reqEditEmployee.lastname
     },
-
     // ids of selected employees
     BulkIDS(){
       let ids= [];
@@ -1930,4 +1882,34 @@ export default {
 
 <style lang="scss" scoped>
 	@import '../../sass/employees';
+  .property-table-list {
+    thead{
+      tr{
+        th{
+           padding: 1px 0px 1px 25px;
+        }
+      }
+    }
+    tbody{
+      tr{
+        td.location{
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 200px;
+          padding: 1px 0px 1px 25px;
+        }
+        td{
+          padding: 1px 0px 1px 25px;
+        }
+      }
+    }
+  }
+  #map {
+    width: 100%;
+    height: 300px;
+  }
+  table td:first-child {
+      background: none !important;
+  }
 </style>

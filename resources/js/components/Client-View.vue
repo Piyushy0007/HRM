@@ -1,683 +1,660 @@
 <template>
-  <div class="c-employee-index clientview-table">
+  <div>
     <Loader msg="Processing ..." v-model="isLoader" />
-    
-    <div class="w-5/6 flex mx-auto mt-5">
-    <b-alert  variant="success">Password copied successfully </b-alert>
-      <div class="w-2/6 mr-3">
-        <div class="rounded-lg" v-show="!readonlyprofile">
-          <div class="section1 flex" style="justify-content: space-evenly;">
-            <div class="info my-3" style="display:grid;">
-            <label>Cover Image</label>
-           <!-- <img class="b-avatar-img-class" :src="this.image ? properties.image : 'https://placekitten.com/300/300'"/> -->
-            <b-avatar
-              badge
-              badge-variant="dark"
-              :src="this.logo"
-              size="6rem"
-              v-show="show_default_logo"
-            >
-              <template #badge>
-                <input type='file' accept="image/*" id='fileInput21' name='fileInput21'  @change="Logo_onFileChanged">
-                  <label class="m-0" for="fileInput21" slot="upload-label">
-                  <b-icon class="blue-bicon" icon="camera"></b-icon> 
-                </label>
-              </template>
-            </b-avatar>
-            <b-avatar
-              v-show="hide_default_logo"
-              badge
-              badge-variant="light"
-              :src="this.logo"
-              size="6rem"
-              
-            >
-              <template #badge>     
-                <input type='file' accept="image/*" id='fileInput31' name='fileInput31'  @change="Logo_onFileChanged">
-                  <label class="m-0" for="fileInput31" slot="upload-label">
-                  <b-icon class="blue-bicon" icon="camera"></b-icon> 
-                </label>
-              </template>
-            </b-avatar>
-            </div>
-            <div class="info my-3" style="display:grid;">
-              <label>Profile Image</label>
-           <!-- <img class="b-avatar-img-class" :src="this.image ? properties.image : 'https://placekitten.com/300/300'"/> -->
-            <b-avatar
-              badge
-              badge-variant="dark"
-              :src="this.image"
-              size="6rem"
-              v-show="show_default_img"
-            >
-              <template #badge>
-                <input type='file' accept="image/*" id='fileInput2' name='fileInput2'  @change="Profile_onFileChanged">
-                  <label class="m-0" for="fileInput2" slot="upload-label">
-                  <b-icon class="blue-bicon" icon="camera"></b-icon> 
-                </label>
-              </template>
-            </b-avatar>
-            <b-avatar
-              v-show="hide_default_img"
-              badge
-              badge-variant="light"
-              :src="this.image"
-              size="6rem"
-              
-            >
-              <template #badge>     
-                <input type='file' accept="image/*" id='fileInput3' name='fileInput3'  @change="Profile_onFileChanged">
-                  <label class="m-0" for="fileInput3" slot="upload-label">
-                  <b-icon class="blue-bicon" icon="camera"></b-icon> 
-                </label>
-              </template>
-            </b-avatar>
-            </div>
-             </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Name of Client</h6>
-             <input class="appearance-none block w-full rounded py-1 mt-2 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.clientname">
-             <!-- <input class="appearance-none block w-full rounded py-1 mt-2 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.company"> -->
-      			<input type="hidden" v-model="modal.editClient.id">
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Name of Contact</h6>
-              <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.contactname">
-              
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Phone Number</h6>
-              <!-- <div class="info m-3"> -->
-             <!-- <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.phone"> -->
-             	<input id="textbox" class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.phone" @input="acceptNumber">   
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Email Address </h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.email">
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Zipcode </h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.zip">
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Police Email Address </h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.police_email">
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Location </h6>
-              <!-- <div class="info m-3"> -->
-             <input id="pac-input1" class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text">
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Password</h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="password" v-model="modal.editClient.password">
-            </div>
-
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Confirm Password</h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="password" v-model="modal.editClient.confirmpassword">
-            </div>
-
-
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Website</h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.website">
-             <input  type="hidden" v-model="modal.editClient.state">
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Job Title</h6>
-              <!-- <div class="info m-3"> -->
-             <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.job_title">
-            </div>
-            <div class="section2 mt-5 mb-3">
-                <button style="display: flex; padding: 10px 10px;width: 150px;" class="add-purple-button" @click="saveProfile(properties)"><b-icon-pencil-square style="margin: 3px 9px;" /> Save Profile</button>
-            </div>
-        </div>
-        <div class="rounded-lg" v-show="readonlyprofile">
-          <div class="section1">
-            <div class="info my-3">
-             <img v-if="logo" class="b-avatar-logo-class" :src="logo" />
-             <img v-else-if="properties.client_background_logo" class="b-avatar-logo-class" :src="currentpath+'/storage/'+properties.client_background_logo" />
-            </div>
-            <div class="info my-3">
-            <!-- <b-avatar
-              :src="this.currentpath+'/storage/'+properties.client_image"
-              size="6rem"
-            >
-            </b-avatar> -->
-             <img v-if="image" class="b-avatar-img-class" :src="image" />
-             <img v-else-if="properties.client_image" class="b-avatar-img-class" :src="currentpath+'/storage/'+properties.client_image" />
-            </div>
-             </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Name of Client</h6>
-           
-              <h6 class="h6-label textcap">
-                {{ properties.clientname || "-" }}
-               
+    <div  style="margin-left: 242px;">
+      <div class="p-4 max-w-7xl mx-auto h-screen">
+      <b-alert  variant="success">Password copied successfully </b-alert>
+      <div class="flex md:flex-row flex-col justify-center w-full">
+        <div class=" w-full md:w-1/2 flex justify-center bg-white p-4 shadow-md rounded-lg mb-5">
+          <div class="rounded-lg " style="width: 80%;" v-show="!readonlyprofile">
+            <div class="section1 flex" style="justify-content: space-evenly;">
+              <div class="info my-3" style="display:grid;">
+              <label>Cover Image</label>
+             <!-- <img class="b-avatar-img-class" :src="this.image ? properties.image : 'https://placekitten.com/300/300'"/> -->
+              <b-avatar
+                badge
+                badge-variant="dark"
+                :src="this.logo"
+                size="6rem"
+                v-show="show_default_logo"
+              >
+                <template #badge>
+                  <input type='file' accept="image/*" id='fileInput21' name='fileInput21'  @change="Logo_onFileChanged">
+                    <label class="m-0" for="fileInput21" slot="upload-label">
+                    <b-icon class="blue-bicon" icon="camera"></b-icon> 
+                  </label>
+                </template>
+              </b-avatar>
+              <b-avatar
+                v-show="hide_default_logo"
+                badge
+                badge-variant="light"
+                :src="this.logo"
+                size="6rem"
                 
-              </h6>
-              <!-- <h6 class="h6-label textcap">
-                {{ properties.company ?  properties.company :'-' }}
-               
-              </h6> -->
-             
-           
-               <!-- <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
-                  <b-form-input
-                    style="border: none;background: no-repeat;margin: 10px 10px;"
-                    type="text"
-                   :value=" properties.email"
-                  >
-                  </b-form-input>
-                </b-input-group> -->
+              >
+                <template #badge>     
+                  <input type='file' accept="image/*" id='fileInput31' name='fileInput31'  @change="Logo_onFileChanged">
+                    <label class="m-0" for="fileInput31" slot="upload-label">
+                    <b-icon class="blue-bicon" icon="camera"></b-icon> 
+                  </label>
+                </template>
+              </b-avatar>
+              </div>
+              <div class="info my-3" style="display:grid;">
+                <label>Profile Image</label>
+             <!-- <img class="b-avatar-img-class" :src="this.image ? properties.image : 'https://placekitten.com/300/300'"/> -->
+              <b-avatar
+                badge
+                badge-variant="dark"
+                :src="this.image"
+                size="6rem"
+                v-show="show_default_img"
+              >
+                <template #badge>
+                  <input type='file' accept="image/*" id='fileInput2' name='fileInput2'  @change="Profile_onFileChanged">
+                    <label class="m-0" for="fileInput2" slot="upload-label">
+                    <b-icon class="blue-bicon" icon="camera"></b-icon> 
+                  </label>
+                </template>
+              </b-avatar>
+              <b-avatar
+                v-show="hide_default_img"
+                badge
+                badge-variant="light"
+                :src="this.image"
+                size="6rem"
+                
+              >
+                <template #badge>     
+                  <input type='file' accept="image/*" id='fileInput3' name='fileInput3'  @change="Profile_onFileChanged">
+                    <label class="m-0" for="fileInput3" slot="upload-label">
+                    <b-icon class="blue-bicon" icon="camera"></b-icon> 
+                  </label>
+                </template>
+              </b-avatar>
+              </div>
+               </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700 ">Name of Client:</h6>
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" v-model="modal.editClient.clientname">
+               <!-- <input class="appearance-none block w-full rounded py-1 mt-2 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.company"> -->
+              <input type="hidden" v-model="modal.editClient.id">
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700 ">Name of Contact:</h6>
+                <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" v-model="modal.editClient.contactname">
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700" style="min-width: 120px;">Phone Number: </h6>
+                 <input 
+                  id="textbox" 
+                  class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                  type="text" 
+                  style="max-width: 400px;"
+                  v-model="modal.editClient.phone" @input="acceptNumber">   
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700 ">Email Address:</h6>
+                <input 
+                  type="text" 
+                  v-model="modal.editClient.email" 
+                  placeholder="Enter your email"
+                  class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700 ">Zipcode: </h6>
+                <!-- <div class="info m-3"> -->
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" v-model="modal.editClient.zip">
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700">Police Email Address: </h6>
+                <!-- <div class="info m-3"> -->
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" v-model="modal.editClient.police_email">
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700 ">Location: </h6>
+                <!-- <div class="info m-3"> -->
+               <input id="pac-input1" class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text">
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700 ">Password: </h6>
+                <!-- <div class="info m-3"> -->
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="password" v-model="modal.editClient.password">
+              </div>
+  
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700">Confirm Password:</h6>
+                <!-- <div class="info m-3"> -->
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="password" v-model="modal.editClient.confirmpassword">
+              </div>
+  
+  
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700">Website: </h6>
+                <!-- <div class="info m-3"> -->
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" v-model="modal.editClient.website">
+               <input  type="hidden" v-model="modal.editClient.state">
+              </div>
+              <div class="section2 mt-3 flex flex-col">
+                <h6 class="text-lg text-gray-700">Job Title: </h6>
+                <!-- <div class="info m-3"> -->
+               <input class="flex-grow border border-gray-300 rounded-md p-1 focus:ring-2 focus:ring-blue-500 focus:border-blue-500" type="text" v-model="modal.editClient.job_title">
+              </div>
+              <div class="section2 mt-5 mb-3 flex justify-center">
+                  <button style="display: flex; padding: 10px 10px;width: 150px;" class="add-purple-button" @click="saveProfile(properties)"><b-icon-pencil-square style="margin: 3px 9px;" /> Save Profile</button>
+              </div>
+          </div>
+          <div class=" rounded-md" style="width: 80%;" v-show="readonlyprofile">
+            <div class="section1 ">
+              <div class="info my-3">
+               <img v-if="logo" class="b-avatar-logo-class" :src="logo" />
+               <img v-else-if="properties.client_background_logo" class="b-avatar-logo-class" :src="currentpath+'/storage/'+properties.client_background_logo" />
+              </div>
+              <div class="info my-3">
+               <img v-if="image" class="b-avatar-img-class" :src="image" />
+               <img v-else-if="properties.client_image" class="b-avatar-img-class" :src="currentpath+'/storage/'+properties.client_image" />
+              </div>
             </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Name of Contact</h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label textcap">
-               {{ properties.contactname || "-" }}
-              </h6>
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Phone Number</h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.phone || "-" }}
-              </h6>
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Email Address </h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.email || "-" }}
-              </h6>
-            </div>
-
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Zipcode</h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.zip || "-" }}
-              </h6>
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Police Email Address </h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.police_email || "-" }}
-              </h6>
-            </div>
-
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Location</h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.address || "-" }}
-              </h6>
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Website</h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.website  || "-" }}
-              </h6>
-            </div>
-            <div class="section2 mt-3 mb-3">
-              <h6 class="h6-heading">Job Title</h6>
-              <!-- <div class="info m-3"> -->
-              <h6 class="h6-label">
-                {{ properties.job_title || "-" }}
-              </h6>
-            </div>
-            <div class="section2 mt-5 mb-3">
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Name of Client:</h6>
+                <h6 class="h6-label textcap">
+                  {{ properties.clientname || "-" }}             
+                </h6>
+                  <!-- <h6 class="h6-label textcap">
+                    {{ properties.company ?  properties.company :'-' }}
+                  </h6> -->          
+                 <!-- <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
+                    <b-form-input
+                      style="border: none;background: no-repeat;margin: 10px 10px;"
+                      type="text"
+                     :value=" properties.email"
+                    >
+                    </b-form-input>
+                  </b-input-group> -->
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Name of Contact:</h6>
+                <h6 class="h6-label textcap">
+                 {{ properties.contactname || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Phone Number:</h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.phone || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Email Address: </h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.email || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Zipcode:</h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.zip || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Police Email Address: </h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.police_email || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Location:</h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.address || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Website:</h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.website  || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-3 mb-3 flex items-center gap-2">
+                <h6 class="h6-heading">Job Title:</h6>
+                <!-- <div class="info m-3"> -->
+                <h6 class="h6-label">
+                  {{ properties.job_title || "---" }}
+                </h6>
+              </div>
+              <div class="section2 mt-5 mb-3 flex justify-center">
                 <button style="display: flex; padding: 10px 30px; width:190px;" class="add-purple-button" @click="editProfile(properties)"><b-icon-pencil-square style="margin: 3px 5px;" /> Edit Profile</button>
-               
-            </div>
-
-
-
-
-
-
-
-
-
-            <!-- <div class="section3 mt-3 mb-3 flex">
-              <b-button class="col-md-4 generate-password" @click="generate_temporary_password()" pill variant="outline-secondary"
-                >Generate Temporary Password</b-button
-              >
-              <div class="col-md-8 pr-0">
-                <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
-                  <b-form-input
-                    style="
-                      border: none;
-                      border-radius: 20px;
-                      background: no-repeat;
-                      margin: 10px 10px;
-                    "
-                    type="text"
-                    readonly
-                    v-model="properties.password"
-                  >
-                  </b-form-input>
-                  <b-input-group-append
-                    style="border: none; border-radius: 20px"
-                  >
-                    <b-button
-                    v-clipboard:copy="properties.password"
-                    v-clipboard:success="onCopy"
-                   
+              </div>
+              <!-- <div class="section3 mt-3 mb-3 flex">
+                <b-button class="col-md-4 generate-password" @click="generate_temporary_password()" pill variant="outline-secondary"
+                  >Generate Temporary Password</b-button
+                >
+                <div class="col-md-8 pr-0">
+                  <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
+                    <b-form-input
                       style="
-                        border: 1px solid #302369;
-                        margin: 8px 8px;
+                        border: none;
                         border-radius: 20px;
-                        background: #302369;
-                        color: #ffffff;
+                        background: no-repeat;
+                        margin: 10px 10px;
                       "
-                      variant="outline-secondary"
-                      >Copy to clipboard</b-button
+                      type="text"
+                      readonly
+                      v-model="properties.password"
                     >
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-            </div>
-            <div class="section4 mt-3 mb-3">
-              <h6>Office/Business Address</h6>
-              <div class="col-md-12 pr-0 pl-0 mt-3 mb-3">
-                <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
-                  <b-form-input
-                    style="
-                      border: none;
-
-                      background: no-repeat;
-                      margin: 10px 10px;
-                    "
-                    type="text"
-                    readonly
-                    :value=" properties.property
-                    ? properties.property.address
-                    : 'abc address'"
-                  >
-                  </b-form-input>
-                  <b-input-group-append
-                    style="border: none; border-radius: 20px"
-                  >
-                    <b-button
+                    </b-form-input>
+                    <b-input-group-append
                       style="border: none; border-radius: 20px"
-                      variant="outline-secondary"
-                      >GPS Coordinates: 41°24'12.2″N</b-button
                     >
-                  </b-input-group-append>
-                </b-input-group>
+                      <b-button
+                      v-clipboard:copy="properties.password"
+                      v-clipboard:success="onCopy"
+                     
+                        style="
+                          border: 1px solid #302369;
+                          margin: 8px 8px;
+                          border-radius: 20px;
+                          background: #302369;
+                          color: #ffffff;
+                        "
+                        variant="outline-secondary"
+                        >Copy to clipboard</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </div>
               </div>
-
-              <h6>Latitude boundary</h6>
-              <div class="col-md-12 pr-0 pl-0 mt-3 mb-3">
-                <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
-                  <b-form-input
-                    style="
-                      border: none;
-
-                      background: no-repeat;
-                      margin: 10px 10px;
-                    "
-                    type="text"
-                    readonly
-                    :value=" properties.property
-                    ? properties.property.lat
-                    : '-'"
-                  >
-                  </b-form-input>
-                  <b-input-group-append
-                    style="border: none; border-radius: 20px; width: 10%"
-                  >
-                    <b-icon
-                      font-scale="1.5"
-                      icon="geo-alt-fill"
+              <div class="section4 mt-3 mb-3">
+                <h6>Office/Business Address</h6>
+                <div class="col-md-12 pr-0 pl-0 mt-3 mb-3">
+                  <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
+                    <b-form-input
                       style="
-                        margin: auto;
-                        text-align: center;
-                        vertical-align: middle;
-                        color: rgb(48, 35, 105);
-                        font-size: 20px;
+                        border: none;
+  
+                        background: no-repeat;
+                        margin: 10px 10px;
                       "
-                    />
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-
-              <h6>Longitude boundary</h6>
-              <div class="col-md-12 pr-0 pl-0 mt-3 mb-3">
-                <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
-                  <b-form-input
-                    style="
-                      border: none;
-
-                      background: no-repeat;
-                      margin: 10px 10px;
-                    "
-                    type="text"
-                    readonly
-                   :value=" properties.property
-                    ? properties.property.long
-                    : '-'"
-                  >
-                  </b-form-input>
-                  <b-input-group-append
-                    style="border: none; border-radius: 20px; width: 10%"
-                  >
-                   
-                    <b-icon
-                      font-scale="1.5"
-                      icon="geo-alt-fill"
+                      type="text"
+                      readonly
+                      :value=" properties.property
+                      ? properties.property.address
+                      : 'abc address'"
+                    >
+                    </b-form-input>
+                    <b-input-group-append
+                      style="border: none; border-radius: 20px"
+                    >
+                      <b-button
+                        style="border: none; border-radius: 20px"
+                        variant="outline-secondary"
+                        >GPS Coordinates: 41°24'12.2″N</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </div>
+  
+                <h6>Latitude boundary</h6>
+                <div class="col-md-12 pr-0 pl-0 mt-3 mb-3">
+                  <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
+                    <b-form-input
                       style="
-                        margin: auto;
-                        text-align: center;
-                        vertical-align: middle;
-                        color: rgb(48, 35, 105);
-                        font-size: 20px;
+                        border: none;
+  
+                        background: no-repeat;
+                        margin: 10px 10px;
                       "
-                    />
-                  </b-input-group-append>
-                </b-input-group>
-              </div>
-              <h6>
-                Trigger push notification to officer mobile app when officer on
-                shift and perimeter is violated
-              </h6>
-              <b-form-checkbox
-                class="switch-check"
-                size="lg"
-                v-model="properties.switch"
-                name="check-button"
-                switch
-                button-variant="info"
-              >
-              </b-form-checkbox>
-            </div> -->
-         
-        </div>
-      </div>
-      <div class="w-4/6 mr-3">
-        <!-- <div class="rounded-lg p-4">
-          <div class="container">
-            <div id="map"></div>
-            <form action="" method="POST" id="map-form">
-              <div class="col-sm-6">
-                <input type="hidden" name="coords" id="map-coords" value="" />
-
-                <input @click="saveCoordinates()" type="submit" value="Save"/>
-                <input type="button" value="Reset" id="reset"/>
-              </div>
-            </form>
-          </div>
-        </div> -->
-          <div class="px-4 pb-4 table-width-full">
-      <div class="flex " style="justify-content: space-between;">
-        <h1 class="mb-4">Properties</h1>
-      </div>
-       <template>
-           <table class="w-full property-table-list">
-        <thead>
-          <tr>
-           <th class="text-center">Property Name</th>
-           <th class="text-center">Location</th>
-           <th class="text-center">Status</th>
-           <!-- <th class="text-center"></th> -->
-           <th class="text-center"></th>
-           <th class="text-center"></th>
-          </tr>
-        </thead>
-        
-        <tbody >
-          <template v-if="properties.property.length != 0">
-          <tr v-for="(data) in properties.property" :key="data.id">
-            <td class="text-center text-transform-capitalise">{{ data.name || '-'}}</td>
-            <td class="text-center">{{data.address ? data.address : '-'}}</td>
-            <td :class="data.status == 'active' ? 'active text-center' : 'inactive text-center'" >{{ data.status ? data.status : '-' }}</td>
-            <td class="text-center"  @click='openView(data)' > <font-awesome-icon icon="pencil-alt"  class="text-gray-500 m-3 font-size-24"  /></td>
-            <td class="text-center" @click='deleteView(data)' ><font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 m-3 font-size-24" /></td>
-          </tr>
-            </template>
-          <template  v-else>
-            <tr> 
-              <td class="m-2 pl-3">No Records Found</td> 
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-             
-          </template>
-        </tbody>
-      </table>
-       </template>
-      
-    
-    </div>
-      </div>
-    </div>
-
-
-    <modal v-model="modal.geoLoc" size="md:w-7/12" :title="updateprop ? 'Update Property' : 'Create Property'">
-      <ValidationObserver v-slot="{ handleSubmit }">
-        <form @submit.prevent="handleSubmit(propertyModel())" ref="frmpropertymodel" novalidate>
-    		  <div class=" px-4 mb-4 mt-4">
-            <div class="flex" style="display:flex;">
-            
-            <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Property Name<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.geoloc.propertyname">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
+                      type="text"
+                      readonly
+                      :value=" properties.property
+                      ? properties.property.lat
+                      : '-'"
+                    >
+                    </b-form-input>
+                    <b-input-group-append
+                      style="border: none; border-radius: 20px; width: 10%"
+                    >
+                      <b-icon
+                        font-scale="1.5"
+                        icon="geo-alt-fill"
+                        style="
+                          margin: auto;
+                          text-align: center;
+                          vertical-align: middle;
+                          color: rgb(48, 35, 105);
+                          font-size: 20px;
+                        "
+                      />
+                    </b-input-group-append>
+                  </b-input-group>
                 </div>
-              </div>
-            </ValidationProvider>
-            
-            <ValidationProvider rules="required" v-slot="v"  class=" md:w-6/12 m-3" style="display:block;">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Property Address<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input id="pac-input" class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
+  
+                <h6>Longitude boundary</h6>
+                <div class="col-md-12 pr-0 pl-0 mt-3 mb-3">
+                  <b-input-group style="border: 1px solid #DEDEDE; border-radius: 20px">
+                    <b-form-input
+                      style="
+                        border: none;
+  
+                        background: no-repeat;
+                        margin: 10px 10px;
+                      "
+                      type="text"
+                      readonly
+                     :value=" properties.property
+                      ? properties.property.long
+                      : '-'"
+                    >
+                    </b-form-input>
+                    <b-input-group-append
+                      style="border: none; border-radius: 20px; width: 10%"
+                    >
+                     
+                      <b-icon
+                        font-scale="1.5"
+                        icon="geo-alt-fill"
+                        style="
+                          margin: auto;
+                          text-align: center;
+                          vertical-align: middle;
+                          color: rgb(48, 35, 105);
+                          font-size: 20px;
+                        "
+                      />
+                    </b-input-group-append>
+                  </b-input-group>
                 </div>
-              </div>
-            </ValidationProvider>
-             
-            </div>
-            <div class="d-flex">
-              <div id="map"></div>
-               <b-button v-if="resettrue"
-                class="m-3 text-center"
-                style="border: 1px solid black"
-                @click="resetCoordinates()"
-                >Reset</b-button
-              >
-            </div>
-    		  </div>
-    		  <!-- ================================= ./Contact ================================= -->
-          <div class="text-center mt-2 mb-2">
-    				<span  v-if="resettrue" class="text-white py-3 px-12 rounded-full  bg-custom-primary" @click="close()">
-               <span>Cancel</span>
-             
-            </span>
-    				<button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">
-               <span>Save</span>
-             
-            </button>
-          </div>
-        </form>
-      </ValidationObserver>
-    </modal>
-      <modal v-model="modal.editclient" class="modal-add-new-employee" size="md:w-5/12" title="Edit Client">
-      <ValidationObserver v-slot="{ handleSubmit }">
-        <form @submit.prevent="handleSubmit(storeEmployee('edit'))" ref="frmeditclient" novalidate>
-
-
-    			<!-- ================================= Contact ================================= -->
-    		  <div class=" px-4 mb-4 mt-4">
-            <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Name of Client<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.clientname">
-      					  	<input type="hidden" v-model="modal.editClient.id">
-                </div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
-            <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Company Name<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.company">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
-            <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Address<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.address">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
-
-            <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Name of contact<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-        					<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.contactname">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-             
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
-
-            <ValidationProvider rules="required" v-slot="v">
-      				<div class="md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Phone Number<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-      						<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.editClient.phone" @keypress="isNumberOnly($event)" maxlength="15">
-      					</div>
-      				</div>
-              <div class="md:flex md:items-center mb-1">
-              
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
-
-             <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Email<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-      						<input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.editClient.email">
-      					</div>
-      				</div>
-
-              <div class="md:flex md:items-center mb-1">
-              
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
-                </div>
-              </div>
-            </ValidationProvider>
-             <ValidationProvider rules="required" v-slot="v">
-      				<div class=" md:items-center">
-      					<div class="md:w-4/4">
-      						<label class="block mb-1 md:mb-0 pr-4">Status(Active/Inactive)<span class="req_form_fields">*</span></label>
-      					</div>
-      					<div class="md:w-4/4">
-                 <b-form-checkbox
+                <h6>
+                  Trigger push notification to officer mobile app when officer on
+                  shift and perimeter is violated
+                </h6>
+                <b-form-checkbox
                   class="switch-check"
                   size="lg"
-                  v-model="modal.editClient.switch"
+                  v-model="properties.switch"
+                  name="check-button"
                   switch
                   button-variant="info"
-                  name='switch'
-                  checked
                 >
-              </b-form-checkbox>
-      						<!-- <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.editClient.email"> -->
-      					</div>
-      				</div>
-
-              <div class="md:flex md:items-center mb-1">
-              
-                <div class="md:w-3/4">
-                  <small class="text-red-600">{{ v.errors[0] }}</small>
+                </b-form-checkbox>
+              </div> -->         
+          </div>
+        </div>
+        <div class="w-full md:w-4/6 mr-3">
+          <!-- <div class="rounded-lg p-4">
+            <div class="container">
+              <div id="map"></div>
+              <form action="" method="POST" id="map-form">
+                <div class="col-sm-6">
+                  <input type="hidden" name="coords" id="map-coords" value="" />
+  
+                  <input @click="saveCoordinates()" type="submit" value="Save"/>
+                  <input type="button" value="Reset" id="reset"/>
+                </div>
+              </form>
+            </div>
+          </div> -->
+          <div class="px-4 pb-4 table-width-full">
+          <div>
+            <h2 class="font-semibold text-lg text-gray-800 bg-white p-4 shadow-md rounded-lg mb-5">Properties</h2>
+          </div>
+          <template>
+            <div class="bg-white shadow-lg rounded-lg">
+              <table class="w-full table-auto">
+                <thead>
+                  <tr>
+                  <th class="text-center py-3 px-4 text-blue-600">Property Name</th>
+                  <th class="text-center py-3 px-4 text-blue-600">Location</th>
+                  <th class="text-center py-3 px-4 text-blue-600">Status</th>
+                  <!-- <th class="text-center"></th> -->
+                  <th class="text-center py-3 px-4 text-blue-600">Edit</th>
+                  <th class="text-center py-3 px-4 text-blue-600">Delete</th>
+                  </tr>
+                </thead>        
+                <tbody >
+                  <template v-if="properties.property.length != 0">
+                  <tr v-for="(data) in properties.property" :key="data.id">
+                    <td class="text-center text-transform-capitalise">{{ data.name || '-'}}</td>
+                    <td class="text-center">{{data.address ? data.address : '-'}}</td>
+                    <td :class="data.status == 'active' ? 'active text-center' : 'inactive text-center'" >{{ data.status ? data.status : '-' }}</td>
+                    <td class="text-center"  @click='openView(data)' > <font-awesome-icon icon="pencil-alt"  class="text-gray-500 m-3 font-size-24"  /></td>
+                    <td class="text-center" @click='deleteView(data)' ><font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 m-3 font-size-24" /></td>
+                  </tr>
+                    </template>
+                  <template  v-else>
+                    <tr> 
+                      <td colspan="5" class="text-center p-4">No Record Found</td> 
+                    </tr>                
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </template>
+          </div>
+        </div>
+  
+      </div>
+        <modal v-model="modal.geoLoc" size="md:w-7/12" :title="updateprop ? 'Update Property' : 'Create Property'">
+          <ValidationObserver v-slot="{ handleSubmit }">
+            <form @submit.prevent="handleSubmit(propertyModel())" ref="frmpropertymodel" novalidate>
+              <div class=" px-4 mb-4 mt-4">
+                <div class="flex" style="display:flex;">
+                
+                <ValidationProvider rules="required" v-slot="v" class=" md:w-6/12 m-3" style="display:block;">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Property Name<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.geoloc.propertyname">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                
+                <ValidationProvider rules="required" v-slot="v"  class=" md:w-6/12 m-3" style="display:block;">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Property Address<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input id="pac-input" class="appearance-none block w-full rounded-10 height-41 py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                 
+                </div>
+                <div class="d-flex">
+                  <div id="map"></div>
+                   <b-button v-if="resettrue"
+                    class="m-3 text-center"
+                    style="border: 1px solid black"
+                    @click="resetCoordinates()"
+                    >Reset</b-button
+                  >
                 </div>
               </div>
-            </ValidationProvider>
-    		  </div>
-    		  <!-- ================================= ./Contact ================================= -->
-          <div class="text-center mt-2 mb-2">
-    				<button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">Save</button>
-          </div>
-
-    		
-        </form>
-      </ValidationObserver>
-		</modal>
+              <!-- ================================= ./Contact ================================= -->
+              <div class="text-center mt-2 mb-2">
+                <span  v-if="resettrue" class="text-white py-3 px-12 rounded-full  bg-custom-primary" @click="close()">
+                   <span>Cancel</span>
+                 
+                </span>
+                <button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">
+                   <span>Save</span>
+                 
+                </button>
+              </div>
+            </form>
+          </ValidationObserver>
+        </modal>
+        <modal v-model="modal.editclient" class="modal-add-new-employee" size="md:w-5/12" title="Edit Client">
+          <ValidationObserver v-slot="{ handleSubmit }">
+            <form @submit.prevent="handleSubmit(storeEmployee('edit'))" ref="frmeditclient" novalidate>
+    
+    
+              <!-- ================================= Contact ================================= -->
+              <div class=" px-4 mb-4 mt-4">
+                <ValidationProvider rules="required" v-slot="v">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Name of Client<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.clientname">
+                        <input type="hidden" v-model="modal.editClient.id">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider rules="required" v-slot="v">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Company Name<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.company">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider rules="required" v-slot="v">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Address<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.address">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+    
+                <ValidationProvider rules="required" v-slot="v">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Name of contact<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.editClient.contactname">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                 
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+    
+                <ValidationProvider rules="required" v-slot="v">
+                  <div class="md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Phone Number<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.editClient.phone" @keypress="isNumberOnly($event)" maxlength="15">
+                    </div>
+                  </div>
+                  <div class="md:flex md:items-center mb-1">
+                  
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+    
+                 <ValidationProvider rules="required" v-slot="v">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Email<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.editClient.email">
+                    </div>
+                  </div>
+    
+                  <div class="md:flex md:items-center mb-1">
+                  
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+                 <ValidationProvider rules="required" v-slot="v">
+                  <div class=" md:items-center">
+                    <div class="md:w-4/4">
+                      <label class="block mb-1 md:mb-0 pr-4">Status(Active/Inactive)<span class="req_form_fields">*</span></label>
+                    </div>
+                    <div class="md:w-4/4">
+                     <b-form-checkbox
+                      class="switch-check"
+                      size="lg"
+                      v-model="modal.editClient.switch"
+                      switch
+                      button-variant="info"
+                      name='switch'
+                      checked
+                    >
+                  </b-form-checkbox>
+                      <!-- <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.editClient.email"> -->
+                    </div>
+                  </div>
+    
+                  <div class="md:flex md:items-center mb-1">
+                  
+                    <div class="md:w-3/4">
+                      <small class="text-red-600">{{ v.errors[0] }}</small>
+                    </div>
+                  </div>
+                </ValidationProvider>
+              </div>
+              <!-- ================================= ./Contact ================================= -->
+              <div class="text-center mt-2 mb-2">
+                <button class="text-white py-3 px-12 rounded-full  bg-custom-primary" type="submit">Save</button>
+              </div>
+    
+            
+            </form>
+          </ValidationObserver>
+        </modal>
+      </div>
+    </div>
 
   </div>
 </template>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script> 
 <script src="https://maps.google.com/maps/api/js?key=AIzaSyDfX422PdA9Yy6GOf4HeRBRTtfoz-AGQdU&callback=initAutocomplete&libraries=places,drawing&v=weekly" async></script>
 <script src="https://cdn.rawgit.com/bjornharrtell/jsts/gh-pages/1.4.0/jsts.min.js"></script>
@@ -2790,7 +2767,7 @@ table td:first-child {
 }
 .h6-heading{
   text-align: left;
-    font: normal normal normal 18px Source Sans Pro;
+    font: normal normal normal 20px Source Sans Pro;
     letter-spacing: 0px;
     color: #302369;
     opacity: 1;
@@ -2798,7 +2775,7 @@ table td:first-child {
 .h6-label{
  
     text-align: left;
-    font: normal normal normal 23px Source Sans Pro;
+    font: normal normal normal 20px Source Sans Pro;
     letter-spacing: 0px;
     color: #363636;
     opacity: 1;
