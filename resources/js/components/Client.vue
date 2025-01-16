@@ -1,11 +1,9 @@
 <template>
   <div class="c-employee-index client-table">
-
     <Loader msg="Processing ..." v-model="isLoader" />
     <div style="margin-left: 240px;">
       <div class="p-4 max-w-7xl mx-auto h-screen flex flex-col ">
-        
-        <div class="flex justify-between items-center-">
+        <div class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg mb-4">
           <p class="text-3xl">Community</p>
           <button class="add-blue-button" @click="openClientModal()">Create Community</button>
         </div>
@@ -49,8 +47,7 @@
             </div>
           </div>
             <!-- <div class="w-full md:w-1/2">
-              <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
-                
+              <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">                
               </div>
             </div> -->
             <div class="flex-grow overflow-auto">
@@ -85,7 +82,9 @@
                   </tr>
                    </template>
                   <template v-else>
-                    No Records Found
+                    <tr> 
+                      <td colspan="8" class="text-center p-4">No Records Found</td> 
+                    </tr>
                   </template>
                 </tbody>
               </table>
@@ -93,7 +92,6 @@
           </div>
       </div>
     </div>
-
     <modal v-model="modal.createclient" class="modal-add-new-employee" size="md:w-5/12" title="Create Community">
       <ValidationObserver v-slot="{ handleSubmit }">
         <form @submit.prevent="handleSubmit(storeEmployee('create'))" ref="frmcreateclient" novalidate>
@@ -170,8 +168,7 @@
       						<input id="textbox" class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.createClient.phone" @input="acceptNumber">
       					</div>
       				</div>
-              <div class="md:flex md:items-center mb-1">
-              
+              <div class="md:flex md:items-center mb-1">              
                 <div class="md:w-3/4">
                   <small class="text-red-600">{{ v.errors[0] }}</small>
                 </div>

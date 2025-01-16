@@ -11,9 +11,7 @@
                 <div class="flex items-center">
                   <span class="font-semibold text-lg text-gray-800">Leave Requests</span>
                 </div>
-
-              <!-- Center Section - Search Bar with Font Awesome Icon -->
-
+                <!-- Center Section - Search Bar with Font Awesome Icon -->
                 <div class="flex items-center flex-grow mx-12 relative">
                   <input
                     type="text"
@@ -31,7 +29,6 @@
                     />
                   </div>
                 </div>
-
               <!-- Right Section -->
               <div class="flex items-center space-x-4">
                 <!-- From Date Selector -->
@@ -44,7 +41,6 @@
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 </div>
-            
                 <!-- To Date Selector -->
                 <div class="flex items-center">
                   <label for="toDate" class="text-gray-600 mr-2">To</label>
@@ -57,9 +53,7 @@
                   />
                 </div>
               </div>
-            
             </div>
-
             <!-- Table Container -->
             <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
               <!-- Table Header -->
@@ -124,7 +118,6 @@
                             class="text-red-500 border border-red-400 px-2 text-sm py-1 rounded-full hover:bg-red-100 flex justify-center items-center gap-1">
                             <b-icon-x-circle /> Reject
                             </button>
-
                         </div>
                       </td>
                     </tr>
@@ -355,9 +348,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loader {
-    text-align: center;
-    font-size: 20px;
-    color: #007bff;
-}
+  .loader {
+      text-align: center;
+      font-size: 20px;
+      color: #007bff;
+  }
 </style>

@@ -24,12 +24,10 @@
           <h2 class="text-xl font-bold text-blue-700 mb-4">About the Job</h2>
           <p class="text-gray-700 text-sm mb-4">
             {{ jobDetails.job_description }}
-          </p>
-          
+          </p>          
           <!-- Benefits -->
           <h2 class="mt-4 text-xl font-bold text-blue-700 mb-4">Benefits</h2>
           <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm">{{ jobDetails.benefits }}</span>
-          
           <!-- Application Information -->
           <h2 class="text-xl font-bold mt-4 text-blue-700 mb-4">Application Details</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -44,8 +42,7 @@
               </ul>
             </div>
           </div>
-        </div>
-      
+        </div>      
         <!-- Right Div: 30% Width -->
         <div class="max-w-md w-full p-6 bg-gray-300 border border-gray-100 rounded-lg mt-4">
           <ul class="space-y-3 text-gray-800 text-sm">
@@ -60,17 +57,11 @@
           </ul>
         </div>
       </div>
-     </div>
-  
-  </div>
-
-  
-</template>
-
-  
+     </div>  
+  </div>  
+</template>  
 <script>
 import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -79,22 +70,14 @@ export default {
       error: null
     };
   },
-
   created() {
     const jobId = this.$route.params.job_number;
-    
-
-    
-
     // Make an API call to get the job details based on jobId
     this.fetchJobDetails(jobId);
   },
   methods: {
-    async fetchJobDetails(jobId) {
-      
+    async fetchJobDetails(jobId) {      
       this.isLoader = true;
-     
-
       try {
         const response = await axios.get(`http://127.0.0.1:8000/api/jobs/${jobId}`);  
         console.log(jobId,"igioid")
@@ -114,12 +97,8 @@ export default {
   //   this.fetchJobDetails();
   // }
 };
-</script>
-
-
-
-  
-  <style scoped>
+</script>  
+<style scoped>
   .c-job-details {
     font-family: 'Poppins', sans-serif;
     /* background: linear-gradient(to bottom, #e0f7fa, #ffffff); */
@@ -133,5 +112,5 @@ export default {
   button {
     transition: all 0.3s ease-in-out;
   }
-  </style>
+</style>
   

@@ -40,8 +40,7 @@
               <button class="bg-gray-800 text-white py-2 px-4 rounded">How it works</button>
             </div>
           </div>
-        </div>
-  
+        </div>  
         <div class="flex flex-col md:flex-row w-full gap-2 items-stretch">
           <!-- Post Payroll Checklist -->
           <div class="bg-white w-full md:w-1/2 rounded shadow p-4 mb-4">
@@ -133,8 +132,7 @@
             <p class="text-xl font-semibold text-gray-800">₹6,347.00</p>
             <p class="text-sm text-gray-500">Net Pay</p>
           </div>
-        </div>
-    
+        </div>    
         <!-- Earnings Section -->
         <div class="mb-6">
           <h2 class="text-md font-semibold text-gray-700 mb-2">Earnings</h2>
@@ -165,8 +163,7 @@
             </li>
           </ul>
           <button class="text-blue-500 text-sm font-semibold mt-2">+ Add Earning</button>
-        </div>
-    
+        </div>    
         <!-- Deductions Section -->
         <div class="mb-6">
           <div class="flex justify-between">
@@ -206,8 +203,7 @@
               <span>₹2,000.00</span>
             </li>
           </ul>
-        </div>
-    
+        </div>    
         <!-- Additional Deduction Section -->
         <div class="mb-6">
           <div class="flex items-center gap-4">
@@ -219,8 +215,7 @@
             <input type="text" placeholder="500" class="border border-gray-300 rounded-md p-2 text-sm w-24">
             <button class="text-red-500 text-sm font-semibold">&#8209;</button>
           </div>
-        </div>
-    
+        </div>    
         <!-- Footer Section -->
         <div class="flex justify-end gap-4">
           <button class="bg-gray-200 text-gray-700 rounded-md px-4 py-2 text-sm">Cancel</button>
