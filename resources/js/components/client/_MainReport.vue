@@ -3,18 +3,17 @@
     <client-header-component />
    
     <nav class="employee mb-1 mt-10">
-       <ul class="flex justify-center w-8/12 mx-auto" style="margin-bottom:0px;">
-      	
-      	<router-link tag="li" :to="{ name: 'HourlyReport' }" class="w-1/4 mr-1 rounded-t-lg">
+       <ul class="flex w-6/12" style="margin-left:242px;">
+      	<router-link tag="li" :to="{ name: 'HourlyReport' }" class="w-1/4 mr-1 ">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Hourly Report</a> 
       	</router-link>
-      	<router-link tag="li" :to="{ name: 'ticket' }" class="w-1/4 mr-1 rounded-t-lg">
+      	<router-link tag="li" :to="{ name: 'ticket' }" class="w-1/4 mr-1 ">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Parking Tickets</a>
       	</router-link>
-			  <router-link tag="li" :to="{ name: 'incident' }" class="w-1/4 mr-1 rounded-t-lg">
+			  <router-link tag="li" :to="{ name: 'incident' }" class="w-1/4 mr-1 ">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Incident Report</a>
       	</router-link>
-      	<router-link tag="li" :to="{ name: 'sosreport' }" class="w-1/4 mr-1 rounded-t-lg">
+      	<router-link tag="li" :to="{ name: 'sosreport' }" class="w-1/4 mr-1 ">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">SOS Report</a>  
       	</router-link>
       </ul>

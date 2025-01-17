@@ -11,22 +11,22 @@
       <div class="selection-function px-4 py-3 rounded-md">        
         <div class="text-right">          
           <div class="flex flex-wrap -mx-3">
-            <div class="w-full md:w-1/2 px-3">
-              <span class="block mb-2">Total users: {{ countTotalEmployees }}*</span>
+            <div class="w-full md:w-1/2 px-3 flex gap-3 items-center">
+              <span class="block mb-2">Total Users: {{ countTotalEmployees }}*</span>
               <div class="relative">
                 <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border-l-0">
-                  <font-awesome-icon icon="search" class="fill-current" />
+                  <font-awesome-icon icon="search" class="fill-current cursor-pointer" />
                 </div>
               </div>
             </div>
-            <div class="w-full md:w-1/2 pr-3">
+            <!-- <div class="w-full md:w-1/2 pr-3">
               <div class="relative">
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                   <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>   

@@ -14,16 +14,16 @@
         <div class="flex flex-wrap -mx-3">
           <div class="w-full md:w-50 px-3">
             <div class="flex items-center relative">
+              <input
+                class="appearance-none block w-full rounded py-2 px-3 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                type="text"
+                placeholder="Search Job Titles"
+              />
               <font-awesome-icon
                 icon="search"
-                class="absolute right-3 text-gray-500 "
+                class="absolute right-0 mr-2 top-1/2 cursor-pointer text-gray-500 "
                 style="margin-left: 8px;"
               />
-            <input
-              class="appearance-none block w-full rounded py-2 px-4 pl-5 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-              type="text"
-              placeholder="Search Job Titles"
-            />
           </div>
           </div>
         </div>

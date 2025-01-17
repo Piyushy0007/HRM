@@ -1,24 +1,17 @@
 <template>
     <div>
-        <nav
-            class="navigation text-white p-3 flex flex-col"
-            style="overflow: scroll; height: 100vh;"
-        >
+        <nav class="navigation text-white p-3 flex flex-col" style="overflow: scroll; height: 100vh;">
             <!-- A-HR Logo -->
             <div class="logo mb-3 text-center">
                 <h1 class="text-white font-bold text-5xl">A-HR</h1>
             </div>
             <div class="text-center mb-2">
-                    <h6 class="text-white p-0 m-0">{{userName}}</h6>
-                    <p class="text-white text-sm">{{userEmail}}</p>
+                <h6 class="text-white p-0 m-0">{{userName}}</h6>
+                <p class="text-white text-sm">{{userEmail}}</p>
             </div>
             <ul class="list-unstyled">
                 <!-- Dynamically Render Menu Groups -->
-                <li
-                    v-for="(group, groupIndex) in activeMenuGroups"
-                    :key="groupIndex"
-                    class="mb-3"
-                >
+                <li v-for="(group, groupIndex) in activeMenuGroups" :key="groupIndex" class="mb-3">
                     <!-- Parent Group -->
                     <div
                         class="nav-link text-start py-2 px-2 rounded cursor-pointer"
@@ -27,36 +20,21 @@
                     >
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2 ">
-                                <div                                    
-                                    style="width: 24px; text-align: center;"
-                                >
-                                    <font-awesome-icon
-                                        :icon="group.icon"
-                                        style="font-size: 16px;"
-                                    />
+                                <div style="width: 24px; text-align: center;">
+                                    <font-awesome-icon :icon="group.icon" style="font-size: 16px;"/>
                                 </div>
                                 <span>{{ group.title }}</span>
                             </div>
                             <div>
                                 <span>
-                                    <font-awesome-icon
-                                        :icon="
-                                            group.expanded
-                                                ? 'chevron-down'
-                                                : 'chevron-right'
-                                        "
-                                    />
+                                    <font-awesome-icon :icon=" group.expanded ? 'chevron-down' : 'chevron-right'"/>
                                 </span>
                             </div>
                         </div>
                     </div>
                     <!-- Child Items -->
                     <ul v-if="group.expanded" class="list-unstyled ps-3 mt-2">
-                        <li
-                            v-for="(item, itemIndex) in group.items"
-                            :key="itemIndex"
-                            class="mb-2 flex flex-col"
-                        >
+                        <li v-for="(item, itemIndex) in group.items" :key="itemIndex" class="mb-2 flex flex-col">
                             <div
                                 v-if="item.children"
                                 class="sub-nav-link text-white py-1 px-2 cursor-pointer flex items-center justify-between gap-2"
@@ -64,13 +42,7 @@
                                 style="margin-left: 16px;"
                             >
                                 <span>{{ item.label }}</span>
-                                <font-awesome-icon
-                                    :icon="
-                                        item.expanded
-                                            ? 'chevron-down'
-                                            : 'chevron-right'
-                                    "
-                                />
+                                <font-awesome-icon :icon=" item.expanded ? 'chevron-down' : 'chevron-right'" />
                             </div>
                             <router-link
                                 v-else
@@ -103,11 +75,7 @@
                 </li>
                 <!-- Logout -->
                 <li class="nav-item mt-auto">
-                    <a
-                        href="#"
-                        @click="logout()"
-                        class="nav-link text-start py-2 px-3 rounded"
-                    >
+                    <a href="#" @click="logout()" class="nav-link text-start py-2 px-3 rounded">
                         SIGNOUT
                     </a>
                 </li>
@@ -229,7 +197,6 @@ export default {
                     ]
                 },
             ],
-
             HRmenuGroups: [
                 {
                     title: "Management",
@@ -378,7 +345,6 @@ export default {
                 item.expanded = !item.expanded;
             }
         },
-
         message_count() {
             axios
                 .post("/api/adminmessagecount", {

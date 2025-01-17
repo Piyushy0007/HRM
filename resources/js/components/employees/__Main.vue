@@ -4,22 +4,22 @@
     <div class="bv-example-row mx-auto min-h-screen" v-if="this.userRole != 'admin' ">
     <div class="flex-auto w-full float-left bg-gray-200">
        <nav class="removecls employee mb-1 mt-1">
-        <ul class="flex justify-center w-7/12 mb-0 mx-auto">
-          <router-link tag="li"  :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg" style="padding-top:5px;font-size: 16px;">Users</a>
+        <ul class="flex w-6/12 mr-1" style="margin-left: 242px;">
+          <router-link tag="li"  :to="{ name: 'employee-index' }" class="w-1/4 mr-1 ">
+            <a href="#" class="block text-center font-semibold text-lg pt-1 " style="padding-top:5px;font-size: 16px;">Users</a>
           </router-link>
-          <router-link v-if="this.userRole == 'admin' " tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1 rounded-t-lg">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg" style="padding-top:5px;font-size: 16px;">Location</a>
+          <router-link v-if="this.userRole == 'admin' " tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1 " style="padding-top:5px;font-size: 16px;">Location</a>
           </router-link>
-          <router-link v-if="this.userRole == 'admin' " tag="li" :to="{ name: 'employee-notifications' }" class="w-1/4 mr-1 rounded-t-lg">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg" style="padding-top:5px;font-size: 16px;">Notifications</a>
+          <router-link v-if="this.userRole == 'admin' " tag="li" :to="{ name: 'employee-notifications' }" class="w-1/4 mr-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1 " style="padding-top:5px;font-size: 16px;">Notifications</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'officer-logs' }" class="w-1/4 mr-1 rounded-t-lg">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg" style="padding-top:5px;font-size: 16px;">Status</a>
+          <router-link tag="li" :to="{ name: 'officer-logs' }" class="w-1/4 mr-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1" style="padding-top:5px;font-size: 16px;">Status</a>
           </router-link>
          
-          <router-link tag="li" :to="{ name: 'employee-deleted' }" class="w-1/4 rounded-t-lg">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg" style="padding-top:5px;font-size: 16px;">Deleted</a>
+          <router-link tag="li" :to="{ name: 'employee-deleted' }" class="w-1/4">
+            <a href="#" class="block text-center font-semibold text-lg pt-1" style="padding-top:5px;font-size: 16px;">Deleted</a>
           </router-link>
         </ul>
       </nav>
@@ -31,22 +31,21 @@
 
     <div v-if="this.userRole == 'admin' ">
         <nav class="employee mb-1">
-        <ul class="flex justify-center mb-0  w-5/12 auto mx-auto" style="justify-content:space-between;">
-          <router-link tag="li" :to="{ name: 'employee-index' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Users</a>
+        <ul class="flex mb-0 w-7/12" style="margin-left: 242px">
+          <router-link tag="li" :to="{ name: 'employee-index' }" class="w-1/4 mr-1 mt-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1 ">Users</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Positions</a>
+          <router-link tag="li" :to="{ name: 'employee-positions' }" class="w-1/4 mr-1 mt-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1 ">Positions</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'employee-notifications' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Notifications</a>
+          <router-link tag="li" :to="{ name: 'employee-notifications' }" class="w-1/4 mr-1 mt-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1 ">Notifications</a>
           </router-link>
-          <router-link tag="li" :to="{ name: 'officer-logs' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Watcher Logs</a>
+          <router-link tag="li" :to="{ name: 'officer-logs' }" class="w-1/4 mr-1 mt-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1">Watcher Logs</a>
           </router-link>
-          
-          <router-link tag="li" :to="{ name: 'employee-deleted' }" class="w-1/4 rounded-t-lg mt-1">
-            <a href="#" class="block text-center font-semibold text-lg pt-1 rounded-t-lg">Deleted</a>
+          <router-link tag="li" :to="{ name: 'employee-deleted' }" class="w-1/4 mt-1">
+            <a href="#" class="block text-center font-semibold text-lg pt-1">Deleted</a>
           </router-link>
         </ul>
       </nav>

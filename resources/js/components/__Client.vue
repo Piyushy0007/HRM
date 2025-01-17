@@ -3,11 +3,11 @@
     <header-component />
 
     <nav class="employee mb-1">
-      <ul class="flex justify-center w-5/12 mx-auto">
-      	<router-link tag="li" :to="{ name: 'clindex' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
+      <ul class="flex w-6/12" style="margin-left: 242px;">
+      	<router-link tag="li" :to="{ name: 'clindex' }" class="w-1/4 mr-1 mt-1">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Community</a>
       	</router-link>
-      	<router-link tag="li" :to="{ name: 'client-properties' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
+      	<router-link tag="li" :to="{ name: 'client-properties' }" class="w-1/4 mr-1 mt-1">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Properties</a>
       	</router-link>
       </ul>

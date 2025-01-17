@@ -3,8 +3,8 @@
     <header-component />
 
     <nav class="employee mb-1">
-      <ul class="flex justify-center w-5/12 mx-auto">
-      	<router-link tag="li" :to="{ name: 'adminindex' }" class="w-1/4 mr-1 rounded-t-lg mt-1">
+      <ul class="flex w-6/12" style="margin-left: 242px;">
+      	<router-link tag="li" :to="{ name: 'adminindex' }" class="w-1/4 mr-1 mt-1">
       		<a href="#" class="block text-center font-semibold text-lg pt-1">Admin</a>
       	</router-link>
       </ul>
