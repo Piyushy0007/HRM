@@ -77,7 +77,9 @@
             </tr>
           </template>
           <template v-else>
-            No Records Found
+            <tr> 
+              <td colspan="9" class="text-center p-4">No Record Found</td> 
+            </tr>
           </template>
         </tbody>
       </table>

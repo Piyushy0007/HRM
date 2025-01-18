@@ -9,8 +9,7 @@
               <div class="flex items-center">
                 <span class="font-semibold text-lg text-gray-800">Attendance</span>
                 <!-- <span class="text-gray-600 ml-1">Month- {{ selectedMonth }}</span> -->
-              </div>
-            
+              </div>            
               <!-- Center Section - Search Bar with Font Awesome Icon -->
               <div class="flex items-center flex-grow mx-12 relative">
                 <input
@@ -28,8 +27,7 @@
                   style="font-size: 20px"
                   />
                 </div>
-              </div>
-            
+              </div>            
               <!-- Right Section -->
               <div class="flex items-center space-x-4">
                 <!-- From Date Selector -->
@@ -41,8 +39,7 @@
                     v-model="fromDate"
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
-                </div>
-            
+                </div>            
                 <!-- To Date Selector -->
                 <div class="flex items-center">
                   <label for="toDate" class="text-gray-600 mr-2">To</label>
@@ -56,8 +53,6 @@
                 </div>
               </div>
             </div>
-            
-               
           <!-- Table Container -->
           <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
             <!-- Table Header -->
@@ -101,8 +96,7 @@
                   </tr>
                 </tbody>
               </table>            
-            </div>
-      
+            </div>      
             <!-- Pagination Section -->
             <div class="flex items-center justify-between p-4 border-t">
               <div class="flex items-center gap-2">
@@ -136,7 +130,6 @@
                       >
                       {{ page }}
                   </button>
-
                   <button
                   @click="nextPage"
                   :disabled="currentPage === totalPages"

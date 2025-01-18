@@ -4,12 +4,9 @@
 	<b-row>
 		<b-col cols="2" >
 			<ul class="justify-center mx-auto mt-3">
-				<router-link  :to="{ name: 'cd' }" class="md:w-40 xl:w-64 mr-1 mb-3 mt-3 ">
-				
+				<router-link  :to="{ name: 'cd' }" class="md:w-40 xl:w-64 mr-1 mb-3 mt-3 ">				
 						<img style="height:50px; margin-left:65px; margin-top:30px" src="/images/logo.png" alt="Eyewitness" class="">
           		</router-link>
-
-
           		<router-link tag="li" :to="{ name: 'schedules' }"  class="flex mr-1"> 
 				 	<div class="leftindex">
 		                <div class="leftimage">
@@ -22,7 +19,6 @@
 		                </div>
 		            </div>
 				</router-link>
-
 				<router-link tag="li" :to="{ name: 'employees' }"  class="flex mr-1"> 
 				 	<div class="leftindex">
 		                <div class="leftimage">
@@ -34,11 +30,7 @@
 		                    <a href="#target1"  id='target1' class='target' v-if="$route.path == '/employees/' || $route.path == '/employees'" style="color:#AD9E58 !important"> Users</a>
 		                </div>
 		            </div>
-				</router-link>
-
-
-				
-
+				</router-link>		
 				<router-link tag="li" :to="{ name: 'creport' }" class="flex mr-1 ">
 			    	<div class="leftindex">
 		                <div class="leftimage">
@@ -52,28 +44,19 @@
 		                </div>
 		            </div>
 				</router-link>
-				
-
 				<router-link tag="li" :to="{ name: 'cmsg' }" class=" flex mr-1">
 					<div class="leftindex">
 		                <div class="leftimage1">
-		                    
 		                    <img  style="height: 25px; width: 23px; margin-top: 4px;" src="/images/msg_sel.png" alt="" v-if="$route.path == '/cd/msg'">
 		                    <img  style="height: 25px; width: 23px; margin-top: 4px;" src="/images/message.png" alt="" v-if="$route.path !== '/cd/msg'">
 		                </div>
 		                <div class="lefttext">
 		                    <a href="#target4"  id='target4' class='target' v-if="$route.path == '/cd/msg'" style="color:#AD9E58 !important"> Messages</a>
 		                     <a href="#target4"  id='target4' class='target' v-if="$route.path !== '/cd/msg'"> Messages</a>
-		                </div>
-		                
-		                
+		                </div>   
 		            </div>
 				</router-link>
-
-				</router-link>
-
-
-				
+				</router-link>	
       </ul>
 		</b-col>
 		<b-col cols="10">
@@ -81,7 +64,6 @@
 		</b-col>
 	</b-row>
 	</div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -93,7 +75,6 @@
             text-align: center;
             margin-left: 30px;
      } 
-
       a:active {
         color: #AD9E58  !important;
        }

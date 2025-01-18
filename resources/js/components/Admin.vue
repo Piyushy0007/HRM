@@ -22,7 +22,7 @@
           <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id">
             <td class="text-left text-transform-capitalise">{{ data.firstname || '-'}} {{ data.lastname || ''}}</td>
             <td class="text-left">{{ data.email }}</td>
-            <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
+            <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-20" /></b-button></td>
           </tr>
            </template>
           <template v-else>

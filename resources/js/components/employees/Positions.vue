@@ -27,28 +27,32 @@
             </div>
           </div>
         </div>
-
         <table class="w-full table-fixed">
           <thead>
             <tr>
-              <th class="w-6">Select</th>
-              <th class="w-20 text-sm leading-none px-2 py-2">Edit Pos Prefs</th>
-              <th class="w-32 text-sm text-left">First</th>
-              <th class="w-32 text-sm text-left">Last</th>
+              <th class="w-6" >Select</th>
+              <th class="text-sm leading-none px-2 py-2 w-25">Edit Pos Prefs</th>
+              <th class="px-2 py-2 text-sm w-25">First</th>
+              <th class="px-2 py-2 text-sm w-25">Last</th>
               <th v-for="data in positions" :key="data.id" class="w-1/12 py-2 text-sm leading-none truncate cursor-pointer" v-if="selectedPosition == '' || selectedPosition == data.id"
                 v-tooltip="{
                   content: data.position,
-                  classes: ['rounded','bg-black','text-white','py-1','px-3'],
+                  classes: ['rounded','bg-black','text-white','py-2','px-2'],
                 }">
-                {{ data.position }}
-                <a href="#" @click.prevent="openModal('EditPosition', data)">
-                  <font-awesome-icon icon="pencil-alt" class="block mx-auto mt-1" />
-                </a>
+                <div class="flex items-center justify-center">
+                  <span class="truncate">{{ data.position }}</span>
+                  <a
+                    href="#"
+                    @click.prevent="openModal('EditPosition', data)"
+                    class="ml-2 hover:underline"
+                  >
+                    <font-awesome-icon icon="pencil-alt" />
+                  </a>
+                </div>
               </th>
             </tr>
           </thead>
-          <tbody>
-            
+          <tbody>            
             <tr v-if="employees.length === 0">
               <td :colspan="(4 + positions.length)">No Records Found</td>
             </tr>
@@ -59,8 +63,8 @@
               <td class="text-center">
                 <a href="#" @click.prevent="editEmpPosition(data, index)"> <font-awesome-icon icon="pencil-alt"  /></a>
               </td>
-              <td>{{ data.firstname }}</td>
-              <td>{{ data.lastname }}</td>
+              <td class="text-center">{{ data.firstname }}</td>
+              <td class="text-center">{{ data.lastname }}</td>
               <!-- display all positions -->
               <td v-for="data2 in positions" class="text-center class-color-here" :key="data2.id" v-if="selectedPosition == '' || selectedPosition == data2.id">
                 <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
@@ -73,11 +77,9 @@
             </tr>
           </tbody>
         </table>
-
         <div class="text-center my-12">
           <button class="text-white py-2 px-16 rounded-lg text-sm btn-add-edit-position" type="button" @click.prevent="updateEmployeePositions">Save Changes</button>
         </div>
-
         <div class="information mt-5 p-4 rounded-lg">
           <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-2">
             <h4 class="text-lg font-semibold mb-2 mb-md-0">Information</h4>
@@ -92,7 +94,6 @@
             <li class="mb-1">Check the box to the left of an users to check/uncheck all positions for that users.</li>
             <li>Optional: Click pencil icon to set that users position preferences.</li>
           </ul>
-
           <div class="flex justify-between flex-md-row flex-column items-end">
             <ul>
               <li class="flex items-center">
@@ -125,20 +126,17 @@
                 <tr><td style="padding:0 5px 10px 5px;">
                 <table cellspacing="1" cellpadding="1" width="100%" style="border-collapse:separate;">
                 <tbody>
-                    <tr><td align="center" width="33.33%" rowspan="2" valign="center"><b class="title">Position Preferences</b><br><span class="smaller">click position name below to set</span></td>
-                  <td align="center" width="33.33%"><span class="small">Default</span><br>
-                  
-                  <ValidationProvider rules="required" v-slot="v">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="editEmpPositiondata.pay_rate" maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
-                  <small class="text-red-600 block">{{ v.errors[0] }}</small>
-                </ValidationProvider>
-                  </td>
-                  <!--
-                  <!CHECK  !HELP>
-                  -->
-                  <td align="center" width="33.33%"><span class="small">&nbsp;&nbsp;&nbsp;&nbsp; Default</span><br><nobr>
-                  </nobr>
-                  <ValidationProvider rules="required" v-slot="v">
+                    <tr>
+                      <td align="center" width="33.33%" rowspan="2" valign="center"><b class="title">Position Preferences</b><br><span class="smaller">click position name below to set</span></td>
+                      <td align="center" width="33.33%"><span class="small">Default</span><br>
+                        <ValidationProvider rules="required" v-slot="v">
+                          <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="editEmpPositiondata.pay_rate" maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
+                          <small class="text-red-600 block">{{ v.errors[0] }}</small>
+                        </ValidationProvider>
+                      </td>
+                      <!-- <!CHECK  !HELP> -->
+                      <td align="center" width="33.33%"><span class="small">&nbsp;&nbsp;&nbsp;&nbsp; Default</span><br><nobr></nobr>
+                      <ValidationProvider rules="required" v-slot="v">
                         <date-picker valueType="format"  v-model="editEmpPositiondata.alert_date"
                           input-class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border border-custom-border"
                           :clearable="false"
@@ -152,37 +150,26 @@
                           ]"></date-picker>
                         <small class="text-red-600 block">{{ v.errors[0] }}</small>
                       </ValidationProvider>
-                  </td>
-                  <!--
-                  <!/CHECK>
-                  -->
+                    </td>
+                    <!-- <!/CHECK> -->
                   </tr>
                   <tr>
-                  <td align="center" valign="bottom"><b class="title">Pay Rate</b></td>
-                  <!--
-                  <!CHECK  !HELP>
-                  -->
-                  <td align="center" class="title" valign="bottom" style="padding-left:20px; background-color: #E3E5F1;"><b class="title">Alert Date</b></td>
-                  <!--
-                  <!/CHECK>
-                  -->
+                    <td align="center" valign="bottom"><b class="title">Pay Rate</b></td>
+                    <!-- <!CHECK  !HELP> -->
+                    <td align="center" class="title" valign="bottom" style="padding-left:20px; background-color: #E3E5F1;"><b class="title">Alert Date</b></td>
+                    <!-- <!/CHECK> -->
                   </tr>
                   <tr align="center" v-for="position in  editEmpPositiondata.position" :key="position.id" >
                   <td class="small" :class="position.preference" v-on:click="setPreference(position)"  :id="position.position.id"  >{{position.position.position}}</td>
                   <!-- <td class="small"   :id="position.position.id"  >{{position.position.position}}</td>   -->
-                  <td style="height: 25px margin: 7px 7px;
-      padding: 7px 7px;">
-                    
+                  <td style="height: 25px margin: 7px 7px; padding: 7px 7px;">                    
                     <ValidationProvider rules="required" v-slot="v">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="position.pay_rate"  maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
-                  <small class="text-red-600 block">{{ v.errors[0] }}</small>
-                </ValidationProvider>
-                    </td>
-                  <!--
-                  <!CHECK  !HELP>
-                  -->
-                  <td style="height: 25px margin: 7px 7px;
-      padding: 7px 7px;"><nobr>
+                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none text-right" type="text" v-model="position.pay_rate"  maxlength="10" @keypress="isNumberOnlyAndDecimalPoint($event)">
+                      <small class="text-red-600 block">{{ v.errors[0] }}</small>
+                    </ValidationProvider>
+                  </td>
+                  <!-- <!CHECK  !HELP> -->
+                  <td style="height: 25px margin: 7px 7px; padding: 7px 7px;"><nobr>
                     <!-- <ValidationProvider rules="required" v-slot="v"> -->
                         <date-picker valueType="format"  v-model="position.alter_date"
                           input-class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border border-custom-border"
@@ -199,9 +186,7 @@
                       <!-- </ValidationProvider> -->
                     </nobr>
                     </td>
-                  <!--
-                  <!/CHECK>
-                  -->
+                  <!-- <!/CHECK> -->
                   </tr>
                 <tr><td class="small">Use the <b>users&gt;Positions Grid </b>page to select more positions
                 for this users</td></tr>
@@ -216,10 +201,8 @@
                 <textarea rows="5" class="w-full rounded p-2 leading-tight focus:outline-none" style="border: 1px solid #707070;"  v-model="editEmpPositiondata.comment"></textarea>
               </div>
             </div>
-            <!-- ================================= ./Comments ================================= -->
-          
-
-            <div class="flex justify-between mt-10 mb-8 text-center">
+            <!-- ================================= ./Comments ================================= -->         
+            <div class="flex justify-between mb-8 text-center">
               <div style="width:100%; text-align:center;">
                 <button class="text-white py-3 px-12 rounded-full bg-custom-primary focus:outline-none" type="submit">Save</button>
                 
@@ -228,23 +211,23 @@
           </form>
         </ValidationObserver>
         <table class="module">
-  <tbody>
-    <tr><td class="wgt"><b class="titleBox">Information</b></td></tr>
-  <tr><td class="bwgt">  
-  - Choose your preferences for this users positions: click position label above to change to <b><span style="background-color: #90F68E">prefer</span>, <span style="background-color: #FFAEAE">dislike</span></b> and <span style="background:white;"> <b>no preference</b></span> <br>
-  Can be used by Autofill and when viewing available users for a shift.
-  - To allow this users to work more positions, use the <b>users&gt; Positions Grid</b> page.
-  <br><br>
-  - Pay Rates - enter default pay rate at the top or edit pay rates per position.<br><span class="small">Can be used to view approximate payroll.</span>
-  <br><br>
-  - Alert dates - set default date for all positions or edit individual position dates.
-  <br><span class="small">Can be used, for example, for certification expirations.</span>
-  <br><br>
-  - Click the "Save" button when finished.
-  <br><br>- Changes will be reflected on the "Positions Grid" the next time that page is reloaded.</td></tr>
-  </tbody></table>
-
-          
+          <tbody>
+            <tr><td class="wgt"><b class="titleBox">Information</b></td></tr>
+            <tr><td class="bwgt">  
+              - Choose your preferences for this users positions: click position label above to change to <b><span style="background-color: #90F68E">prefer</span>, <span style="background-color: #FFAEAE">dislike</span></b> and <span style="background:white;"> <b>no preference</b></span> <br>
+              Can be used by Autofill and when viewing available users for a shift.
+              - To allow this users to work more positions, use the <b>users&gt; Positions Grid</b> page.
+              <br><br>
+              - Pay Rates - enter default pay rate at the top or edit pay rates per position.<br><span class="small">Can be used to view approximate payroll.</span>
+              <br><br>
+              - Alert dates - set default date for all positions or edit individual position dates.
+              <br><span class="small">Can be used, for example, for certification expirations.</span>
+              <br><br>
+              - Click the "Save" button when finished.
+              <br><br>- Changes will be reflected on the "Positions Grid" the next time that page is reloaded.</td>
+            </tr>
+          </tbody>
+        </table>         
       </modal>
       <!-- bulk edit end -->
       <modal v-model="modal.addEditPositions" class="modal-add-edit-positions" size="md:w-7/12" title="Add/Delete Positions">

@@ -16,9 +16,7 @@
           <!-- <button class="add-blue-button" @click="openClientModal()">Create Community</button> -->
         </div>
           <div class="flex">
-            <div class="w-full flex md:w-1/10">      
-
-        
+            <div class="w-full flex md:w-1/10">              
           </div>
             <div class="w-full md:w-1/2">
             <!-- <div class="w-50 px-3  md:w-1/2 mt-4 mb-4" style="float:right;">
