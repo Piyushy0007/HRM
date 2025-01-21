@@ -19,7 +19,6 @@ import VueSimpleAlert from "vue-simple-alert";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import {
     required,
-    // requiredfield,
     email,
     integer,
     digits,
@@ -38,10 +37,6 @@ extend("required", {
     ...required,
     message: "This field is required"
 });
-// extend("requiredfield", {
-//     ...requiredfield,
-//     message: "{_field_} is required"
-// });
 extend("email", {
     ...email,
     message: "Invalid e-mail"
