@@ -40,11 +40,13 @@
                     <p class="text-xl font-bold">{{ status }}</p>
                     </div>
                 </div>
-                <button
-                    class="mt-4 bg-blue-500 text-white py-1 px-4 rounded w-1/12"
-                >
-                    Run Now
-                </button>
+                <div class="p-4">
+                    <button
+                        class="mt-4 bg-blue-500 text-white py-1 px-4 rounded w-1/12"
+                    >
+                        Run Now
+                    </button>
+                </div>
             </div>
         </div>
         </div>
