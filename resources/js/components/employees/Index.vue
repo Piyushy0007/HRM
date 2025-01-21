@@ -649,10 +649,6 @@
             <td colspan="2">
               <b class="titleBox text-xl font-semibold">Information</b>
             </td>
-            <!-- <td class="infomore">
-              <a href="https://www.google.com" class="text-sm inline-flex items-center">
-              Help on this topic &nbsp;<font-awesome-icon icon="arrow-circle-right" />&nbsp;<strong>More</strong>
-            </a></td> -->
           </tr>
           <tr>
             <td class="bwgt" colspan="2" style="padding-bottom:20px;">
@@ -707,30 +703,28 @@
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(storeEmployee)" ref="frmAddEmployee" novalidate>
             <div
-              class="flex flex-col mb-6 mt-3">
+              class="flex flex-col mb-6 mt-3 px-6">
               <label class="block text-gray-700 font-semibold mb-2">Select User Role:</label>
               <select
-              v-model="modal.addEmployee.role_id" @change="clientselected"
+                v-model="addEmployee.role_id" @change="clientselected"
                 class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary" 
               >
-                <option value="">Select Community</option>
+                <option value='' selected disabled>Select User</option>
                 <option v-for="role in roleList" :key="role.id" :value="role.id">
                   {{ role.role_name }}
                 </option>
-                <!-- <option value="">HR</option>
-                <option value="">Developer</option> -->
-                <!-- <option :value="data.id" v-for="data in clientlist" :key="data.id">{{ data.clientname }}</option> -->
               </select>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6">
+              <ValidationProvider rules="requiredfield|alpha_spaces" v-slot="{ errors }" name="First Name">
                 <div>
                   <label class="block text-gray-700 font-semibold mb-2">First Name<span class="text-red-500">*</span></label>
                   <input
                     type="text"
                     placeholder="Enter First Name"
                     v-model="modal.addEmployee.firstname"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                   <small class="text-red-600">{{ errors[0] }}</small>
                 </div>
@@ -742,24 +736,25 @@
                     type="text"
                     v-model="modal.addEmployee.lastname"
                     placeholder="Enter Last Name"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                   <small class="text-red-600">{{ errors[0] }}</small>
                 </div>
               </ValidationProvider>
             </div>
             <!-- gender and employee status -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 px-6 gap-6 mt-4">
               <!-- Selected Gender -->
               <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">
-                  <font-awesome-icon icon="user" class="mr-1" size="xs" />Gender
+                  Gender
                 </label>
                 <select
-                  v-model="modal.addEmployee.gender"
+                  v-model="addEmployee.gender"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 >
-                  <option value="">Select Gender</option>
+                  <option value="" disabled selected>Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
@@ -768,10 +763,10 @@
               <!-- Employee Status -->
               <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">
-                  <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Employee Status
+                  Employee Status
                 </label>
                 <select
-                  v-model="modal.addEmployee.employeeStatus"
+                  v-model="addEmployee.employeeStatus"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 >
                   <option value="">Select Status</option>
@@ -782,14 +777,14 @@
               </div>
             </div>
             <!-- employee type and location type -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mt-4">
               <!-- Employment Type -->
               <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">
-                  <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Employment Type
+                  Employment Type
                 </label>
                 <select
-                  v-model="modal.addEmployee.employmentType"
+                  v-model="addEmployee.employmentType"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 >
                   <option value="">Select Employment Type</option>
@@ -801,10 +796,10 @@
               <!-- Location Type -->
               <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">
-                  <font-awesome-icon icon="map-marker-alt" class="mr-1" size="xs" />Location Type
+                  Location Type
                 </label>
                 <select
-                  v-model="modal.addEmployee.locationType"
+                  v-model="addEmployee.locationType"
                   class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                 >
                   <option value="">Select Location Type</option>
@@ -814,7 +809,7 @@
               </div>
             </div>
             <!-- add profile and salry type -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mt-4">
               <div>
                 <label class="block text-gray-700 font-semibold mb-2">Profile Picture </label>
                 <input
@@ -822,7 +817,8 @@
                   id="profilePicInput"
                   ref="profilePic"
                   @change="handleFileUpload"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  style="border: 1px solid #d1d5db !important;"
                 />
               </div>
               <!-- Positions Section -->
@@ -859,38 +855,41 @@
               <div  class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label class="block text-gray-700 font-semibold mb-2">
-                    <font-awesome-icon icon="lock" class="mr-1" size="xs" />Email
+                    Email
                   </label>
                   <input
                     type="text"
                     placeholder="Enter Email"
                     v-model="modal.addEmployee.email"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                 </div>
                 <!-- Phone -->
                 <div>
                   <label class="block text-gray-700 font-semibold mb-2">
-                    <font-awesome-icon icon="lock" class="mr-1" size="xs" />Phone
+                    Phone
                   </label>
                   <input
                     type="text"
                     placeholder="Enter Phone Number"
                     v-model="modal.addEmployee.phone"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                 </div>
                 <!-- 2nd Phone -->
                 <div >
                   <label class="block text-gray-700 font-semibold mb-2">
-                    <font-awesome-icon icon="lock" class="mr-1" size="xs" /> 2 Phone
+                     Phone2
                   </label>
                   <input
                     type="text"
                     placeholder="Enter phone"
                     v-model.number="modal.addEmployee.phone2"
                     @input="acceptNumber2nd"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                 </div>
               </div>
@@ -902,7 +901,8 @@
                     type="text"
                     placeholder="Enter Address"
                     v-model="modal.addEmployee.address"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg border focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                 </div>
                 <!-- Address 2 -->
@@ -913,7 +913,8 @@
                     placeholder="Enter Address 2"
 
                     v-model="modal.addEmployee.address2"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
                   />
                 </div>
                 </div>        
@@ -924,9 +925,9 @@
                     <input
                       type="text"
                       placeholder="Enter City"
-
                       v-model="modal.addEmployee.city"
-                      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
                     />
                   </div>
                   <div>
@@ -934,9 +935,9 @@
                     <input
                       type="text"
                       placeholder="Enter State"
-
                       v-model="modal.addEmployee.state"
-                      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
                     />
                   </div>
                   <div>
@@ -944,22 +945,22 @@
                     <input
                       type="text"
                       placeholder="Enter Zip"
-
                       v-model="modal.addEmployee.zip"
-                      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
                     />
                   </div>
                 </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 px-6 gap-6 mt-4">
               <!-- education and experience -->
               <!-- Education Section -->         
                 <div class="mb-4">
                   <label class="block text-gray-700 font-semibold mb-2">
-                    <font-awesome-icon icon="user-graduate" class="mr-1" size="xs" />Education Details
+                    Education Details
                   </label>
                   <select
-                    v-model="modal.addEmployee.education_detail"
+                    v-model="addEmployee.education_detail"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                   >
                     <option value="">Select Education Degree</option>
@@ -972,10 +973,10 @@
                 <!-- Work Experience Section -->
                 <div class="mb-4">
                   <label class="block text-gray-700 font-semibold mb-2">
-                    <font-awesome-icon icon="briefcase" class="mr-1" size="xs" />Experience Duration
+                    Experience Duration
                   </label>
                   <select
-                    v-model="modal.addEmployee.experience_duration"
+                    v-model="addEmployee.experience_duration"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                   >
                     <option value="">Select Experience Duration</option>
@@ -997,7 +998,8 @@
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Basic Salary</label>
                     <input type="text" placeholder="Enter Basic Salary" v-model="modal.addEmployee.basic_salary"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
                     />
                   </div>
                   <!-- Gross Salary -->
@@ -1007,7 +1009,8 @@
                       type="text"
                       placeholder="Enter Gross Salary"
                       v-model="modal.addEmployee.gross_salary"
-                      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
                     />
                   </div>
                 </div>
@@ -1016,14 +1019,15 @@
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Net Salary</label>
                     <input type="text" placeholder="Enter Net Salary" v-model="modal.addEmployee.net_salary"
-                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;" 
                     />
                   </div>
                   <!-- Salary Type -->
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">
-                      <font-awesome-icon icon="dollar-sign" class="mr-1" size="xs" />Salary Type</label>
-                      <select v-model="modal.addEmployee.salary_type"
+                      Salary Type</label>
+                      <select v-model="addEmployee.salary_type"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                       >
                         <option value="">Select Salary Type</option>
@@ -1040,7 +1044,7 @@
                   <!-- Allowances -->
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Allowances</label>
-                    <select v-model="modal.addEmployee.allowances"
+                    <select v-model="addEmployee.allowances"
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     >
                       <option value="">Select Allowance</option>
@@ -1053,7 +1057,7 @@
                   <!-- Deductions -->
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Deductions</label>
-                    <select v-model="modal.addEmployee.deductions" 
+                    <select v-model="addEmployee.deductions" 
                     class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     >
                       <option value="">Select Deduction</option>
@@ -1071,7 +1075,7 @@
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Pay Period</label>
                     <select
-                      v-model="modal.addEmployee.payPeriod"
+                      v-model="addEmployee.payPeriod"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     >
                       <option value="">Select Pay Period</option>
@@ -1084,7 +1088,7 @@
                   <div>
                     <label class="block text-gray-700 font-semibold mb-2">Payment Mode</label>
                     <select
-                      v-model="modal.addEmployee.payment_mode"
+                      v-model="addEmployee.payment_mode"
                       class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
                     >
                       <option value="">Select Payment Mode</option>
@@ -1099,11 +1103,12 @@
                     <input
                       type="date"
                       v-model="modal.addEmployee.payment_date"
-                      class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
                     />
                   </div>
                 </div>
-                <div class="border-t border-b border-gray-700 py-6 px-6 mb-6 mt-4">
+                <div class="border-t border-b border-gray-700 py-6 mb-6 mt-4">
                   <h4 class="text-xl font-semibold mb-4">Bank Account Details</h4>
                   <!-- Grid Layout for Bank Account Fields -->
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1114,7 +1119,8 @@
                         type="text"
                         placeholder="Enter Bank Name"
                         v-model="modal.addEmployee.bank_name"
-                        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
                       />
                     </div>
                     <!-- Account Number -->
@@ -1124,7 +1130,8 @@
                         type="text"
                         placeholder="Enter Account Number"
                         v-model="modal.addEmployee.account_number"
-                        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
                       />
                     </div>
                     <!-- IFSC Code -->
@@ -1134,7 +1141,8 @@
                         type="text"
                         placeholder="Enter IFSC Code"
                         v-model="modal.addEmployee.ifsc_code"
-                        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
                       />
                     </div>
                     <!-- Bank Branch -->
@@ -1144,7 +1152,8 @@
                         type="text"
                         placeholder="Enter Bank Branch"
                         v-model="modal.addEmployee.branch_name"
-                        class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
                       />
                     </div>
                   </div>
@@ -1957,6 +1966,7 @@ Vue.component('b-form-datepicker', BFormDatepicker)
       removeAllSelections()
     })
   }
+
 export default {
 	components: {
 		Modal,
@@ -1978,8 +1988,21 @@ export default {
 			requestedHeaders: {
 				headers: {}
 			},
+      addEmployee: { 
+        role_id: '',
+        employeeStatus: '',
+        gender: '',
+        employmentType: '',
+        locationType: '',
+        education_detail: '',
+        experience_duration: '',
+        salary_type: '',
+        allowances: '',
+        deductions: '',
+        payPeriod: '',
+        payment_mode: '',
+      },
       isLoader: false,
-
       searchKeyword: '',
       searchTimer: null,
       // select employee
@@ -2046,7 +2069,7 @@ export default {
         },
         fullname: '',
         addEmployee: {
-          SendEmail : true
+          SendEmail : true,
         },
         reqEditEmployee: {},
         reqEditEmployeeBulk: {},
@@ -2059,7 +2082,6 @@ export default {
         positions: [],
         trashedPositions: {},
         addPosition: {},
-
         // Add employee
         selectedPositions: [],
         // This is un/ticking checkbox
@@ -2079,7 +2101,6 @@ export default {
         comment: ''
       },
       SendReminderSuccessData:[],
-
       index: {
         employees: {},
         positions: {},
@@ -2096,7 +2117,8 @@ export default {
       Images:{
         client_image:''
       },
-      slectedRole:"",
+      
+      slectedRole:'',
       roleList:[],
       isLoader: false,
       error: null
@@ -3308,8 +3330,7 @@ export default {
     },
     storeEmployee() {
       let vm = this
-      if (vm.modal.addEmployee.enable_security_officer==1 && Object.keys(vm.modal.selectedPositions).length === 0 ) {
-      
+      if (vm.modal.addEmployee.enable_security_officer==1 && Object.keys(vm.modal.selectedPositions).length === 0 ) {      
         vm.$swal({
           icon: 'error',
           title: 'At least select a position',
@@ -3318,64 +3339,72 @@ export default {
         })
         return false
       }
+      if (!vm.addEmployee.role_id) {
+        vm.$swal({
+          icon: 'error',
+          title: 'Please select a user role',
+          showConfirmButton: true,
+          timer: 2000,
+        });
+        return false;
+      }
       vm.isLoader = true
       const mypostparameters = new FormData();
+      mypostparameters.append('firstname', vm.modal.addEmployee.firstname);
+      mypostparameters.append('lastname', vm.modal.addEmployee.lastname);
+      mypostparameters.append('gender', vm.addEmployee.gender);
+      mypostparameters.append('employee_status', vm.addEmployee.employeeStatus);
+      mypostparameters.append('employee_type', vm.addEmployee.employmentType);
+      mypostparameters.append('location_type', vm.addEmployee.locationType);
+      mypostparameters.append('email', vm.modal.addEmployee.email);
+      mypostparameters.append('phone', vm.modal.addEmployee.phone);
+      mypostparameters.append('phone2', vm.modal.addEmployee.phone2);
+      mypostparameters.append('city', vm.modal.addEmployee.city);
+      mypostparameters.append('state', vm.modal.addEmployee.state);
+      mypostparameters.append('zip', vm.modal.addEmployee.zip);
+      mypostparameters.append('education_detail', vm.addEmployee.education_detail);
+      mypostparameters.append('experience_duration', vm.addEmployee.experience_duration);
+      mypostparameters.append('address', vm.modal.addEmployee.address);
+      mypostparameters.append('address2', vm.modal.addEmployee.address2);
+      mypostparameters.append('max_weekly_hours', vm.modal.addEmployee.max_weekly_hours);
+      mypostparameters.append('max_weekly_days', vm.modal.addEmployee.max_weekly_days);
+      mypostparameters.append('max_day_hours', vm.modal.addEmployee.max_day_hours);
+      mypostparameters.append('max_day_shifts', vm.modal.addEmployee.max_day_shifts);
+      mypostparameters.append('hired_date', vm.modal.addEmployee.hired_date);
+      mypostparameters.append('pay_rate', vm.modal.addEmployee.pay_rate);
+      mypostparameters.append('priority_group', vm.modal.addEmployee.priority_group);
+      mypostparameters.append('enable_screen_reader', vm.modal.addEmployee.enable_screen_reader);
+      mypostparameters.append('enable_security_officer', vm.modal.addEmployee.enable_security_officer);
+      mypostparameters.append('position', vm.modal.selectedPositions);
+      mypostparameters.append('basic_salary', vm.modal.addEmployee.basic_salary);
+      mypostparameters.append('net_salary', vm.modal.addEmployee.net_salary);
+      mypostparameters.append('allowances', vm.addEmployee.allowances);
+      mypostparameters.append('deductions', vm.addEmployee.deductions);
+      mypostparameters.append('salary_type', vm.addEmployee.salary_type);
+      mypostparameters.append('payment_mode', vm.addEmployee.payment_mode);
+      mypostparameters.append('payment_date', vm.modal.addEmployee.payment_date);
+      mypostparameters.append('positions', vm.modal.selectedPositions);
+      mypostparameters.append('bank_name', vm.modal.addEmployee.bank_name);
+      mypostparameters.append('account_number', vm.modal.addEmployee.account_number);
+      mypostparameters.append('ifsc_code', vm.modal.addEmployee.ifsc_code);
+      mypostparameters.append('branch_name', vm.modal.addEmployee.branch_name);
+      mypostparameters.append('role_id', vm.addEmployee.role_id);
 
-mypostparameters.append('firstname', vm.modal.addEmployee.firstname);
-mypostparameters.append('lastname', vm.modal.addEmployee.lastname);
-mypostparameters.append('gender', vm.modal.addEmployee.gender);
-mypostparameters.append('employee_status', vm.modal.addEmployee.employeeStatus);
-mypostparameters.append('employee_type', vm.modal.addEmployee.employmentType);
-mypostparameters.append('location_type', vm.modal.addEmployee.locationType);
-mypostparameters.append('email', vm.modal.addEmployee.email);
-mypostparameters.append('phone', vm.modal.addEmployee.phone);
-mypostparameters.append('phone2', vm.modal.addEmployee.phone2);
-mypostparameters.append('city', vm.modal.addEmployee.city);
-mypostparameters.append('state', vm.modal.addEmployee.state);
-mypostparameters.append('zip', vm.modal.addEmployee.zip);
-mypostparameters.append('education_detail', vm.modal.addEmployee.education_detail);
-mypostparameters.append('experience_duration', vm.modal.addEmployee.experience_duration);
-mypostparameters.append('address', vm.modal.addEmployee.address);
-mypostparameters.append('address2', vm.modal.addEmployee.address2);
-mypostparameters.append('max_weekly_hours', vm.modal.addEmployee.max_weekly_hours);
-mypostparameters.append('max_weekly_days', vm.modal.addEmployee.max_weekly_days);
-mypostparameters.append('max_day_hours', vm.modal.addEmployee.max_day_hours);
-mypostparameters.append('max_day_shifts', vm.modal.addEmployee.max_day_shifts);
-mypostparameters.append('hired_date', vm.modal.addEmployee.hired_date);
-mypostparameters.append('pay_rate', vm.modal.addEmployee.pay_rate);
-mypostparameters.append('priority_group', vm.modal.addEmployee.priority_group);
-mypostparameters.append('enable_screen_reader', vm.modal.addEmployee.enable_screen_reader);
-mypostparameters.append('enable_security_officer', vm.modal.addEmployee.enable_security_officer);
-mypostparameters.append('position', vm.modal.selectedPositions);
-mypostparameters.append('basic_salary', vm.modal.addEmployee.basic_salary);
-mypostparameters.append('net_salary', vm.modal.addEmployee.net_salary);
-mypostparameters.append('allowances', vm.modal.addEmployee.allowances);
-mypostparameters.append('deductions', vm.modal.addEmployee.deductions);
-mypostparameters.append('salary_type', vm.modal.addEmployee.salary_type);
-mypostparameters.append('payment_mode', vm.modal.addEmployee.payment_mode);
-mypostparameters.append('payment_date', vm.modal.addEmployee.payment_date);
-mypostparameters.append('positions', vm.modal.selectedPositions);
-mypostparameters.append('bank_name', vm.modal.addEmployee.bank_name);
-mypostparameters.append('account_number', vm.modal.addEmployee.account_number);
-mypostparameters.append('ifsc_code', vm.modal.addEmployee.ifsc_code);
-mypostparameters.append('branch_name', vm.modal.addEmployee.branch_name);
-mypostparameters.append('role_id', vm.modal.addEmployee.role_id);
+      // if (vm.modal.addEmployee.clientid !== undefined && vm.modal.addEmployee.clientid !== "") {
+      //   mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
+      // } else {
+      //   mypostparameters.append('added_by', vm.userid);
+      // }
 
-// if (vm.modal.addEmployee.clientid !== undefined && vm.modal.addEmployee.clientid !== "") {
-//   mypostparameters.append('added_by', vm.modal.addEmployee.clientid);
-// } else {
-//   mypostparameters.append('added_by', vm.userid);
-// }
+      // mypostparameters.append('userRole', vm.userRole);
+      // mypostparameters.append('SendEmail', vm.modal.addEmployee.SendEmail);
 
-// mypostparameters.append('userRole', vm.userRole);
-// mypostparameters.append('SendEmail', vm.modal.addEmployee.SendEmail);
-
-// if (this.Images.client_image) {
-//   for (let i = 0; i < this.Images.client_image.length; i++) {
-//     let file = this.Images.client_image[i];
-//     mypostparameters.set('employee_image', file);
-//   }
-// }
+      // if (this.Images.client_image) {
+      //   for (let i = 0; i < this.Images.client_image.length; i++) {
+      //     let file = this.Images.client_image[i];
+      //     mypostparameters.set('employee_image', file);
+      //   }
+      // }
 
       axios
         .post('/api/addemployee',mypostparameters)
@@ -3384,7 +3413,7 @@ mypostparameters.append('role_id', vm.modal.addEmployee.role_id);
           // if(vm.modal.addEmployee.SendEmail){
           //    vm.sendMailToNewEmp()
           // }
-          vm.modal.addEmployee = {}
+          vm.modal.addEmployee = {};
           vm.$swal({
             icon: 'success',
             title: 'Successfully Added!',
@@ -3459,7 +3488,7 @@ mypostparameters.append('role_id', vm.modal.addEmployee.role_id);
         return false
       }
       vm.isLoader = true
-       const mypostparameters= new FormData();
+      const mypostparameters= new FormData();
       mypostparameters.append('firstname', vm.modal.reqEditEmployee.firstname);
       mypostparameters.append('lastname', vm.modal.reqEditEmployee.lastname);
       mypostparameters.append('employee_image', vm.modal.reqEditEmployee.employee_image);

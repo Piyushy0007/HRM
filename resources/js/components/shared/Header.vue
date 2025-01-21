@@ -193,7 +193,8 @@ export default {
                     expanded: false,
                     items: [
                         { name: "paymentdetails", label: "Payment Details" },
-                        { name: "tdscalculation", label: "TDS Calculation" },                                                
+                        { name: "runpayroll", label: "Run Payroll" },
+                        { name: "tdscalculation", label: "TDS Calculation" },                                               
                     ]
                 },
             ],
@@ -248,6 +249,7 @@ export default {
                     expanded: false,
                     items: [
                         { name: "paymentdetails", label: "Payment Details" },
+                        { name: "runpayroll", label: "Run Payroll" },
                         { name: "tdscalculation", label: "TDS Calculation" },                                                
                     ]
                 },

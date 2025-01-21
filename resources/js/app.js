@@ -19,6 +19,7 @@ import VueSimpleAlert from "vue-simple-alert";
 import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import {
     required,
+    // requiredfield,
     email,
     integer,
     digits,
@@ -37,6 +38,10 @@ extend("required", {
     ...required,
     message: "This field is required"
 });
+// extend("requiredfield", {
+//     ...requiredfield,
+//     message: "{_field_} is required"
+// });
 extend("email", {
     ...email,
     message: "Invalid e-mail"
@@ -639,6 +644,16 @@ const routes = [
         path: "/paymentdetails",
         component: require("./components/Payrole/PaymentDetails.vue").default,
         name: "paymentdetails",
+    },
+    {
+        path: "/runpayroll",
+        component: require("./components/Payrole/RunPayroll.vue").default,
+        name: "runpayroll",
+    },
+    {
+        path: "/runpayrollscr",
+        component: require("./components/Payrole/RunPayrollScr.vue").default,
+        name: "runpayrollscr",
     },
     {
         path: "/tdscalculation",
