@@ -35,15 +35,22 @@
           <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="thead-light">
               <tr>
+<<<<<<< HEAD
+=======
+                <!-- <th>
+                  <input v-model="allSelected" type="checkbox" @click="selectAll">
+                </th> -->
+                <!-- <th>Edit</th> -->
+>>>>>>> 4c7a62f272f9a209175044802b3b1cf3ead6366e
                 <th class="text-left">First</th>
                 <th class="text-left">Last</th>
                 <th class="text-left">Phone</th>
                 <th class="text-left">Email</th>
                 <th class="text-left">Role</th>
-                <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
+                <!-- <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Days</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Hours</th>
-                <th class="text-left" v-if="modal.getUserRole==0">Max Day Shifts</th>
+                <th class="text-left" v-if="modal.getUserRole==0">Max Day Shifts</th> -->
                 <th class="text-left">Zip Code</th>
                 <th class="text-left">Hire Date</th>
                 <th class="text-left">Priority Group</th>
@@ -62,14 +69,14 @@
                 <td class="py-1">{{ data.phone }}</td>
                 <td class="text-truncate py-1" style="max-width: 150px;">{{ data.email || '-----' }}</td>
                 <td class="text-truncate py-1">{{ data.role.role_name }}</td>
-                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
+                <!-- <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
-                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td>
+                <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td> -->
                 <td class="text-center py-1">{{ data.zip }}</td>
                 <td class="text-center py-1">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
                 <td class="text-center py-1">{{ data.priority_group }}</td>
-                <td class="text-center flex items-center gap-2 py-1">
+                <td class="text-center flex items-center gap-3 py-1">
                   <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
                   </a>
@@ -93,11 +100,11 @@
               <th class="text-left" style="width: 11%;">First</th>
               <th class="text-left" style="width: 11%;">Last</th>
               <th class="text-left" style="width: 11%;">Phone</th>
-              <th class="text-left" style="width: 14%;">Email*</th>
-              <th class="leading-tight py-2" style="width: 7%;">Max Wkly Hours</th>
+              <th class="text-left" style="width: 20%;">Email*</th>
+              <!-- <th class="leading-tight py-2" style="width: 7%;">Max Wkly Hours</th>
               <th class="leading-tight" style="width: 7%;">Max Wkly Days</th>
               <th class="leading-tight" style="width: 7%;">Max DayHours</th>
-              <th class="leading-tight" style="width: 9%;">Max Day Shifts</th>
+              <th class="leading-tight" style="width: 9%;">Max Day Shifts</th> -->
               <th style="width: 7%;">Hire Date</th>
               <th class="leading-tight" style="width: 9%;">Priority Group</th>
             </tr>
@@ -108,10 +115,10 @@
               <td>{{ data.lastname }}</td>
               <td>{{ data.mobile }}</td>
               <td>{{ data.email || '-----' }}</td>
-              <td class="text-center">{{ data.max_weekly_hours }}</td>
+              <!-- <td class="text-center">{{ data.max_weekly_hours }}</td>
               <td class="text-center">{{ data.max_weekly_days }}</td>
               <td class="text-center">{{ data.max_day_hours }}</td>
-              <td class="text-center">{{ data.max_day_shifts }}</td>
+              <td class="text-center">{{ data.max_day_shifts }}</td> -->
               <td class="text-center">{{ data.hired_date | moment( 'MM-DD-YYYY' ) }}</td>
               <td class="text-center">{{ data.priority_group }}</td>
             </tr>
@@ -693,21 +700,24 @@
       <modal v-model="modal.addNewEmployee" class="modal-add-new-employee" size="md:w-7/12" title="Add New User with a role" >
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(storeEmployee)" ref="frmAddEmployee" novalidate>
-            <div
-              class="flex flex-col mb-6 mt-3 px-6">
-              <label class="block text-gray-700 font-semibold mb-2">Select User Role:</label>
-              <select
-                v-model="addEmployee.role_id" @change="clientselected"
-                class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary" 
-              >
-                <option value='' selected disabled>Select User</option>
-                <option v-for="role in roleList" :key="role.id" :value="role.id">
-                  {{ role.role_name }}
-                </option>
-              </select>
-            </div>
+            <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+              <div
+                class="flex flex-col mb-6 mt-3 px-6">
+                <label class="block text-gray-700 font-semibold mb-2">Select User Role<span class="text-red-500">*</span></label>
+                <select
+                  v-model="addEmployee.role_id" @change="clientselected"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                >
+                  <option value='' selected disabled>Select User</option>
+                  <option v-for="role in roleList" :key="role.id" :value="role.id">
+                    {{ role.role_name }}
+                  </option>
+                </select>
+                <small class="text-red-600">{{ errors[0] }}</small>
+              </div>
+            </ValidationProvider>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6">
-              <ValidationProvider rules="requiredfield|alpha_spaces" v-slot="{ errors }" name="First Name">
+              <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
                 <div>
                   <label class="block text-gray-700 font-semibold mb-2">First Name<span class="text-red-500">*</span></label>
                   <input
@@ -737,20 +747,25 @@
             <!-- gender and employee status -->
             <div class="grid grid-cols-1 md:grid-cols-2 px-6 gap-6 mt-4">
               <!-- Selected Gender -->
-              <div class="mb-4">
-                <label class="block text-gray-700 font-semibold mb-2">
-                  Gender
-                </label>
-                <select
-                  v-model="addEmployee.gender"
-                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                >
-                  <option value="" disabled selected>Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
+              <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                <div class="mb-4">
+                  <label class="block text-gray-700 font-semibold mb-2">
+                    Gender<span class="text-red-500">*</span>
+                  </label>
+                  <select
+                    v-model="addEmployee.gender"
+                    class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  >
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <small class="text-red-600">{{ errors[0] }}</small>
+                </div>
+
+              </ValidationProvider>
+
               <!-- Employee Status -->
               <div class="mb-4">
                 <label class="block text-gray-700 font-semibold mb-2">
@@ -844,31 +859,37 @@
               <h4 class="text-xl font-semibold mb-4">Contact</h4>
               <!-- Email -->
               <div  class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label class="block text-gray-700 font-semibold mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter Email"
-                    v-model="modal.addEmployee.email"
-                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                    style="border: 1px solid #d1d5db !important;"
-                  />
-                </div>
+                <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                      Email<span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter Email"
+                      v-model="modal.addEmployee.email"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                    <small class="text-red-600">{{ errors[0] }}</small>
+                  </div>
+                </ValidationProvider>
                 <!-- Phone -->
-                <div>
-                  <label class="block text-gray-700 font-semibold mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="Enter Phone Number"
-                    v-model="modal.addEmployee.phone"
-                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                    style="border: 1px solid #d1d5db !important;"
-                  />
-                </div>
+                <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                      Phone<span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter Phone Number"
+                      v-model="modal.addEmployee.phone"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                    <small class="text-red-600">{{ errors[0] }}</small>
+                  </div>
+                </ValidationProvider>
                 <!-- 2nd Phone -->
                 <div >
                   <label class="block text-gray-700 font-semibold mb-2">
@@ -886,16 +907,19 @@
               </div>
               <!-- Address -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
-                <div  class="mb-4">
-                  <label class="block text-gray-700 font-semibold mb-2">Address</label>
-                  <input
-                    type="text"
-                    placeholder="Enter Address"
-                    v-model="modal.addEmployee.address"
-                    class="block w-full py-2 px-3 rounded-lg border focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                    style="border: 1px solid #d1d5db !important;"
-                  />
-                </div>
+                <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                  <div  class="mb-4">
+                    <label class="block text-gray-700 font-semibold mb-2">Address<span class="text-red-500">*</span></label>
+                    <input
+                      type="text"
+                      placeholder="Enter Address"
+                      v-model="modal.addEmployee.address"
+                      class="block w-full py-2 px-3 rounded-lg border focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                    <small class="text-red-600">{{ errors[0] }}</small>
+                  </div>
+                </ValidationProvider>
                 <!-- Address 2 -->
                 <div  class="mb-4">
                   <label class="block text-gray-700 font-semibold mb-2">Address 2</label>
@@ -911,36 +935,45 @@
                 </div>        
                 <!-- City, State, Zip -->
                 <div  class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label class="block text-gray-700 font-semibold mb-2">City</label>
-                    <input
-                      type="text"
-                      placeholder="Enter City"
-                      v-model="modal.addEmployee.city"
-                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                      style="border: 1px solid #d1d5db !important;"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-gray-700 font-semibold mb-2">State</label>
-                    <input
-                      type="text"
-                      placeholder="Enter State"
-                      v-model="modal.addEmployee.state"
-                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                      style="border: 1px solid #d1d5db !important;"
-                    />
-                  </div>
-                  <div>
-                    <label class="block text-gray-700 font-semibold mb-2">Zip</label>
-                    <input
-                      type="text"
-                      placeholder="Enter Zip"
-                      v-model="modal.addEmployee.zip"
-                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                      style="border: 1px solid #d1d5db !important;"
-                    />
-                  </div>
+                  <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                    <div>
+                      <label class="block text-gray-700 font-semibold mb-2">City<span class="text-red-500">*</span></label>
+                      <input
+                        type="text"
+                        placeholder="Enter City"
+                        v-model="modal.addEmployee.city"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
+                      />
+                      <small class="text-red-600">{{ errors[0] }}</small>
+                    </div>
+                  </ValidationProvider>
+                  <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                    <div>
+                      <label class="block text-gray-700 font-semibold mb-2">State<span class="text-red-500">*</span></label>
+                      <input
+                        type="text"
+                        placeholder="Enter State"
+                        v-model="modal.addEmployee.state"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
+                      />
+                      <small class="text-red-600">{{ errors[0] }}</small>
+                    </div>
+                  </ValidationProvider>
+                  <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                    <div>
+                      <label class="block text-gray-700 font-semibold mb-2">Zip<span class="text-red-500">*</span></label>
+                      <input
+                        type="text"
+                        placeholder="Enter Zip"
+                        v-model="modal.addEmployee.zip"
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                        style="border: 1px solid #d1d5db !important;"
+                      />
+                      <small class="text-red-600">{{ errors[0] }}</small>
+                    </div>
+                  </ValidationProvider>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 px-6 gap-6 mt-4">
