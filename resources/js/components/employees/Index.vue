@@ -35,10 +35,6 @@
           <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="thead-light">
               <tr>
-                <th>
-                  <input v-model="allSelected" type="checkbox" @click="selectAll">
-                </th>
-                <th>Edit</th>
                 <th class="text-left">First</th>
                 <th class="text-left">Last</th>
                 <th class="text-left">Phone</th>
@@ -60,15 +56,7 @@
               </tr>
             </tbody>
             <tbody v-else>
-              <tr v-for="(data, index) in index.employees" :key="data.id">
-                <td class="text-center py-1">
-                  <input :id="data.id" :index="index" :value="data" v-model="checkedNames" type="checkbox">
-                </td>
-                <td class="text-center py-1">
-                  <a href="#" @click.prevent="openModal('EditEmployee', data, index)">
-                    <font-awesome-icon icon="pencil-alt" />
-                  </a>
-                </td>
+              <tr v-for="(data, index) in index.employees" :key="data.id">                
                 <td class="py-1">{{ data.firstname }}</td>
                 <td class="py-1">{{ data.lastname }}</td>
                 <td class="py-1">{{ data.phone }}</td>
@@ -84,6 +72,9 @@
                 <td class="text-center flex items-center gap-2 py-1">
                   <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
+                  </a>
+                  <a href="#" @click.prevent="openModal('EditEmployee', data, index)">
+                    <font-awesome-icon icon="pencil-alt" />
                   </a>
                   <a href="#" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
                     <font-awesome-icon :icon="['far', 'trash-alt']" />

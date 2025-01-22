@@ -104,39 +104,29 @@ export default {
                     icon: ["fas", "users"],
                     expanded: false,
                     items: [
-                        { name: "employees", label: "Employees" },
-                        { name: "attendance", label: "Attendance" },
-                        {
-                            label: "Leave",
-                            expanded: false,
-                            children: [
+                        { name: "adminindex", label: "Admin Users" },
+                        { name: "employees", label: "Employees" },                                                
+                        { name: "clindex", label: "Branches" },
+                    ]
+                },
+                {
+                    title: "Attendance",
+                    icon: ["fas", "calendar-alt"],
+                    expanded: false,
+                    items: [
                                 { name: "leave", label: "Apply Leave" },
                                 { name: "requests", label: "Leave Requests" }
-                            ]
-                        },
-                        { name: "onoffboarding", label: "On/Off Boarding" }
                     ]
                 },
                 {
                     title: "Payroll",
-                    icon: ["fas", "money-check-alt"],
+                    icon: ["fas", "dollar-sign"],
+                    expanded: false,
                     items: [
-                        { name: "Salary", label: "Salary" },
-                        { name: "Tax", label: "Tax" },
-                        { name: "Claims", label: "Claims" }
+                        { name: "paymentdetails", label: "Payment Details" },
+                        { name: "runpayroll", label: "Run Payroll" },
+                        { name: "tdscalculation", label: "TDS Calculation" },                                               
                     ]
-                },
-                {
-                    title: "Branches",
-                    icon: ["fas", "building"],
-                    expanded: false,
-                    items: [{ name: "clindex", label: "Branches" }]
-                },
-                {
-                    title: "Admin Users",
-                    icon: ["fas", "user-shield"],
-                    expanded: false,
-                    items: [{ name: "adminindex", label: "Admin Users" }]
                 },
                 {
                     title: "Shift & Schedules",
@@ -186,17 +176,7 @@ export default {
                         { name: "Create", label: "Create" },
                         { name: "Listing", label: "Listing" }
                     ]
-                },
-                {
-                    title: "Payroll",
-                    icon: ["fas", "dollar-sign"],
-                    expanded: false,
-                    items: [
-                        { name: "paymentdetails", label: "Payment Details" },
-                        { name: "runpayroll", label: "Run Payroll" },
-                        { name: "tdscalculation", label: "TDS Calculation" },                                               
-                    ]
-                },
+                },                
             ],
             HRmenuGroups: [
                 {
