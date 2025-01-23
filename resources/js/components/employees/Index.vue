@@ -35,10 +35,13 @@
           <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="thead-light">
               <tr>
+<<<<<<< HEAD
+=======
                 <!-- <th>
                   <input v-model="allSelected" type="checkbox" @click="selectAll">
                 </th> -->
                 <!-- <th>Edit</th> -->
+>>>>>>> 4c7a62f272f9a209175044802b3b1cf3ead6366e
                 <th class="text-left">First</th>
                 <th class="text-left">Last</th>
                 <th class="text-left">Phone</th>
@@ -60,13 +63,7 @@
               </tr>
             </tbody>
             <tbody v-else>
-              <tr v-for="(data, index) in index.employees" :key="data.id">
-                <!-- <td class="text-center py-1">
-                  <input :id="data.id" :index="index" :value="data" v-model="checkedNames" type="checkbox">
-                </td> -->
-                <!-- <td class="text-center py-1">
-                  
-                </td> -->
+              <tr v-for="(data, index) in index.employees" :key="data.id">                
                 <td class="py-1">{{ data.firstname }}</td>
                 <td class="py-1">{{ data.lastname }}</td>
                 <td class="py-1">{{ data.phone }}</td>
