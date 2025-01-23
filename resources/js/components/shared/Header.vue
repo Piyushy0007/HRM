@@ -104,15 +104,6 @@ export default {
                     icon: ["fas", "users"],
                     expanded: false,
                     items: [
-<<<<<<< HEAD
-                        { name: "employees", label: "Employees" },
-                        { name: "attendance", label: "Attendance" },
-                        { name: "assets", label: "Assets" },
-                        {
-                            label: "Leave",
-                            expanded: false,
-                            children: [
-=======
                         { name: "adminindex", label: "Admin Users" },
                         { name: "employees", label: "Employees" },                                                
                         { name: "clindex", label: "Branches" },
@@ -123,7 +114,6 @@ export default {
                     icon: ["fas", "calendar-alt"],
                     expanded: false,
                     items: [
->>>>>>> a28d1283c4b2f91a9d98a6b44b704daacde14631
                                 { name: "leave", label: "Apply Leave" },
                                 { name: "requests", label: "Leave Requests" }
                     ]
