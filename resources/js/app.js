@@ -560,6 +560,11 @@ const routes = [
         name: "attendance",
     },
 	{
+        path: "/assets/",
+        component: require("./components/EmployeeManagement/Assets.vue").default,
+        name: "assets",
+    },
+	{
         path: "/leave/",
         component: require("./components/EmployeeManagement/Leave.vue").default,
         name: "leave",
