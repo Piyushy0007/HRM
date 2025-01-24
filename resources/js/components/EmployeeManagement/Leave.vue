@@ -114,7 +114,11 @@ export default {
   methods: {
     async submitLeaveRequest() {
       try {
-        const response = await axios.post("/api/employee/1/LeaveRequest", this.formData);
+        if (!this.selectedEmployee) {
+          alert("Please select an employee.");
+          return;
+        }
+        const response = await axios.post(`/api/employee/${this.selectedEmployee}/LeaveRequest`, this.formData);
         alert(response.data.message);
         this.errorMessage = "";
         console.log(response.data);
@@ -145,6 +149,7 @@ export default {
         end_date: "",
         leave_type: "Casual",
         reason: "",
+        selectedEmployee: "",
       };
     },
   },
