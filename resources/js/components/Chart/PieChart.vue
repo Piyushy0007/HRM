@@ -47,6 +47,7 @@
             </div>
 
             <div class="main-container flex flex-wrap gap-5 p-5 bg-gray-50">
+
                 <!-- Attendance Chart -->
                 <div class="flex-1 bg-white p-5 rounded-lg shadow-md w-full">
                     <h3 class="text-xl font-semibold mb-4">
@@ -103,35 +104,21 @@
                             />
                         </div>
 
-                        <div class="w-full md:w-auto">
-                            <ul class="text-left">
-                                <li class="flex justify-between items-center">
-                                    <span class="flex items-center">
-                                        <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
-                                        In
-                                    </span>
-                                    <span>15</span>
-                                </li>
-                                <li class="flex justify-between items-center">
-                                    <span class="flex items-center">
-                                        <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
-                                        Out
-                                    </span>
-                                    <span>15</span>
-                                </li>
-                                <li class="flex justify-between items-center">
-                                    <span class="flex items-center">
-                                        <span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>
-                                        Check in
-                                    </span>
-                                    <span>15</span>
-                                </li>
-                                <li class="flex justify-between items-center">
-                                    <span class="flex items-center">
-                                        <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
-                                        On Break
-                                    </span>
-                                    <span>15</span>
+                        <div class="flex flex-col gap-4 w-full">
+                            <ul class="mt-5">
+                                <li
+                                    v-for="item in stats"
+                                    :key="item.label"
+                                    class="flex justify-between items-center py-2 px-4 my-2"
+                                >
+                                    <div class="flex items-center">
+                                        <span
+                                            class="w-3 h-3 rounded-full mr-2"
+                                            :style="{ backgroundColor: item.color }"
+                                        ></span>
+                                        <span class="text-gray-600">{{ item.label }}</span>
+                                    </div>
+                                    <span class="text-gray-800 font-medium ml-4">{{ item.value }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -155,16 +142,27 @@ export default {
         Pie
     },
     data() {
+          const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const formatDate = (date) => {
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, "0");
+        const dd = String(date.getDate()).padStart(2, "0");
+        return `${yyyy}-${mm}-${dd}`;
+    };
         return {
-            fromDate: "", // Starting date
-            toDate: "", // Ending date
+            fromDate: formatDate(today), 
+        toDate: formatDate(tomorrow),
             stats: [],
+            dayStatus:[],
             attendanceChartData: {
                 labels: ["Total Users", "Present", "Absent", "On Leave"],
                 datasets: [
                     {
                         backgroundColor: ["#D3D3D3", "#A0D995", "#F67E7D", "#FBC490"],
-                        data: []
+                        data: [0,0,0,0]
                     }
                 ]
             },
@@ -181,11 +179,13 @@ export default {
                 }
             },
             dayStatusChartData: {
-                labels: ["In", "Out", "Yet to check-in", "On Break"],
+                // labels: ["In", "Out", "Yet to check-in", "On Break"],
+                labels: ["Total Users", "Present", "Absent", "On Leave"],
+
                 datasets: [
                     {
                         backgroundColor: ["#34D399", "#F87171", "#FACC15", "#3B82F6"],
-                        data: [15, 39, 0, 1]
+                        data: [0, 0, 0, 0]
                     }
                 ]
             },
@@ -205,28 +205,76 @@ export default {
     },
     methods: {
         async fetchAttendanceData() {
-            try {
-                if (!this.fromDate || !this.toDate) return;
+    try {
+        if (!this.fromDate || !this.toDate) return;
 
-                const response = await axios.get("api/attendanceSummary", {
-                    params: {
-                        start_date: this.fromDate,
-                        end_date: this.toDate
-                    }
-                });
-
-                const data = response.data;
-
-                this.attendanceChartData.datasets[0].data = [
-                    data.total_employees || 0,
-                    data.present || 0,
-                    data.absent || 0,
-                    data.on_leave || 0
-                ];
-            } catch (error) {
-                console.error("Error fetching attendance data:", error);
+        const response = await axios.get("api/attendanceSummary", {
+            params: {
+                start_date: this.fromDate,
+                end_date: this.toDate
             }
+        });
+
+        const data = response.data || {};
+
+        const totalEmployees = data.total_employees ?? 0;
+        const present = data.present ?? 0;
+        const absent = data.absent ?? 0;
+        const onLeave = data.on_leave ?? 0;
+
+        const isAllNull = totalEmployees === 0 && present === 0 && absent === 0 && onLeave === 0;
+
+        // If all values are null, evenly divide the chart
+        if (isAllNull) {
+            this.attendanceChartData.datasets[0].data = [1, 1, 1, 1];
+            this.stats = [
+                { label: "Total Employees", value: "null", color: "#D3D3D3" },
+                { label: "Present", value: "null", color: "#A0D995" },
+                { label: "Absent", value: "null", color: "#F67E7D" },
+                { label: "On Leave", value: "null", color: "#FBC490" }
+            ];
+
+            this.dayStatusChartData.datasets[0].data = [1, 1, 1, 1];
+            this.dayStatus = [
+                { label: "Total Employees", value: "null", color: "#D3D3D3" },
+                { label: "Present", value: "null", color: "#A0D995" },
+                { label: "Absent", value: "null", color: "#F67E7D" },
+                { label: "On Leave", value: "null", color: "#FBC490" }
+            ];
+        } else {
+            this.attendanceChartData.datasets[0].data = [
+                totalEmployees,
+                present,
+                absent,
+                onLeave
+            ];
+
+            this.stats = [
+                { label: "Total Employees", value: totalEmployees, color: "#D3D3D3" },
+                { label: "Present", value: present, color: "#A0D995" },
+                { label: "Absent", value: absent, color: "#F67E7D" },
+                { label: "On Leave", value: onLeave, color: "#FBC490" }
+            ];
+
+            this.dayStatusChartData.datasets[0].data = [
+                totalEmployees,
+                present,
+                absent,
+                onLeave
+            ];
+
+            this.dayStatus = [
+                { label: "Total Employees", value: totalEmployees, color: "#D3D3D3" },
+                { label: "Present", value: present, color: "#A0D995" },
+                { label: "Absent", value: absent, color: "#F67E7D" },
+                { label: "On Leave", value: onLeave, color: "#FBC490" }
+            ];
         }
+
+    } catch (error) {
+        console.error("Error fetching attendance data:", error);
+    }
+}
     },
     mounted() {
         this.fetchAttendanceData();

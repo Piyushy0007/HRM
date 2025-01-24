@@ -167,6 +167,7 @@ export default {
                     expanded: false,
                     items: [
                         { name: "attendance-chart", label: "Graph" },
+                        { name: "payrole-chart", label: "Payrole Chart"},
                     ]
                 },
                 {
