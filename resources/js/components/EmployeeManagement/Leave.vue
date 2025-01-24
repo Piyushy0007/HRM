@@ -41,6 +41,15 @@
                   placeholder="dd/mm/yyyy"
                 />
               </div>
+              <div class="mb-4">
+                <label class="block text-black-600 text-sm mb-1">Select Employee</label>
+                <select v-model="selectedEmployee" class="w-full border-gray-300 rounded-lg text-sm p-2" id="employeeSelect">
+                  <option disabled value="">Select Employee</option>
+                  <option v-for="employee in employees" :key="employee.id" :value="employee.id">
+                    {{ employee.firstname }} {{ employee.lastname }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
@@ -98,6 +107,8 @@ export default {
       },
       successMessage: "",
       errorMessage: "",
+      employees: [], // List of employees
+      selectedEmployee: "", // Currently selected employee ID
     };
   },
   methods: {
@@ -115,6 +126,18 @@ export default {
         console.error(error);
       }
     },
+    // Updated fetchEmployees method
+    async fetchEmployees() {
+      try {
+        const response = await axios.get('/api/employees');
+        this.employees = response.data;
+        console.log('Employees fetched successfully:', response.data);
+      } catch (error) {
+        const errorMessage = error.response?.data?.message || "An error occurred while fetching employees.";
+        console.error('Error fetching employees:', errorMessage);
+        alert(errorMessage);
+      }
+    },
     resetForm() {
       // Reset form fields to their initial state
       this.formData = {
@@ -124,6 +147,10 @@ export default {
         reason: "",
       };
     },
+  },
+  mounted() {
+    // Fetch employees when the component mounts
+    this.fetchEmployees();
   },
 };
 </script>

@@ -52,6 +52,12 @@
                     class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
                   />
                 </div>
+                <div class="flex items-center">
+                  <button
+                    class="text-white bg-blue-600 rounded px-4" style="padding-top: 0.375rem; padding-bottom: 0.375rem"
+                    @click="leaveapply"
+                  >Apply Leave</button>
+                </div>
               </div>
             </div>
             <!-- Table Container -->
@@ -280,6 +286,10 @@ export default {
       } finally {
         this.isLoader = false;
       }
+    },
+    leaveapply() {
+            // Navigate to the RunPayrollScr screen with the required month parameter
+            this.$router.push({ name: 'leave'});
     },
     prevPage() {
       if (this.currentPage > 1) {
