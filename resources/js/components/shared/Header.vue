@@ -96,13 +96,13 @@ export default {
             positions: {},
             selectedPosition: "",
             count: 0,
-            selectedGroupIndex: null,
+            selectedGroupIndex: 0,
             selectedItemName: "",
             menuGroups: [
                 {
                     title: "Management",
                     icon: ["fas", "users"],
-                    expanded: false,
+                    expanded: this.selectedGroupIndex == 0,
                     items: [
                         { name: "adminindex", label: "Admin Users" },
                         { name: "employees", label: "Employees" },                                                
@@ -112,7 +112,7 @@ export default {
                 {
                     title: "Attendance",
                     icon: ["fas", "calendar-alt"],
-                    expanded: false,
+                    expanded: this.selectedGroupIndex == 1,
                     items: [
                                 { name: "leave", label: "Apply Leave" },
                                 { name: "requests", label: "Leave Requests" }
@@ -121,7 +121,7 @@ export default {
                 {
                     title: "Payroll",
                     icon: ["fas", "dollar-sign"],
-                    expanded: false,
+                    expanded: this.selectedGroupIndex === 2 ? true : false,
                     items: [
                         { name: "paymentdetails", label: "Payment Details" },
                         { name: "runpayroll", label: "Run Payroll" },
@@ -315,17 +315,22 @@ export default {
         updateRole() {
             this.role = JSON.parse(localStorage.getItem("role")) || "default";
         },
-        toggleGroup(index) {
+        toggleGroup(index) {            
+            this.selectedGroupIndex = index;            
             this.$set(this.activeMenuGroups, index, {
                 ...this.activeMenuGroups[index],
                 expanded: !this.activeMenuGroups[index].expanded
             });
         },
-        toggleChild(groupIndex, itemIndex) {
+        toggleChild(groupIndex, itemIndex) {            
             const item = this.activeMenuGroups[groupIndex].items[itemIndex];
             if (item.children) {
                 item.expanded = !item.expanded;
             }
+            // this.$set(this.activeMenuGroups, groupIndex, {
+            //     ...this.activeMenuGroups[groupIndex],
+            //     expanded: !this.activeMenuGroups[groupIndex].expanded
+            // });
         },
         message_count() {
             axios

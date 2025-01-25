@@ -35,13 +35,6 @@
           <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="thead-light">
               <tr>
-<<<<<<< HEAD
-=======
-                <!-- <th>
-                  <input v-model="allSelected" type="checkbox" @click="selectAll">
-                </th> -->
-                <!-- <th>Edit</th> -->
->>>>>>> 4c7a62f272f9a209175044802b3b1cf3ead6366e
                 <th class="text-left">First</th>
                 <th class="text-left">Last</th>
                 <th class="text-left">Phone</th>
