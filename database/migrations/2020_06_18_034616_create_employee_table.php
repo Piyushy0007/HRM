@@ -47,6 +47,7 @@ class CreateEmployeeTable extends Migration
         $table->string('position');
         $table->string('education_detail');
         $table->string('experience_duration');
+        $table->enum('status', ['active', 'deactive', 'terminated'])->default('active');
 
         $table->timestamps();
         $table->softDeletes();

@@ -202,7 +202,7 @@ library.add(
     faDollarSign,
     faChevronDown,
     faChevronRight,
-    faSignal
+    faSignal,
 );
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("font-awesome-layers", FontAwesomeLayers);
@@ -560,6 +560,11 @@ const routes = [
         name: "attendance",
     },
 	{
+        path: "/assets/",
+        component: require("./components/EmployeeManagement/Assets.vue").default,
+        name: "assets",
+    },
+	{
         path: "/leave/",
         component: require("./components/EmployeeManagement/Leave.vue").default,
         name: "leave",
@@ -659,6 +664,11 @@ const routes = [
         path: "/attendance-chart",
         component: require("./components/Chart/PieChart.vue").default,
         name: "attendance-chart",
+    },
+    {
+        path: "/payrole-chart",
+        component: require("./components/Chart/PayroleChart.vue").default,
+        name: "payrole-chart",
     },
     {
         path: "/unauthorized",

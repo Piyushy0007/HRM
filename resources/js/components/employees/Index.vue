@@ -1004,6 +1004,35 @@
                     <option value="5">5 Years</option>
                   </select>
                 </div>
+                <div class="mb-4">
+                  <label class="block text-gray-700 font-semibold mb-2">
+                    Asset Tags
+                  </label>
+                  <input
+                    type="text"
+                    v-model="searchText"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    placeholder="Search or add tags..."
+                    @input="filterOptions"
+                    @keydown.enter.prevent="addTag"
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <ul v-if="filteredOptions.length > 0" class="dropdown">
+                    <li
+                      v-for="(option, index) in filteredOptions"
+                      :key="index"
+                      @click="selectOption(option)"
+                    >
+                      {{ option }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="selected-tags">
+                  <span v-for="(tag, index) in selectedTags" :key="index" class="tag">
+                    {{ tag }}
+                    <button @click="removeTag(index)" class="text-lg">x</button>
+                  </span>
+                </div>
               </div>
               <!-- salary  full detail -->
               <div class="border-t border-b border-gray-700 py-6 px-6 mb-6 mt-4">
@@ -2019,6 +2048,23 @@ export default {
         payPeriod: '',
         payment_mode: '',
       },
+      // Assets tags start
+      searchText: "", // For input text
+      selectedTags: [], // Holds selected tags
+      options: [
+        "UIUX",
+        "Web",
+        "Web Design",
+        "Design",
+        "Web Kit",
+        "UI Design",
+        "Education",
+        "Learning",
+        "Online Classes",
+        "This is a long tag",
+      ], // Available options
+      filteredOptions: [], // Search results
+      // Assets tags end
       isLoader: false,
       searchKeyword: '',
       searchTimer: null,
@@ -2195,6 +2241,10 @@ export default {
       immediate: true
     }
   },
+  mounted() {
+    // Initialize the filtered options when the component loads
+    this.filteredOptions = this.options;
+  },
 	methods: {
      async fetchUserRole() {  
       this.isLoader = true;
@@ -2213,6 +2263,41 @@ export default {
         this.isLoader = false; 
       }
     },
+    // Assets tags start
+    filterOptions() {
+      // Filter options based on the search text
+      const lowerText = this.searchText.toLowerCase();
+      this.filteredOptions = this.options.filter(
+        (option) =>
+          option.toLowerCase().includes(lowerText) &&
+          !this.selectedTags.includes(option)
+      );
+    },
+    addTag() {
+      // Add new tag if it doesn't already exist
+      if (
+        this.searchText.trim() &&
+        !this.selectedTags.includes(this.searchText)
+      ) {
+        this.selectedTags.push(this.searchText);
+        this.searchText = ""; // Clear input
+        this.filteredOptions(); // Reset dropdown
+      }
+    },
+    selectOption(option) {
+      // Add the selected option as a tag
+      if (!this.selectedTags.includes(option)) {
+        this.selectedTags.push(option);
+        this.searchText = ""; // Clear input
+        this.filteredOptions(); // Reset dropdown
+      }
+    },
+    removeTag(index) {
+      // Remove tag from the selected list
+      this.selectedTags.splice(index, 1);
+      this.filterOptions(); // Recalculate filtered options
+    },
+    // Assets tags end
     // 
     handleFileUpload1(event){
       console.log(event.target.files, 'here')
@@ -3855,6 +3940,67 @@ export default {
   position: absolute;
   z-index: 1;
 }
+ /* Assets tags start */
+.custom-select {
+  position: relative;
+}
+
+.custom-select input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dropdown {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #eee;
+}
+
+.selected-tags {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tag {
+  background-color: #c4c4c4;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tag button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+/* // Assets tags end  */
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;

@@ -213,7 +213,10 @@ Route::get('/roles', [RoleController::class, 'getAllRoles']);
 
 //salaries
 Route::get('/salaries', [SalaryController::class, 'index']);
-Route::post('calculate-tds', [SalaryController::class, 'calculateTds']);
+Route::post('calculateTds', [SalaryController::class, 'calculateTds']);
+Route::post('/payrollStatus', [SalaryController::class, 'calculatePayrollStatus']);
+Route::post('/insertSalaryDisbursements', [SalaryController::class, 'insertSalaryDisbursements']);
+
 
 
 

@@ -157,6 +157,7 @@ export default {
                         { name: "attendance-chart", label: "Graph" },
                         { name: "performance", label: "Performance" },
                         { name: "attendance", label: "Attendance" },
+                        { name: "assets", label: "Assets" },
                         { name: "payroll", label: "Payroll" }
                     ]
                 },
@@ -166,6 +167,7 @@ export default {
                     expanded: false,
                     items: [
                         { name: "attendance-chart", label: "Graph" },
+                        { name: "payrole-chart", label: "Payrole Chart"},
                     ]
                 },
                 {
@@ -186,6 +188,7 @@ export default {
                     items: [
                         { name: "employees", label: "Employees" },
                         { name: "attendance", label: "Attendance" },
+                        { name: "assets", label: "Assets" },
                         {
                             label: "Leave",
                             expanded: false,
@@ -242,6 +245,7 @@ export default {
                     items: [
                         { name: "employees", label: "Employees" },
                         { name: "attendance", label: "Attendance" },
+                        { name: "assets", label: "Assets" },
                         {
                             label: "Leave",
                             expanded: false,
