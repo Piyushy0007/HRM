@@ -37,6 +37,8 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\AssetController;
+
 
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
@@ -75,6 +77,9 @@ Route::group([
    // 'middleware' =>['assign.guard:clients','jwt.auth']
 ], function ($router) {
   
+    Route::get('/assets', [AssetController::class, 'index']); // Get all assets
+    Route::post('/assets', [AssetController::class, 'store']); // Insert a new asset    
+
     Route::get('getproperty/{id}', [ClientWebController::class,'GetOurProperties']);
     Route::post('clientlogout', [ClientWebController::class,'Clientlogout']);
     Route::post('addproperty', [ClientWebController::class,'AddClientProperties']);
@@ -216,7 +221,7 @@ Route::get('/salaries', [SalaryController::class, 'index']);
 Route::post('calculateTds', [SalaryController::class, 'calculateTds']);
 Route::post('/payrollStatus', [SalaryController::class, 'calculatePayrollStatus']);
 Route::post('/insertSalaryDisbursements', [SalaryController::class, 'insertSalaryDisbursements']);
-
+Route::get('run-payroll/{month}/{year}', [SalaryController::class,'runPayroll']);
 
 
 

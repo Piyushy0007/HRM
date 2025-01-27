@@ -205,6 +205,8 @@ export default {
     data() {
         return {
             // Data for the first chart
+            fromDate: '',
+            toDate: '',
             payrollBarChartData: {
                 labels: [
                     "Jan",
@@ -580,7 +582,13 @@ export default {
 
 
         };
-    }
+    },
+    methods: {
+        fetchAttendanceData() {
+        console.log("Fetching attendance data for:", this.fromDate);
+        // Add your logic for fetching attendance data here
+        },
+    },
 };
 </script>
 

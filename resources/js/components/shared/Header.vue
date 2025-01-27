@@ -100,22 +100,41 @@ export default {
             selectedItemName: "",
             menuGroups: [
                 {
+                    title: "Graphs",
+                    icon: ["fas","signal"],
+                    expanded: (this.$route.path === '/attendance-chart' || this.$route.path === '/payrole-chart') ? true : false,
+                    items: [
+                        { name: "attendance-chart", label: "Attendance" },
+                        { name: "payrole-chart", label: "Payrole"},
+                    ]
+                },
+                {
                     title: "Management",
                     icon: ["fas", "users"],
-                    expanded: this.selectedGroupIndex == 0,
+                    expanded: (this.$route.path === '/admin/adminindex' || this.$route.path === '/employees/' || this.$route.path === '/client/clindex' || this.$route.path === '/assets') ? true : false,
                     items: [
                         { name: "adminindex", label: "Admin Users" },
                         { name: "employees", label: "Employees" },                                                
                         { name: "clindex", label: "Branches" },
+                        { name: "assets", label: "Assets" },
                     ]
                 },
                 {
                     title: "Attendance",
-                    icon: ["fas", "calendar-alt"],
+                    icon: ["fas", "columns"],
                     expanded: this.selectedGroupIndex == 1,
                     items: [
-                                { name: "leave", label: "Apply Leave" },
-                                { name: "requests", label: "Leave Requests" }
+                        { name: "leave", label: "Apply Leave" },
+                        { name: "requests", label: "Leave Requests" }
+                    ]
+                },
+                {
+                    title: "Requests",
+                    icon: ["fas", "exclamation"],
+                    expanded: this.selectedGroupIndex == 1,
+                    items: [
+                        { name: "createrequest", label: "Create Request" },
+                        { name: "allrequests", label: "All Requests" }
                     ]
                 },
                 {
@@ -156,18 +175,8 @@ export default {
                         { name: "reports", label: "Reports" },
                         { name: "attendance-chart", label: "Graph" },
                         { name: "performance", label: "Performance" },
-                        { name: "attendance", label: "Attendance" },
-                        { name: "assets", label: "Assets" },
+                        { name: "attendance", label: "Attendance" },                        
                         { name: "payroll", label: "Payroll" }
-                    ]
-                },
-                {
-                    title: "Attendance Status",
-                    icon: ["fas","signal"],
-                    expanded: false,
-                    items: [
-                        { name: "attendance-chart", label: "Graph" },
-                        { name: "payrole-chart", label: "Payrole Chart"},
                     ]
                 },
                 {
@@ -340,7 +349,7 @@ export default {
             axios
                 .post("/api/adminmessagecount", {
                     admin_id: this.userid,
-                    userable_type: this.apparray.admin
+                    userable_type: this.apparray?.admin
                 })
                 .then(res => {
                     if (res.data.status) {

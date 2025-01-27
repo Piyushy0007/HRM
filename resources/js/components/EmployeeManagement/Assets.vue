@@ -36,34 +36,45 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-b text-center">
-                    <td class="py-3 px-4">John Doe</td>
-                    <td class="py-3 px-4">Laptop</td>
-                    <td class="py-3 px-4">SN12345</td>
-                    <td class="py-3 px-4">Dell</td>
-                    <td class="py-3 px-4">Inspiron 15</td>
-                    <td class="py-3 px-4">16GB</td>
-                    <td class="py-3 px-4">512GB</td>
-                    <td class="py-3 px-4">IMEI001234567890</td>
-                    <td class="py-3 px-4">192.168.1.1</td>
-                    <td class="py-3 px-4">California</td>
-                    <td class="py-3 px-4">Office</td>
-                  </tr>
-                  <tr class="border-b text-center">
-                    <td class="py-3 px-4">Jane Smith</td>
-                    <td class="py-3 px-4">Mobile</td>
-                    <td class="py-3 px-4">SN67890</td>
-                    <td class="py-3 px-4">Apple</td>
-                    <td class="py-3 px-4">iPhone 13</td>
-                    <td class="py-3 px-4">8GB</td>
-                    <td class="py-3 px-4">256GB</td>
-                    <td class="py-3 px-4">IMEI009876543210</td>
-                    <td class="py-3 px-4">192.168.1.2</td>
-                    <td class="py-3 px-4">New York</td>
-                    <td class="py-3 px-4">Personal</td>
-                  </tr>
+                  <tr v-if="isLoader">
+                      <td colspan="7" class="text-center loader py-4">Loading...</td>
+                    </tr>
+                    <tr v-else-if="assets.length === 0">
+                      <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
+                    </tr>
+                    <tr v-for="asset in assets.data" :key="asset.id" class="text-center border-b">
+                      <td class="py-3 px-4">{{ asset.name }}</td>
+                      <td class="py-3 px-4">{{ asset.category }}</td>
+                      <td class="py-3 px-4">{{ asset.serial_number }}</td>
+                      <td class="py-3 px-4">{{ asset.brand_name }}</td>
+                      <td class="py-3 px-4">{{ asset.model_number }}</td>
+                      <td class="py-3 px-4">{{ asset.ram }}</td>
+                      <td class="py-3 px-4">{{ asset.storage_capacity }}</td>
+                      <td class="py-3 px-4">{{ asset.imei_number }}</td>
+                      <td class="py-3 px-4">{{ asset.ip_address }}</td>
+                      <td class="py-3 px-4">{{ asset.previous_state }}</td>
+                      <td class="py-3 px-4">{{ asset.tag }}</td>
+                    </tr>               
                 </tbody>
               </table>
+              <!-- Pagination Controls -->
+              <div class="flex items-center justify-end mt-4">
+                <button
+                  class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 mr-5"
+                  :disabled="!assets.prev_page_url"
+                  @click="fetchAssets(assets.current_page - 1)"
+                >
+                  Previous
+                </button>
+                <span>Page {{ assets.current_page }} of {{ assets.last_page }}</span>
+                <button
+                  class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 ml-5 mr-5"
+                  :disabled="!assets.next_page_url"
+                  @click="fetchAssets(assets.current_page + 1)"
+                >
+                  Next
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -89,7 +100,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Brand Name"
-                v-model="formData.brandName"
+                v-model="formData.name"
               />
             </div>
             <!-- Model Number -->
@@ -99,7 +110,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Model Number"
-                v-model="formData.modelNumber"
+                v-model="formData.model_number"
               />
             </div>
             <!-- RAM -->
@@ -119,7 +130,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Storage Capacity"
-                v-model="formData.storageCapacity"
+                v-model="formData.storage_capacity"
               />
             </div>
             <!-- IMEI Number -->
@@ -129,7 +140,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="IMEI Number"
-                v-model="formData.imeiNumber"
+                v-model="formData.imei_number"
               />
             </div>
             <!-- IP Address -->
@@ -139,7 +150,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="IP Address"
-                v-model="formData.ipAddress"
+                v-model="formData.ip_address"
               />
             </div>
             <!-- Current Location -->
@@ -169,7 +180,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Previous State"
-                v-model="formData.previousState"
+                v-model="formData.previous_state"
               />
             </div>
             <!-- Purchased Date -->
@@ -236,17 +247,27 @@
     name: "assets",
     data() {
       return {
+        isLoader: false,
         isModalOpen: false,
+        assets: {
+          data: [], // Holds the paginated assets data
+          current_page: 1,
+          last_page: 1,
+          prev_page_url: null,
+          next_page_url: null,
+        },
+        perPage: 10, // Items per page
         formData: {
-          brandName: "",
-          modelNumber: "",
+          name: "",
+          model_number: "",
           ram: "",
-          storageCapacity: "",
-          imeiNumber: "",
-          ipAddress: "",
+          category: "Electronics",
+          storage_capacity: "",
+          imei_number: "",
+          ip_address: "",
           currentLocation: "",
           purchasedFrom: "",
-          previousState: "",
+          previous_state: "",
           purchasedDate: "",
           warrantyStartDate: "",
           warrantyEndDate: "",
@@ -263,15 +284,56 @@
       closeModal() {
         this.isModalOpen = false;
       },
-      handleFormSubmit() {
-        console.log(this.formData);
-        // Add logic to save form data
-        this.closeModal();
+      async handleFormSubmit() {
+        try {
+          this.isLoader = true; 
+          const response = await axios.post(`/api/assets`, this.formData);
+          alert(response.data.message);
+          this.errorMessage = "";
+          console.log(response.data);
+          this.resetForm();
+        } catch (error) {
+          alert(error.response?.data?.message || "An error occurred.")
+          this.successMessage = "";
+          alert(errorMessage);
+          console.error(error);
+        }
+      },
+      // Updated fetchEmployees method
+      async fetchAssets(page = 1) {
+        await axios.get(`/api/assets?page=${page}&per_page=${this.perPage}`)
+          // .then((response) => response.json())
+          .then((data) => {
+            console.log('data=', data?.data);
+            this.assets = data?.data;
+          })
+          .catch((error) => {
+            console.error('Error fetching assets:', error);
+          });
+      },  
+      resetForm() {
+        // Reset form fields to their initial state
+        this.formData = {
+          brandName: "",
+          modelNumber: "",
+          ram: "",
+          storageCapacity: "",
+          imeiNumber: "",
+          ipAddress: "",
+          currentLocation: "",
+          purchasedFrom: "",
+          previousState: "",
+          purchasedDate: "",
+          warrantyStartDate: "",
+          warrantyEndDate: "",
+          assignTo: "",
+          previousOwner: "",
+          imageUpload: "",
+        };
       },
     },
-    mounted() {
-      
-      
+    mounted() {    
+      this.fetchAssets();
     },
   };
   </script>

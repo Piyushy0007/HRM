@@ -17,7 +17,7 @@
               <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col overflow-auto">
                 <table class="w-full table-auto">
                   <tbody>
-                    <tr v-for="(quarter, index) in quarters" :key="index" class="border text-center">
+                    <tr v-for="(quarter, index) in quarters" :key="index" class="border text-center h-40">
                       <td class="py-3 px-4">{{ quarter.label }}</td>
                       <td v-for="month in quarter.months" :key="month" class="py-2 border px-4">
                         <span class="flex flex-col">
@@ -94,7 +94,7 @@
         },
         runPayroll(month) {
             // Navigate to the RunPayrollScr screen with the required month parameter
-            this.$router.push({ name: 'runpayrollscr', query: { month: month } });
+            this.$router.push({ name: 'runpayrollscr', query: { month: month, year: this.selectedYear } });
         },
     },
   };
