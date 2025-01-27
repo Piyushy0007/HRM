@@ -1005,27 +1005,31 @@
                   </select>
                 </div>
                 <div class="mb-4">
-                  <label class="block text-gray-700 font-semibold mb-2">
-                    Asset Tags
-                  </label>
-                  <input
-                    type="text"
-                    v-model="searchText"
-                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                    placeholder="Search or add tags..."
-                    @input="filterOptions"
-                    @keydown.enter.prevent="addTag"
-                    style="border: 1px solid #d1d5db !important;"
-                  />
-                  <ul v-if="filteredOptions.length > 0" class="dropdown">
-                    <li
-                      v-for="(option, index) in filteredOptions"
-                      :key="index"
-                      @click="selectOption(option)"
-                    >
-                      {{ option }}
-                    </li>
-                  </ul>
+                  <label class="block text-gray-700 font-semibold mb-2">Asset Tags</label>
+                  <div class="relative w-full">
+                    <input
+                      type="text"
+                      v-model="searchText"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      placeholder="Search or add tags..."
+                      @input="handleInput"
+                      @keydown.enter.prevent="addTag"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                    <ul v-if="showDropdown && filteredOptions.length > 0" class="dropdown" ref="dropdown">
+                      <li
+                        v-for="(option, index) in filteredOptions"
+                        :key="index"
+                        @click="selectOption(option)"
+                      >
+                        {{ option.name }} ({{ option.model_number }})
+                      </li>
+                    </ul>
+                    <!-- No match message -->
+                    <p v-else-if="searchText.trim().length > 0" class="text-sm text-gray-500 mt-2">
+                      No matches found.
+                    </p>
+                  </div>
                 </div>
                 <div class="selected-tags">
                   <span v-for="(tag, index) in selectedTags" :key="index" class="tag">
@@ -2051,19 +2055,9 @@ export default {
       // Assets tags start
       searchText: "", // For input text
       selectedTags: [], // Holds selected tags
-      options: [
-        "UIUX",
-        "Web",
-        "Web Design",
-        "Design",
-        "Web Kit",
-        "UI Design",
-        "Education",
-        "Learning",
-        "Online Classes",
-        "This is a long tag",
-      ], // Available options
       filteredOptions: [], // Search results
+      debounceTimeout: null, // Debounce timeout for API calls
+      showDropdown: false,
       // Assets tags end
       isLoader: false,
       searchKeyword: '',
@@ -2244,6 +2238,10 @@ export default {
   mounted() {
     // Initialize the filtered options when the component loads
     this.filteredOptions = this.options;
+    document.addEventListener("click", this.handleClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.handleClickOutside);
   },
 	methods: {
      async fetchUserRole() {  
@@ -2264,38 +2262,61 @@ export default {
       }
     },
     // Assets tags start
-    filterOptions() {
-      // Filter options based on the search text
-      const lowerText = this.searchText.toLowerCase();
-      this.filteredOptions = this.options.filter(
-        (option) =>
-          option.toLowerCase().includes(lowerText) &&
-          !this.selectedTags.includes(option)
-      );
+    // Handle input and debounce API call
+    handleInput() {
+      this.showDropdown = true;
+      clearTimeout(this.debounceTimeout); // Clear any previous timeout
+      this.debounceTimeout = setTimeout(() => {
+        this.fetchAssets();
+      }, 300); // Debounce delay of 300ms
     },
+    // Fetch assets from the API
+    async fetchAssets() {
+      if (this.searchText.trim() === "") {
+        this.filteredOptions = []; // Clear options if input is empty
+        return;
+      }
+      try {
+        const response = await axios.get(`/api/assets`, {
+          params: { query: this.searchText },
+        });
+        // this.filteredOptions = response.data.data; // Assuming data contains the assets array
+        // Filter the results based on the searchText
+        const results = response.data.data.filter((item) =>
+          item.name.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+        this.filteredOptions = results.length ? results : []; // Set results or empty array
+      } catch (error) {
+        console.error("Error fetching assets:", error);
+        this.filteredOptions = [];
+      }
+    },
+    // Add a tag
     addTag() {
-      // Add new tag if it doesn't already exist
-      if (
-        this.searchText.trim() &&
-        !this.selectedTags.includes(this.searchText)
-      ) {
-        this.selectedTags.push(this.searchText);
+      if (this.searchText.trim()) {
+        this.selectedTags.push(this.searchText.trim());
         this.searchText = ""; // Clear input
-        this.filteredOptions(); // Reset dropdown
+        this.filteredOptions = []; // Clear dropdown
+        this.showDropdown = false;
       }
     },
+    // Select a tag from the dropdown
     selectOption(option) {
-      // Add the selected option as a tag
-      if (!this.selectedTags.includes(option)) {
-        this.selectedTags.push(option);
-        this.searchText = ""; // Clear input
-        this.filteredOptions(); // Reset dropdown
-      }
+      this.selectedTags.push(option.name); // Add selected tag
+      this.searchText = ""; // Clear input
+      this.filteredOptions = []; // Clear dropdown
+      this.showDropdown = false;
     },
+    // Remove a tag
     removeTag(index) {
-      // Remove tag from the selected list
-      this.selectedTags.splice(index, 1);
-      this.filterOptions(); // Recalculate filtered options
+      this.selectedTags.splice(index, 1); // Remove the selected tag
+    },
+    handleClickOutside(event) {
+      const dropdown = this.$refs.dropdown;
+      const input = this.$refs.searchInput;
+      if (!dropdown.contains(event.target) && !input.contains(event.target)) {
+        this.showDropdown = false; // Hide dropdown when clicking outside
+      }
     },
     // Assets tags end
     // 
@@ -3979,6 +4000,7 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
 }
 
@@ -3990,6 +4012,7 @@ export default {
   font-size: 14px;
   display: flex;
   align-items: center;
+  height: 44px;
   gap: 5px;
 }
 
