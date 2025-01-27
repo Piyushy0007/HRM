@@ -37,10 +37,10 @@
                 </thead>
                 <tbody>
                   <tr v-if="isLoader">
-                      <td colspan="7" class="text-center loader py-4">Loading...</td>
+                      <td colspan="11" class="text-center loader py-4">Loading...</td>
                     </tr>
                     <tr v-else-if="assets.length === 0">
-                      <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
+                      <td colspan="11" class="text-center py-4">No leave requests found for the selected date range.</td>
                     </tr>
                     <tr v-for="asset in assets.data" :key="asset.id" class="text-center border-b">
                       <td class="py-3 px-4">{{ asset.name }}</td>
@@ -60,7 +60,7 @@
               <!-- Pagination Controls -->
               <div class="flex items-center justify-end mt-4">
                 <button
-                  class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 mr-5"
+                  class="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50 mr-5"
                   :disabled="!assets.prev_page_url"
                   @click="fetchAssets(assets.current_page - 1)"
                 >
@@ -68,7 +68,7 @@
                 </button>
                 <span>Page {{ assets.current_page }} of {{ assets.last_page }}</span>
                 <button
-                  class="px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50 ml-5 mr-5"
+                  class="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50 ml-5 mr-5"
                   :disabled="!assets.next_page_url"
                   @click="fetchAssets(assets.current_page + 1)"
                 >
@@ -84,7 +84,7 @@
       v-if="isModalOpen"
       class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
     >
-      <div class="bg-white rounded-lg shadow-lg p-6 w-2/3 max-w-4xl h-auto max-h-[85vh] overflow-auto">
+      <div class="bg-white rounded-lg shadow-lg p-6 w-2/3 max-w-4xl h-[80vh] overflow-y-auto relative" style="max-height: calc(100vh - 40px);">
         <div class="flex justify-between items-center mb-4">
           <h2 class="text-xl font-semibold">Assets</h2>
           <button class="text-3xl font-bold text-gray-600 hover:text-gray-900" @click="closeModal">
@@ -95,22 +95,40 @@
           <div class="grid grid-cols-2 gap-4">
             <!-- Brand Name -->
             <div>
-              <label class="block text-gray-700">Brand Name</label>
+              <label class="block text-gray-700">Brand Name<span class="text-red-500">*</span></label>
               <input
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Brand Name"
+                v-model="formData.brand_name"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700">Name<span class="text-red-500">*</span></label>
+              <input
+                type="text"
+                class="border rounded w-full p-2"
+                placeholder="Name"
                 v-model="formData.name"
               />
             </div>
             <!-- Model Number -->
             <div>
-              <label class="block text-gray-700">Model Number</label>
+              <label class="block text-gray-700">Model Number<span class="text-red-500">*</span></label>
               <input
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Model Number"
                 v-model="formData.model_number"
+              />
+            </div>
+            <div>
+              <label class="block text-gray-700">Serial Number</label>
+              <input
+                type="text"
+                class="border rounded w-full p-2"
+                placeholder="Serial Number"
+                v-model="formData.serial_number"
               />
             </div>
             <!-- RAM -->
@@ -160,7 +178,7 @@
                 type="text"
                 class="border rounded w-full p-2"
                 placeholder="Current Location"
-                v-model="formData.currentLocation"
+                v-model="formData.tag"
               />
             </div>
             <!-- Purchased From -->
@@ -219,8 +237,18 @@
                 @change="handleFileChange"
               />
             </div>
+            <div>
+              <label class="block text-gray-700">Select Category</label>
+              <select v-model="formData.category" class="w-full border-gray-300 rounded p-2" style="height: 45px;" id="employeeSelect">
+                <option disabled value="">Select Category</option>
+                <option value="1">Bag</option>
+                <option value="2">Laptop</option>
+                <option value="3">Mobile</option>
+                <option value="4">Tablet</option>
+              </select>
+            </div>
           </div>
-          <div class="flex justify-end gap-4 mt-4">
+          <div class="w-full flex justify-end gap-4 mt-4">
             <button
               type="button"
               class="bg-gray-300 px-4 py-2 rounded"
@@ -236,8 +264,8 @@
             </button>
           </div>
         </form>
-        </div>
       </div>
+    </div>
     </div>
   </template>
   
@@ -258,14 +286,16 @@
         },
         perPage: 10, // Items per page
         formData: {
+          brand_name: "",
           name: "",
           model_number: "",
+          serial_number: "",
           ram: "",
-          category: "Electronics",
+          category: "",
           storage_capacity: "",
           imei_number: "",
           ip_address: "",
-          currentLocation: "",
+          tag: "",
           purchasedFrom: "",
           previous_state: "",
           purchasedDate: "",
@@ -279,7 +309,7 @@
     },
     methods: {
       openModal() {
-      this.isModalOpen = true;
+        this.isModalOpen = true;
       },
       closeModal() {
         this.isModalOpen = false;
@@ -292,11 +322,15 @@
           this.errorMessage = "";
           console.log(response.data);
           this.resetForm();
+          this.closeModal();
         } catch (error) {
           alert(error.response?.data?.message || "An error occurred.")
           this.successMessage = "";
           alert(errorMessage);
           console.error(error);
+          this.closeModal();
+        } finally {
+          this.isLoader = false;
         }
       },
       // Updated fetchEmployees method
@@ -314,13 +348,16 @@
       resetForm() {
         // Reset form fields to their initial state
         this.formData = {
-          brandName: "",
-          modelNumber: "",
+          brand_name: "",
+          name: "",
+          model_number: "",
+          serial_number: "",
+          category: "",
           ram: "",
           storageCapacity: "",
           imeiNumber: "",
           ipAddress: "",
-          currentLocation: "",
+          tag: "",
           purchasedFrom: "",
           previousState: "",
           purchasedDate: "",
