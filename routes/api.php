@@ -38,7 +38,7 @@ use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\AssetController;
-
+use App\Http\Controllers\CreateRequestController;
 
 
 // ******************  ROUTE FOR CLIENT DASHBOARD ***************** //
@@ -501,6 +501,7 @@ Route::post('forgetpasword',[EmployeeController::class,'ForgetPassword']);
 
     Route::get('allNotication/{id}',[EmployeeNotification::class,'allNotication']);
     Route::post('updateNotication',[EmployeeNotification::class,'updateNotication']);
+    Route::post('create-requests', [CreateRequestController::class, 'store']);
 
 //});
 //************************************ END EMPLOYEE ROUTES ********************************//

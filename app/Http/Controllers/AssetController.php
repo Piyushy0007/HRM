@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class AssetController extends Controller
 {
     // Get all assets
-    public function index(Request $request) {
+    public function index(Request $request) {   
         $perPage = $request->get('per_page', 10);
         $assets = Asset::paginate($perPage);
         return response()->json($assets);

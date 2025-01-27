@@ -671,6 +671,16 @@ const routes = [
         name: "payrole-chart",
     },
     {
+        path: "/create-request",
+        component: require("./components/Request/Create_Request.vue").default,
+        name: "create-request",
+    },
+    {
+        path: "/create-request-list",
+        component: require("./components/Request/Create_Req_Listing.vue").default,
+        name: "create-request-list",
+    },
+    {
         path: "/unauthorized",
         component: require("./components/Unauthorized.vue").default,
         name: "unauthorized",
