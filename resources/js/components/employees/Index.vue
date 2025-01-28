@@ -35,19 +35,19 @@
           <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="thead-light">
               <tr>
-                <th class="text-left">First</th>
-                <th class="text-left">Last</th>
-                <th class="text-left">Phone</th>
-                <th class="text-left">Email</th>
-                <th class="text-left">Role</th>
+                <th class="text-left py-1 px-2">First</th>
+                <th class="text-left py-1 px-2">Last</th>
+                <th class="text-left py-1 px-2">Phone</th>
+                <th class="text-left py-1 px-2">Email</th>
+                <th class="text-left py-1 px-2">Role</th>
                 <!-- <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Days</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Shifts</th> -->
-                <th class="text-left">Zip Code</th>
-                <th class="text-left">Hire Date</th>
-                <th class="text-left">Priority Group</th>
-                <th class="text-left">Action</th>
+                <th class="text-center py-1 px-2">Zip Code</th>
+                <th class="text-center py-1 px-2">Hire Date</th>
+                <th class="text-center py-1 px-2">Priority Group</th>
+                <th class="text-center py-1 px-2">Action</th>
               </tr>
             </thead>
             <tbody v-if="index.employees.length === 0">
@@ -57,19 +57,19 @@
             </tbody>
             <tbody v-else>
               <tr v-for="(data, index) in index.employees" :key="data.id">                
-                <td class="py-1">{{ data.firstname }}</td>
-                <td class="py-1">{{ data.lastname }}</td>
-                <td class="py-1">{{ data.phone }}</td>
-                <td class="text-truncate py-1" style="max-width: 150px;">{{ data.email || '-----' }}</td>
-                <td class="text-truncate py-1">{{ data.role.role_name }}</td>
+                <td class="py-1 px-2">{{ data.firstname }}</td>
+                <td class="py-1 px-2">{{ data.lastname }}</td>
+                <td class="py-1 px-2">{{ data.phone }}</td>
+                <td class="text-truncate py-1 px-2" style="max-width: 150px;">{{ data.email || '-----' }}</td>
+                <td class="text-truncate py-1 px-2">{{ data.role.role_name }}</td>
                 <!-- <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td> -->
-                <td class="text-center py-1">{{ data.zip }}</td>
-                <td class="text-center py-1">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
-                <td class="text-center py-1">{{ data.priority_group }}</td>
-                <td class="text-center flex items-center gap-3 py-1">
+                <td class="text-center py-1 px-2">{{ data.zip }}</td>
+                <td class="text-center py-1 px-2">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
+                <td class="text-center py-1 px-2">{{ data.priority_group }}</td>
+                <td class="text-center flex items-center justify-center gap-3 py-1 px-2">
                   <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
                   </a>
@@ -79,6 +79,17 @@
                   <a href="#" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
                     <font-awesome-icon :icon="['far', 'trash-alt']" />
                   </a>
+                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Dollar')">
+                    <font-awesome-icon :icon="['fas', 'dollar-sign']" />
+                  </a>
+                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Briefcase')">
+                    <font-awesome-icon :icon="['fas', 'briefcase']" />
+                  </a>
+                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Columns')">
+                    <font-awesome-icon :icon="['fas', 'columns']" />
+                  </a>
+                <!-- bank accound edit salary edit and asset taging  -->
+
                 </td>
               </tr>
             </tbody>
@@ -121,6 +132,190 @@
       </div>
       
 		  <!-- ================================================ modal ================================================ -->
+       <!-- Modal Template -->
+      <modal v-model="modal.Dollar" class="modal-add-new-employee" size="md:w-5/12" title="Edit Salary">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(DollarFile)" ref="dollorFile" novalidate>
+            <div class="positions py-5 mb-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                  Salary Type</label>
+                  <select v-model="addEmployee.salary_type"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  >
+                    <option value="">Select Salary Type</option>
+                    <option value="Hourly">Hourly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+              </div>
+            <h4 class="text-xl font-semibold mt-6 mb-4">Components of Salary</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Allowances</label>
+                <select v-model="addEmployee.allowances"
+                class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                >
+                  <option value="">Select Allowance</option>
+                  <option value="housing-allowance">Housing Allowance</option>
+                  <option value="transport-allowance">Transport Allowance</option>
+                  <option value="medical-allowance">Medical Allowance</option>
+                  <option value="other-allowance">Other Allowances (if applicable)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Deductions</label>
+                <select v-model="addEmployee.deductions" 
+                class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary custom-selectoption"
+                >
+                  <option value="">Select Deduction</option>
+                  <option value="tax-deduction">Tax Deduction</option>
+                  <option value="provident-fund">Provident Fund</option>
+                  <option value="other-deductions">Other Deductions</option>
+                </select>
+              </div>
+            </div>
+            <h4 class="text-xl font-semibold mt-6 mb-4">Payroll Metadata</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Pay Period</label>
+                <select
+                  v-model="addEmployee.payPeriod"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                >
+                  <option value="">Select Pay Period</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="bi-weekly">Bi-weekly</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Payment Mode</label>
+                <select
+                  v-model="addEmployee.payment_mode"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                >
+                  <option value="">Select Payment Mode</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Check">Check</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Payment Date</label>
+                <input
+                  type="date"
+                  v-model="modal.addEmployee.payment_date"
+                  class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  style="border: 1px solid #d1d5db !important;"
+                />
+              </div>
+            </div>
+            </div>
+          </form>
+        </ValidationObserver>
+      </modal>
+
+      <modal v-model="modal.Briefcase" class="modal-add-new-employee" size="md:w-5/12" title="Edit Bank Details">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(BriefcaseFile)" ref="briefcaseFile" novalidate>
+            <div class="positions py-5 mb-4">
+              <div class=" py-6 mb-6 mt-4">
+                <h4 class="text-xl font-semibold mb-4">Bank Account Details</h4>
+                <!-- Grid Layout for Bank Account Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Bank Name -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Bank Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Bank Name"
+                      v-model="modal.addEmployee.bank_name"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                  <!-- Account Number -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Account Number</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Account Number"
+                      v-model="modal.addEmployee.account_number"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                  <!-- IFSC Code -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">IFSC Code</label>
+                    <input
+                      type="text"
+                      placeholder="Enter IFSC Code"
+                      v-model="modal.addEmployee.ifsc_code"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                  <!-- Bank Branch -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Bank Branch</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Bank Branch"
+                      v-model="modal.addEmployee.branch_name"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ValidationObserver>
+      </modal>
+
+      <modal v-model="modal.Columns" class="modal-add-new-employee" size="md:w-5/12" title="Add Assets Taging">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(ColumnsFile)" ref="columnsFile" novalidate>
+            <div class="positions py-5 mb-4">
+              <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Asset Tags</label>
+                <div class="relative w-full">
+                  <input
+                    type="text"
+                    v-model="searchText"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    placeholder="Search or add tags..."
+                    @input="handleInput"
+                    @keydown.enter.prevent="addTag"
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <ul v-if="showDropdown && filteredOptions.length > 0" class="dropdown" ref="dropdown">
+                    <li
+                      v-for="(option, index) in filteredOptions"
+                      :key="index"
+                      @click="selectOption(option)"
+                    >
+                      {{ option.name }} ({{ option.model_number }})
+                    </li>
+                  </ul>
+                  <!-- No match message -->
+                  <p v-else-if="searchText.trim().length > 0" class="text-sm text-gray-500 mt-2">
+                    No matches found.
+                  </p>
+                </div>
+                <div class="selected-tags">
+                  <span v-for="(tag, index) in selectedTags" :key="index" class="tag">
+                    {{ tag }}
+                    <button @click="removeTag(index)" class="text-lg">x</button>
+                  </span>
+                </div>
+            </div>
+            </div>
+          </form>
+        </ValidationObserver>
+      </modal>
       <!-- Bulk edit start -->
       <modal v-model="modal.BulkEditEmp" class="modal-add-edit-positions BulkEditEmp" size="md:w-5/12" title="Users bulk EDIT">
 		    <ValidationObserver v-slot="{ handleSubmit }">
@@ -1309,20 +1504,10 @@
       <modal v-model="modal.editEmployee" class="modal-edit-employee" size="md:w-7/12" title="Edit User">
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(updateEmployee)" novalidate>
-            <div class="w-3/5 mx-auto mt-8 mb-4">
+            <div class="w-3/5 mx-auto mt-8 mb-4"> 
               <div class="flex justify-around items-center">
                 <div>
-                  <!-- <a href="#" class="text-2xl text-custom-primary" @click.prevent="getPrevNextEmployeeDetail('prev')" v-if="modal.getEmployeeRecord.prev.show">
-                    &#9664;
-                  </a> -->
-                </div>
-                <div>
                   <span class="text-xl font-semibold">Edit {{ modal.fullname }}</span>
-                </div>
-                <div>
-                  <!-- <a href="#" class="text-2xl text-custom-primary" @click.prevent="getPrevNextEmployeeDetail('next')" v-if="modal.getEmployeeRecord.next.show">
-                    &#9654;
-                  </a> -->
                 </div>
               </div>
             </div>
@@ -2102,6 +2287,10 @@ export default {
         //sign in ins, bulk edit modals
         SignIn: false,
         BulkEditEmp: false,
+        // Dollar
+        Dollar: false,
+        Briefcase: false,
+        Columns: false,
         SignInSent: false,
         // send reminder
         SendReminders: false,
@@ -3299,6 +3488,20 @@ export default {
           // vm.modal.addNewEmployee = false
           vm.modal.addEditPositions = true
           break
+        case 'Dollar':
+          vm.modal.Dollar = true;
+          await vm.loadDollarData();
+          break
+          
+        case 'Briefcase':
+          vm.modal.Briefcase = true;
+          await vm.loadBriefcaseData();
+          break;
+          
+        case 'Columns':
+          vm.modal.Columns = true;
+          await vm.loadColumnsData();
+          break
 				case 'AddEditPositions':
 					vm.modal.addEditPositions = true
           vm.indexPosition('modal-position')
@@ -3328,6 +3531,18 @@ export default {
           break
 			}
 		},
+    async loadDollarData() {
+      console.log("Loading data for Dollar modal...");
+      // Example of API call:
+    },
+    async loadBriefcaseData() {
+      console.log("Loading data for Briefcase modal...");
+      // Example of API call:
+    },
+    async loadColumnsData() {
+      console.log("Loading data for Columns modal...");
+      // Example of API call:
+    },
     /**
      * List all employee
      */
@@ -3964,6 +4179,11 @@ export default {
  /* Assets tags start */
 .custom-select {
   position: relative;
+}
+.custom-selectoption {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .custom-select input {
