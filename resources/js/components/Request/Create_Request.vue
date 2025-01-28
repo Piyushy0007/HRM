@@ -114,6 +114,8 @@
       };
     },
     methods: {
+
+      
       async fetchEmployees() {
         try {
           const response = await axios.get("/api/employees");
@@ -176,6 +178,8 @@
           },
     });
     alert("Request submitted successfully!");
+    this.$router.push('/my-request-list') 
+
     // this.form = { selectedEmployee: "", requestType: "", reason: "", image: null, document: null };
   } catch (error) {
     const errorMessage =

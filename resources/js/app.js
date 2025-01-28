@@ -681,6 +681,11 @@ const routes = [
         name: "create-request-list",
     },
     {
+        path: "/my-request-list",
+        component: require("./components/Request/My_Req_List.vue").default,
+        name: "my-request-list",
+    },
+    {
         path: "/unauthorized",
         component: require("./components/Unauthorized.vue").default,
         name: "unauthorized",

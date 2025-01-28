@@ -248,7 +248,7 @@ export default {
           console.log("API Response:", response.data);
           if (response.status === 200 && Array.isArray(response.data)) {
             this.employees = response.data;
-            console.log(response.data)
+            console.log(this.employees,"this.employees")
           } else {
             console.error("Unexpected API response:", response);
             this.employees = [];
