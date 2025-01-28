@@ -1,10 +1,12 @@
 <template>
     <div class="c-request-form">
       <header-component />
-      <div class="container pt-5 justify-center w-full" style="margin-left: 265px;">
+      <div style="margin-left: 242px;">
+        <div class="p-8 bg-gray-50 min-h-screen">
+          <div class="bg-white shadow-md rounded-lg p-6">
         <h1 class="mb-4 text-center text-2xl font-semibold mb-4 text-blue-600">Create Request Form</h1>
         <form
-          class="bg-white p-10 rounded-2xl shadow-lg border border-gray-200 max-w-5xl w-full mx-auto space-y-8"
+          class="p-10 rounded-2xl max-w-5xl w-full mx-auto space-y-8"
           @submit.prevent="submitForm"
         >
           <!-- Select Employee -->
@@ -81,6 +83,8 @@
           </div>
         </form>
       </div>
+      </div>
+      </div>
     </div>
   </template>
   
@@ -121,16 +125,15 @@
           alert(errorMessage);
         }
       },
-      handleFileUpload(event, type) {
-  const file = event.target.files[0]; // Get the uploaded file
-  const allowedTypes = ["image/jpeg", "image/png", "application/pdf"]; // Allowed file types
-  
+      handleFileUpload(event) {
+  const file = event.target.files[0];
+  const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
   if (file && !allowedTypes.includes(file.type)) {
-    this.errors[type] = "Only JPG, PNG, and PDF files are allowed.";
-    this.form[type] = null; 
+    this.errors.image = "Only JPG, PNG, and PDF files are allowed.";
+    this.form.image = null;
   } else {
-    this.errors[type] = null; 
-    this.form[type] = file;
+    this.errors.image = null;
+    this.form.image = file;
   }
 },
 
@@ -145,8 +148,8 @@
         if (!this.form.reason) {
           this.errors.reason = "Please provide a reason for your request.";
         }
-        if (!this.form.document) { 
-    this.errors.document = "Please upload a  (JPG, PNG, or PDF) document.";
+        if (!this.form.image) { 
+    this.errors.image = "Please upload a (JPG, PNG, or PDF) document."; 
   }
 
         return Object.keys(this.errors).length === 0;
@@ -169,8 +172,8 @@
     const response = await axios.post("/api/create-requests", formData);
     console.log("Form submitted successfully:", response.data,{
         headers: {
-    "Content-Type": "application/json",
-  },
+            "Content-Type": "multipart/form-data",
+          },
     });
     alert("Request submitted successfully!");
     // this.form = { selectedEmployee: "", requestType: "", reason: "", image: null, document: null };

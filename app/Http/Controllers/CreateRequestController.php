@@ -1,3 +1,6 @@
+<?php
+
+
 namespace App\Http\Controllers;
 
 use App\Models\CreateRequest;
@@ -9,13 +12,11 @@ class CreateRequestController extends Controller
 {
     public function store(HttpRequest $request)
     {
-        // Validate incoming request data
         $validator = Validator::make($request->all(), [
             'selected_employee' => 'required|integer',
             'request_type' => 'required|string|max:255',
             'reason' => 'required|string|max:1000',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image file
-        ]);
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',         ]);
 
         // Check for validation errors
         if ($validator->fails()) {
@@ -46,7 +47,6 @@ class CreateRequestController extends Controller
             }
         }
 
-        // Create a new request entry in the database
         try {
             $newRequest = CreateRequest::create($requestData);
             return response()->json($newRequest, 201);  // Respond with the newly created request data
