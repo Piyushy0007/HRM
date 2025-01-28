@@ -134,7 +134,9 @@ export default {
                     expanded: this.selectedGroupIndex == 1,
                     items: [
                         { name: "create-request", label: "Create Request" },
-                        { name: "create-request-list", label: "All Requests" }
+                        { name: "create-request-list", label: "All Requests" },
+                        { name: "my-request-list", label: "My Requests" }
+                        
                     ]
                 },
                 {

@@ -10,6 +10,17 @@ use Illuminate\Support\Facades\Log;
 
 class CreateRequestController extends Controller
 {
+    public function index()
+{
+    $createRequests = CreateRequest::all(); 
+        return response()->json($createRequests);
+}
+
+
+
+
+
+
     public function store(HttpRequest $request)
     {
         $validator = Validator::make($request->all(), [
@@ -56,3 +67,7 @@ class CreateRequestController extends Controller
         }
     }
 }
+   
+
+
+

@@ -501,6 +501,7 @@ Route::post('forgetpasword',[EmployeeController::class,'ForgetPassword']);
 
     Route::get('allNotication/{id}',[EmployeeNotification::class,'allNotication']);
     Route::post('updateNotication',[EmployeeNotification::class,'updateNotication']);
+    Route::get('create-requests', [CreateRequestController::class, 'index']);
     Route::post('create-requests', [CreateRequestController::class, 'store']);
 
 //});
