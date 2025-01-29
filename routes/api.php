@@ -221,7 +221,7 @@ Route::get('/salaries', [SalaryController::class, 'index']);
 Route::post('calculateTds', [SalaryController::class, 'calculateTds']);
 Route::post('/payrollStatus', [SalaryController::class, 'calculatePayrollStatus']);
 Route::post('/insertSalaryDisbursements', [SalaryController::class, 'insertSalaryDisbursements']);
-Route::get('run-payroll/{month}/{year}', [SalaryController::class,'runPayroll']);
+// Route::get('run-payroll/{month}/{year}', [SalaryController::class,'insertSalaryDisbursements']);
 
 
 

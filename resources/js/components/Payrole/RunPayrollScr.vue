@@ -84,13 +84,19 @@
         }
     },
     methods: {  
-        async runNow() {
-            if (this.fromDate && this.toDate) {
+        async payrollStatus() {
+            const postdata = {
+                month: $route.query.month,
+                year: $route.query.year
+            }
             this.error = null;
             this.isLoader = true;
             try {
-            const response = await axios.get(`/api/run-payroll/${$route.query.month}/${$route.query.year}`) 
-            console.log("API Response:", response.data);
+                const response = await axios.get(`/api/payrollStatus`, postdata, {
+                headers: {
+                    "Content-Type": "application/json",
+                }}); 
+                console.log("API Response:", response.data);
             if (response.status === 200 && Array.isArray(response.data)) {
                 this.employees = response.data;
                 console.log(response.data)
@@ -99,13 +105,45 @@
                 this.employees = [];
             }
             } catch (error) {
-            console.error("Error fetching leave requests:", error);
-            this.employees = []; // Reset employees on error
+                console.error("Error fetching leave requests:", error);
+                this.employees = []; // Reset employees on error
             } finally {
-            this.isLoader = false; 
+                this.isLoader = false; 
             }
-        }
         },
+        async runNow() {
+            if (this.fromDate && this.toDate) {
+                this.error = null;
+                this.isLoader = true;
+                const postdata = {
+                    month: $route.query.month,
+                    year: $route.query.year
+                }
+                try {
+                    const response = await axios.post(`/api/insertSalaryDisbursements`, postdata, {
+                        headers: {
+                            "Content-Type": "application/json",
+                        }}); 
+                    console.log("API Response:", response.data);
+                if (response.status === 200 && Array.isArray(response.data)) {
+                    this.employees = response.data;
+                    console.log(response.data)
+                } else {
+                    console.error("Unexpected API response:", response);
+                    this.employees = [];
+                }
+                } catch (error) {
+                    console.error("Error fetching leave requests:", error);
+                    this.employees = []; // Reset employees on error
+                } finally {
+                    this.isLoader = false; 
+                }
+            }
+        },
+    },
+    mounted() {
+        // Fetch employees when the component mounts
+        this.payrollStatus();
     },
   };
   </script>
