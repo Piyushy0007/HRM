@@ -55,8 +55,9 @@
                       <img :src="`/storage/${employee.image_path}`" alt="Request Image" class="w-12 h-12 object-cover rounded" />
                     </td> -->
                     <td class="text-center py-4">
+                      <!-- @click="viewRequest(employee)" -->
                       <button
-                        @click="viewRequest(employee)"
+                        @click.prevent="openModal('Columns')"
                         class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
                       >
                         View
@@ -86,9 +87,21 @@
       </div>
     </div>
   </template>
+  <modal v-model="modal.Columns" class="modal-add-new-employee" size="md:w-5/12" title="Add Assets Taging">
+    <ValidationObserver v-slot="{ handleSubmit }">
+      <form @submit.prevent="handleSubmit(ColumnsFile)" ref="columnsFile" novalidate>
+        <div class="positions py-5 mb-4">
+          <div class="mb-4">
+            <label class="block text-gray-700 font-semibold mb-2">Asset Tags</label>
+        </div>
+        </div>
+      </form>
+    </ValidationObserver>
+  </modal>
   
   <script>
   import axios from 'axios';
+  import Modal from '../shared/Modal';
   
   export default {
     data() {
@@ -99,6 +112,9 @@
         fromDate: '',
         toDate: '',
         itemsPerPage: 6, // You can adjust the default items per page as per your needs
+        modal: {
+          Columns: false,
+        }
       };
     },
     methods: {
@@ -125,6 +141,10 @@
         } finally {
           this.isLoader = false;
         }
+      },
+      // Method to open the modal
+      openModal(modalName) {
+        this.modal[modalName] = true;
       },
   
       // Action for "View" button (This is a placeholder for now)
