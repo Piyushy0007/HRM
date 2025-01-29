@@ -53,10 +53,7 @@
                   />
                 </div>
                 <div class="flex items-center">
-                  <button
-                    class="text-white bg-blue-600 rounded px-4" style="padding-top: 0.375rem; padding-bottom: 0.375rem"
-                    @click="leaveapply"
-                  >Apply Leave</button>
+                  <button @click="leaveapply" class="bg-custom-button text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600">Apply Leave</button>
                 </div>
               </div>
             </div>
@@ -64,16 +61,16 @@
             <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
               <!-- Table Header -->
               <div class="flex-grow overflow-auto">
-                <table class="w-full table-auto">
-                  <thead>
-                    <tr class="text-center border-b">
-                      <th class="py-3 px-4 text-blue-600">Employee</th>
-                      <th class="py-3 px-4 text-blue-600">Designation</th>
-                      <th class="py-3 px-4 text-blue-600">Date from</th>
-                      <th class="py-3 px-4 text-blue-600">Date to</th>
-                      <th class="py-3 px-4 text-blue-600">Status</th>
-                      <th class="py-3 px-4 text-blue-600">Reason</th>
-                      <th class="py-3 px-4 text-blue-600">Details</th>
+                <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+                  <thead class="bg-custom-bg_table_head_primary border-custom-border">
+                    <tr class="text-gray-600 border border-custom-border rounded-lg">
+                      <th class="p-3 border border-custom-border">Employee</th>
+                      <th class="p-3 border border-custom-border">Designation</th>
+                      <th class="p-3 border border-custom-border">Date from</th>
+                      <th class="p-3 border border-custom-border">Date to</th>
+                      <th class="p-3 border border-custom-border">Status</th>
+                      <th class="p-3 border border-custom-border">Reason</th>
+                      <th class="p-3 border border-custom-border">Details</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -83,19 +80,19 @@
                     <tr v-else-if="employees.length === 0">
                       <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
                     </tr>
-                    <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
+                    <tr v-else v-for="(employee, index) in paginatedData" :key="index" class="border-custom-border">
                       <td class="py-3 px-4 text-center flex items-center gap-2">
                         <img
                         :src="employee.employee.employee_image || 'default-avatar.png'"
                         alt="Employee"
-                        class="rounded-full w-10 h-10"
+                        class="rounded-full w-10 h-10 border-custom-border"
                       />
                       {{ truncateText(employee.employee.firstname + ' ' + employee.employee.lastname, 15) }}
                       </td>
-                      <td class="py-2 px-4 text-center">{{ employee.employee.role }}</td>
-                      <td class="py-2 px-4 text-center">{{ employee.leave_date }}</td>
-                      <td class="py-2 px-4 text-center">{{ employee.leave_date }}</td>
-                      <td class="py-2 px-4 text-center">{{ 
+                      <td class="border border-custom-border p-3" >{{ employee.employee.role }}</td>
+                      <td class="border border-custom-border p-3" >{{ employee.leave_date }}</td>
+                      <td class="border border-custom-border p-3" >{{ employee.leave_date }}</td>
+                      <td class="border border-custom-border p-3" >{{ 
                         employee.status === 0 
                           ? 'Pending' 
                           : employee.status === 1 
@@ -103,8 +100,8 @@
                             : 'Rejected' 
                         }}
                       </td>
-                      <td class="py-2 px-4 text-center">{{ truncateText(employee.reason, 35) }}</td>
-                      <td class="py-2 px-4 text-center">
+                      <td class="border border-custom-border p-3" >{{ truncateText(employee.reason, 35) }}</td>
+                      <td class="border border-custom-border p-3" >
                         <div class="gap-2 flex justify-center items-center">
                             <button 
                             @click="openViewModal(employee.reason)"

@@ -8,6 +8,24 @@
           <div class="flex items-center">
             <span class="font-semibold text-lg text-gray-800">Payment Details</span>
           </div>
+
+          <div class="flex items-center flex-grow mx-12 relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              class="w-full border border-gray-300 rounded-md pl-3 pr-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              style="height: 36px;"
+              v-model="searchQuery"
+              @input="handleSearch"
+            />
+            <div>
+              <font-awesome-icon
+              icon="search"
+              class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+              style="font-size: 20px"
+              />
+            </div>
+          </div>
           <div class="flex items-center">
             <label for="month" class="text-black-600 mr-2">Month</label>
             <select
@@ -34,20 +52,20 @@
 
         <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
           <div class="flex-grow overflow-auto">
-            <table class="w-full table-auto">
-              <thead>
-                <tr class="text-center border-b">
-                  <th class="py-3 px-4 text-blue-600">Name </th>
+            <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+              <thead class="bg-custom-bg_table_head_primary border-custom-border">
+                <tr class="text-gray-600 border border-custom-border rounded-lg">
+                  <th class="p-3 border border-custom-border">Name </th>
                   <th
-                    class="py-3 px-4 text-blue-600 flex items-center gap-1 justify-center cursor-pointer"
+                    class="py-3 px-4 flex items-center gap-1 justify-center cursor-pointer"
                     @click="sortBy('month')"
                   >
                     Salary Period <b-icon-arrow-down-up />
                   </th>
-                  <th class="py-3 px-4 text-blue-600">Designation</th>
-                  <th class="py-3 px-4 text-blue-600">Gross Salary</th>
-                  <th class="py-3 px-4 text-blue-600">Net Salary</th>
-                  <th class="py-3 px-4 text-blue-600">Status</th>
+                  <th class="p-3 border border-custom-border">Designation</th>
+                  <th class="p-3 border border-custom-border">Gross Salary</th>
+                  <th class="p-3 border border-custom-border">Net Salary</th>
+                  <th class="p-3 border border-custom-border">Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -58,12 +76,12 @@
                   <td colspan="6" class="text-center py-4">No payment details found for the selected month range.</td>
                 </tr>
                 <tr v-else v-for="(employee, index) in employees" :key="index" class="border-b text-center">
-                  <td class="py-3 px-4">{{ employee.employee.firstname }} {{ employee.employee.lastname }}</td>
-                  <td class="py-2 px-4">{{ employee.month }}/{{ employee.year }}</td>
-                  <td class="py-2 px-4">{{ employee.employee.position || 'N/A' }}</td>
-                  <td class="py-2 px-4">{{ employee.salary.gross_salary }}</td>
-                  <td class="py-2 px-4">{{ employee.salary.net_salary }}</td>
-                  <td class="py-2 px-4">
+                  <td class="border border-custom-border p-3" >{{ employee.employee.firstname }} {{ employee.employee.lastname }}</td>
+                  <td class="border border-custom-border p-3" >{{ employee.month }}/{{ employee.year }}</td>
+                  <td class="border border-custom-border p-3" >{{ employee.employee.position || 'N/A' }}</td>
+                  <td class="border border-custom-border p-3" >{{ employee.salary.gross_salary }}</td>
+                  <td class="border border-custom-border p-3" >{{ employee.salary.net_salary }}</td>
+                  <td class="border border-custom-border p-3" >
                     <div class="gap-2 flex justify-center items-center">
                       <button class="text-blue-500 border border-blue-400 px-2 py-1 rounded-full hover:bg-blue-100 text-sm ">
                         {{ employee.status }}

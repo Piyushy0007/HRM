@@ -15,7 +15,7 @@
           <div class="w-full md:w-50 px-3">
             <div class="flex items-center relative">
               <input
-                class="appearance-none block w-full rounded py-2 px-3 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+                class="appearance-none block w-full rounded py-2 px-3 leading-tight border border-custom-border focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
                 type="text"
                 placeholder="Search Job Titles"
               />
@@ -30,44 +30,43 @@
       </div>
 
       <!-- Job Listings Table -->
-      <table class="w-full table-fixed table-responsive-sm">
-        <thead>
-          <tr>
-            <th class="w-6" style="background-color: #3B86FF; color: white;">#</th>
+      <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+        <thead class="bg-custom-bg_table_head_primary border-custom-border">
+          <tr class="text-left text-gray-600 border border-custom-border rounded-lg">
+            <th class="p-3 border border-custom-border">#</th>
             
-            <th class="w-32 text-sm text-left" style="background-color: #3B86FF; color: white;">Job Title</th>
-            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Status</th>
+            <th class="p-3 border border-custom-border">Job Title</th>
+            <th class="p-3 border border-custom-border">Status</th>
             <!-- <th class="w-32 text-sm text-left">Applicants</th> -->
-            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Type</th>
-            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Date Created</th>
-            <th class="w-32 text-sm text-left"style="background-color: #3B86FF; color: white;">Location</th>
-            <th class="w-20 text-sm leading-none px-2 py-2"style="background-color: #3B86FF; color: white;">Edit</th>
-            <th class="w-20 text-sm leading-none px-2 py-2"style="background-color: #3B86FF; color: white;">Applicants</th>
+            <th class="p-3 border border-custom-border">Type</th>
+            <th class="p-3 border border-custom-border">Date Created</th>
+            <th class="p-3 border border-custom-border">Location</th>
+            <th class="p-3 border border-custom-border">Edit</th>
+            <th class="p-3 border border-custom-border">Applicants</th>
 
           </tr>
         </thead>
-        <tbody>
-          <!-- No Records Found -->
-          
-          <tr v-if="isLoader">
-            <td colspan="8" class="text-center loader">Loading...</td>
+        <tbody class="bg-white">
+          <tr v-if="isLoader" class="border">
+            <td colspan="8" class="text-center loader p-3" >Loading...</td>
           </tr>
-          <tr v-for="(job, index) in dataFromApi" :key="job.id">
-            <td class="text-center" >{{ index + 1 }}
+          <tr v-for="(job, index) in dataFromApi" :key="job.id" class="border border-custom-border">
+            <td class="text-center p-3 border border-custom-border" >{{ index + 1 }}
             </td>
            
-            <td style="cursor: pointer;" @click="navigateToJob(job.job_number)">{{ job.job_title }}</td>
-            <td>open</td>
+            <td style="cursor: pointer;" @click="navigateToJob(job.job_number)"
+            class="border border-custom-border p-3">{{ job.job_title }}</td>
+            <td class="p-3 border border-custom-border">open</td>
             <!-- <td>{{ job.people_to_hire }}</td> -->
-            <td>{{ job.job_type }}</td>
+            <td class="p-3 border border-custom-border">{{ job.job_type }}</td>
             <!-- <td>{{ job.created_at }}</td> -->
-            <td>{{ job.created_at.split('T')[0] }}</td>
-            <td>{{ job.city }}</td>
+            <td class="p-3 border border-custom-border">{{ job.created_at.split('T')[0] }}</td>
+            <td class="p-3 border border-custom-border">{{ job.city }}</td>
 
-            <td class="text-center">
+            <td class="text-center p-3 border border-custom-border">
               <a href="#"> <font-awesome-icon icon="pencil-alt" style="font-size: 14px;"/> </a>
             </td>
-            <td > <a href="#" @click="navigateToCandidates(job.job_number)"> <font-awesome-icon :icon="['fas', 'eye']" style="font-size: 14px;"/></a>
+            <td class="border border-custom-border p-3"> <a href="#" @click="navigateToCandidates(job.job_number)"> <font-awesome-icon :icon="['fas', 'eye']" style="font-size: 14px;"/></a>
             </td>
           </tr>
         </tbody>
@@ -84,14 +83,14 @@
       </div> -->
 
       <!-- Information Section -->
-      <div class="information mt-5 p-4 rounded-lg">
+      <!-- <div class="information mt-5 p-4 rounded-lg">
         <h4 class="text-2xl font-semibold mb-2">Information</h4>
         <ul class="ml-2 mb-1 instructions">
           <li class="mb-1">Check the boxes for jobs to edit or delete them.</li>
           <li class="mb-1">Click the pencil icon to edit job details.</li>
           <li>Optional: Use the "Add Job" button to add new job listings.</li>
         </ul>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
