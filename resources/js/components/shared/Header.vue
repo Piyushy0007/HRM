@@ -133,8 +133,10 @@ export default {
                     icon: ["fas", "exclamation"],
                     expanded: this.selectedGroupIndex == 1,
                     items: [
-                        { name: "createrequest", label: "Create Request" },
-                        { name: "allrequests", label: "All Requests" }
+                        { name: "create-request", label: "Create Request" },
+                        { name: "create-request-list", label: "All Requests" },
+                        { name: "my-request-list", label: "My Requests" }
+                        
                     ]
                 },
                 {

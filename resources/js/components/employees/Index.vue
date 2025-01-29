@@ -1,6 +1,5 @@
 <template>
-  <div class=" pb-4 col-xm-10" >
-    
+  <div class=" pb-4 col-xm-10" >    
     <Loader msg="Processing ..." v-model="isLoader" />
     <div class="custom-main">
       <ul class="flex c-secondary-nav">
@@ -35,19 +34,19 @@
           <table class="table-auto w-full border-collapse border border-gray-300">
             <thead class="thead-light">
               <tr>
-                <th class="text-left">First</th>
-                <th class="text-left">Last</th>
-                <th class="text-left">Phone</th>
-                <th class="text-left">Email</th>
-                <th class="text-left">Role</th>
+                <th class="text-left py-1 px-2">First</th>
+                <th class="text-left py-1 px-2">Last</th>
+                <th class="text-left py-1 px-2">Phone</th>
+                <th class="text-left py-1 px-2">Email</th>
+                <th class="text-left py-1 px-2">Role</th>
                 <!-- <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Days</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Shifts</th> -->
-                <th class="text-left">Zip Code</th>
-                <th class="text-left">Hire Date</th>
-                <th class="text-left">Priority Group</th>
-                <th class="text-left">Action</th>
+                <th class="text-center py-1 px-2">Zip Code</th>
+                <th class="text-center py-1 px-2">Hire Date</th>
+                <th class="text-center py-1 px-2">Priority Group</th>
+                <th class="text-center py-1 px-2">Action</th>
               </tr>
             </thead>
             <tbody v-if="index.employees.length === 0">
@@ -57,19 +56,19 @@
             </tbody>
             <tbody v-else>
               <tr v-for="(data, index) in index.employees" :key="data.id">                
-                <td class="py-1">{{ data.firstname }}</td>
-                <td class="py-1">{{ data.lastname }}</td>
-                <td class="py-1">{{ data.phone }}</td>
-                <td class="text-truncate py-1" style="max-width: 150px;">{{ data.email || '-----' }}</td>
-                <td class="text-truncate py-1">{{ data.role.role_name }}</td>
+                <td class="py-1 px-2">{{ data.firstname }}</td>
+                <td class="py-1 px-2">{{ data.lastname }}</td>
+                <td class="py-1 px-2">{{ data.phone }}</td>
+                <td class="text-truncate py-1 px-2" style="max-width: 150px;">{{ data.email || '-----' }}</td>
+                <td class="text-truncate py-1 px-2">{{ data.role.role_name }}</td>
                 <!-- <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_shifts }}</td> -->
-                <td class="text-center py-1">{{ data.zip }}</td>
-                <td class="text-center py-1">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
-                <td class="text-center py-1">{{ data.priority_group }}</td>
-                <td class="text-center flex items-center gap-3 py-1">
+                <td class="text-center py-1 px-2">{{ data.zip }}</td>
+                <td class="text-center py-1 px-2">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
+                <td class="text-center py-1 px-2">{{ data.priority_group }}</td>
+                <td class="text-center flex items-center justify-center gap-3 py-1 px-2">
                   <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
                   </a>
@@ -79,6 +78,16 @@
                   <a href="#" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
                     <font-awesome-icon :icon="['far', 'trash-alt']" />
                   </a>
+                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Dollar')">
+                    <font-awesome-icon :icon="['fas', 'dollar-sign']" />
+                  </a>
+                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Briefcase')">
+                    <font-awesome-icon :icon="['fas', 'briefcase']" />
+                  </a>
+                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Columns')">
+                    <font-awesome-icon :icon="['fas', 'columns']" />
+                  </a>
+                <!-- bank accound edit salary edit and asset taging  -->
                 </td>
               </tr>
             </tbody>
@@ -118,9 +127,190 @@
           </tbody>
           </table>
         </div>
-      </div>
-      
+      </div>      
 		  <!-- ================================================ modal ================================================ -->
+       <!-- Modal Template -->
+      <modal v-model="modal.Dollar" class="modal-add-new-employee" size="md:w-5/12" title="Edit Salary">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(DollarFile)" ref="dollorFile" novalidate>
+            <div class="positions py-5 mb-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">
+                  Salary Type</label>
+                  <select v-model="addEmployee.salary_type"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  >
+                    <option value="">Select Salary Type</option>
+                    <option value="Hourly">Hourly</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Contract">Contract</option>
+                  </select>
+              </div>
+            <h4 class="text-xl font-semibold mt-6 mb-4">Components of Salary</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Allowances</label>
+                <select v-model="addEmployee.allowances"
+                class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                >
+                  <option value="">Select Allowance</option>
+                  <option value="housing-allowance">Housing Allowance</option>
+                  <option value="transport-allowance">Transport Allowance</option>
+                  <option value="medical-allowance">Medical Allowance</option>
+                  <option value="other-allowance">Other Allowances (if applicable)</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Deductions</label>
+                <select v-model="addEmployee.deductions" 
+                class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary custom-selectoption"
+                >
+                  <option value="">Select Deduction</option>
+                  <option value="tax-deduction">Tax Deduction</option>
+                  <option value="provident-fund">Provident Fund</option>
+                  <option value="other-deductions">Other Deductions</option>
+                </select>
+              </div>
+            </div>
+            <h4 class="text-xl font-semibold mt-6 mb-4">Payroll Metadata</h4>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Pay Period</label>
+                <select
+                  v-model="addEmployee.payPeriod"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                >
+                  <option value="">Select Pay Period</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="bi-weekly">Bi-weekly</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Payment Mode</label>
+                <select
+                  v-model="addEmployee.payment_mode"
+                  class="block w-full py-2 px-3 rounded-lg border border-gray-300 focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                >
+                  <option value="">Select Payment Mode</option>
+                  <option value="Bank Transfer">Bank Transfer</option>
+                  <option value="Check">Check</option>
+                  <option value="Cash">Cash</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Payment Date</label>
+                <input
+                  type="date"
+                  v-model="modal.addEmployee.payment_date"
+                  class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                  style="border: 1px solid #d1d5db !important;"
+                />
+              </div>
+            </div>
+            </div>
+          </form>
+        </ValidationObserver>
+      </modal>
+      <modal v-model="modal.Briefcase" class="modal-add-new-employee" size="md:w-5/12" title="Edit Bank Details">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(BriefcaseFile)" ref="briefcaseFile" novalidate>
+            <div class="positions py-5 mb-4">
+              <div class=" py-6 mb-6 mt-4">
+                <h4 class="text-xl font-semibold mb-4">Bank Account Details</h4>
+                <!-- Grid Layout for Bank Account Fields -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Bank Name -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Bank Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Bank Name"
+                      v-model="modal.addEmployee.bank_name"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                  <!-- Account Number -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Account Number</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Account Number"
+                      v-model="modal.addEmployee.account_number"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                  <!-- IFSC Code -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">IFSC Code</label>
+                    <input
+                      type="text"
+                      placeholder="Enter IFSC Code"
+                      v-model="modal.addEmployee.ifsc_code"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                  <!-- Bank Branch -->
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Bank Branch</label>
+                    <input
+                      type="text"
+                      placeholder="Enter Bank Branch"
+                      v-model="modal.addEmployee.branch_name"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ValidationObserver>
+      </modal>
+      <modal v-model="modal.Columns" class="modal-add-new-employee" size="md:w-5/12" title="Add Assets Taging">
+        <ValidationObserver v-slot="{ handleSubmit }">
+          <form @submit.prevent="handleSubmit(ColumnsFile)" ref="columnsFile" novalidate>
+            <div class="positions py-5 mb-4">
+              <div class="mb-4">
+                <label class="block text-gray-700 font-semibold mb-2">Asset Tags</label>
+                <div class="relative w-full">
+                  <input
+                    type="text"
+                    v-model="searchText"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    placeholder="Search or add tags..."
+                    @input="handleInput"
+                    @keydown.enter.prevent="addTag"
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <ul v-if="showDropdown && filteredOptions.length > 0" class="dropdown" ref="dropdown">
+                    <li
+                      v-for="(option, index) in filteredOptions"
+                      :key="index"
+                      @click="selectOption(option)"
+                    >
+                      {{ option.name }} ({{ option.model_number }})
+                    </li>
+                  </ul>
+                  <!-- No match message -->
+                  <p v-else-if="searchText.trim().length > 0" class="text-sm text-gray-500 mt-2">
+                    No matches found.
+                  </p>
+                </div>
+                <div class="selected-tags">
+                  <span v-for="(tag, index) in selectedTags" :key="index" class="tag">
+                    {{ tag }}
+                    <button @click="removeTag(index)" class="text-lg">x</button>
+                  </span>
+                </div>
+            </div>
+            </div>
+          </form>
+        </ValidationObserver>
+      </modal>
       <!-- Bulk edit start -->
       <modal v-model="modal.BulkEditEmp" class="modal-add-edit-positions BulkEditEmp" size="md:w-5/12" title="Users bulk EDIT">
 		    <ValidationObserver v-slot="{ handleSubmit }">
@@ -1005,27 +1195,31 @@
                   </select>
                 </div>
                 <div class="mb-4">
-                  <label class="block text-gray-700 font-semibold mb-2">
-                    Asset Tags
-                  </label>
-                  <input
-                    type="text"
-                    v-model="searchText"
-                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
-                    placeholder="Search or add tags..."
-                    @input="filterOptions"
-                    @keydown.enter.prevent="addTag"
-                    style="border: 1px solid #d1d5db !important;"
-                  />
-                  <ul v-if="filteredOptions.length > 0" class="dropdown">
-                    <li
-                      v-for="(option, index) in filteredOptions"
-                      :key="index"
-                      @click="selectOption(option)"
-                    >
-                      {{ option }}
-                    </li>
-                  </ul>
+                  <label class="block text-gray-700 font-semibold mb-2">Asset Tags</label>
+                  <div class="relative w-full">
+                    <input
+                      type="text"
+                      v-model="searchText"
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                      placeholder="Search or add tags..."
+                      @input="handleInput"
+                      @keydown.enter.prevent="addTag"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                    <ul v-if="showDropdown && filteredOptions.length > 0" class="dropdown" ref="dropdown">
+                      <li
+                        v-for="(option, index) in filteredOptions"
+                        :key="index"
+                        @click="selectOption(option)"
+                      >
+                        {{ option.name }} ({{ option.model_number }})
+                      </li>
+                    </ul>
+                    <!-- No match message -->
+                    <p v-else-if="searchText.trim().length > 0" class="text-sm text-gray-500 mt-2">
+                      No matches found.
+                    </p>
+                  </div>
                 </div>
                 <div class="selected-tags">
                   <span v-for="(tag, index) in selectedTags" :key="index" class="tag">
@@ -1305,130 +1499,99 @@
       <modal v-model="modal.editEmployee" class="modal-edit-employee" size="md:w-7/12" title="Edit User">
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(updateEmployee)" novalidate>
-            <div class="w-3/5 mx-auto mt-8 mb-4">
+            <div class="w-3/5 mx-auto mt-8 mb-4"> 
               <div class="flex justify-around items-center">
-                <div>
-                  <!-- <a href="#" class="text-2xl text-custom-primary" @click.prevent="getPrevNextEmployeeDetail('prev')" v-if="modal.getEmployeeRecord.prev.show">
-                    &#9664;
-                  </a> -->
-                </div>
                 <div>
                   <span class="text-xl font-semibold">Edit {{ modal.fullname }}</span>
                 </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4">
+              <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
                 <div>
-                  <!-- <a href="#" class="text-2xl text-custom-primary" @click.prevent="getPrevNextEmployeeDetail('next')" v-if="modal.getEmployeeRecord.next.show">
-                    &#9654;
-                  </a> -->
+                  <label class="block text-gray-700 font-semibold mb-2">First Name<span class="text-red-500">*</span></label>
+                  <input 
+                    type="text"
+                    placeholder="Enter First Name"
+                    v-model="modal.reqEditEmployee.firstname"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary "
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <small class="text-red-600">{{ errors[0] }}</small>
+                </div>
+              </ValidationProvider>
+              <ValidationProvider rules="required|alpha_spaces" v-slot="{ errors }">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">Last Name<span class="text-red-500">*</span></label>
+                  <input 
+                    type="text"
+                    placeholder="Enter Last Name"
+                    v-model="modal.reqEditEmployee.lastname"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary "
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <small class="text-red-600">{{ errors[0] }}</small>
+                </div>
+              </ValidationProvider>
+            </div>
+            <div class="grid gap-6 px-6 mb-4" >
+              <div>
+                <label class="block text-gray-700 font-semibold mb-2">Profile Picture</label>
+                <div class="flex items-center space-x-2">
+                  <input type="file" id="file2" ref="myFiles" @change="handleFileUpload" class="hidden" />
+                  <label for="file2" class="border border-gray-400 px-4 rounded-lg cursor-pointer" 
+                  style="width: 150px; padding-top: 9px; padding-bottom: 9px;">Choose File</label>
+                  <input 
+                    type="text" readonly 
+                    v-model="modal.reqEditEmployee.employee_image" 
+                    class="block w-full py-2 px-3 rounded-lg  focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                    style="border: 1px solid #d1d5db !important;"
+                  />
                 </div>
               </div>
             </div>
-            <div class=" flex py-5 justify-center px-6">
-              <div class="w-1/2">
-                <ValidationProvider rules="required|alpha_spaces" v-slot="v">
-                  <div class="md:flex md:items-center">
-                    <div class="md:w-1/3">
-                      <label class="block md:text-right mb-1 md:mb-0 pr-2">First Name</label>
-                    </div>
-                    <div class="md:w-2/3">
-                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.firstname">
-                    </div>
-                  </div>
-                  <div class="md:flex md:items-center mb-1">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                      <small class="text-red-600">{{ v.errors[0] }}</small>
-                    </div>
-                  </div>
-                </ValidationProvider>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4">
+              <ValidationProvider rules="required" v-slot="{ errors }">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">Email<span class="text-red-500">*</span></label>
+                  <input 
+                    type="email"
+                    placeholder="Enter Email"
+                    v-model="modal.reqEditEmployee.email"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <small class="text-red-600">{{ errors[0] }}</small>
+                </div>
+              </ValidationProvider>            
+              <div class="flex items-center">
+                <a href="#" class="text-custom-primary font-semibold" 
+                  @click="changeEmail(modal.reqEditEmployee.id , modal.reqEditEmployee.email)"
+                  style="border: 1px solid #d1d5db; padding: 7px; border-radius: 6px; margin-top: 30px;"  
+                >
+                  Change
+                  <font-awesome-icon icon="pencil-alt" class="mr-1" />
+                </a>
               </div>
-              <div class="w-1/2">
-                <ValidationProvider rules="required|alpha_spaces" v-slot="v">
-                  <div class="md:flex md:items-center">
-                    <div class="md:w-1/3">
-                      <label class="block md:text-right mb-1 md:mb-0 pr-2">Last Name</label>
-                    </div>
-                    <div class="md:w-2/3">
-                      <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.lastname">
-                    </div>
-                  </div>
-                  <div class="md:flex md:items-center mb-1">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                      <small class="text-red-600">{{ v.errors[0] }}</small>
-                    </div>
-                  </div>
-                </ValidationProvider>
-              </div>
+            </div>            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4">
+              <ValidationProvider rules="required" v-slot="{ errors }">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">Password<span class="text-red-500">*</span></label>
+                  <input 
+                    type="password"
+                    placeholder="Enter Password"
+                    v-model="modal.reqEditEmployee.password"
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary"
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                  <small class="text-red-600">{{ errors[0] }}</small>
+                </div>
+              </ValidationProvider>            
+              <div></div> <!-- Empty div for alignment consistency -->
             </div>
-            <div class="flex py-5 justify-center px-6" >
-              <div class="w-2/3">
-                  <div class="md:flex md:items-center">
-                    <div class="md:w-1/3">
-                      <label class="block md:text-right mb-1 md:mb-0 pr-2">Profile Picture</label>
-                    </div>
-                    <div class="flex"> 
-                      <!-- <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="file" :value="modal.addEmployee.employee_image">                  -->
-                      <input type="file" id="file2" ref="myFiles" @change="handleFileUpload" style="display:none;"  />
-                      <label for="file2" style="border: 1px solid #707070 padding: 5px;margin: 0px 5px;">Choose File </label> <input type="text" readonly v-model="modal.reqEditEmployee.employee_image" /> 
-                    </div>
-                  </div>
-              </div>
-              <div class="w-1/2"> 
-              </div>
-            </div>
-            <div class="flex py-5 justify-center px-6">
-              <div class="w-1/2">
-                <ValidationProvider rules="required" v-slot="v">
-                  <div class="md:flex md:items-center">
-                    <div class="md:w-1/3">
-                      <label class="block md:text-right mb-1 md:mb-0 pr-2">Email</label>
-                    </div>
-                    <div class="md:w-2/3">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="email" v-model="modal.reqEditEmployee.email"> 
-                    </div>
-                  </div>
-                  <div class="md:flex md:items-center mb-1">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                      <small class="text-red-600">{{ v.errors[0] }}</small>
-                    </div>
-                  </div>
-                </ValidationProvider>
-              </div>
-              <div class="w-1/2">
-                <ul class="flex justify-around options">
-                    <li>
-                      <a href="#" class="text-custom-primary" @click="changeEmail(modal.reqEditEmployee.id , modal.reqEditEmployee.email)">
-                        <font-awesome-icon icon="pencil-alt" class="mr-1" />
-                        Change
-                      </a>
-                    </li> 
-                  </ul>
-              </div>
-            </div>
-              <div class="fullname flex py-5 justify-center px-6">
-              <div class="w-1/2">
-                <ValidationProvider rules="required" v-slot="v">
-                  <div class="md:flex md:items-center">
-                    <div class="md:w-1/3">
-                      <label class="block md:text-right mb-1 md:mb-0 pr-2">Password</label>
-                    </div>
-                    <div class="md:w-2/3">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="password" v-model="modal.reqEditEmployee.password"> 
-                    </div>
-                  </div>
-                  <div class="md:flex md:items-center mb-1">
-                    <div class="md:w-1/3"></div>
-                    <div class="md:w-2/3">
-                      <small class="text-red-600">{{ v.errors[0] }}</small>
-                    </div>
-                  </div>
-                </ValidationProvider>
-              </div>
-              <div class="w-1/2">
-              </div>
-            </div>
-            <div class="positions py-5 mb-4" v-if="modal.reqEditEmployee.enable_security_officer==1 ">
+            
+            <div class="py-5" v-if="modal.reqEditEmployee.enable_security_officer==1 ">
               <div class="flex justify-between items-center mb-4 px-6">
                 <h4 class="text-xl font-semibold mr-4">Positions</h4>
                 <a href="#" class="text-sm add-new-position" @click.prevent="openModal('AddNewPosition')"><strong>&plus;</strong> Add New</a>
@@ -1445,88 +1608,103 @@
                 </li>
               </ul>
             </div>
-            <div class="contact px-6 pb-6 mb-4">
-              <h4 class="text-xl font-semibold mb-4">Contact</h4>
-              <div class="md:flex md:items-center mb-1">
-                <div class="md:w-1/4">
-                  <label class="block md:text-right mb-1 md:mb-0 pr-4 flex items-center justify-end">
-                    <font-awesome-icon icon="lock" class="mr-1" size="xs" />Email
-                  </label>
+            <div class="contact mb-4">
+              <h4 class="text-xl font-semibold mb-4 px-6">Contact</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">
+                      <font-awesome-icon icon="lock" class="mr-1" size="xs" />Email
+                    </label>
+                    <input 
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                      type="text" 
+                      v-model="modal.reqEditEmployee.email" readonly
+                      style="border: 1px solid #d1d5db !important;"
+                    />
                 </div>
-                <div class="md:w-3/4 flex items-center">
-                  <div class="w-3/4">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.email" readonly>
-                  </div>
-                  <div class="w-1/4 pl-2">
-                    <!-- <a href="#" class="text-sm text-custom-primary"><strong>&plus;</strong> Add Email</a> -->
-                  </div>
-                </div>
-              </div>
-              <div class="md:flex md:items-center mb-1" >
-                <div class="md:w-1/4">
-                  <label class="block md:text-right mb-1 md:mb-0 pr-4 flex items-center justify-end">
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">
                     <font-awesome-icon icon="lock" class="mr-1" size="xs" />Phone
                   </label>
-                </div>
-                <div class="md:w-3/4">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.phone" readonly>
-                </div>
+                  <input class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                    type="text" 
+                    v-model="modal.reqEditEmployee.phone" readonly
+                    style="border: 1px solid #d1d5db !important;"
+                  />
               </div>
+              </div>              
               <!-- <ValidationProvider rules="required" v-slot="v"> -->
-                <div class="md:flex md:items-center" >
-                  <div class="md:w-1/4">
-                    <label class="block md:text-right mb-1 md:mb-0 pr-4">2nd Phone</label>
-                  </div> 
-                  <div class="md:w-3/4">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model.number="modal.reqEditEmployee.phone2" @input="acceptNumber2nd">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4" >
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">2nd Phone</label>
+                    <input 
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                      type="text" 
+                      v-model.number="modal.reqEditEmployee.phone2" @input="acceptNumber2nd"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
                   </div>
+                  <ValidationProvider v-slot="v" >
+                    <div>
+                      <label class="block text-gray-700 font-semibold mb-2">Address </label>
+                      <input 
+                        class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                        type="text" 
+                        v-model="modal.reqEditEmployee.address"
+                        style="border: 1px solid #d1d5db !important;"
+                      />
+                      <small class="text-red-600">{{ v.errors[0] }}</small> 
+                    </div>
+                  </ValidationProvider>
                 </div>
-              <ValidationProvider v-slot="v" >
-                <div class="md:flex md:items-center">
-                  <div class="md:w-1/4">
-                    <label class="block md:text-right mb-1 md:mb-0 pr-4">Address </label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4" >
+                <div>
+                  <label class="block text-gray-700 font-semibold mb-2">Address 2</label>
+                  <input 
+                    class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                    type="text" 
+                    v-model="modal.reqEditEmployee.address2"
+                    style="border: 1px solid #d1d5db !important;"
+                  />
+                </div>
+                <ValidationProvider v-slot="v">
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">City</label>
+                    <input 
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                      type="text" 
+                      v-model="modal.reqEditEmployee.city"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
+                    <small class="text-red-600">{{ v.errors[0] }}</small>  
                   </div>
-                  <div class="md:w-3/4">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.address">
-                  </div>
-                </div>
-                <div class="md:flex md:items-center mb-1">
-                  <div class="md:w-1/4"></div>
-                  <div class="md:w-3/4">
-                    <small class="text-red-600">{{ v.errors[0] }}</small> 
-                  </div>
-                </div>
-              </ValidationProvider>
-              <div class="md:flex md:items-center mb-1" >
-                <div class="md:w-1/4">
-                  <label class="block md:text-right mb-1 md:mb-0 pr-4">Address 2</label>
-                </div>
-                <div class="md:w-3/4">
-                  <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none border-2 border-gray-200" type="text" v-model="modal.reqEditEmployee.address2">
-                </div>
+                </ValidationProvider>
               </div>
-              <div class="flex" >
-                <div class="md:w-3/12">
-                  <label class="block md:text-right mb-1 mt-1 md:mb-0 pr-4">City, State, Zip</label>
-                </div>
-                <div class="md:w-5/12">
-                  <ValidationProvider v-slot="v">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" v-model="modal.reqEditEmployee.city">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-6 mb-4" >
+                <ValidationProvider  v-slot="v">
+                  <div>
+                    <label class="block text-gray-700 font-semibold mb-2">State</label>
+                    <input 
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                      type="text" 
+                      v-model="modal.reqEditEmployee.state"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
                     <small class="text-red-600">{{ v.errors[0] }}</small>
-                  </ValidationProvider>
-                </div>
-                <div class="md:w-2/12 mx-1">
-                  <ValidationProvider  v-slot="v">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" v-model="modal.reqEditEmployee.state">
+                  </div>
+                </ValidationProvider>
+                <ValidationProvider v-slot="v">
+                  <div>
+                    <label  class="block text-gray-700 font-semibold mb-2">Zip</label>
+                    <input 
+                      class="block w-full py-2 px-3 rounded-lg focus:ring focus:ring-custom-primary focus:border-custom-primary" 
+                      type="text" 
+                      v-model="modal.reqEditEmployee.zip"
+                      style="border: 1px solid #d1d5db !important;"
+                    />
                     <small class="text-red-600">{{ v.errors[0] }}</small>
-                  </ValidationProvider>
-                </div>
-                <div class="md:w-2/12">
-                  <ValidationProvider v-slot="v">
-                    <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" v-model="modal.reqEditEmployee.zip">
-                    <small class="text-red-600">{{ v.errors[0] }}</small>
-                  </ValidationProvider>
-                </div>
+                  </div>
+                </ValidationProvider>
               </div>
             </div>  
             <div class="auto-fill-options px-6 pb-6 mb-4" v-if="modal.reqEditEmployee.enable_security_officer==1 && modal.getUserRole==99990">
@@ -1685,16 +1863,16 @@
               </div>
             </div>
             <!-- ================================= ./Time Off ================================= -->
-            <div class="flex justify-between mt-10 mb-8">     
+            <div class="flex justify-center mt-4 mb-5">     
               <div>
-                <button class="text-white py-3 px-12 rounded-full bg-custom-primary" ref="editEmployeeSave" type="submit">Save</button>
+                <button class="text-white py-2 px-12 rounded-full bg-custom-primary" ref="editEmployeeSave" type="submit">Save</button>
                 <!-- <button  v-if="modal.getEmployeeRecord.next.show" class="text-white py-3 px-12 rounded-full ml-2 bg-custom-primary" ref="editEmployeeSaveNext" type="button" @click.prevent="updateAndProceedNext">Save &amp; Next</button> -->
               </div>
             </div>
           </form>
         </ValidationObserver>
-        <div class="information">
-          <h4 class="text-xl mb-2">Information</h4>
+        <div class="px-6">
+          <h4 class="text-xl font-semibold mb-2">Information</h4>
           <p class="text-sm mb-1">* The account main manager can add/edit custom field labels.</p>
           <ul class="ml-2">
             <li class="text-sm mb-1">
@@ -1722,7 +1900,7 @@
             </form>
           </ValidationObserver>
         </div>
-        <div class="list-of-positions py-5 mb-4">
+        <div class="mt-4 mb-4">
           <div class="flex justify-between items-center mb-5 px-6">
             <div class="flex items-center leading-none">
               <h4 class="text-xl font-semibold">Positions</h4>
@@ -1736,7 +1914,7 @@
             <li class="text-sm" v-for="data in modal.positions" :key="data.id">{{ data.position }}</li>
           </ul>
         </div>
-        <div class="deleted-positions py-5 mb-4">
+        <div class="mb-4">
           <div class="flex justify-between items-center mb-5 px-6">
             <div class="flex items-center leading-none">
               <h4 class="text-xl font-semibold">
@@ -1752,9 +1930,9 @@
             </li>
           </ul>
         </div>
-        <div class="information">
-          <h4 class="text-xl mb-2">Information</h4>
-          <ul class="list-inside">
+        <div class="px-6">
+          <h4 class="text-xl font-semibold mb-2">Information</h4>
+          <ul class="list-inside px-3">
             <li class="text-sm">Sort order of positions is alphabetical. You can edit positions to have a leading space or hyphen to list them first</li>
             <li class="text-sm">Only the main manager on the account can delete positions.</li>
           </ul>
@@ -2051,19 +2229,9 @@ export default {
       // Assets tags start
       searchText: "", // For input text
       selectedTags: [], // Holds selected tags
-      options: [
-        "UIUX",
-        "Web",
-        "Web Design",
-        "Design",
-        "Web Kit",
-        "UI Design",
-        "Education",
-        "Learning",
-        "Online Classes",
-        "This is a long tag",
-      ], // Available options
       filteredOptions: [], // Search results
+      debounceTimeout: null, // Debounce timeout for API calls
+      showDropdown: false,
       // Assets tags end
       isLoader: false,
       searchKeyword: '',
@@ -2108,6 +2276,10 @@ export default {
         //sign in ins, bulk edit modals
         SignIn: false,
         BulkEditEmp: false,
+        // Dollar
+        Dollar: false,
+        Briefcase: false,
+        Columns: false,
         SignInSent: false,
         // send reminder
         SendReminders: false,
@@ -2244,6 +2416,10 @@ export default {
   mounted() {
     // Initialize the filtered options when the component loads
     this.filteredOptions = this.options;
+    document.addEventListener("click", this.handleClickOutside);
+  },
+  beforeDestroy() {
+    document.removeEventListener("click", this.handleClickOutside);
   },
 	methods: {
      async fetchUserRole() {  
@@ -2264,38 +2440,61 @@ export default {
       }
     },
     // Assets tags start
-    filterOptions() {
-      // Filter options based on the search text
-      const lowerText = this.searchText.toLowerCase();
-      this.filteredOptions = this.options.filter(
-        (option) =>
-          option.toLowerCase().includes(lowerText) &&
-          !this.selectedTags.includes(option)
-      );
+    // Handle input and debounce API call
+    handleInput() {
+      this.showDropdown = true;
+      clearTimeout(this.debounceTimeout); // Clear any previous timeout
+      this.debounceTimeout = setTimeout(() => {
+        this.fetchAssets();
+      }, 300); // Debounce delay of 300ms
     },
+    // Fetch assets from the API
+    async fetchAssets() {
+      if (this.searchText.trim() === "") {
+        this.filteredOptions = []; // Clear options if input is empty
+        return;
+      }
+      try {
+        const response = await axios.get(`/api/assets`, {
+          params: { query: this.searchText },
+        });
+        // this.filteredOptions = response.data.data; // Assuming data contains the assets array
+        // Filter the results based on the searchText
+        const results = response.data.data.filter((item) =>
+          item.name.toLowerCase().includes(this.searchText.toLowerCase())
+        );
+        this.filteredOptions = results.length ? results : []; // Set results or empty array
+      } catch (error) {
+        console.error("Error fetching assets:", error);
+        this.filteredOptions = [];
+      }
+    },
+    // Add a tag
     addTag() {
-      // Add new tag if it doesn't already exist
-      if (
-        this.searchText.trim() &&
-        !this.selectedTags.includes(this.searchText)
-      ) {
-        this.selectedTags.push(this.searchText);
+      if (this.searchText.trim()) {
+        this.selectedTags.push(this.searchText.trim());
         this.searchText = ""; // Clear input
-        this.filteredOptions(); // Reset dropdown
+        this.filteredOptions = []; // Clear dropdown
+        this.showDropdown = false;
       }
     },
+    // Select a tag from the dropdown
     selectOption(option) {
-      // Add the selected option as a tag
-      if (!this.selectedTags.includes(option)) {
-        this.selectedTags.push(option);
-        this.searchText = ""; // Clear input
-        this.filteredOptions(); // Reset dropdown
-      }
+      this.selectedTags.push(option.name); // Add selected tag
+      this.searchText = ""; // Clear input
+      this.filteredOptions = []; // Clear dropdown
+      this.showDropdown = false;
     },
+    // Remove a tag
     removeTag(index) {
-      // Remove tag from the selected list
-      this.selectedTags.splice(index, 1);
-      this.filterOptions(); // Recalculate filtered options
+      this.selectedTags.splice(index, 1); // Remove the selected tag
+    },
+    handleClickOutside(event) {
+      const dropdown = this.$refs.dropdown;
+      const input = this.$refs.searchInput;
+      if (!dropdown.contains(event.target) && !input.contains(event.target)) {
+        this.showDropdown = false; // Hide dropdown when clicking outside
+      }
     },
     // Assets tags end
     // 
@@ -3278,6 +3477,20 @@ export default {
           // vm.modal.addNewEmployee = false
           vm.modal.addEditPositions = true
           break
+        case 'Dollar':
+          vm.modal.Dollar = true;
+          await vm.loadDollarData();
+          break
+          
+        case 'Briefcase':
+          vm.modal.Briefcase = true;
+          await vm.loadBriefcaseData();
+          break;
+          
+        case 'Columns':
+          vm.modal.Columns = true;
+          await vm.loadColumnsData();
+          break
 				case 'AddEditPositions':
 					vm.modal.addEditPositions = true
           vm.indexPosition('modal-position')
@@ -3307,6 +3520,18 @@ export default {
           break
 			}
 		},
+    async loadDollarData() {
+      console.log("Loading data for Dollar modal...");
+      // Example of API call:
+    },
+    async loadBriefcaseData() {
+      console.log("Loading data for Briefcase modal...");
+      // Example of API call:
+    },
+    async loadColumnsData() {
+      console.log("Loading data for Columns modal...");
+      // Example of API call:
+    },
     /**
      * List all employee
      */
@@ -3944,6 +4169,11 @@ export default {
 .custom-select {
   position: relative;
 }
+.custom-selectoption {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
 
 .custom-select input {
   width: 100%;
@@ -3979,6 +4209,7 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
 }
 
@@ -3990,6 +4221,7 @@ export default {
   font-size: 14px;
   display: flex;
   align-items: center;
+  height: 44px;
   gap: 5px;
 }
 

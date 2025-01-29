@@ -70,13 +70,13 @@
           <div class="flex items-center space-x-4">
             <button
               @click="submitLeaveRequest"
-              class="bg-green-500 text-white px-4 py-1 rounded-lg"
+              class="bg-custom-button text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600"
             >
               Submit
             </button>
             <button 
               @click="resetForm"
-              class="bg-red-500 text-white px-4 py-1 rounded-lg">
+              class="bg-red-500 text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600">
               Cancel
             </button>
           </div>
@@ -134,7 +134,7 @@ export default {
     async fetchEmployees() {
       try {
         const response = await axios.get('/api/employees');
-        this.employees = response.data;
+        this.employees = response.data; 
         console.log('Employees fetched successfully:', response.data);
       } catch (error) {
         const errorMessage = error.response?.data?.message || "An error occurred while fetching employees.";

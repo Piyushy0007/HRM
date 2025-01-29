@@ -57,16 +57,16 @@
           <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
             <!-- Table Header -->
             <div class="flex-grow overflow-auto">
-              <table class="w-full table-auto">
-                <thead>
-                  <tr class="text-left border-b">
-                    <th class="py-3 px-4 text-blue-600">Employee</th>
-                    <th class="py-3 px-4 text-blue-600">Designation</th>
-                    <th class="py-3 px-4 text-blue-600">Date</th>
-                    <th class="py-3 px-4 text-blue-600">Check-in Time</th>
-                    <th class="py-3 px-4 text-blue-600">Checkout Time</th>
-                    <th class="py-3 px-4 text-blue-600">Status</th>
-                    <th class="py-3 px-4 text-blue-600">Details</th>
+              <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+                <thead class="bg-custom-bg_table_head_primary border-custom-border">
+                  <tr class="text-gray-600 border border-custom-border rounded-lg">
+                    <th class="p-3 border border-custom-border">Employee</th>
+                    <th class="p-3 border border-custom-border">Designation</th>
+                    <th class="p-3 border border-custom-border">Date</th>
+                    <th class="p-3 border border-custom-border">Check-in Time</th>
+                    <th class="p-3 border border-custom-border">Checkout Time</th>
+                    <th class="p-3 border border-custom-border">Status</th>
+                    <th class="p-3 border border-custom-border">Details</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -77,16 +77,16 @@
                   <tr v-else-if="employees.length === 0">
                     <td colspan="7" class="text-center py-4">No attendance data found for the selected date range.</td>
                   </tr>
-                  <tr v-else v-for="(employee, index) in employees" :key="index" class="border-b">
-                    <td class="py-3 px-4">
+                  <tr v-else v-for="(employee, index) in employees" :key="index" class="p-3 border border-custom-border">
+                    <td class="p-3 border border-custom-border">
                       {{ employee.employee.firstname + ' ' + employee.employee.lastname }}
                     </td>
-                    <td class="py-3 px-4">{{ employee.employee.role }}</td>
-                    <td class="py-3 px-4">{{ employee.attendance_date }}</td>
-                    <td class="py-3 px-4">{{ employee.attendance_date }}</td>
-                    <td class="py-3 px-4">{{ employee.attendance_date }}</td>
-                    <td class="py-3 px-4">{{ employee.status === 1 ? 'Present' : 'Absent' }}</td>
-                    <td class="py-3 px-4">
+                    <td class="p-3 border border-custom-border">{{ employee.employee.role }}</td>
+                    <td class="p-3 border border-custom-border">{{ employee.attendance_date }}</td>
+                    <td class="p-3 border border-custom-border">{{ employee.attendance_date }}</td>
+                    <td class="p-3 border border-custom-border">{{ employee.attendance_date }}</td>
+                    <td class="p-3 border border-custom-border">{{ employee.status === 1 ? 'Present' : 'Absent' }}</td>
+                    <td class="p-3 border border-custom-border">
                       <button
                         class="text-blue-500 border border-blue-400 px-3 text-sm py-1 rounded-full hover:bg-blue-100 flex justify-center items-center gap-1"
                       >

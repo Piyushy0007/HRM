@@ -603,10 +603,9 @@
 
 
 
-    	<modal v-model="modal.export" class="modal-add-new-employee" size="md:w-4/12" title="Export Daily Totals">
+    <modal v-model="modal.export" class="modal-add-new-employee" size="md:w-4/12" title="Export Daily Totals">
       <ValidationObserver v-slot="{ handleSubmit }">
-        <form @submit.prevent="handleSubmit(ExportFile)" ref="exportFile" novalidate>
-    		
+        <form @submit.prevent="handleSubmit(ExportFile)" ref="exportFile" novalidate>    		
     			<!-- ================================= Positions ================================= -->
     		  <div class="positions py-5 mb-4">
             <div class="justify-between items-center mb-4 px-6">
@@ -694,15 +693,12 @@
 
     		  </div>
     		  <!-- ================================= ./Positions ================================= -->
-    
         </form>
       </ValidationObserver>
-
 			<div class="information">
 				<h4 class="text-xl mb-2">Information</h4>
 				<ul class="list-inside">
 					<li class="text-sm">Note that CSV files can be opened in Excel or other spreadsheet programs.</li>
-				
 				</ul>
 			</div>
 		</modal>

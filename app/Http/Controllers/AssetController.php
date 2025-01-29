@@ -8,9 +8,20 @@ use Illuminate\Http\Request;
 class AssetController extends Controller
 {
     // Get all assets
-    public function index(Request $request) {
+    public function index(Request $request) {   
         $perPage = $request->get('per_page', 10);
-        $assets = Asset::paginate($perPage);
+        $search = $request->get('search', null);
+        // $assets = Asset::paginate($perPage);
+        $query = Asset::query();
+        // Apply search filter on name or model_number
+        if ($search) {
+            $query->where('name', 'LIKE', "%{$search}%")
+                  ->orWhere('model_number', 'LIKE', "%{$search}%");
+        }
+
+        // Paginate results
+        $assets = $query->paginate($perPage);
+
         return response()->json($assets);
     }
 
@@ -35,5 +46,11 @@ class AssetController extends Controller
         $asset = Asset::create($validated);
 
         return response()->json($asset, 201);
+        // Return a success response
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Form submitted successfully!',
+        //     'data' => $asset,
+        // ], 201);
     }
 }
