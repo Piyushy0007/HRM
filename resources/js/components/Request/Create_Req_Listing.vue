@@ -8,6 +8,24 @@
             <span class="font-semibold text-lg text-gray-800">Create Requests List</span>
           </div>
 
+          <div class="flex items-center flex-grow mx-12 relative">
+            <input
+              type="text"
+              placeholder="Search..."
+              class="w-full border border-gray-300 rounded-md pl-3 pr-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              style="height: 36px;"
+              v-model="searchQuery"
+              @input="handleSearch"
+            />
+            <div>
+              <font-awesome-icon
+              icon="search"
+              class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+              style="font-size: 20px"
+              />
+            </div>
+          </div>
+
           <div class="flex items-center space-x-4">
             <!-- From Date Selector -->
             <div class="flex items-center">
@@ -36,31 +54,30 @@
         <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
           <!-- Table Header -->
           <div class="flex-grow overflow-auto">
-            <table class="w-full table-auto">
-              <thead>
-                <tr class="text-center border-b">
-                  <th class="py-3 px-4 text-blue-600">Employee</th>
-                  <th class="py-3 px-4 text-blue-600">Request Type</th>
-                  <th class="py-3 px-4 text-blue-600">Reason</th>
-                  <th class="py-3 px-4 text-blue-600">Action</th>
+            <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+              <thead class="bg-custom-bg_table_head_primary border-custom-border">
+                <tr class="text-left text-gray-600 border border-custom-border rounded-lg">
+
+                  <th class="text-center p-2 border border-custom-border">Employee</th>
+                  <th class="text-center p-2 border border-custom-border">Request Type</th>
+                  <th class="text-center p-2 border border-custom-border">Reason</th>
+                  <th class="text-center p-2 border border-custom-border">Action</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- Iterate over the employeesData array to display the data -->
                 <tr v-for="(employee, index) in employeesData" :key="index" class="border-b">
-                  <td class="text-center py-4">{{ employee.selected_employee }}</td>
-                  <td class="text-center py-4">{{ employee.request_type }}</td>
-                  <td class="text-center py-4">{{ employee.reason }}</td>
-                  <!-- <td class="text-center py-4">
+                  <td class="text-center p-2 border border-custom-border">{{ employee.selected_employee }}</td>
+                  <td class="text-center p-2 border border-custom-border">{{ employee.request_type }}</td>
+                  <td class="text-center p-2 border border-custom-border">{{ employee.reason }}</td>
+                  <!-- <td class="text-center p-2 border border-custom-border">
                     <img :src="`/storage/${employee.image_path}`" alt="Request Image" class="w-12 h-12 object-cover rounded" />
                   </td> -->
-                  <td class="text-center py-4">
-                    <button
-                      @click="viewRequest(employee)"
-                      class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-                    >
+                  <td class="text-center p-2 border border-custom-border">
+                    <button @click="openModal" class="bg-custom-button text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600">
                       View
                     </button>
+                    
                   </td> <!-- Action Button -->
                 </tr>
               </tbody>
