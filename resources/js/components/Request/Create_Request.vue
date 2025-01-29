@@ -81,103 +81,6 @@
     </div>
   </template>  
   <script>
-<<<<<<< HEAD
-    import axios from "axios";  
-    export default {
-      data() {
-        return {
-          form: {
-            selectedEmployee: "",
-            requestType: "",
-            reason: "",
-            image: null,          
-          },
-          employees: [], // Employees array
-          requestTypes: [
-            "Change of email",
-            "Change of phone",
-            "Change of DOB",
-            "Change of bank account",
-            "Profile update",
-            "Appraisal meeting",
-          ],
-          errors: {},
-        };
-      },
-      methods: {
-        async fetchEmployees() {
-          try {
-            const response = await axios.get("/api/employees");
-            this.employees = response.data;
-          } catch (error) {
-            const errorMessage =
-            error.response?.data?.message || "An error occurred while fetching employees.";
-            console.error("Error fetching employees:", errorMessage);
-            alert(errorMessage);
-          }
-        },
-        handleFileUpload(event) {
-        const file = event.target.files[0];
-        const allowedTypes = ["image/jpeg", "image/png", "application/pdf"];
-        if (file && !allowedTypes.includes(file.type)) {
-          this.errors.image = "Only JPG, PNG, and PDF files are allowed.";
-          this.form.image = null;
-        } else {
-          this.errors.image = null;
-          this.form.image = file;
-        }
-        },
-        validateForm() {
-          this.errors = {};
-          if (!this.form.selectedEmployee) {
-            this.errors.selectedEmployee = "Please select an employee.";
-          }
-          if (!this.form.requestType) {
-            this.errors.requestType = "Please select a request type.";
-          }
-          if (!this.form.reason) {
-            this.errors.reason = "Please provide a reason for your request.";
-          }
-          if (!this.form.image) { 
-            this.errors.image = "Please upload a (JPG, PNG, or PDF) document."; 
-          }
-          return Object.keys(this.errors).length === 0;
-        },
-        async submitForm() {      
-          if (!this.validateForm()) {
-            return;
-          }
-          const formData = new FormData();
-          formData.append("selected_employee", this.form.selectedEmployee);
-          formData.append("request_type", this.form.requestType);
-          formData.append("reason", this.form.reason);
-          if (this.form.image) {
-            formData.append("image", this.form.image);
-          }
-          console.log("Image file:", this.form.image);        
-          try {
-            const response = await axios.post("/api/create-requests", formData);
-            console.log("Form submitted successfully:", response.data,{
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                  },
-            });
-            alert("Request submitted successfully!");
-            // this.form = { selectedEmployee: "", requestType: "", reason: "", image: null, document: null };
-          } catch (error) {
-            const errorMessage =
-              error.response?.data?.message || "An error occurred while submitting the form.";
-            console.error("Error submitting form:", errorMessage);
-            alert(errorMessage);
-          }
-        },
-      },
-      mounted() {
-        this.fetchEmployees();
-      },
-    };
-  </script>  
-=======
   import axios from "axios";
   
   export default {
@@ -285,7 +188,6 @@
   };
   </script>
   
->>>>>>> 9de3e4c0214d7b39ffa9a1c669909e49288dc3f4
   <style>
   .c-request-form {
     font-family: Arial, sans-serif;
