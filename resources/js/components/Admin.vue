@@ -1,32 +1,39 @@
 <template>
-  <div class="c-employee-index client-table">
-
+  <div class="c-employee-index">
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
-      <div class="flex " style="justify-content: space-between;">
-        <h1 class="mb-4">Admin Listing</h1>
+    <div class="px-4 pb-4 w-80" style="margin-left: 240px;">
+      <div class="flex mb-4 items-center justify-between">
+        <h1 class="mb-4 text-xl font-semibold">Admin Listing</h1>
         <button class="add-blue-button" @click="openClientModal()">Create Admin</button>
       </div>
-        <div class="flex"></div>
-      <table class="w-full client-table-list">
-        <thead>
-          <tr>
-           <th class="text-left heading-sort ">Admin Name <b-icon-arrow-down-up @click="namesort()" /> </th>
-           <th class="text-left heading-sort">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
-           <th class="text-left">Action</th>
+      <table class="table-auto w-full border-collapse border border-custom-border">
+        <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+          <tr class="text-gray-600 border border-custom-border rounded-lg">
+           <th class="text-left heading-sort p-2 border border-custom-border ">
+            <div class="flex items-center gap-1">
+              Admin Name <b-icon-arrow-down-up @click="namesort()" /> 
+              </div>
+            </th>
+            <th class="text-left heading-sort p-2 border border-custom-border">
+              <div class="flex items-center gap-1">
+              Email <b-icon-arrow-down-up @click="emailsort()" />     
+              </div>  
+            </th>
+           <th class="text-left p-2 border border-custom-border">Action</th>
           </tr>
         </thead>
-        
         <tbody>
           <template v-if="clientdata.length!= 0">
           <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id">
-            <td class="text-left text-transform-capitalise">{{ data.firstname || '-'}} {{ data.lastname || ''}}</td>
-            <td class="text-left">{{ data.email }}</td>
-            <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-20" /></b-button></td>
+            <td class="text-left capitalise p-2 border border-custom-border">{{ data.firstname || '-'}} {{ data.lastname || ''}}</td>
+            <td class="text-left p-2 border border-custom-border">{{ data.email }}</td>
+            <td class="text-left p-2 border border-custom-border" @click='deleteView(data)' ><b-button variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-20" /></b-button></td>
           </tr>
            </template>
           <template v-else>
-            No Records Found
+            <td class="text-center" colspan="3">
+              No Records Found
+            </td>
           </template>
         </tbody>
       </table>
@@ -99,7 +106,7 @@
 
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss">
 .client-table-list {
   thead{
     tr{
@@ -1570,11 +1577,11 @@ export default {
 
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 .bg-custom-primary{
   &:focus{
     outline: none;
   }
 }
-	@import '../../sass/employees';
+	/* @import '../../sass/employees'; */
 </style>

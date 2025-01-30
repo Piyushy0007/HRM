@@ -1,13 +1,13 @@
 <template>
-  <div class="c-employee-index client-table pb-4">
+  <div class="c-employee-index pb-4">
     <Loader msg="Processing ..." v-model="isLoader" />
     <div style="margin-left: 240px;">
       <div class="px-4 pb-4 ">
         <div class="flex items-center justify-between mx-2 my-3">
-          <h2>Watcher Logs</h2>
+          <h2 class="text-xl font-semibold">Watcher Logs</h2>
           <div class="w-50 px-3  md:w-2/1">
               <div class="relative">
-                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
+                <input class="appearance-none border block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Search" v-model="searchKeyword" @keyup="search()">
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r ">
                   <font-awesome-icon icon="search" class="fill-current" />
                 </div>
@@ -30,16 +30,19 @@
             </div>
           
             </div>
-        <table class="w-full">
-          <thead>
-            <tr>
-            <th style="width:15%;" class="text-center heading-sort ">Officer Name <b-icon-arrow-down-up @click="namesort()" /> </th>
-            <th style="width:15%;" class="text-center">Clocked in </th>
-            <th style="width:15%;" class="text-center">Clocked out</th>
-            <th style="width:25%;" class="text-center">Perimeter violation</th>
-            <th style="width:15%;" class="text-center">Lunch</th>
-            <th style="width:15%;" class="text-center">Break</th>
-            
+        <table class="table-auto w-full border-collapse border border-custom-border">
+          <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+            <tr class="text-gray-600 border border-custom-border rounded-lg">
+            <th style="width:15%;" class="text-center p-2 border border-custom-border heading-sort">
+              <div class="flex items-center gap-1">
+                Officer Name <b-icon-arrow-down-up @click="namesort()" /> 
+              </div>
+            </th>
+            <th style="width:15%;" class="text-center p-2 border border-custom-border">Clocked in </th>
+            <th style="width:15%;" class="text-center p-2 border border-custom-border">Clocked out</th>
+            <th style="width:25%;" class="text-center p-2 border border-custom-border">Perimeter violation</th>
+            <th style="width:15%;" class="text-center p-2 border border-custom-border">Lunch</th>
+            <th style="width:15%;" class="text-center p-2 border border-custom-border">Break</th>
             </tr>
           </thead>
           
@@ -47,11 +50,10 @@
             <template v-if="officerdata.length!= 0">
             <tr v-for="(data) in officerdata" :key="data.id">
             <!-- <tr> -->
-            
-              <td class="text-center text-transform-capitalise">{{ data.employee.firstname || '-'}} {{ data.employee.lastname}} </td>
-              <td class="text-center">{{ data.start_time }} </td>
-              <td class="text-center">{{ data.end_time || '-'}}</td>
-              <td class="text-center perimeter-time tooltip1">
+              <td class="text-center p-2 border border-custom-border text-transform-capitalise">{{ data.employee.firstname || '-'}} {{ data.employee.lastname}} </td>
+              <td class="text-center p-2 border border-custom-border">{{ data.start_time }} </td>
+              <td class="text-center p-2 border border-custom-border">{{ data.end_time || '-'}}</td>
+              <td class="text-center perimeter-time tooltip1 p-2 border border-custom-border">
                 <span class="data" v-for="(peri , index) in data.detect_shift" :key="peri.id">
                   <span class="text-transform-capitalize" v-if="index == 0"> {{peri.clock_in_time}} -  {{peri.clock_out_time}} to </span>
                   <span class="text-transform-capitalize" v-if="index == data.detect_shift.length - 1 "> {{peri.clock_in_time}} -  {{peri.clock_out_time}} </span>
@@ -63,18 +65,16 @@
                     </span>
                 </span>
               </td>
-              <td class="text-center" v-if="data.lunch_start">{{ data.lunch_start}} - {{ data.lunch_end}}</td>
-              <td class="text-center" v-else>-</td>
-              <td class="text-center" v-if="data.break_start">{{ data.break_start}} - {{ data.break_end}}</td>
-              <td class="text-center" v-else>-</td>
-            
-          
-            
-            
+              <td class="text-center p-2 border border-custom-border" v-if="data.lunch_start">{{ data.lunch_start}} - {{ data.lunch_end}}</td>
+              <td class="text-center p-2 border border-custom-border" v-else>-</td>
+              <td class="text-center p-2 border border-custom-border" v-if="data.break_start">{{ data.break_start}} - {{ data.break_end}}</td>
+              <td class="text-center p-2 border border-custom-border" v-else>-</td>
             </tr>
             </template>
             <template v-else>
-              No Records Found
+              <td class="text-center" colspan="8">
+                No Records Found
+              </td>
             </template>
           </tbody>
         </table>
@@ -340,5 +340,5 @@ table td:first-child {
 .tooltip1:hover .tooltiptext1 {
   visibility: visible;
 }
-	@import '../../../sass/employees';
+	/* @import '../../../sass/employees'; */
 </style>

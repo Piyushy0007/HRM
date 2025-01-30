@@ -8,7 +8,7 @@
           <div class="flex flex-wrap -mx-3">
             <div class="w-full md:w-1/2 px-3">
               <div class="relative">
-                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
+                <input class="appearance-none block w-full rounded py-1 px-4 leading-tight border focus:outline-none" type="text" placeholder="Find" v-model="searchKeyword" @keyup="search">
                 <div class="absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r">
                   <font-awesome-icon icon="search" class="fill-current" />
                 </div>
@@ -16,7 +16,7 @@
             </div>
             <div class="w-full md:w-1/2 pr-3">
               <div class="relative">
-                <select class="block appearance-none w-full py-1 px-4 pr-8 rounded leading-tight focus:outline-none" v-model="selectedPosition">
+                <select class="block appearance-none w-full py-1 px-4 pr-8 border rounded leading-tight focus:outline-none border-gray-300"  v-model="selectedPosition">
                   <option value="">All Positions</option>
                   <option v-for="data in positions" :key="data.id" :value="data.id">{{ data.position }}</option>
                 </select>
@@ -27,14 +27,14 @@
             </div>
           </div>
         </div>
-        <table class="w-full table-fixed">
-          <thead>
-            <tr>
-              <th class="w-6" >Select</th>
-              <th class="text-sm leading-none px-2 py-2 w-25">Edit Pos Prefs</th>
-              <th class="px-2 py-2 text-sm w-25">First</th>
-              <th class="px-2 py-2 text-sm w-25">Last</th>
-              <th v-for="data in positions" :key="data.id" class="w-1/12 py-2 text-sm leading-none truncate cursor-pointer" v-if="selectedPosition == '' || selectedPosition == data.id"
+        <table class="w-full border-collapse border border-custom-border table-fixed">
+          <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+            <tr class="text-gray-600 border border-custom-border rounded-lg">
+              <th class="w-12 py-2 px-1 border border-custom-border" >Select</th>
+              <th class="leading-none p-2 border border-custom-border w-25">Edit Pos Prefs</th>
+              <th class="p-2 border border-custom-border w-25">First</th>
+              <th class="p-2 border border-custom-border w-25">Last</th>
+              <th v-for="data in positions" :key="data.id" class="w-1/12 p-2 border border-custom-border leading-none truncate cursor-pointer" v-if="selectedPosition == '' || selectedPosition == data.id"
                 v-tooltip="{
                   content: data.position,
                   classes: ['rounded','bg-black','text-white','py-2','px-2'],
@@ -57,17 +57,17 @@
               <td :colspan="(4 + positions.length)">No Records Found</td>
             </tr>
             <tr v-for="(data, index) in employees" :key="data.id">
-              <td class="text-center">
-                <input type="checkbox" v-model="checkEmpPositions[index]" @click="checkEmpPosition(index)" class="form-checkbox h-3 w-3 text-blue-600" >
+              <td class="text-center p-2 border border-custom-border">
+                <input type="checkbox" v-model="checkEmpPositions[index]" @click="checkEmpPosition(index)" class=" h-4 w-4 text-blue-600" >
               </td>
-              <td class="text-center">
+              <td class="text-center p-2 border border-custom-border">
                 <a href="#" @click.prevent="editEmpPosition(data, index)"> <font-awesome-icon icon="pencil-alt"  /></a>
               </td>
-              <td class="text-center">{{ data.firstname }}</td>
-              <td class="text-center">{{ data.lastname }}</td>
+              <td class="text-center p-2 border border-custom-border capitalize">{{ data.firstname }}</td>
+              <td class="text-center p-2 border border-custom-border capitalize">{{ data.lastname }}</td>
               <!-- display all positions -->
-              <td v-for="data2 in positions" class="text-center class-color-here" :key="data2.id" v-if="selectedPosition == '' || selectedPosition == data2.id">
-                <input type="checkbox" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
+              <td v-for="data2 in positions" class="text-center p-2 border border-custom-border class-color-here" :key="data2.id" v-if="selectedPosition == '' || selectedPosition == data2.id">
+                <input type="checkbox" class="h-4 w-4 border-gray-300 border text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
                 <!-- <span v-for="data1 in mapEmployeePosition1[index]" v-bind:key="data1.id">
                   <template  v-if="data1.id == data2.id">
                     <input type="checkbox" :class="data1.preference" class="form-checkbox h-3 w-3 text-blue-600" v-model="mapEmployeePosition[index]" :value="data2.id">
@@ -972,7 +972,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	@import '../../../sass/employees';
+	/* @import '../../../sass/employees'; */
 
 	.btn-add-edit-position {
 		background: #2D477F;
