@@ -2,7 +2,10 @@
 .env.backup
 .phpunit.result.cache
 storage/log
-
+storage/app/
+/storage/*.pdf
+/storage/*.png
+/storage/*.jpeg
 
 # Laravel
 /vendor
