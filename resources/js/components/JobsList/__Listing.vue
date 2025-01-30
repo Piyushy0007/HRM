@@ -11,7 +11,7 @@
           Add Job
         </button>
         -->
-        <div class="flex items-center justify-between  p-3 mb-2 flex-wrap w-full">
+        <div class="flex items-center justify-between  p-3 mb-2 flex-wrap w-full ">
           <div class="flex items-center">
             <span class="font-semibold text-lg text-gray-800">Job List</span>
           </div>
@@ -33,11 +33,11 @@
           <div class="flex items-center space-x-4">
             <div class="flex items-center">
               <label for="fromDate" class="text-gray-600 mr-2">From</label>
-              <input type="date" id="fromDate" class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <input type="date" id="fromDate" class="border border-custom-border rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
             </div>
             <div class="flex items-center">
               <label for="toDate" class="text-gray-600 mr-2">To</label>
-              <input type="date" id="toDate"  class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+              <input type="date" id="toDate"  class="border border-custom-border rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
             </div>
           </div>
         </div>

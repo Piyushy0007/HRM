@@ -14,7 +14,11 @@ module.exports = {
           tag_primary: "#4CAF50",
           status_open: "#28a745",
           status_close: "#dc3545",
-          status_panding: "#ffc107"
+          status_panding: "#ffc107",
+          text_grey: "#333333",
+          text_blue: "#007bff",
+          text_red: "#dc3545",
+          light_grey: "#f8f9fa"
 }
     }
   }
