@@ -54,13 +54,13 @@
               <table class="table-auto w-full border-collapse border border-custom-border">
                 <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
                   <tr class="text-left border-b thead-light bg-custom-bg_table_head_primary border-custom-border">
-                   <th class="p-2 border border-custom-border heading-sort ">Community Name <b-icon-arrow-down-up @click="namesort()" /> </th>
+                   <th class="p-2 border border-custom-border heading-sort flex items-center gap-1">Community Name <span><b-icon-arrow-down-up @click="namesort()" /></span> </th>
                    <th class="p-2 border border-custom-border">Location</th>
-                   <th class="p-2 border border-custom-border heading-sort">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
+                   <th class="p-2 border border-custom-border heading-sort flex items-center gap-1">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
                    <th class="p-2 border border-custom-border">Contact Number</th>
                    <!-- <th class="text-center">Username</th> -->
                    <!-- <th class="text-center">Date Registered</th> -->
-                   <th class="p-2 border border-custom-border">Status</th>
+                   <th class="p-2 border border-custom-border text-center">Status</th>
                    <th class="text-center p-2 border border-custom-border" colspan="3">Action</th>
                    <!-- <th class="text-left"></th> -->
                    <!-- <th class="text-left"></th> -->
@@ -75,10 +75,10 @@
                     <td class="text-left p-2 border border-custom-border">{{ data.phone || '-' }}</td>
                     <!-- <td class="text-center">{{ data.name }}</td> -->
                     <!-- <td class="text-center">{{data.created_at  | moment('MM/DD/YYYY')}}</td> -->
-                    <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-center p-2 border border-custom-border capitalize'" >{{ data.status }}</td>
-                    <td class="text-center p-2 border border-custom-border"  @click='resetPassword(data)' ><b-button variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-22"  /></b-button></td>
-                    <td class="text-center p-2 border border-custom-border"  @click='openView(data)' ><b-button variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-22"  /></b-button></td>
-                    <td class="text-center p-2 border border-custom-border" @click='deleteView(data)' ><b-button variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-22" /></b-button></td>
+                    <td :class="data.status == 'active' ? 'active text-center capitalize' : 'inactive text-center p-2 border border-custom-border capitalize'" >{{ data.status }}</td>
+                    <td class="text-center p-2 border-l border-custom-border"  @click='resetPassword(data)' ><b-button variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-22"  /></b-button></td>
+                    <td class="text-center p-2 "  @click='openView(data)' ><b-button variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-22"  /></b-button></td>
+                    <td class="text-center p-2 border-r border-custom-border" @click='deleteView(data)' ><b-button variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-22" /></b-button></td>
                   </tr>
                    </template>
                   <template v-else>
