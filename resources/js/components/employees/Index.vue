@@ -38,7 +38,7 @@
                 <th class="text-left p-2 border border-custom-border">Last</th>
                 <th class="text-left p-2 border border-custom-border">Phone</th>
                 <th class="text-left p-2 border border-custom-border">Email</th>
-                <th class="text-left p-2 border border-custom-border">Role</th>
+                <th class="text-center p-2 border border-custom-border">Role</th>
                 <!-- <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Hours</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Wkly Days</th>
                 <th class="text-left" v-if="modal.getUserRole==0">Max Day Hours</th>
@@ -56,11 +56,15 @@
             </tbody>
             <tbody v-else>
               <tr v-for="(data, index) in index.employees" :key="data.id">                
-                <td class="p-2 border border-custom-border">{{ data.firstname }}</td>
-                <td class="p-2 border border-custom-border">{{ data.lastname }}</td>
+                <td class="p-2 border border-custom-border capitalize">{{ data.firstname }}</td>
+                <td class="p-2 border border-custom-border capitalize">{{ data.lastname }}</td>
                 <td class="p-2 border border-custom-border">{{ data.phone }}</td>
                 <td class="text-truncate p-2 border border-custom-border">{{ data.email || '-----' }}</td>
-                <td class="text-truncate p-2 border border-custom-border">{{ data.role.role_name }}</td>
+                <td class="text-truncate text-center p-2 border border-custom-border capitalize">
+                  <button class="bg-custom-tag_primary text-white text-sm px-3 py-1 rounded-full">
+                  {{ data.role.role_name }}
+                  </button>
+                </td>
                 <!-- <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_hours }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_weekly_days }}</td>
                 <td class="text-center py-1" v-if="modal.getUserRole == 0">{{ data.max_day_hours }}</td>
@@ -69,23 +73,23 @@
                 <td class="text-center p-2 border border-custom-border">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
                 <td class="text-center p-2 border border-custom-border">{{ data.priority_group }}</td>
                 <td class="text-center flex items-center justify-center gap-3 p-2 border border-custom-border">
-                  <a href="#" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
+                  <a href="#" title="ClockIn/Out" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
                     <img src="/images/clockin.png" class="h-5" alt="clockin">
                   </a>
-                  <a href="#" @click.prevent="openModal('EditEmployee', data, index)">
-                    <font-awesome-icon icon="pencil-alt" />
-                  </a>
-                  <a href="#" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
+                  <a href="#" title="Remove Employee" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
                     <font-awesome-icon :icon="['far', 'trash-alt']" />
                   </a>
-                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Dollar')">
+                  <a href="#" title="Edit Salary" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Dollar')">
                     <font-awesome-icon :icon="['fas', 'dollar-sign']" />
                   </a>
-                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Briefcase')">
+                  <a href="#" title="Edit Bank Details" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Briefcase')">
                     <font-awesome-icon :icon="['fas', 'briefcase']" />
                   </a>
-                  <a href="#" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Columns')">
+                  <a href="#" title="Add Taging" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Columns')">
                     <font-awesome-icon :icon="['fas', 'columns']" />
+                  </a>
+                  <a href="#" title="Edit Details" @click.prevent="openModal('EditEmployee', data, index)">
+                    <font-awesome-icon icon="pencil-alt" />
                   </a>
                 <!-- bank accound edit salary edit and asset taging  -->
                 </td>

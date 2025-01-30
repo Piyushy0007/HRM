@@ -1,5 +1,5 @@
 <template>
-  <div class="c-employee-index client-table">
+  <div class="c-employee-index">
     <Loader msg="Processing ..." v-model="isLoader" />
     <div style="margin-left: 240px;">
       <div class="p-4 max-w-7xl mx-auto h-screen flex flex-col ">
@@ -51,34 +51,34 @@
               </div>
             </div> -->
             <div class="flex-grow overflow-auto">
-              <table class="w-full table-auto">
-                <thead>
-                  <tr class="text-left border-b">
-                   <th class="py-3 px-4 text-blue-600 heading-sort ">Community Name <b-icon-arrow-down-up @click="namesort()" /> </th>
-                   <th class="py-3 px-4 text-blue-600">Location</th>
-                   <th class="py-3 px-4 text-blue-600 heading-sort">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
-                   <th class="py-3 px-4 text-blue-600">Contact Number</th>
+              <table class="table-auto w-full border-collapse border border-custom-border">
+                <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+                  <tr class="text-left border-b thead-light bg-custom-bg_table_head_primary border-custom-border">
+                   <th class="p-2 border border-custom-border heading-sort ">Community Name <b-icon-arrow-down-up @click="namesort()" /> </th>
+                   <th class="p-2 border border-custom-border">Location</th>
+                   <th class="p-2 border border-custom-border heading-sort">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
+                   <th class="p-2 border border-custom-border">Contact Number</th>
                    <!-- <th class="text-center">Username</th> -->
                    <!-- <th class="text-center">Date Registered</th> -->
-                   <th class="py-3 px-4 text-blue-600">Status</th>
-                   <th class="text-left"></th>
-                   <th class="text-left"></th>
-                   <th class="text-left"></th>
+                   <th class="p-2 border border-custom-border">Status</th>
+                   <th class="text-center p-2 border border-custom-border" colspan="3">Action</th>
+                   <!-- <th class="text-left"></th> -->
+                   <!-- <th class="text-left"></th> -->
                   </tr>
                 </thead>                
                 <tbody >
                   <template v-if="clientdata.length!= 0">
                   <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id" class="border-b">                  
-                    <td class="px-4 text-transform-capitalise">{{ data.clientname || '-'}} </td>
-                    <td class="px-4">{{data.address ? data.address : '-'}}</td>
-                    <td class="text-left px-4">{{ data.email }}</td>
-                    <td class="text-left px-4">{{ data.phone || '-' }}</td>
+                    <td class="p-2 border border-custom-border text-transform-capitalise">{{ data.clientname || '-'}} </td>
+                    <td class="p-2 border border-custom-border">{{data.address ? data.address : '-'}}</td>
+                    <td class="text-left p-2 border border-custom-border">{{ data.email }}</td>
+                    <td class="text-left p-2 border border-custom-border">{{ data.phone || '-' }}</td>
                     <!-- <td class="text-center">{{ data.name }}</td> -->
                     <!-- <td class="text-center">{{data.created_at  | moment('MM/DD/YYYY')}}</td> -->
-                    <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-center px-4'" >{{ data.status }}</td>
-                    <td class="text-left px-4"  @click='resetPassword(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-24"  /></b-button></td>
-                    <td class="text-left px-4"  @click='openView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-24"  /></b-button></td>
-                    <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
+                    <td :class="data.status == 'active' ? 'active text-left' : 'inactive text-center p-2 border border-custom-border capitalize'" >{{ data.status }}</td>
+                    <td class="text-center p-2 border border-custom-border"  @click='resetPassword(data)' ><b-button variant="success"> <font-awesome-icon icon="lock"  class="text-gray-500 font-size-22"  /></b-button></td>
+                    <td class="text-center p-2 border border-custom-border"  @click='openView(data)' ><b-button variant="success"> <font-awesome-icon icon="eye"  class="text-gray-500 font-size-22"  /></b-button></td>
+                    <td class="text-center p-2 border border-custom-border" @click='deleteView(data)' ><b-button variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-22" /></b-button></td>
                   </tr>
                    </template>
                   <template v-else>
