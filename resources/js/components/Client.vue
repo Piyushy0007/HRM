@@ -2,12 +2,12 @@
   <div class="c-employee-index">
     <Loader msg="Processing ..." v-model="isLoader" />
     <div style="margin-left: 240px;">
-      <div class="p-4 max-w-7xl mx-auto h-screen flex flex-col ">
-        <div class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg mb-4">
+      <div class="p-2 max-w-7xl mx-auto h-screen flex flex-col ">
+        <div class="flex justify-between items-center mb-4">
           <p class="text-3xl">Community</p>
           <button class="add-blue-button" @click="openClientModal()">Create Community</button>
         </div>
-        <div class="flex flex-col bg-white p-4 shadow-md rounded-lg mb-4">
+        <div class="flex flex-col p-1 mb-4">
           <div class="flex flex-col md:flex-row w-full gap-2 items-stretch ">
             <div class="w-full md:w-1/2 flex flex-col md:flex-row mb-4">
               <div class=" w-full md:w-1/2 pr-3 mb-4">
@@ -54,9 +54,17 @@
               <table class="table-auto w-full border-collapse border border-custom-border">
                 <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
                   <tr class="text-left border-b thead-light bg-custom-bg_table_head_primary border-custom-border">
-                   <th class="p-2 border border-custom-border heading-sort flex items-center gap-1">Community Name <span><b-icon-arrow-down-up @click="namesort()" /></span> </th>
+                   <th class="p-2 border border-custom-border heading-sort ">
+                    <div class="flex items-center gap-1">
+                      Community Name <span><b-icon-arrow-down-up @click="namesort()" /></span> 
+                    </div>
+                   </th>
                    <th class="p-2 border border-custom-border">Location</th>
-                   <th class="p-2 border border-custom-border heading-sort flex items-center gap-1">Email <b-icon-arrow-down-up @click="emailsort()" /> </th>
+                   <th class="p-2 border border-custom-border heading-sort">
+                    <div class="flex items-center gap-1">
+                      Email <b-icon-arrow-down-up @click="emailsort()" /> 
+                    </div>
+                   </th>
                    <th class="p-2 border border-custom-border">Contact Number</th>
                    <!-- <th class="text-center">Username</th> -->
                    <!-- <th class="text-center">Date Registered</th> -->
@@ -68,7 +76,7 @@
                 </thead>                
                 <tbody >
                   <template v-if="clientdata.length!= 0">
-                  <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id" class="border-b">                  
+                  <tr v-for="(data, index) in clientdata" :key="'A'+index+data.id">                  
                     <td class="p-2 border border-custom-border text-transform-capitalise">{{ data.clientname || '-'}} </td>
                     <td class="p-2 border border-custom-border">{{data.address ? data.address : '-'}}</td>
                     <td class="text-left p-2 border border-custom-border">{{ data.email }}</td>

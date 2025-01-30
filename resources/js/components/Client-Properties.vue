@@ -1,12 +1,12 @@
 <template>
-  <div class="c-employee-index client-table">
+  <div class="c-employee-index">
     <Loader msg="Processing ..." v-model="isLoader" />
-    <div class="p-4 max-w-7xl mx-auto h-screen flex flex-col " style=" margin-left: 240px;">
-      <div class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg mb-5 ">
+    <div class="p-2 max-w-7xl mx-auto h-screen flex flex-col " style=" margin-left: 240px;">
+      <div class="flex justify-between items-center p-2 mb-5 ">
         <p class="text-3xl">Properties</p>
         <button class="add-blue-button"  @click="create('create')" >Create new property</button>
       </div>
-      <div class="flex flex-col bg-white p-4 shadow-md rounded-lg mb-4">
+      <div class="flex flex-col p-2 mb-4">
         <div class="flex flex-col md:flex-row w-full gap-2 items-stretch ">
           <div class="w-full md:w-1/2 flex flex-col md:flex-row mb-4">
             <div class="w-full md:w-1/2 pr-3 mb-4">
@@ -45,35 +45,39 @@
             </div>
           </div>
         </div>
-        <table class="w-full property-table-list">
-          <thead>
-            <tr>
-              <th width="15%" class="text-left py-3 px-4 text-blue-600 heading-sort">Property Name <b-icon-arrow-down-up @click="namesort()" /></th>
-              <th width="20%" class="text-left py-3 px-4 text-blue-600">Location</th>
-              <th width="10%" class="text-left py-3 px-4 text-blue-600">Community Name</th>
-              <th width="10%" class="text-left py-3 px-4 text-blue-600 heading-sort">Email </th>
-              <th width="10%" class="text-left py-3 px-4 text-blue-600">Contact Number</th>
+        <table class="table-auto w-full border-collapse border border-custom-border">
+          <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+            <tr class="text-left border-b thead-light bg-custom-bg_table_head_primary border-custom-border">
+              <th width="15%" class="text-left p-2 border border-custom-border heading-sort">
+                <div class="flex items-center gap-1">
+                  Property Name <b-icon-arrow-down-up @click="namesort()" />
+                </div>
+              </th>
+              <th class="text-left p-2 border border-custom-border">Location</th>
+              <th class="text-left p-2 border border-custom-border">Community Name</th>
+              <th class="text-left p-2 border border-custom-border heading-sort">Email </th>
+              <th class="text-left p-2 border border-custom-border">Contact Number</th>
               <!-- <th class="text-center">Username</th> -->
-              <th width="20%" class="text-left py-3 px-4 text-blue-600">Date Registered</th>
-              <th width="5%" class="text-left py-3 px-4 text-blue-600">Status</th>
-              <th width="5%" class="text-left"></th>
-              <th width="5%" class="text-left"></th>
+              <th class="text-left p-2 border border-custom-border">Date Registered</th>
+              <th class="text-left p-2 border border-custom-border">Status</th>
+              <th class="text-center p-2 border border-custom-border" colspan="2">Action</th>
+              <!-- <th width="5%" class="text-left"></th> -->
             </tr>
           </thead>
         <tbody >
           <template v-if="propertiesdata.length != 0">
             <tr v-for="(data) in propertiesdata" :key="data.id">
-              <td class="text-left text-transform-capitalise">{{ data.name || '-'}}  </td>
-              <td class="text-left location">{{data.address ? data.address : '-'}}</td>
-              <td class="text-left text-transform-capitalise">{{ data.client ? data.client.clientname : '-'}} </td>
-              <td class="text-left">{{ data.client ? data.client.email : '' }}</td>
-              <td class="text-left">{{ data.client ? data.client.phone : '-' }}</td>
+              <td class="text-left p-2 border border-custom-border text-transform-capitalise">{{ data.name || '-'}}  </td>
+              <td class="text-left p-2 border border-custom-border location">{{data.address ? data.address : '-'}}</td>
+              <td class="text-left p-2 border border-custom-border text-transform-capitalise">{{ data.client ? data.client.clientname : '-'}} </td>
+              <td class="text-left p-2 border border-custom-border">{{ data.client ? data.client.email : '' }}</td>
+              <td class="text-left p-2 border border-custom-border">{{ data.client ? data.client.phone : '-' }}</td>
               <!-- <td class="text-center">{{ data.name }}</td> -->
-              <td class="text-left" v-if="data.created_at">{{data.created_at  | moment('MM/DD/YYYY') }}</td>
-              <td class="text-left" v-else>-</td>
-              <td :class="data.status == 'active' ? 'active text-center' : 'inactive text-center'" >{{ data.status ? data.status : '-' }}</td>
-              <td class="text-left"   @click="create('edit', data)" ><b-button class="m-3" variant="success"> <font-awesome-icon icon="pencil-alt"  class="text-gray-500 font-size-24"  /></b-button></td>
-              <td class="text-left" @click='deleteView(data)' ><b-button class="m-3" variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-24" /></b-button></td>
+              <td class="text-left p-2 border border-custom-border" v-if="data.created_at">{{data.created_at  | moment('MM/DD/YYYY') }}</td>
+              <td class="text-left p-2 border border-custom-border" v-else>-</td>
+              <td :class="data.status == 'active' ? 'active text-center p-2 border border-custom-border' : 'inactive text-center p-2 border border-custom-border'" >{{ data.status ? data.status : '-' }}</td>
+              <td class="text-left p-2 border-l border-b border-custom-border"   @click="create('edit', data)" ><b-button variant="success"> <font-awesome-icon icon="pencil-alt"  class="text-gray-500 font-size-22"  /></b-button></td>
+              <td class="text-left p-2 border-r border-b border-custom-border" @click='deleteView(data)' ><b-button variant="success"> <font-awesome-icon :icon="['far', 'trash-alt']" class="text-gray-500 font-size-22" /></b-button></td>
             </tr>
           </template>
           <template v-else>

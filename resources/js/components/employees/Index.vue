@@ -72,25 +72,27 @@
                 <td class="text-center p-2 border border-custom-border">{{ data.zip }}</td>
                 <td class="text-center p-2 border border-custom-border">{{ data.hired_date | moment('MM-DD-YYYY') }}</td>
                 <td class="text-center p-2 border border-custom-border">{{ data.priority_group }}</td>
-                <td class="text-center flex items-center justify-center gap-3 p-2 border border-custom-border">
-                  <a href="#" title="ClockIn/Out" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
-                    <img src="/images/clockin.png" class="h-5" alt="clockin">
-                  </a>
-                  <a href="#" title="Remove Employee" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
-                    <font-awesome-icon :icon="['far', 'trash-alt']" />
-                  </a>
-                  <a href="#" title="Edit Salary" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Dollar')">
-                    <font-awesome-icon :icon="['fas', 'dollar-sign']" />
-                  </a>
-                  <a href="#" title="Edit Bank Details" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Briefcase')">
-                    <font-awesome-icon :icon="['fas', 'briefcase']" />
-                  </a>
-                  <a href="#" title="Add Taging" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Columns')">
-                    <font-awesome-icon :icon="['fas', 'columns']" />
-                  </a>
-                  <a href="#" title="Edit Details" @click.prevent="openModal('EditEmployee', data, index)">
-                    <font-awesome-icon icon="pencil-alt" />
-                  </a>
+                <td class="text-center p-2 border border-custom-border">
+                  <div class="flex items-center justify-center gap-3">
+                    <a href="#" title="ClockIn/Out" @click.prevent="SetClockinTime(data.id)" class="btn btn-sm btn-outline-danger">
+                      <img src="/images/clockin.png" class="h-5" alt="clockin">
+                    </a>
+                    <a href="#" title="Remove Employee" @click.prevent="removeEmployee(data.id, data.firstname, data.lastname)" class="btn btn-sm btn-outline-success">
+                      <font-awesome-icon :icon="['far', 'trash-alt']" />
+                    </a>
+                    <a href="#" title="Edit Salary" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Dollar')">
+                      <font-awesome-icon :icon="['fas', 'dollar-sign']" />
+                    </a>
+                    <a href="#" title="Edit Bank Details" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Briefcase')">
+                      <font-awesome-icon :icon="['fas', 'briefcase']" />
+                    </a>
+                    <a href="#" title="Add Taging" class="btn btn-sm btn-outline-success" @click.prevent="openModal('Columns')">
+                      <font-awesome-icon :icon="['fas', 'columns']" />
+                    </a>
+                    <a href="#" title="Edit Details" @click.prevent="openModal('EditEmployee', data, index)">
+                      <font-awesome-icon icon="pencil-alt" />
+                    </a>
+                  </div>
                 <!-- bank accound edit salary edit and asset taging  -->
                 </td>
               </tr>
