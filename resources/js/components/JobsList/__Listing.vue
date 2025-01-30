@@ -70,7 +70,17 @@
            
             <td style="cursor: pointer;" @click="navigateToJob(job.job_number)"
             class="border border-custom-border p-3">{{ job.job_title }}</td>
-            <td class="p-3 border border-custom-border">open</td>
+            <td class="p-3 border border-custom-border">
+              <button 
+                :class="{
+                  'bg-custom-status_open text-white text-sm px-3 py-1 rounded-full': job.job_status === 1,
+                  'bg-custom-status_pending text-white text-sm px-3 py-1 rounded-full': job.job_status === 2,
+                  'bg-custom-status_close text-white text-sm px-3 py-1 rounded-full': job.job_status === 3
+                }"
+              >
+                {{ job.job_status === 1 ? 'Open' : job.job_status === 2 ? 'Pending' : 'Closed' }}
+              </button>
+            </td>
             <!-- <td>{{ job.people_to_hire }}</td> -->
             <td class="p-3 border border-custom-border">{{ job.job_type }}</td>
             <!-- <td>{{ job.created_at }}</td> -->
