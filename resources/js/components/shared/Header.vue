@@ -125,7 +125,8 @@ export default {
                     expanded: this.selectedGroupIndex == 1,
                     items: [
                         { name: "leave", label: "Apply Leave" },
-                        { name: "requests", label: "Leave Requests" }
+                        { name: "requests", label: "Leave Requests" },
+                        { name: "attendance", label: "Attendance Logs" },                        
                     ]
                 },
                 {
@@ -176,8 +177,7 @@ export default {
                     items: [
                         { name: "reports", label: "Reports" },
                         { name: "attendance-chart", label: "Graph" },
-                        { name: "performance", label: "Performance" },
-                        { name: "attendance", label: "Attendance" },                        
+                        { name: "performance", label: "Performance" },                        
                         { name: "payroll", label: "Payroll" }
                     ]
                 },
