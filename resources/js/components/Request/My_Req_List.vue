@@ -3,6 +3,7 @@
     <header-component />
     <div style="margin-left: 242px;">
       <div class="w-full mx-auto p-2 h-screen flex flex-col">
+       
         <div class="flex items-center justify-between  p-3 mb-2 flex-wrap ">
           <div class="flex items-center">
             <span class="font-semibold text-lg text-gray-800">Create Request List</span>
@@ -35,6 +36,7 @@
             </div>
           </div>
         </div>
+
         <div class="flex-grow flex flex-col">
           <div class="flex-grow overflow-auto">
             <table class="w-full border border-custom-border">

@@ -4,22 +4,36 @@
         <header-component />
         <div class="c-job-listings" style="margin-left: 242px;">
             <div class="flex items-center justify-between p-2">
-                <div class="flex flex-wrap -mx-3">
-                    <div class="w-full md:w-50 px-3">
-                        <div class="flex items-center relative">
-                            <input
-                                class="appearance-none block w-full rounded py-2 px-4 pl-5 leading-tight border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-                                type="text"
-                                placeholder="Search Job Titles"
-                                v-model="searchQuery"
-                            />
-                            <font-awesome-icon
-                                icon="search"
-                                class="absolute right-3 text-gray-500"
-                            />
-                        </div>
+                <div class="flex items-center justify-between  p-3 mb-2 flex-wrap w-full">
+                    <div class="flex items-center">
+                      <span class="font-semibold text-lg text-gray-800">Applicants List</span>
                     </div>
-                </div>
+                    <div class="flex items-center flex-grow mx-12 relative">
+                      <input
+                        type="text"
+                        placeholder="Search..."
+                        class="w-full border border-gray-300 rounded-md pl-3 pr-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        style="height: 36px;"
+                      />
+                      <div>
+                        <font-awesome-icon
+                        icon="search"
+                        class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+                        style="font-size: 20px"
+                        />
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                      <div class="flex items-center">
+                        <label for="fromDate" class="text-gray-600 mr-2">From</label>
+                        <input type="date" id="fromDate" class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                      </div>
+                      <div class="flex items-center">
+                        <label for="toDate" class="text-gray-600 mr-2">To</label>
+                        <input type="date" id="toDate"  class="border border-gray-300 rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                      </div>
+                    </div>
+                  </div>
             </div>
 
             <!-- Job Listings Table -->
@@ -81,7 +95,8 @@
               </td> -->
 
                         <td class="text-center">
-                            <font-awesome-icon :icon="['fas', 'eye']" />
+                            <a href="#" title="Applicant Detail">
+                           <font-awesome-icon :icon="['fas', 'eye']" /></a> 
                         </td>
                     </tr>
                 </tbody>
