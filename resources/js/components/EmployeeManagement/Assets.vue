@@ -17,22 +17,22 @@
   
           <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
             <div class="flex-grow overflow-auto">
-              <table class="w-full table-auto">
-                <thead>
-                  <tr class="text-center border-b">
-                    <th class="py-3 px-4 text-blue-600">Name</th>
-                    <th class="py-6 px-4 text-blue-600 flex items-center gap-1 justify-center cursor-pointer">
+              <table class="table-auto w-full border-collapse border border-custom-border">
+                <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+                  <tr class="text-gray-600 text-center border border-custom-border rounded-lg">
+                    <th class="p-2 border border-custom-border">Name</th>
+                    <th class="p-2 border border-custom-border flex items-center gap-1 justify-center cursor-pointer">
                       Category <b-icon-arrow-down-up />
                     </th>
-                    <th class="py-3 px-4 text-blue-600">Serial Number</th>
-                    <th class="py-3 px-4 text-blue-600">Brand Name</th>
-                    <th class="py-3 px-4 text-blue-600">Model Number</th>
-                    <th class="py-3 px-4 text-blue-600">RAM</th>
-                    <th class="py-3 px-4 text-blue-600">Storage Capacity</th>
-                    <th class="py-3 px-4 text-blue-600">IMEI Number</th>
-                    <th class="py-3 px-4 text-blue-600">IP Address</th>
-                    <th class="py-3 px-4 text-blue-600">Previous State</th>
-                    <th class="py-3 px-4 text-blue-600">Tag</th>
+                    <th class="p-2 border border-custom-border">Serial Number</th>
+                    <th class="p-2 border border-custom-border">Brand Name</th>
+                    <th class="p-2 border border-custom-border">Model Number</th>
+                    <th class="p-2 border border-custom-border">RAM</th>
+                    <th class="p-2 border border-custom-border">Storage Capacity</th>
+                    <th class="p-2 border border-custom-border">IMEI Number</th>
+                    <th class="p-2 border border-custom-border">IP Address</th>
+                    <th class="p-2 border border-custom-border">Previous State</th>
+                    <th class="p-2 border border-custom-border">Tag</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -43,17 +43,17 @@
                       <td colspan="11" class="text-center py-4">No leave requests found for the selected date range.</td>
                     </tr>
                     <tr v-for="asset in assets.data" :key="asset.id" class="text-center border-b">
-                      <td class="py-3 px-4">{{ asset.name }}</td>
-                      <td class="py-3 px-4">{{ asset.category }}</td>
-                      <td class="py-3 px-4">{{ asset.serial_number }}</td>
-                      <td class="py-3 px-4">{{ asset.brand_name }}</td>
-                      <td class="py-3 px-4">{{ asset.model_number }}</td>
-                      <td class="py-3 px-4">{{ asset.ram }}</td>
-                      <td class="py-3 px-4">{{ asset.storage_capacity }}</td>
-                      <td class="py-3 px-4">{{ asset.imei_number }}</td>
-                      <td class="py-3 px-4">{{ asset.ip_address }}</td>
-                      <td class="py-3 px-4">{{ asset.previous_state }}</td>
-                      <td class="py-3 px-4">{{ asset.tag }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.name }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.category }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.serial_number }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.brand_name }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.model_number }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.ram }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.storage_capacity }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.imei_number }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.ip_address }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.previous_state }}</td>
+                      <td class="p-2 border border-custom-border">{{ asset.tag }}</td>
                     </tr>               
                 </tbody>
               </table>
