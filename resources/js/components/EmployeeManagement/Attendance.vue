@@ -4,14 +4,10 @@
         <header-component />
         <div style="margin-left: 242px;">
             <div class="w-full mx-auto p-4 h-screen flex flex-col">
-                <div
-                    class="flex w-full items-center justify-between bg-white p-4 rounded-lg mb-2 bg-gray-100"
-                >
+                <div class="flex w-full items-center justify-between bg-white p-4 rounded-lg mb-2 bg-gray-100">
                     <!-- Left Section -->
                     <div class="flex items-center">
-                        <span class="font-semibold text-lg text-gray-800"
-                            >Attendance</span
-                        >
+                        <span class="font-semibold text-lg text-gray-800">Attendance</span>
                         <!-- <span class="text-gray-600 ml-1">Month- {{ selectedMonth }}</span> -->
                     </div>
                     <!-- Center Section - Search Bar with Font Awesome Icon -->
@@ -36,9 +32,7 @@
                     <div class="flex items-center space-x-4">
                         <!-- From Date Selector -->
                         <div class="flex items-center">
-                            <label for="fromDate" class="text-gray-600 mr-2"
-                                >From</label
-                            >
+                            <label for="fromDate" class="text-gray-600 mr-2">From</label>
                             <input
                                 type="date"
                                 id="fromDate"
@@ -48,9 +42,7 @@
                         </div>
                         <!-- To Date Selector -->
                         <div class="flex items-center">
-                            <label for="toDate" class="text-gray-600 mr-2"
-                                >To</label
-                            >
+                            <label for="toDate" class="text-gray-600 mr-2">To</label>
                             <input
                                 type="date"
                                 id="toDate"
@@ -60,78 +52,111 @@
                             />
                         </div>
                         <div class="flex items-center">
-                            <button
-                                class="bg-custom-button text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600"
-                            >
+                            <button class="bg-custom-button text-white px-3 py-1 text-sm rounded-md hover:bg-blue-600">
                                 Add Attendance
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="flex gap-4 pb-4">
-                  <div class="bg-custom-light_grey shadow-md rounded-lg p-6 w-full">
-                    <h3 class="font-semibold text-lg flex items-center">
-                      Present Summary
-                    </h3>
-                    <div class="flex justify-between mt-4">
-                      <div class="">
-                        <p class="text-custom-text_grey font-semibold">On time</p>
-                        <p class="text-2xl font-bold">265</p>
-                        <p class="text-custom-text_blue text-sm">+12 vs yesterday</p>
-                      </div>
-                      <div class="">
-                        <p class="text-custom-text_grey font-semibold">Late clock-in</p>
-                        <p class="text-2xl font-bold">62</p>
-                        <p class="text-custom-text_red text-sm">-6 vs yesterday</p>
-                      </div>
-                      <div class="">
-                        <p class="text-custom-text_grey font-semibold">Early clock-in</p>
-                        <p class="text-2xl font-bold">224</p>
-                        <p class="text-custom-text_red text-sm">-6 vs yesterday</p>
-                      </div>
+                    <div class="bg-custom-light_grey shadow-md rounded-lg p-6 w-full">
+                        <h3 class="font-semibold text-lg flex items-center">
+                            Present Summary
+                        </h3>
+                        <div class="flex justify-between mt-4">
+                            <div class="">
+                                <p class="text-custom-text_grey font-semibold">
+                                 On time
+                                </p>
+                                <p class="text-2xl font-bold">265</p>
+                                <p class="text-custom-text_blue text-sm">
+                                  +12 vs yesterday
+                                </p>
+                            </div>
+                            <div class="">
+                                <p class="text-custom-text_grey font-semibold">
+                                 Late clock-in
+                                </p>
+                                <p class="text-2xl font-bold">62</p>
+                                <p class="text-custom-text_red text-sm">
+                                 -6 vs yesterday
+                                </p>
+                            </div>
+                            <div class="">
+                                <p class="text-custom-text_grey font-semibold">
+                                Early clock-in
+                                </p>
+                                <p class="text-2xl font-bold">224</p>
+                                <p class="text-custom-text_red text-sm">
+                                  -6 vs yesterday
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="bg-custom-light_grey shadow-md rounded-lg p-6 w-full">
-                    <h3 class="font-semibold text-lg flex items-center">
+                    <div
+                        class="bg-custom-light_grey shadow-md rounded-lg p-6 w-full"
+                    >
+                        <h3 class="font-semibold text-lg flex items-center">
                             Not Present Summary
                         </h3>
                         <div class="flex justify-between mt-4">
                             <div class="">
-                              <p class="text-custom-text_grey font-semibold">Absent</p>
-                              <p class="text-2xl font-bold">25</p>
-                              <p class="text-blue-500 text-sm">+12 vs yesterday</p>
+                                <p class="text-custom-text_grey font-semibold">
+                                    Absent
+                                </p>
+                                <p class="text-2xl font-bold">25</p>
+                                <p class="text-blue-500 text-sm">
+                                    +12 vs yesterday
+                                </p>
                             </div>
 
                             <div class="">
-                              <p class="text-custom-text_grey font-semibold"> No clock-in</p>
-                              <p class="text-2xl font-bold">29</p>
-                              <p class="text-custom-text_red text-sm">-6 vs yesterday</p>
+                                <p class="text-custom-text_grey font-semibold">
+                                    No clock-in
+                                </p>
+                                <p class="text-2xl font-bold">29</p>
+                                <p class="text-custom-text_red text-sm">
+                                    -6 vs yesterday
+                                </p>
                             </div>
                             <div class="">
-                              <p class="text-custom-text_grey font-semibold"> No clock-out</p>
-                              <p class="text-2xl font-bold">0</p>
-                              <p class="text-custom-text_red text-sm">0 vs yesterday</p>
+                                <p class="text-custom-text_grey font-semibold">
+                                    No clock-out
+                                </p>
+                                <p class="text-2xl font-bold">0</p>
+                                <p class="text-custom-text_red text-sm">
+                                    0 vs yesterday
+                                </p>
                             </div>
                             <div class="">
-                              <p class="text-custom-text_grey font-semibold">Invalid</p>
-                              <p class="text-2xl font-bold">0</p>
-                              <p class="text-custom-text_red text-sm">0 vs yesterday</p>
+                                <p class="text-custom-text_grey font-semibold">
+                                    Invalid
+                                </p>
+                                <p class="text-2xl font-bold">0</p>
+                                <p class="text-custom-text_red text-sm">
+                                    0 vs yesterday
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-custom-light_grey shadow-md rounded-lg p-4 w-1/3">
+                    <div
+                        class="bg-custom-light_grey shadow-md rounded-lg p-4 w-1/3"
+                    >
                         <h3 class="font-semibold text-lg">No Summary</h3>
                         <div class="flex justify-between mt-4">
-                          <div class="">
-                            <p class="text-custom-text_grey font-semibold"> Day off</p>
-                            <p class="text-xl font-bold">0</p>
+                            <div class="">
+                                <p class="text-custom-text_grey font-semibold">
+                                    Day off
+                                </p>
+                                <p class="text-xl font-bold">0</p>
                             </div>
                             <div class="">
-                              <p class="text-custom-text_grey font-semibold"> Time off</p>
-                              <p class="text-xl font-bold">0</p>
-                             
-                              </div>                           
+                                <p class="text-custom-text_grey font-semibold">
+                                    Time off
+                                </p>
+                                <p class="text-xl font-bold">0</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -180,7 +205,7 @@
                                         colspan="7"
                                         class="text-center loader py-4"
                                     >
-                                        Loading...
+                                    no data found
                                     </td>
                                 </tr>
                                 <tr v-else-if="employees.length === 0">
@@ -231,52 +256,26 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <!-- Pagination Section -->
-                    <div class="flex items-center justify-between p-4 border-t">
-                        <div class="flex items-center gap-2">
-                            <label for="show" class="text-gray-600">Show</label>
-                            <select
-                                id="show"
-                                v-model="itemsPerPage"
-                                @change="fetchAttendanceData"
-                                class="border border-gray-300 rounded px-2 py-1 focus:outline-none"
-                            >
-                                <option value="6">6</option>
-                                <option value="12">12</option>
-                                <option value="24">24</option>
-                            </select>
-                        </div>
-                        <div class="flex items-center gap-1">
-                            <button
-                                @click="prevPage"
-                                :disabled="currentPage === 1"
-                                class="text-blue-500 px-2 py-1 hover:bg-blue-100 disabled:text-gray-400"
-                            >
-                                &laquo;
-                            </button>
-                            <button
-                                v-for="page in totalPages"
-                                :key="page"
-                                @click="goToPage(page)"
-                                :class="[
-                                    'px-3 py-1 rounded',
-                                    page === currentPage
-                                        ? 'bg-blue-500 text-white hover:bg-blue-600'
-                                        : 'text-blue-500 border border-blue-400 hover:bg-blue-100'
-                                ]"
-                            >
-                                {{ page }}
-                            </button>
-                            <button
-                                @click="nextPage"
-                                :disabled="currentPage === totalPages"
-                                class="text-blue-500 px-2 py-1 hover:bg-blue-100 disabled:text-gray-400"
-                            >
-                                &raquo;
-                            </button>
+
+                        <div class="flex items-center justify-end mt-4">
+                          <button
+                            class="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50 mr-5"
+                            :disabled="!prev_page_url"
+                            @click="fetchAttendanceData(current_page - 1)"
+                          >
+                            Previous
+                          </button>
+                          <!-- <span>Page {{ assets.current_page }} of {{ assets.last_page }}</span> -->
+                          <button
+                            class="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50 ml-5 mr-5"
+                            :disabled="!next_page_url"
+                            @click="fetchAttendanceData(current_page + 1)"
+                          >
+                            Next
+                          </button>
                         </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -291,6 +290,8 @@ export default {
         return {
             isLoader: false,
             currentPage: 1,
+            prev_page_url: null,
+          next_page_url: null,
             itemsPerPage: 6,
             totalItems: 0,
             fromDate: "",
