@@ -11,7 +11,10 @@ module.exports = {
           placeholder: '#444444', // fuuta
           button: '#2D477F',
           bg_table_head_primary:"#e2e8f0",
-          tag_primary: "#4CAF50"
+          tag_primary: "#4CAF50",
+          status_open: "#28a745",
+          status_close: "#dc3545",
+          status_panding: "#ffc107"
 }
     }
   }
