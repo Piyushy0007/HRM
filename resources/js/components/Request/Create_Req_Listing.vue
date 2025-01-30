@@ -2,8 +2,8 @@
   <div class="c-request-form">
     <header-component />
     <div style="margin-left: 242px;">
-      <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
-        <div class="flex items-center justify-between bg-white p-4 shadow-md rounded-lg mb-5">
+      <div class="w-full mx-auto p-2 h-screen flex flex-col">
+        <div class="flex items-center justify-between bg-white p-3 mb-2 flex-wrap ">
           <div class="flex items-center">
             <span class="font-semibold text-lg text-gray-800">Create Requests List</span>
           </div>
@@ -51,12 +51,11 @@
           </div>
         </div>
         <!-- Table Container -->
-        <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
-          <!-- Table Header -->
+        <div class="flex-grow flex flex-col">
           <div class="flex-grow overflow-auto">
-            <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+            <table class="w-full border border-custom-border">
               <thead class="bg-custom-bg_table_head_primary border-custom-border">
-                <tr class="text-left text-gray-600 border border-custom-border rounded-lg">
+                <tr class="text-gray-600 border border-custom-border rounded-lg text-left">
 
                   <th class="text-center p-2 border border-custom-border">Employee</th>
                   <th class="text-center p-2 border border-custom-border">Request Type</th>
@@ -65,8 +64,14 @@
                 </tr>
               </thead>
               <tbody>
+                <tr v-if="isLoader">
+                  <td colspan="7" class="text-center loader py-4">Loading...</td>
+                </tr>
+                <tr v-else-if="employeesData.length === 0">
+                  <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
+                </tr>
                 <!-- Iterate over the employeesData array to display the data -->
-                <tr v-for="(employee, index) in employeesData" :key="index" class="border-b">
+                <tr  v-else v-for="(employee, index) in employeesData" :key="index" class="border-b">
                   <td class="text-center p-2 border border-custom-border">{{ employee.selected_employee }}</td>
                   <td class="text-center p-2 border border-custom-border">{{ employee.request_type }}</td>
                   <td class="text-center p-2 border border-custom-border">{{ employee.reason }}</td>
