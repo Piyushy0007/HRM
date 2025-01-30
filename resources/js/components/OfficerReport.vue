@@ -1,5 +1,5 @@
 <template>
-  <div class="c-employee-index client-table">
+  <div class="c-employee-index ">
     <Loader msg="Processing ..." v-model="isLoader" />
     <div class="px-4 pb-4 w-80" style="margin-right: 1vw; margin-left: 240px;">
       <div class="flex" style="justify-content: space-between">
@@ -7,62 +7,38 @@
       </div>
       <div class="flex mb-4">
         <!-- <button class="add-blue-button" @click="openDateModal()">Choose Date</button> -->
-        <b-button class="add-blue-button" @click="opendatepicker()"
-          >Choose Date</b-button
-        >
+        <b-button class="add-blue-button" @click="opendatepicker()">Choose Date</b-button>
         <div class="px-3">
           <div class="relative">
             <input
-              class="
-                officer-report-search
-                appearance-none
-                block
-                w-full
-                rounded
-                py-1
-                px-4
-                leading-tight
-                focus:outline-none
-              "
+              class="officer-report-search appearance-none block w-full rounded py-1 px-4 leading-tight focus:outline-none"
               type="text"
               placeholder="Search"
               v-model="searchKeyword"
               @keyup="search()"
             />
             <div
-              class="
-                border-none
-                absolute
-                inset-y-0
-                right-0
-                flex
-                items-center
-                px-2
-                text-custom-border
-                rounded-r
-                border-custom-border border-l-0
-              "
-            >
+              class="border-none absolute inset-y-0 right-0 flex items-center px-2 text-custom-border rounded-r border-custom-border border-l-0">
               <font-awesome-icon icon="search" class="fill-current" />
             </div>
           </div>
         </div>
       </div>
-      <table class="w-full officer-logs-report-table">
-        <thead>
-          <tr>
-            <th style="width: 20%" class="text-left heading-sort">
-              Date/Time Submitted <b-icon-arrow-down-up @click="namesort()" />
+      <table class="table-auto w-full border border-custom-border">
+        <thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+          <tr class="text-gray-600 border border-custom-border rounded-lg">
+            <th style="width: 20%" class="text-left p-2 border border-custom-border heading-sort">
+              <div class="flex items-center gap-1">
+                Date/Time Submitted <b-icon-arrow-down-up @click="namesort()" />
+              </div>
             </th>
-            <th style="width: 10%" class="text-left">Slot</th>
-            <th style="width: 10%" class="text-left">Officer</th>
-            <th style="width: 10%" class="text-left">ID #</th>
-            <th style="width: 23%" class="text-left heading-sort">Location</th>
-            <th style="width: 20%" class="text-left heading-sort">
-              Report Type
-            </th>
-            <th style="width: 10%" class="text-left">Status</th>
-            <th style="width: 7%" class="text-left">Actions</th>
+            <th style="width: 10%" class="text-left p-2 border border-custom-border">Slot</th>
+            <th style="width: 10%" class="text-left p-2 border border-custom-border">Officer</th>
+            <th style="width: 10%" class="text-left p-2 border border-custom-border">ID #</th>
+            <th style="width: 23%" class="text-left p-2 border border-custom-border heading-sort">Location</th>
+            <th style="width: 20%" class="text-left p-2 border border-custom-border heading-sort">Report Type</th>
+            <th style="width: 10%" class="text-left p-2 border border-custom-border">Status</th>
+            <th style="width: 7%" class="text-center p-2 border border-custom-border">Actions</th>
           </tr>
         </thead>
 
@@ -70,24 +46,23 @@
           <template v-if="reportsdata && reportsdata.length != 0">
             <tr v-for="data in reportsdata" :key="data.id">
               <!-- <tr> -->
-
-              <td class="text-left">
+              <td class="text-left p-2 border border-custom-border">
                 {{ data.date | moment("MM/DD/YYYY") }}
                  {{ data.time }}
               </td>
-              <td class="text-left">{{ data.slot }}</td>
-              <td class="text-left text-transform-capitalise">
-                <span v-for="empname in data.employee" :key="empname.id">
+              <td class="text-left p-2 border border-custom-border">{{ data.slot }}</td>
+              <td class="text-left p-2 border border-custom-border">
+                <span v-for="empname in data.employee" :key="empname.id" class="capitalize">
                   {{ empname.firstname || "-" }} {{ empname.lastname }}
                 </span>
               </td>
-              <td class="text-left">{{ data.id }}</td>
-              <td class="text-left location">
+              <td class="text-left p-2 border border-custom-border">{{ data.id }}</td>
+              <td class="text-left p-2 border border-custom-border location">
                 <span v-for="location in data.property" :key="location.id">
                   {{ location.address || "-" }}
                 </span>
               </td>
-              <td class="text-left">
+              <td class="text-left p-2 border border-custom-border">
                 <span v-for="report in data.report" :key="report.id">
                   {{ report.report_name || "-" }}
                 </span>
@@ -95,13 +70,13 @@
               <td
                 :class="
                   data.status == 'approved'
-                    ? 'active text-left'
-                    : 'inactive text-left'
+                    ? 'active text-left capitalize p-2 border border-custom-border'
+                    : 'inactive text-left capitalize p-2 border border-custom-border'
                 "
               >
                 {{ data.status }}
               </td>
-              <td class="text-left">
+              <td class="text-left p-2 border border-custom-border">
                 <div class="flex" style="justify-content: flex-start">
                   <b-button
                     class="m-2 action-button view"
@@ -131,7 +106,7 @@
               </td>
             </tr>
           </template>
-          <template class="ml-5" v-else> No Records Found </template>
+          <template v-else> <td class="text-center" colspan="8">No Records Found</td>  </template>
         </tbody>
       </table>
     </div>
@@ -279,7 +254,7 @@
                 <th style="width: 10%;border-top-left-radius:10px" class="text-center">Date</th>
                 <th style="width: 15%" class="text-center">Time</th>
                 <th style="width: 35%" class="text-center">Location</th>
-                <th style="width: 40%;border-top-right-radius10px;" class="text-center">Description</th>
+                <th style="width: 40%; border-top-right-radius10px;" class="text-center">Description</th>
               </tr>
             </thead>
             <tbody>
@@ -865,8 +840,8 @@
               <thead>
                 <tr style="height: 45px;background: 0% 0% no-repeat padding-box padding-box rgb(48, 35, 105);color: rgb(255, 255, 255);opacity: 1;font-size: 15px;">
                   <th style="width: 10%; text-align: center;border-top-left-radius: 10px">Date</th>
-                  <th style="width: 15% text-align:center;">Time</th>
-                  <th style="width: 35% text-align:center;">Location</th>
+                  <th style="width: 15%; text-align:center;">Time</th>
+                  <th style="width: 35%; text-align:center;">Location</th>
                   <th style="width: 40%; text-align: center;border-top-right-radius: 20px;">Description</th>
                 </tr>
               </thead>
@@ -1599,9 +1574,6 @@ table td:first-child {
 .perimeter-time .data:last-child span {
   display: none;
 }
-table {
-        border-collapse: inherit;
-    }
 .officer-report-search {
   top: 302px;
   left: 269px;
@@ -1620,7 +1592,7 @@ table {
   }
   .inactive.text-center {
     color: grey;
-    // color:#3B86FF;
+    /* // color:#3B86FF; */
   }
 
   .client-table table .heading-sort svg {
@@ -1655,7 +1627,7 @@ table {
   }
 }
 
-// action buttons
+/* // action buttons */
 .action-button {
   &:focus {
     outline: none;
@@ -1725,8 +1697,8 @@ table {
     margin: 0px 5px 5px 0px !important;
   }
 }
-@import "../../sass/employees";
-// @import '../../sass/officerreport';
+/* @import "../../sass/employees"; */
+/* // @import '../../sass/officerreport'; */
 .modal-view-report {
   table {
     tbody {
@@ -1739,9 +1711,9 @@ table {
     .section1 {
       .reporttype {
         top: 0px;
-        // left: 0px;
+        /* // left: 0px;
         // width: 125px;
-        // height: 19px;
+        // height: 19px; */
         text-align: left;
         font: normal normal normal 19px Montserrat;
         letter-spacing: 0px;
@@ -1750,10 +1722,10 @@ table {
       }
       .reportypevalue {
         span {
-          // top: 0px;
+          /* // top: 0px;
           // left: 106px;
           // width: 53px;
-          // height: 19px;
+          // height: 19px; */
           text-align: left;
           font: normal normal normal 19px Montserrat;
           letter-spacing: 0px;
@@ -1807,8 +1779,8 @@ table {
       box-shadow: 2px 4px 20px #00000026;
       border-radius: 10px;
       opacity: 1;
-      // padding: 15px 8px;
-      // margin-bottom: 15px;
+      /* // padding: 15px 8px;
+      // margin-bottom: 15px; */
       margin: 15px 15px 15px 0px;
       width: 90%;
       min-height: 90px;

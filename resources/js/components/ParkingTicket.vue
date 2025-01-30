@@ -1,48 +1,47 @@
 <template>
-  <div class="c-employee-index client-table">
+  <div class="c-employee-index ">
 
     <Loader msg="Processing ..." v-model="isLoader" />
     <div class="pb-4 px-2" style="margin-left: 242px;">
-		<div class="flex " style="justify-content: space-between;">
-			<h1 class="mb-4 mt-4">Parking Tickets</h1>
+		<div class="flex justify-between">
+			<h1 class="mb-4 mt-4 text-xl font-semibold">Parking Tickets</h1>
 		</div>
 
-		<table class="w-full officer-logs-report-table">
-			<thead>
-			<tr>
-			<th style="width:10%;" class="text-left">Client </th>
-			<th style="width:10%;" class="text-left">Date/Time</th>
-			<th style="width:34%;" class="text-left">Location </th>
-			<th style="width:12%;" class="text-left">Vehicle Type</th>
-			<th style="width:12%;" class="text-left">Make</th>
-			<th style="width:12%;" class="text-left">Model</th>
-			<th style="width:10%;" class="text-left">License Plate</th>
-			<th style="width:10%;" class="text-left">Actions</th>
-			
+		<table class="table-auto w-full border-collapse border border-custom-border">
+			<thead class="thead-light bg-custom-bg_table_head_primary border-custom-border">
+			<tr class="text-gray-600 border border-custom-border rounded-lg">
+			<th style="width:10%;" class="text-left p-2 border border-custom-border">Client </th>
+			<th style="width:10%;" class="text-left p-2 border border-custom-border">Date/Time</th>
+			<th style="width:34%;" class="text-left p-2 border border-custom-border">Location </th>
+			<th style="width:12%;" class="text-left p-2 border border-custom-border">Vehicle Type</th>
+			<th style="width:12%;" class="text-left p-2 border border-custom-border">Make</th>
+			<th style="width:12%;" class="text-left p-2 border border-custom-border">Model</th>
+			<th style="width:10%;" class="text-left p-2 border border-custom-border">License Plate</th>
+			<th style="width:10%;" class="text-left p-2 border border-custom-border">Actions</th>
 			</tr>
 			</thead>
-			
+
 			<tbody >
 			<template v-if="parkingdata.length!= 0">
 			<tr v-for="(data) in parkingdata" :key="data.id">
 			<!-- <tr> -->
 		
-				<td class="text-left"><span v-for="client in data.client" :key="client.id">{{client.clientname}} </span></td> 
-				<td class="text-left">
+				<td class="text-left p-2 border border-custom-border"><span v-for="client in data.client" :key="client.id">{{client.clientname}} </span></td> 
+				<td class="text-left p-2 border border-custom-border">
 					{{ data.created_at | moment("MM/DD/YYYY h:mm A") }}
 				</td>
-				<td class="text-left text-transform-capitalise location">
+				<td class="text-left p-2 border border-custom-border capitalise location">
 					{{data.parking_location}}
 				</td>
-				<td class="text-left">{{data.vechicletype ? data.vechicletype[0].vehicle_type_name : '-'}}</td>
-				<td class="text-left">
+				<td class="text-left p-2 border border-custom-border">{{data.vechicletype ? data.vechicletype[0].vehicle_type_name : '-'}}</td>
+				<td class="text-left p-2 border border-custom-border">
 					{{data.vechiclemake? data.vechiclemake[0].vehicle_make_name : '-'}}
 				</td>
-				<td class="text-left">
+				<td class="text-left p-2 border border-custom-border">
 					{{data.vechiclemodel ? data.vechiclemodel[0].vehicle_model_name : '-'}}
 				</td>
-				<td class="text-left">{{data.licence_plate ? data.licence_plate : '-'}} </td> 
-				<td class="text-left">
+				<td class="text-left p-2 border border-custom-border">{{data.licence_plate ? data.licence_plate : '-'}} </td> 
+				<td class="text-left p-2 border border-custom-border">
 					<div class="flex" style="justify-content:flex-start;">
 					<b-button class="m-2 action-button view mx-auto" @click="viewParking(data)"> <b-icon-list-task   />View </b-button>
 					
@@ -52,7 +51,10 @@
 			</tr>
 			</template>
 			<template v-else>
-				No Records Found
+				<td class="text-center" colspan="8">
+					No Records Found
+
+				</td>
 			</template>
 			</tbody>
 		</table>
@@ -613,7 +615,7 @@ export default {
 
 	},
 
-	
+
 	openDateModal(){
 		this.openModal('datemodal');
 	},
@@ -743,7 +745,7 @@ table td:first-child {
 }
 .inactive.text-center{
 	color: grey;
-	// color:#3B86FF;
+	/* // color:#3B86FF; */
 }
 
 .client-table table .heading-sort svg {
@@ -780,7 +782,7 @@ table td:first-child {
   }
 }
 
-// action buttons
+/* // action buttons */
 .action-button{
 	&:focus{
 		outline: none;
@@ -830,7 +832,7 @@ table td:first-child {
 			.content-css{
 				border: 1px solid #bcbfc3;
 				padding: 15px 8px;
-				// font-family: "Source Sans Pro", sans-serif;
+				/* // font-family: "Source Sans Pro", sans-serif; */
 				font: normal normal normal 16px Montserrat;
 				margin: 5px 0 0 0;
 			}
@@ -883,8 +885,8 @@ table td:first-child {
     	margin: 0px 5px 5px 0px !important;
 	}
 } 
-	@import '../../sass/employees';
-	// @import '../../sass/officerreport';
+	/* @import '../../sass/employees'; */
+	/* // @import '../../sass/officerreport'; */
 	.modal-view-parking{
 		table{
 			tbody{
@@ -897,9 +899,9 @@ table td:first-child {
         .section1{
             .reporttype{
                 top: 0px;
-                // left: 0px;
+                /* // left: 0px;
                 // width: 125px;
-                // height: 19px;
+                // height: 19px; */
                 text-align: left;
                 font: normal normal normal 19px Montserrat;
                 letter-spacing: 0px;
@@ -908,10 +910,10 @@ table td:first-child {
             }
             .reportypevalue{
                 span{
-                    // top: 0px;
+                    /* // top: 0px;
                     // left: 106px;
                     // width: 53px;
-                    // height: 19px;
+                    // height: 19px; */
                     text-align: left;
                     font: normal normal normal 19px Montserrat;
                     letter-spacing: 0px;
@@ -965,8 +967,8 @@ table td:first-child {
 			box-shadow: 2px 4px 20px #00000026;
 			border-radius: 10px;
 			opacity: 1;
-			// padding: 15px 8px;
-			// margin-bottom: 15px;
+			/* // padding: 15px 8px;
+			// margin-bottom: 15px; */
 			margin: 15px 15px 15px 0px;
 			width: 90%;
 			min-height: 90px;
