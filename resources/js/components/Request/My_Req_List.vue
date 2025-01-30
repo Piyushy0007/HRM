@@ -2,8 +2,8 @@
   <div class="c-request-form relative">
     <header-component />
     <div style="margin-left: 242px;">
-      <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
-        <div class="flex items-center justify-between bg-white p-4 shadow-md rounded-lg mb-5">
+      <div class="w-full mx-auto p-2 h-screen flex flex-col">
+        <div class="flex items-center justify-between  p-3 mb-2 flex-wrap ">
           <div class="flex items-center">
             <span class="font-semibold text-lg text-gray-800">Create Request List</span>
           </div>
@@ -35,11 +35,11 @@
             </div>
           </div>
         </div>
-        <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
+        <div class="flex-grow flex flex-col">
           <div class="flex-grow overflow-auto">
-            <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+            <table class="w-full border border-custom-border">
               <thead class="bg-custom-bg_table_head_primary border-custom-border">
-                <tr class="text-gray-600 border border-custom-border rounded-lg">
+                <tr class="text-gray-600 border border-custom-border rounded-lg text-left">
                   <th class=" p-2 border border-custom-border">Employee</th>
                   <th class=" p-2 border border-custom-border">Request Type</th>
                   <th class=" p-2 border border-custom-border">Reason</th>
@@ -47,7 +47,13 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(employee, index) in employeesData" :key="index" class="border-b">
+                <tr v-if="isLoader">
+                  <td colspan="7" class="text-center loader py-4">Loading...</td>
+                </tr>
+                <tr v-else-if="employeesData.length === 0">
+                  <td colspan="7" class="text-center py-4">No leave requests found for the selected date range.</td>
+                </tr>
+                <tr v-else v-for="(employee, index) in employeesData" :key="index" class="border-b">
                   <td class=" p-2 border border-custom-border">{{ employee.selected_employee }}</td>
                   <td class=" p-2 border border-custom-border">{{ employee.request_type }}</td>
                   <td class=" p-2 border border-custom-border">{{ employee.reason }}</td>
@@ -60,6 +66,20 @@
                 </tr>
               </tbody>
             </table>
+          </div>
+          <div class="flex items-center justify-between p-4 border-t">
+            <div class="flex items-center gap-2">
+              <label for="show" class="text-gray-600">Show</label>
+              <select
+                id="show"
+                v-model="itemsPerPage"
+                class="border border-gray-300 rounded px-2 py-1 focus:outline-none"
+              >
+                <option value="6">6</option>
+                <option value="12">12</option>
+                <option value="24">24</option>
+              </select>
+            </div>
           </div>
         </div>
       </div>
