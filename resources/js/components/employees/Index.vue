@@ -2432,7 +2432,7 @@ export default {
       this.isLoader = true;
       this.error = null;
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/roles`);
+        const response = await axios.get(`/api/roles`); 
         if (response.data.status) {
           this.roleList = response.data.data;
         } else {

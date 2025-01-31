@@ -79,7 +79,7 @@ export default {
     async fetchJobDetails(jobId) {      
       this.isLoader = true;
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/jobs/${jobId}`);  
+        const response = await axios.get(`/api/jobs/${jobId}`);   
         console.log(jobId,"igioid")
         this.jobDetails = response.data.data; // Assuming the response structure is similar to your example
       } catch (err) {
