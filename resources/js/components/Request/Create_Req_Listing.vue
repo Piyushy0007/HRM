@@ -3,7 +3,7 @@
     <header-component />
     <div style="margin-left: 242px;">
       <div class="w-full mx-auto h-screen flex flex-col">
-        <div class="flex w-full items-center justify-between bg-white p-3 flex-wrap bg-custom-light_grey ">
+        <div class="flex w-full items-center justify-between p-3 flex-wrap bg-custom-light_grey">
           <div class="flex items-center">
             <span class="font-semibold text-lg text-gray-800">Create Requests List</span>
           </div>

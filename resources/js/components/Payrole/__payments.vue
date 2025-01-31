@@ -2,13 +2,40 @@
     <div>
       <header-component />
       <div style="margin-left: 242px;">
-        <div class="max-w-7xl mx-auto p-4 h-screen flex flex-col">
+        <div class="max-w-7xl mx-auto p-2 h-screen flex flex-col">
           <div
-            class="flex items-center justify-between bg-white p-4 shadow-md rounded-lg mb-5"
+            class="flex items-center justify-between bg-custom-light_grey p-2 rounded-lg mb-2"
           >
             <!-- Left Section -->
-            <div class="flex items-center">
-              <span class="font-semibold text-lg text-gray-800">Salary Management</span>
+            <div class="flex items-center justify-between p-3 flex-wrap w-full ">
+              <div class="flex items-center">
+                <span class="font-semibold text-lg text-gray-800">Salary Management</span>
+              </div>
+              <div class="flex items-center flex-grow mx-12 relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  class="w-full border border-gray-300 rounded-md pl-3 pr-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  style="height: 36px;"
+                />
+                <div>
+                  <font-awesome-icon
+                  icon="search"
+                  class="absolute right-0 mr-2 transform -translate-y-1/2 top-1/2 cursor-pointer text-gray-500"
+                  style="font-size: 20px"
+                  />
+                </div>
+              </div>
+              <div class="flex items-center space-x-4">
+                <div class="flex items-center">
+                  <label for="fromDate" class="text-gray-600 mr-2">From</label>
+                  <input type="date" id="fromDate" class="border border-custom-border rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+                <div class="flex items-center">
+                  <label for="toDate" class="text-gray-600 mr-2">To</label>
+                  <input type="date" id="toDate"  class="border border-custom-border rounded-md px-3 py-1 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+                </div>
+              </div>
             </div>
         </div>
 
@@ -16,27 +43,27 @@
         <div class="bg-white shadow-lg rounded-lg flex-grow flex flex-col">
           <!-- Table Header -->
           <div class="flex-grow overflow-auto">
-            <table class="w-full table-auto">
-              <thead>
-                <tr class="text-left border-b">
-                  <th class="py-3 px-4 text-blue-600">Name</th>
-                  <th class="py-3 px-4 text-blue-600">Email</th>
-                  <th class="py-3 px-4 text-blue-600">Designation</th>
-                  <th class="py-3 px-4 text-blue-600">Gross Salary</th>
-                  <th class="py-3 px-4 text-blue-600">Net Salary</th>
-                  <th class="py-3 px-4 text-blue-600">Payday</th>
+            <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+              <thead class="bg-custom-bg_table_head_primary border-custom-border">
+                <tr class="text-left text-gray-600 border border-custom-border rounded-lg">
+                  <th class="p-3 border border-custom-border">Name</th>
+                  <th class="p-3 border border-custom-border">Email</th>
+                  <th class="p-3 border border-custom-border">Designation</th>
+                  <th class="p-3 border border-custom-border">Gross Salary</th>
+                  <th class="p-3 border border-custom-border">Net Salary</th>
+                  <th class="p-3 border border-custom-border">Payday</th>
                   <th class="py-3 px-4 flex justify-center text-blue-600">Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(employee, index) in paginatedData" :key="index" class="border-b ">
-                  <td class="py-3 px-4">{{ employee.name }}</td>
-                  <td class="py-2 px-4">{{ employee.email }}</td>
-                  <td class="py-2 px-4">{{ employee.designation }}</td>
-                  <td class="py-2 px-4">{{ employee.grossSalary }}</td>
-                  <td class="py-2 px-4">{{ employee.netSalary }}</td>
-                  <td class="py-2 px-4">{{ employee.payDay }}</td>
-                  <td class="py-2 px-4">
+                <tr v-for="(employee, index) in paginatedData" :key="index" class="p-3 border border-custom-border">
+                  <td class="p-3 border border-custom-border">{{ employee.name }}</td>
+                  <td class="p-3 border border-custom-border">{{ employee.email }}</td>
+                  <td class="p-3 border border-custom-border">{{ employee.designation }}</td>
+                  <td class="p-3 border border-custom-border">{{ employee.grossSalary }}</td>
+                  <td class="p-3 border border-custom-border">{{ employee.netSalary }}</td>
+                  <td class="p-3 border border-custom-border">{{ employee.payDay }}</td>
+                  <td class="p-3 border border-custom-border">
                     <div class="gap-2 flex justify-center items-center">
                         <button class="text-blue-500 border border-blue-400 px-2 py-1 rounded-full hover:bg-blue-100 text-sm flex justify-center items-center gap-1">
                         <font-awesome-icon :icon="['fas', 'coins']" />
@@ -50,47 +77,25 @@
           </div>
     
           <!-- Pagination Section -->
-          <div class="flex items-center justify-between p-4 border-t">
-            <div class="flex items-center gap-2">
-              <label for="show" class="text-gray-600">Show</label>
-              <select
-                id="show"
-                v-model="itemsPerPage"
-                class="border border-gray-300 rounded px-2 py-1 focus:outline-none"
-              >
-                <option value="6">6</option>
-                <option value="12">12</option>
-                <option value="24">24</option>
-              </select>
-            </div>
-            <div class="flex items-center gap-1">
-              <button 
+
+          <div class="flex items-center justify-end mt-2 mb-2">
+            <button
+              class="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50 mr-5"
               @click="prevPage"
               :disabled="currentPage === 1"
-              class="text-blue-500 px-2 py-1 hover:bg-blue-100 disabled:text-gray-400">&laquo;</button>
-              <button
-                    v-for="page in totalPages"
-                    :key="page"
-                    @click="goToPage(page)"
-                    :class="[
-                        'px-3 py-1 rounded',
-                        page === currentPage
-                        ? 'bg-blue-500 text-white hover:bg-blue-600'
-                        : 'text-blue-500 border border-blue-400 hover:bg-blue-100',
-                    ]"
-                    >
-                    {{ page }}
-                </button>
-
-                <button
-                @click="nextPage"
-                :disabled="currentPage === totalPages"
-                class="text-blue-500 px-2 py-1 hover:bg-blue-100 disabled:text-gray-400"
-              >
-                &raquo;
-              </button>
-            </div>
+            >
+              Previous
+            </button>
+            <span> {{ page }}</span>
+            <button
+              class="px-4 py-1 bg-blue-600 text-white rounded disabled:opacity-50 ml-5 mr-5"
+              @click="nextPage"
+              :disabled="currentPage === totalPages"
+            >
+              Next
+            </button>
           </div>
+        
         </div>
       </div>
     </div>
@@ -185,7 +190,9 @@
               "netSalary": "₹59,000",
               "payDay": "28th of every month"
           }
-      ]
+      ],
+      prev_page_url: null,
+      next_page_url: null,
       };
     },
       computed: {
