@@ -99,6 +99,15 @@ export default {
             selectedGroupIndex: 0,
             selectedItemName: "",
             menuGroups: [
+
+            {
+                    title: "Home",
+                    icon: ["fas","home"],
+                    expanded: this.selectedGroupIndex == 1,
+                    items: [
+                        { name: "dashboard", label: "DashBoard" },
+                    ]
+                },
                 {
                     title: "Graphs",
                     icon: ["fas","signal"],

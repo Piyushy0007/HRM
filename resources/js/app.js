@@ -146,7 +146,8 @@ import {
     faSlidersH,
     faCaretRight,
     faCoins,
-    faSignal
+    faSignal,
+    
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faEnvelope,
@@ -684,6 +685,11 @@ const routes = [
         path: "/my-request-list",
         component: require("./components/Request/My_Req_List.vue").default,
         name: "my-request-list",
+    },
+    {
+        path: "/dashboard",
+        component: require("./components/Dashboard/Dashboard.vue").default,
+        name: "dashboard",
     },
     {
         path: "/unauthorized",

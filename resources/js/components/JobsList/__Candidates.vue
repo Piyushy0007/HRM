@@ -36,7 +36,7 @@
         </div>
       </div>
 
-          <table class="min-w-full border border-custom-border rounded-lg border-collapse">
+          <!-- <table class="min-w-full border border-custom-border rounded-lg border-collapse">
            <thead class="bg-custom-bg_table_head_primary border-custom-border">
            <tr class="text-left text-gray-600 border border-custom-border rounded-lg" >
             <th class="p-3 border border-custom-border">#</th>
@@ -69,17 +69,94 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
 
-      <!-- Information Section -->
-      <!-- <div class="information mt-5 p-4 rounded-lg">
-        <h4 class="text-2xl font-semibold mb-2">Information</h4>
-        <ul class="ml-2 mb-1 instructions">
-          <li class="mb-1">Check the boxes for jobs to edit or delete them.</li>
-          <li class="mb-1">Click the pencil icon to edit job details.</li>
-          <li>Optional: Use the "Add Job" button to add new job listings.</li>
-        </ul>
-      </div> -->
+
+      <div class="" v-for="(job, index) in dataFromApi" :key="index">
+    <div class="m-4 w-full p-4 bg-white shadow-lg rounded-xl ">
+
+    
+        <div class="flex items-center space-x-4">
+          <!-- <img class="w-16 h-16 rounded-full" src="https://via.placeholder.com/150" alt="Profile Image" /> -->
+          <div>
+            <h2 class="text-xl font-semibold">{{job.name}}</h2>
+            <i class="fas fa-male"></i> M, 36 yr • 
+          <i class="fas fa-briefcase"></i> 5yrs • 
+          <i class="fas fa-rupee-sign"></i> 30,000 / mos • 
+          <i class="fas fa-map-marker-alt"></i>{{job.location}}
+        </p>
+          </div>
+        </div>
+
+         
+        <div class="mt-4 flex items-start space-x-4">
+
+          <h3 class="text-lg font-semibold w-1/4">Education</h3>
+          <p class="text-gray-700">B.Sc, Information Technology - Punjab Technical University (PTU)</p>
+        </div>
+        
+        <div class="mt-4 flex items-start space-x-4">
+          <h3 class="text-lg font-semibold w-1/4">Current Employee</h3>
+          <div class="flex flex-col w-3/4">
+            <p class="text-gray-700">Sales Manager at Zorgers Home Health Care Services (Nov 2024 - Present)</p>
+            <p class="text-gray-600">Role: Sales Management | Industry: Medical Services / Hospital</p>
+          </div>
+        </div>
+        
+      
+        
+       
+        
+        <div class="mt-4 flex w-full flex-row items-start space-x-4 mb-4 mt-4">
+          <h3 class="text-lg font-semibold">Expected salary:</h3>
+          <p class="text-gray-700">10k</p>
+          <h3 class="text-lg font-semibold ">Current salary:</h3>
+          <p class="text-gray-700">20k</p>
+        </div>
+
+        <div class="flex  w-full flex-row justify-between items-start space-x-4">
+          <!-- View Number Button -->
+          <div class="flex space-x-4">
+
+
+          <button class="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-700">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm8 9a1 1 0 100-2 1 1 0 000 2z" />
+            </svg>
+            View Number
+          </button>
+          
+          <!-- WhatsApp Button -->
+          <button class="bg-green-500 text-white p-2 rounded-lg shadow-md hover:bg-green-600">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 2a8 8 0 00-7.98 9.19A8.02 8.02 0 0010 18a8 8 0 004.47-1.32l2.48.71a1 1 0 001.28-1.28l-.71-2.48A8 8 0 0010 2z" />
+            </svg>
+
+          </button>
+        </div>
+        <div class="flex space-x-4">
+
+
+
+          
+          <!-- Shortlist Button -->
+          <button class="text-green-500 p-2 rounded-lg shadow-md  border-2 border-green-500 ">
+            ✓ Shortlist
+          </button>
+          
+          <!-- Reject Button -->
+          <button class="text-red-500 p-2 rounded-lg shadow-md border-2 border-red-500 ">
+
+            ✖ Reject
+          </button>
+</div>
+
+        </div>
+      </div>
+
+      
+     </div>
+
     </div>
   </div>
 </template>
